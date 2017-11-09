@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最优装载问题（贪心 + 穷举） - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="最优装载问题（贪心 + 穷举）">
+    <meta name="keywords"  content="Programming">
+    <!-- Open Graph -->
+    <meta property="og:title" content="最优装载问题（贪心 + 穷举） - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2017/10/02/Problem1300.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link rel="stylesheet" href="/assets/css/prism.css">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            
+            
+        </div>
+        <h1>最优装载问题（贪心 + 穷举）</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="17-10-02"><i class="iconfont icon-date"></i>02 Oct 2017</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20171108%20%E6%9C%80%E4%BC%98%E8%A3%85%E8%BD%BD%E9%97%AE%E9%A2%98/20171001%E6%9C%80%E4%BC%98%E8%BD%BD%E9%97%AE%E9%A2%98-01.png?sign=IjTZybv9EujP9xpMfBh2rI66r/dhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyODA3NjUyJnQ9MTUxMDIxNTY1MiZyPTk4MzExMTkzNSZmPS8yMDE3MTEwOCUyMCVFNiU5QyU4MCVFNCVCQyU5OCVFOCVBMyU4NSVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC8yMDE3MTAwMSVFNiU5QyU4MCVFNCVCQyU5OCVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC0wMS5wbmcmYj1ob3V6YWpibG9n.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>其实，这是一篇试水文…</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=496549&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+<h3 id="part-i---前言">PART I - 前言</h3>
+<p>上次的代码有BUG，这次的代码合理不会有BUG（除非溢出）。
+这道题竟然出现在校内OJ平台上的提前练手区域（1300 Problem）！简直过分！自我感觉这已经达到了ACM新手入门水平的题目了_(:з)∠)_
+所以因为这道题，原本要发的SZU OJ题组1、2就留到下一次吧 ╮(￣▽￣”)╭
+那天同级的高大佬和我讨论思路，根据他提供的思路我写出这次的代码，谢谢高大佬！</p>
+
+<p><br /></p>
+<h3 id="part-ii---题目">PART II - 题目</h3>
+<ul>
+  <li><strong>题目来源</strong> <br />
+BJC</li>
+  <li><strong>题目描述</strong><br />
+N个集装箱要装上1艘载重量为c的轮船，其中第i个集装箱的重量为wi。最优装载问题要求确定在装载体积不受限制的情况下，将尽可能多的集装箱装上轮船。可以使用贪心算法、穷举法等。</li>
+  <li><strong>输入</strong><br />
+第一行输入N和C，表示集装箱数量和轮船的载重，第二行输入N个集装箱的重量。</li>
+  <li><strong>输出</strong><br />
+约定长为N的01字符串(1:表示装)以字典序最大的那个为符合要求的装载方案。</li>
+  <li><strong>样例输入</strong>
+    <blockquote>
+      <p>3 50<br />
+40 10 40</p>
+    </blockquote>
+  </li>
+  <li><strong>样例输出</strong>
+    <blockquote>
+      <p>110</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><br /></p>
+<h3 id="part-iii---思路">PART III - 思路</h3>
+<h4 id="排序">①排序</h4>
+<p>题目要求“将尽可能多的集装箱装上轮船”，即按集装箱的重量从小到大装入轮船内。因此，可先进行重量升序排序。
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171108%20%E6%9C%80%E4%BC%98%E8%A3%85%E8%BD%BD%E9%97%AE%E9%A2%98/20171001%E6%9C%80%E4%BC%98%E8%BD%BD%E9%97%AE%E9%A2%98-02.png?sign=WJs1721ER35UZYiLYo09TWJrwSphPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyODA3NjUyJnQ9MTUxMDIxNTY1MiZyPTIyMDk1NDEwNSZmPS8yMDE3MTEwOCUyMCVFNiU5QyU4MCVFNCVCQyU5OCVFOCVBMyU4NSVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC8yMDE3MTAwMSVFNiU5QyU4MCVFNCVCQyU5OCVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC0wMi5wbmcmYj1ob3V6YWpibG9n.png =40x" alt="" /></p>
+<h4 id="贪心">②贪心</h4>
+<p>开始按从轻到重的顺序填轮船，因为已经排序，所以是按数组从[0]开始填轮船，装到不能再装后，记录装载个数。
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171108%20%E6%9C%80%E4%BC%98%E8%A3%85%E8%BD%BD%E9%97%AE%E9%A2%98/20171001%E6%9C%80%E4%BC%98%E8%BD%BD%E9%97%AE%E9%A2%98-03.png?sign=x8MXb5wTUf8zA/Qodv88P8y8HLthPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyODA5MDQ3JnQ9MTUxMDIxNzA0NyZyPTg4MTI0MDI2NiZmPS8yMDE3MTEwOCUyMCVFNiU5QyU4MCVFNCVCQyU5OCVFOCVBMyU4NSVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC8yMDE3MTAwMSVFNiU5QyU4MCVFNCVCQyU5OCVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC0wMy5wbmcmYj1ob3V6YWpibG9n.png =40x" alt="" /></p>
+<h4 id="-穷举">③ 穷举</h4>
+<p>以上面的图为例，可知输出结果的最大字典序为111110000000000（即排在前面的都被装载），最小字典序为000000000011111（即排在最后面的都被装载）。
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171108%20%E6%9C%80%E4%BC%98%E8%A3%85%E8%BD%BD%E9%97%AE%E9%A2%98/20171001%E6%9C%80%E4%BC%98%E8%BD%BD%E9%97%AE%E9%A2%98-04.png?sign=bEhcqopCVqgCNR7tZyT8p1UEhhJhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyODA5MDQ3JnQ9MTUxMDIxNzA0NyZyPTc4NDM3MjA0MiZmPS8yMDE3MTEwOCUyMCVFNiU5QyU4MCVFNCVCQyU5OCVFOCVBMyU4NSVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC8yMDE3MTAwMSVFNiU5QyU4MCVFNCVCQyU5OCVFOCVCRCVCRCVFOSU5NyVBRSVFOSVBMiU5OC0wNC5wbmcmYj1ob3V6YWpibG9n.png =40x" alt="" />
+将他们看作二进制数，那么将最大字典序设为起点，判定是否满足刚好存在5个’1’，’1’对应的集装箱重量之和是否不超过轮船可承载总重量。如果是，那么当前组合满足条件，输出结果；如果不是，则减1（因为减1能满足次最大字典序的要求），再次循环，直到满足条件为止。</p>
+
+<p>由于无法直接使用二进制数计算，因此先将最大/最小字典序转换为十进制数（即31744和31），进行计算时转化为模拟二进制数字符数组，再进行上述操作。（当然也可以写一个类或者功能模拟二进制数运算）</p>
+
+<p><br /></p>
+<h3 id="part-iv---源代码">PART IV - 源代码</h3>
+<pre><code class="language-cpp">//最优装载问题（贪心 + 穷举）
+#include "iostream"
+#include "cstdio"    //C++下写C代码，故用 cstdio
+#include "algorithm"    //使用sort()函数
+#include "malloc.h"    //动态分配数组内存
+#include "cmath"     //使用pow()函数
+void toBinary(char* array,int end, int nBox){    //十进制转二进制数组
+    for(int n = nBox - 1; n &gt;= 0; n--){
+        array[n] = end%2 + '0';
+        end /= 2;
+    }
+}
+
+int main(){
+    int weight;    //可承载重量
+    int nBox;    //集装箱个数
+    int maxNums = 0;    //按照从轻到重的顺序放置集装箱，可承载的最大数量
+    scanf("%d%d", &amp;nBox, &amp;weight);
+    int* arrayInput = (int*)malloc(nBox*sizeof(int));
+    int* arrayInputUpper = (int*)malloc(nBox*sizeof(int));
+    for(int n = 0; n &lt; nBox; n++){
+        scanf("%d", &amp;arrayInput[n]);
+        arrayInputUpper[n] = arrayInput[n];
+    }
+
+
+    std::sort(arrayInputUpper, arrayInputUpper + nBox);
+    int temp = weight;
+    for(int n = 0; n &lt; nBox; n++){    //贪心，确定最大数量maxNums
+        temp -= arrayInputUpper[n];
+        if(temp &gt;= 0){
+            maxNums++;
+        }else{
+            break;
+        }
+    }
+
+    int start = pow(2, maxNums) - 1;    //等比数列公式，下同
+    int end = pow(2, nBox - maxNums)*(pow(2, maxNums) - 1);
+    char* arrayRange = (char*)malloc(nBox*sizeof(char));
+    for(;start &lt;= end; end--){
+        int times = 0;
+        int temp = 0;
+        toBinary(arrayRange, end, nBox);
+        arrayRange[nBox] = '\0';
+        for(int n = 0; n &lt; nBox; n++){    //是否出现maxNums次1
+            if(arrayRange[n] == '1'){
+                times++;
+            }
+        }
+        if(times != maxNums){
+            continue;
+        }
+
+        for(int n = 0; n &lt; nBox; n++){    //和是否不超过weight
+            if(arrayRange[n] == '1'){
+                temp += arrayInput[n];
+            }
+        }
+        if(temp &lt;= weight){
+            break;     //满足结果跳出循环
+        }else{
+            continue;
+        }
+    }
+    printf("%s", arrayRange);
+
+    free(arrayInput);
+    free(arrayInputUpper);
+    free(arrayRange);
+    return 0;
+}
+</code></pre>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & designer</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2017/04/18/hello-jekyll.html" class="read-next-link"></a>
+            <section>
+                <span>Hello Jekyll</span>
+                <p>  Transform your plain text into static websites and blogs.</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://on2171g4d.bkt.clouddn.com/jekyll-banner.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2017</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+<script src="/assets/js/index.min.js"></script>
+</body>
+</html>
