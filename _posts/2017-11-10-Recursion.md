@@ -26,7 +26,7 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 
 ### PART III - 实例
 #### 简易计算器
-- 题目简述      
+- **题目简述**      
 > **Input**    
 >> 输入T，表示有T个实例      
 >> 接下来每行输入一个表达式，每个表达式末尾带#表示结束   
@@ -42,11 +42,13 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 > **Sample Output**    
 >> 6.2000        
 >> 54.3211      
-- 思路    
-* **如何处理 左括号'(' 和 右括号')' 呢**       
+
+- **思路**    
+1. **如何处理 左括号'(' 和 右括号')' ？**       
 （这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号'('可以调用自身函数，直到遇到右括号')'结束自身调用（即返回结果）。另外遇到'#'号也应该返回结果（给主函数）。
-* 
-- 代码
+2. **如何处理四则运算优先级？**
+
+- **代码**
 <pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
