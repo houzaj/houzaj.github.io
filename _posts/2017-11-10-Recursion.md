@@ -42,7 +42,7 @@ tags: Programming
 >> 6.2000        
 >> 54.3211    
 
-<pre><code class="language-cpp">//简易计算器
+<pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
 
