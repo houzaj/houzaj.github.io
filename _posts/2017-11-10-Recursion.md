@@ -41,7 +41,8 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 
 > **Sample Output**    
 >> 6.2000        
->> 54.3211
+>> 54.3211      
+
 <br>
 - 代码
 <pre class="line-numbers"><code class="language-cpp">//简易计算器
