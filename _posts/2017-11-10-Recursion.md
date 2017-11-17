@@ -55,7 +55,7 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 <br>
 
 - **代码**    
-<pre class="line-numbers"><code class="language-cpp">//简易计算器
+<pre class="line-numbers"><code class="language-cpp">
 #include "bits/stdc++.h"
 using namespace std;
 
