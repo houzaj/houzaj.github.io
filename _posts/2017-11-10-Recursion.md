@@ -98,6 +98,4 @@ int main()
         cout << fixed << setprecision(4) << calc() << endl;
     }
     return 0;
-}
-
-</code></pre>
+}</code></pre>
