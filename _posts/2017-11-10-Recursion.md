@@ -41,3 +41,63 @@ tags: Programming
 > **Sample Output**    
 >> 6.2000        
 >> 54.3211    
+
+<pre><code class="language-cpp">//简易计算器
+#include "bits/stdc++.h"
+using namespace std;
+
+double calc(){
+    stack<double> stk_num;
+    char ch;
+    char ch_save = '?';  //储存*或/的运算符
+    double num;
+    double sum = 0;
+    for(;;){
+        cin >> ch;
+        if(isdigit(ch) || ch == '('){
+            if(isdigit(ch)){
+                ungetc(ch, stdin);  //
+                cin >> num;
+            }
+            if(ch == '('){
+                num = calc();
+            }
+            if(ch_save != '?'){
+                if(ch_save == '*'){
+                    num *= stk_num.top();
+                }else{
+                    num = stk_num.top()/num;
+                }
+                stk_num.pop();
+                ch_save = '?';
+            }
+            stk_num.push(num);
+        }
+        if(ch == ')' || ch == '#'){
+            while(!stk_num.empty()){
+                sum += stk_num.top();
+                stk_num.pop();
+            }
+            return sum;
+        }
+        if(ch == '*' || ch == '/'){
+            ch_save = ch;
+        }
+        if(ch == '-'){
+            stk_num.push(-1);
+            ch_save = '*';
+        }
+    }
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--){
+        cout << fixed << setprecision(4) << calc() << endl;
+    }
+    return 0;
+}
+
+</code></pre>
