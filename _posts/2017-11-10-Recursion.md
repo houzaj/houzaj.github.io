@@ -22,6 +22,7 @@ tags: Programming
 <iframe class="iframe-ppt" src='https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fhouzajblog%2D1252277898%2Ecoscd%2Emyqcloud%2Ecom%3A80%2F20171110%2520PRERecusion%2FRecursion%2Epptx%3Fsign%3D7A2HAkwEFgn%2FlnWztUfyu5U3vbhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyOTA3MjI4JnQ9MTUxMDMxNTIyOCZyPTU1MzUwNTQ4NCZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbi5wcHR4JmI9aG91emFqYmxvZw%3D%3D&wdAr=1.3333333333333333'  frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
 
 PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0RQDEvS2PKKnO5Q)
+
 <br>
 
 ### PART III - 实例
@@ -43,12 +44,16 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 >> 6.2000        
 >> 54.3211      
 
+<br>
+
 - **思路**    
 1. **如何处理 左括号'(' 和 右括号')' ？**       
 （这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号'('可以调用自身函数，直到遇到右括号')'结束自身调用（即返回结果）。另外遇到'#'号也应该返回结果（给主函数）。
 2. **如何处理四则运算优先级？**
 
-- **代码**
+<br>
+
+- **代码**    
 <pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
