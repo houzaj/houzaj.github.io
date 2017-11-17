@@ -28,6 +28,7 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 ### PART III - 实例
 #### 简易计算器
 - **题目简述**      
+
 > **Input**    
 >> 输入T，表示有T个实例      
 >> 接下来每行输入一个表达式，每个表达式末尾带#表示结束   
