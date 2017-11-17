@@ -51,11 +51,12 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 1. **如何处理 左括号'(' 和 右括号')' ？**       
 （这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号'('可以调用自身函数，直到遇到右括号')'结束自身调用（即返回结果）。另外遇到'#'号也应该返回结果（给主函数）。
 2. **如何处理四则运算优先级？**
-
+① 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符    
+② 另外，对于-号，可能存在"-(-3)"这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)      
 <br>
 
 **代码**    
-<pre class="line-numbers"><code class="language-cpp">       
+<pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -69,7 +70,7 @@ double calc(){
         cin >> ch;
         if(isdigit(ch) || ch == '('){
             if(isdigit(ch)){
-                ungetc(ch, stdin);  //
+                ungetc(ch, stdin);  //将ch压回输入流中
                 cin >> num;
             }
             if(ch == '('){
@@ -111,6 +112,5 @@ int main()
         cout << fixed << setprecision(4) << calc() << endl;
     }
     return 0;
-}
-</code></pre>
+}</code></pre>
 
