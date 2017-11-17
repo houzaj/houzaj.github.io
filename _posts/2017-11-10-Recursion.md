@@ -8,7 +8,7 @@ postPatterns: 'circuitBoard'
 tags: Programming
 ---
 
-> 其实，这是一篇试iframe的文...
+> 其实，这是一篇试iframe的文...       
 > （2017.11.17）更新了一些实例
 
 <br>
@@ -18,14 +18,15 @@ tags: Programming
 哈哈哈这次PRE，emmmm……严！重！超！时！
 
 <br>
-### PART II - PPT
+### PART II - 大计演讲PPT
 <iframe class="iframe-ppt" src='https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fhouzajblog%2D1252277898%2Ecoscd%2Emyqcloud%2Ecom%3A80%2F20171110%2520PRERecusion%2FRecursion%2Epptx%3Fsign%3D7A2HAkwEFgn%2FlnWztUfyu5U3vbhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyOTA3MjI4JnQ9MTUxMDMxNTIyOCZyPTU1MzUwNTQ4NCZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbi5wcHR4JmI9aG91emFqYmxvZw%3D%3D&wdAr=1.3333333333333333'  frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
 
-[https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0RQDEvS2PKKnO5Q)
+PPT下载：[https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0RQDEvS2PKKnO5Q)
 <br>
 
 ### PART III - 实例
 #### 简易计算器
+- 题目简述
 > **Input**    
 >> 输入T，表示有T个实例      
 >> 接下来每行输入一个表达式，每个表达式末尾带#表示结束   
@@ -41,7 +42,8 @@ tags: Programming
 > **Sample Output**    
 >> 6.2000        
 >> 54.3211    
-
+- 代码
+<br>
 <pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
