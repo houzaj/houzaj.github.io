@@ -14,19 +14,19 @@ tags: Programming
 <br>
 
 <iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=28492953&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
-### PART I - 前言
+### PART I - 前言   
 哈哈哈这次PRE，emmmm……严！重！超！时！
 
 <br>
-### PART II - 大计演讲PPT
+### PART II - 大计演讲PPT   
 <iframe class="iframe-ppt" src='https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fhouzajblog%2D1252277898%2Ecoscd%2Emyqcloud%2Ecom%3A80%2F20171110%2520PRERecusion%2FRecursion%2Epptx%3Fsign%3D7A2HAkwEFgn%2FlnWztUfyu5U3vbhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyOTA3MjI4JnQ9MTUxMDMxNTIyOCZyPTU1MzUwNTQ4NCZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbi5wcHR4JmI9aG91emFqYmxvZw%3D%3D&wdAr=1.3333333333333333'  frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
 
 PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0RQDEvS2PKKnO5Q)
 
 <br>
 
-### PART III - 实例
-#### 简易计算器
+### PART III - 实例   
+### 简易计算器    
 **题目简述**      
 
 > **Input**    
@@ -57,14 +57,14 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 <br>
 
 **代码**    
-<pre class="line-numbers"><code class="language-cpp">//简易计算器
+<pre class="line-numbers"><code class="language-cpp">
 #include "bits/stdc++.h"
 using namespace std;
 
 double calc(){
     stack<double> stk_num;
     char ch;
-    char ch_save = '?';  //储存*或/的运算符
+    char ch_save = '?';  
     double num;
     double sum = 0;
     for(;;){
@@ -113,5 +113,4 @@ int main()
         cout << fixed << setprecision(4) << calc() << endl;
     }
     return 0;
-}</code></pre>
-
+} </code></pre>
