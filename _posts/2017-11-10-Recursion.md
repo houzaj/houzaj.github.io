@@ -53,12 +53,12 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 **▲ 思路**    
 1. **如何处理 `左括号(` 和 `右括号)` ？**       
 （这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号\"(\"可以调用自身函数，直到遇到右括号\")\"结束自身调用（即返回结果）。另外遇到\"\#\"号也应该返回结果（给主函数）。    
-![]()   
+![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_1.jpg?sign=CxIGQYW9RTbZ1B59tXuFBzjsq6FhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwNDMzJnQ9MTUxMDk5ODQzMyZyPTE3NDIyNDMwNjAmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzEuanBnJmI9aG91emFqYmxvZw==)   
 2. **如何处理四则运算优先级？**     
 **①** 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符。每次读到×或÷运算符时，读取下一个数（或左括号），将该数与栈的头部元素作×÷运算后，压入栈中。    
-![]()   
-**②** 另外，对于-号，可能存在`-(-3)`这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)，即在栈中压入-1，将ch_save变为\'\*\'。      
-![]()     
+![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_2.jpg?sign=bsG4VZmlMJ5RXTO6EfYJSZGrDPNhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE0NDY5NTg5NDcmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzIuanBnJmI9aG91emFqYmxvZw==)   
+**②** 另外，对于-号，可能存在`-(-3)`这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将\'-\'号转换为(-1×)，即在栈中压入-1，将ch_save变为\'\*\'。      
+![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_3.jpg?sign=8ZMm9s1KdKZTJfll5U2HTWjA7zhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE3MTI2Mzg0MjMmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzMuanBnJmI9aG91emFqYmxvZw==)     
 **③** 由于最后栈中的元素之剩下和运算，遇到右括号\')\'或\'\#\'时，计算栈中的所有元素之和返回。      
 
 **▲ 代码**   
@@ -167,7 +167,7 @@ int main()
 >> 3211    
 
 **▲ 思路**    
-![]()   
+![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_3.jpg?sign=8ZMm9s1KdKZTJfll5U2HTWjA7zhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE3MTI2Mzg0MjMmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzMuanBnJmI9aG91emFqYmxvZw==)   
 对数全排列的一般思维如图，另外题目中指明可能有重复字符，因此按递归生成的全排列可能会有重复，可以将生成的全排列数存入set中，利用set中元素的唯一性以及set中的元素是默认升序排序的，正好符合题目要求，AC题目！   
 另外，STL中还提供了全排列函数next_permutation，可直接使用该函数AC题\_(\:з」∠)\_，需要注意的是，next_permutation只会生成字典序比它大的全排列数，因此输入数后需对其升序排序，用sort就可以了。     
 
