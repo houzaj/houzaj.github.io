@@ -19,7 +19,7 @@ tags: Programming
 
 <br>
 ### PART II - 大计演讲PPT   
-<iframe class="iframe-ppt" src='https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fhouzajblog%2D1252277898%2Ecoscd%2Emyqcloud%2Ecom%3A80%2F20171110%2520PRERecusion%2FRecursion%2Epptx%3Fsign%3D7A2HAkwEFgn%2FlnWztUfyu5U3vbhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyOTA3MjI4JnQ9MTUxMDMxNTIyOCZyPTU1MzUwNTQ4NCZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbi5wcHR4JmI9aG91emFqYmxvZw%3D%3D&wdAr=1.3333333333333333'  frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
+<iframe class="iframe-ppt" src="https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fhouzajblog%2D1252277898%2Ecoscd%2Emyqcloud%2Ecom%3A80%2F20171110%2520PRERecusion%2FRecursion%2Epptx%3Fsign%3D7A2HAkwEFgn%2FlnWztUfyu5U3vbhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEyOTA3MjI4JnQ9MTUxMDMxNTIyOCZyPTU1MzUwNTQ4NCZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbi5wcHR4JmI9aG91emFqYmxvZw%3D%3D&wdAr=1.3333333333333333" frameborder="0">This is an embedded <a target="\_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="\_blank" href="https://office.com/webapps">Office Online</a>.</iframe>
 
 PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0RQDEvS2PKKnO5Q)
 
@@ -38,8 +38,8 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 
 > **Sample Iutput**   
 >> 2    
->> 1+2*3-4/5#    
->> (66+(((11+22)*2-33)/3+6)*2)-45.6789#   
+>> 1+2\*3-4/5#    
+>> (66+(((11+22)\*2-33)/3+6)\*2)-45.6789#   
 
 > **Sample Output**    
 >> 6.2000        
@@ -48,17 +48,18 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 <br>
 
 **思路**    
-1. **如何处理 左括号'(' 和 右括号')' ？**       
-（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号'('可以调用自身函数，直到遇到右括号')'结束自身调用（即返回结果）。另外遇到'#'号也应该返回结果（给主函数）。
+1. **如何处理 `左括号(` 和 `右括号)` ？**       
+（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号\"(\"可以调用自身函数，直到遇到右括号\")\"结束自身调用（即返回结果）。另外遇到\"\#\"号也应该返回结果（给主函数）。
 2. **如何处理四则运算优先级？**     
 ① 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符。每次读到×或÷运算符时，读取下一个数（或左括号），将该数与栈的头部元素作×÷运算后，压入栈中。    
-② 另外，对于-号，可能存在"-(-3)"这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)，即在栈中压入-1，将ch_save变为'*'。      
-③ 由于最后栈中的元素之剩下和运算，遇到右括号')'或'#'时，计算栈中的所有元素之和返回。      
+② 另外，对于-号，可能存在`-(-3)`这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)，即在栈中压入-1，将ch_save变为\'\*\'。      
+③ 由于最后栈中的元素之剩下和运算，遇到右括号\')\'或\'\#\'时，计算栈中的所有元素之和返回。      
 <br>
 
-**代码**    
-<pre class="line-numbers"><code class="language-cpp">//简易计算器
-#include "bits/stdc++.h"
+**代码**
+``` cpp
+//简易计算器
+#include <bits/stdc++.h>  
 using namespace std;
 
 double calc(){
@@ -113,4 +114,8 @@ int main()
         cout << fixed << setprecision(4) << calc() << endl;
     }
     return 0;
-}</code></pre>
+}
+```
+
+
+aaa
