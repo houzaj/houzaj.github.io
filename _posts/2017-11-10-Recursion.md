@@ -3,7 +3,7 @@ layout: post
 title: '递归 (Recursion) —— PPT 与 实例'
 date: 2017-11-10
 author: HouZAJ
-cover: 'http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/Recursion%20Cover-01.png?sign=iO8T+t8VRIFiYCnxBp2VX0D9KN1hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTk2MDQ4JnQ9MTUxMTAwNDA0OCZyPTk3ODc4MDY4OSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbiUyMENvdmVyLTAxLnBuZyZiPWhvdXphamJsb2c='
+cover: 'http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/Recursion%20Cover-01-01.png?sign=46bFsh7lC6bFk68nEg9P7/cFGRJhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTk2NDIyJnQ9MTUxMTAwNDQyMiZyPTE4MDAzMTM5MSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbiUyMENvdmVyLTAxLTAxLnBuZyZiPWhvdXphamJsb2c='
 tags: Programming
 ---
 
