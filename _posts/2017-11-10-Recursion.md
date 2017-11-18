@@ -166,7 +166,7 @@ int main()
 >> 3211    
 
 **▲ 思路**    
-![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_3.jpg?sign=8ZMm9s1KdKZTJfll5U2HTWjA7zhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE3MTI2Mzg0MjMmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzMuanBnJmI9aG91emFqYmxvZw==)   
+![](http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_4.jpg?sign=UaaH0zZCyvejBqzPEAoP+Vk3fsZhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNjA1ODM2JnQ9MTUxMTAxMzgzNiZyPTQyNzgwNDg5OSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL2ltZyUyMDIwMTctMTEtMThfNC5qcGcmYj1ob3V6YWpibG9n)   
 对数全排列的一般思维如图，另外题目中指明可能有重复字符，因此按递归生成的全排列可能会有重复，可以将生成的全排列数存入set中，利用set中元素的唯一性以及set中的元素是默认升序排序的，正好符合题目要求，AC题目！   
 另外，STL中还提供了全排列函数next_permutation，可直接使用该函数AC题\_(\:з」∠)\_，需要注意的是，next_permutation只会生成字典序比它大的全排列数，因此输入数后需对其升序排序，用sort就可以了。     
 
