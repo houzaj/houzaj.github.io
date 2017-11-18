@@ -8,14 +8,19 @@ postPatterns: 'circuitBoard'
 tags: Programming
 ---
 
-> 其实，这是一篇试iframe的文...       
-> （2017.11.17）更新了一些实例
+> （2017.11.17）更新了一些实例     |     
+> 其实，这是一篇试iframe的文...   
 
 <br>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=28492953&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=28492953&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=34183392&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
+
+
 ### PART I - 前言   
-哈哈哈这次PRE，emmmm……严！重！超！时！
+哈哈哈这次PRE，emmmm……严！重！超！时！    
+然后呢补两个例子（以后可能还会再补）    
+另外关于为什么会有两首曲子……第二首太好听了忍不住就多加了一首\_(\:з」∠)\_
 
 <br>
 ### PART II - 大计演讲PPT   
@@ -47,10 +52,13 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 
 **▲ 思路**    
 1. **如何处理 `左括号(` 和 `右括号)` ？**       
-（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号\"(\"可以调用自身函数，直到遇到右括号\")\"结束自身调用（即返回结果）。另外遇到\"\#\"号也应该返回结果（给主函数）。
+（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号\"(\"可以调用自身函数，直到遇到右括号\")\"结束自身调用（即返回结果）。另外遇到\"\#\"号也应该返回结果（给主函数）。    
+![]()   
 2. **如何处理四则运算优先级？**     
 **①** 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符。每次读到×或÷运算符时，读取下一个数（或左括号），将该数与栈的头部元素作×÷运算后，压入栈中。    
+![]()   
 **②** 另外，对于-号，可能存在`-(-3)`这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)，即在栈中压入-1，将ch_save变为\'\*\'。      
+![]()     
 **③** 由于最后栈中的元素之剩下和运算，遇到右括号\')\'或\'\#\'时，计算栈中的所有元素之和返回。      
 
 **▲ 代码**   
@@ -114,19 +122,71 @@ int main()
 }
 ```
 
+<br>
+
+### 全排列（51NOD 1384）    
+**▲ 题目简述**
+
+> **Description**   
+>> 给出一个字符串S（可能有重复的字符），按照字典序从小到大，输出S包括的字符组成的所有排列。例如：S = "1312"，
+输出为：    
+>>1123    
+>>1132    
+>>1213    
+>>1231    
+>>1312    
+>>1321    
+>>2113    
+>>2131    
+>>2311    
+>>3112    
+>>3121    
+>>3211    
+
+> **Input**    
+>> 输入一个字符串S（S的长度 <= 9，且只包括0 - 9的阿拉伯数字）    
+
+> **Output**    
+>> 输出S所包含的字符组成的所有排列    
+
+> **Sample Iutput**   
+>> 1312   
+
+> **Sample Output**    
+>> 1123   
+>> 1132   
+>> 1213   
+>> 1231   
+>> 1312   
+>> 1321   
+>> 2113   
+>> 2131   
+>> 2311   
+>> 3112   
+>> 3121   
+>> 3211    
+
+**▲ 思路**    
+![]()   
+对数全排列的一般思维如图，另外题目中指明可能有重复字符，因此按递归生成的全排列可能会有重复，可以将生成的全排列数存入set中，利用set中元素的唯一性以及set中的元素是默认升序排序的，正好符合题目要求，AC题目！   
+另外，STL中还提供了全排列函数next_permutation，可直接使用该函数AC题\_(\:з」∠)\_，需要注意的是，next_permutation只会生成字典序比它大的全排列数，因此输入数后需对其升序排序，用sort就可以了。     
+
+**▲ 代码**   
+
 ```cpp
-//全排列问题
+//全排列问题 —— 递归解
 #include <bits/stdc++.h>
 using namespace std;
 
 void permutation(int from, int to, string& str, set<string>& set_str){
     for(int i = from; i <= to; i++){
-        swap(str[from], str[i]);
-        permutation(from + 1, to, str, set_str);
-        swap(str[from], str[i]);
-    }
-    if(from == to){
-        set_str.insert(str);
+        swap(str[from], str[i]);    //将当前范围的第一个数与后面的数逐一交换回来
+        if(from == to){
+            set_str.insert(str);
+        }else{
+            permutation(from + 1, to, str, set_str);    //缩小范围
+        }
+        swap(str[from], str[i]);    //因为使用引用，记得交换回来，恢复原来的str
     }
 }
 
@@ -141,6 +201,24 @@ int main()
     for(; itel_begin != itel_end; itel_begin++){
         cout << *itel_begin << endl;
     }
+    return 0;
+}
+```
+
+```cpp
+//全排列问题 —— next_permutation
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string str;
+    cin >> str;
+    sort(str.begin(), str.end());
+
+    do{
+        cout << str << endl;
+    }while(next_permutation(str.begin(), str.end()));
     return 0;
 }
 ```

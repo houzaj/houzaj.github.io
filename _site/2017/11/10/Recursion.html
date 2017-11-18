@@ -65,15 +65,19 @@
     
     <article class="markdown-body">
         <blockquote>
-  <p>其实，这是一篇试iframe的文…     <br />
-（2017.11.17）更新了一些实例</p>
+  <p>（2017.11.17）更新了一些实例     |   <br />
+其实，这是一篇试iframe的文…</p>
 </blockquote>
 
 <p><br /></p>
 
 <iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=28492953&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=34183392&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
 <h3 id="part-i---前言">PART I - 前言</h3>
-<p>哈哈哈这次PRE，emmmm……严！重！超！时！</p>
+<p>哈哈哈这次PRE，emmmm……严！重！超！时！  <br />
+然后呢补两个例子（以后可能还会再补）  <br />
+另外关于为什么会有两首曲子……第二首太好听了忍不住就多加了一首_(:з」∠)_</p>
 
 <p><br /></p>
 <h3 id="part-ii---大计演讲ppt">PART II - 大计演讲PPT</h3>
@@ -122,10 +126,13 @@
 <p><strong>▲ 思路</strong></p>
 <ol>
   <li><strong>如何处理 <code class="highlighter-rouge">左括号(</code> 和 <code class="highlighter-rouge">右括号)</code> ？</strong>     <br />
-（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号"("可以调用自身函数，直到遇到右括号")"结束自身调用（即返回结果）。另外遇到"#"号也应该返回结果（给主函数）。</li>
+（这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号"("可以调用自身函数，直到遇到右括号")"结束自身调用（即返回结果）。另外遇到"#"号也应该返回结果（给主函数）。  <br />
+<img src="" alt="" /></li>
   <li><strong>如何处理四则运算优先级？</strong>   <br />
 <strong>①</strong> 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符。每次读到×或÷运算符时，读取下一个数（或左括号），将该数与栈的头部元素作×÷运算后，压入栈中。  <br />
+<img src="" alt="" /> <br />
 <strong>②</strong> 另外，对于-号，可能存在<code class="highlighter-rouge">-(-3)</code>这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将-号转换为(-1×)，即在栈中压入-1，将ch_save变为'*'。    <br />
+<img src="" alt="" />   <br />
 <strong>③</strong> 由于最后栈中的元素之剩下和运算，遇到右括号')'或'#'时，计算栈中的所有元素之和返回。</li>
 </ol>
 
@@ -189,19 +196,91 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题
+<p><br /></p>
+
+<h3 id="全排列51nod-1384">全排列（51NOD 1384）</h3>
+<p><strong>▲ 题目简述</strong></p>
+
+<blockquote>
+  <p><strong>Description</strong></p>
+  <blockquote>
+    <p>给出一个字符串S（可能有重复的字符），按照字典序从小到大，输出S包括的字符组成的所有排列。例如：S = “1312”，
+输出为：  <br />
+1123  <br />
+1132  <br />
+1213  <br />
+1231  <br />
+1312  <br />
+1321  <br />
+2113  <br />
+2131  <br />
+2311  <br />
+3112  <br />
+3121  <br />
+3211</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Input</strong></p>
+  <blockquote>
+    <p>输入一个字符串S（S的长度 &lt;= 9，且只包括0 - 9的阿拉伯数字）</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Output</strong></p>
+  <blockquote>
+    <p>输出S所包含的字符组成的所有排列</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Sample Iutput</strong></p>
+  <blockquote>
+    <p>1312</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Sample Output</strong></p>
+  <blockquote>
+    <p>1123 <br />
+1132 <br />
+1213 <br />
+1231 <br />
+1312 <br />
+1321 <br />
+2113 <br />
+2131 <br />
+2311 <br />
+3112 <br />
+3121 <br />
+3211</p>
+  </blockquote>
+</blockquote>
+
+<p><strong>▲ 思路</strong>  <br />
+<img src="" alt="" /> <br />
+对数全排列的一般思维如图，另外题目中指明可能有重复字符，因此按递归生成的全排列可能会有重复，可以将生成的全排列数存入set中，利用set中元素的唯一性以及set中的元素是默认升序排序的，正好符合题目要求，AC题目！ <br />
+另外，STL中还提供了全排列函数next_permutation，可直接使用该函数AC题_(:з」∠)_，需要注意的是，next_permutation只会生成字典序比它大的全排列数，因此输入数后需对其升序排序，用sort就可以了。</p>
+
+<p><strong>▲ 代码</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— 递归解
 </span><span class="cp">#include &lt;bits/stdc++.h&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="n">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">to</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="n">permutation</span><span class="p">(</span><span class="n">from</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">set_str</span><span class="p">);</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
-        <span class="n">set_str</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-    <span class="p">}</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//将当前范围的第一个数与后面的数逐一交换回来
+</span>        <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
+            <span class="n">set_str</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">permutation</span><span class="p">(</span><span class="n">from</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">set_str</span><span class="p">);</span>    <span class="c1">//缩小范围
+</span>        <span class="p">}</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//因为使用引用，记得交换回来，恢复原来的str
+</span>    <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
@@ -215,6 +294,23 @@
     <span class="k">for</span><span class="p">(;</span> <span class="n">itel_begin</span> <span class="o">!=</span> <span class="n">itel_end</span><span class="p">;</span> <span class="n">itel_begin</span><span class="o">++</span><span class="p">){</span>
         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">itel_begin</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
     <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— next_permutation
+</span><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+    <span class="k">do</span><span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="n">next_permutation</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">()));</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
