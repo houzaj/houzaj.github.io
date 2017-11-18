@@ -57,7 +57,7 @@ PPT下载： [https://mega.nz/#F!tXADUZjI](https://mega.nz/#F!tXADUZjI!Si0jjfq0R
 <br>
 
 **代码**    
-<pre class="line-numbers"><code class="language-cpp">
+<pre class="line-numbers"><code class="language-cpp">//简易计算器
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -113,4 +113,4 @@ int main()
         cout << fixed << setprecision(4) << calc() << endl;
     }
     return 0;
-} </code></pre>
+}</code></pre>
