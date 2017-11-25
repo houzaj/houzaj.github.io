@@ -57,7 +57,7 @@
     </div>
     
     <div class="filter"></div>
-    <div class="post-cover" style="background: url('') center no-repeat; background-size: cover;">
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/Recursion%20Cover-01-01.png?sign=46bFsh7lC6bFk68nEg9P7/cFGRJhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTk2NDIyJnQ9MTUxMTAwNDQyMiZyPTE4MDAzMTM5MSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbiUyMENvdmVyLTAxLTAxLnBuZyZiPWhvdXphamJsb2c=') center no-repeat; background-size: cover;">
     
 </header>
 
@@ -261,7 +261,7 @@
 </blockquote>
 
 <p><strong>▲ 思路</strong>  <br />
-<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_3.jpg?sign=8ZMm9s1KdKZTJfll5U2HTWjA7zhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE3MTI2Mzg0MjMmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzMuanBnJmI9aG91emFqYmxvZw==" alt="" /> <br />
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_4.jpg?sign=UaaH0zZCyvejBqzPEAoP+Vk3fsZhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNjA1ODM2JnQ9MTUxMTAxMzgzNiZyPTQyNzgwNDg5OSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL2ltZyUyMDIwMTctMTEtMThfNC5qcGcmYj1ob3V6YWpibG9n" alt="" /> <br />
 对数全排列的一般思维如图，另外题目中指明可能有重复字符，因此按递归生成的全排列可能会有重复，可以将生成的全排列数存入set中，利用set中元素的唯一性以及set中的元素是默认升序排序的，正好符合题目要求，AC题目！ <br />
 另外，STL中还提供了全排列函数next_permutation，可直接使用该函数AC题_(:з」∠)_，需要注意的是，next_permutation只会生成字典序比它大的全排列数，因此输入数后需对其升序排序，用sort就可以了。</p>
 
@@ -271,7 +271,7 @@
 </span><span class="cp">#include &lt;bits/stdc++.h&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="kt">void</span> <span class="n">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">to</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//将当前范围的第一个数与后面的数逐一交换回来
 </span>        <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
@@ -279,7 +279,7 @@
         <span class="p">}</span><span class="k">else</span><span class="p">{</span>
             <span class="n">permutation</span><span class="p">(</span><span class="n">from</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">set_str</span><span class="p">);</span>    <span class="c1">//缩小范围
 </span>        <span class="p">}</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//因为使用引用，记得交换回来，恢复原来的str
+        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//因为是string，记得交换回来，恢复原来的str
 </span>    <span class="p">}</span>
 <span class="p">}</span>
 
@@ -331,6 +331,18 @@
         
     </section>
     <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2017/11/21/maze.html" class="read-next-link"></a>
+            <section>
+                <span>迷宫问题（MAZE）</span>
+                <p>  这是一道OJ题引发的博文和现实的技巧……(不是来看题的同学就翻到最后吧)</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png?sign=Tw2F9KLYM+BaU+RCP4PA3KAnGz5hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTcwMDI1NzAwNSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTlDJUFBJUU2JUEwJTg3JUU5JUEyJTk4LTItMDEucG5nJmI9aG91emFqYmxvZw==" alt="">
+            
+        </div>
         
         
         <div class="read-next-item">

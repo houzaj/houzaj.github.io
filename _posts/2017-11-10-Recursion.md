@@ -177,7 +177,7 @@ int main()
 #include <bits/stdc++.h>
 using namespace std;
 
-void permutation(int from, int to, string& str, set<string>& set_str){
+void permutation(int from, int to, string str, set<string>& set_str){
     for(int i = from; i <= to; i++){
         swap(str[from], str[i]);    //将当前范围的第一个数与后面的数逐一交换回来
         if(from == to){
@@ -185,7 +185,7 @@ void permutation(int from, int to, string& str, set<string>& set_str){
         }else{
             permutation(from + 1, to, str, set_str);    //缩小范围
         }
-        swap(str[from], str[i]);    //因为使用引用，记得交换回来，恢复原来的str
+        swap(str[from], str[i]);    //因为是string，记得交换回来，恢复原来的str
     }
 }
 

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷宫问题（MAZE） - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="迷宫问题（MAZE）">
+    <meta name="keywords"  content="Programming">
+    <!-- Open Graph -->
+    <meta property="og:title" content="迷宫问题（MAZE） - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2017/11/21/maze.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            
+            
+        </div>
+        <h1>迷宫问题（MAZE）</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="17-11-21"><i class="iconfont icon-date"></i>21 Nov 2017</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png?sign=Tw2F9KLYM+BaU+RCP4PA3KAnGz5hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTcwMDI1NzAwNSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTlDJUFBJUU2JUEwJTg3JUU5JUEyJTk4LTItMDEucG5nJmI9aG91emFqYmxvZw==') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>这是一道OJ题引发的博文和现实的技巧……(不是来看题的同学就翻到最后吧)</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=28287132&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="part-i---上来就扔题-掀桌">PART I - 上来就扔题 （掀桌</h3>
+<h3 id="摸墙算法szuoj-problem-1402">摸墙算法（SZUOJ Problem 1402）</h3>
+<blockquote>
+  <p><strong>Description</strong></p>
+  <blockquote>
+    <p>给出一个n*n的迷宫矩阵示意图，从起点[0,0]出发，寻找路径到达终点[n-1, n-1]。 <br />
+本题使用摸墙算法走迷宫。摸墙走算法也称绕墙走算法，是一种运用左手/右手法则进行迷宫搜索的初级算法。  <br />
+如果迷宫是简单连通的，即迷宫的墙总是相互相连的或与迷宫的外轮廓相连，那么迷宫的搜索者从起点开始将一只手扶在墙面前行，总能保证不会迷失并且找到迷宫中存在的出口。  <br />
+现假设使用左手法则饶墙走迷宫，即左手不离墙。且假设总能走到出口。输出从起点到终点的路径。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Input</strong></p>
+  <blockquote>
+    <p>第一行输入t，表示有t个迷宫 <br />
+第二行输入n，表示第一个迷宫有n行n列  <br />
+第三行起，输入迷宫每一行的每个方格的状态，0表示可通过，1表示不可通过  <br />
+以此类推输入下一个迷宫</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Output</strong></p>
+  <blockquote>
+    <p>对每个迷宫，输出从起点 [0,0] 到终点[n-1,n-1] 的路径。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Sample Iutput</strong></p>
+  <blockquote>
+    <p>2  <br />
+4  <br />
+0 1 1 0  <br />
+0 1 1 1  <br />
+0 0 0 1  <br />
+0 0 0 0  <br />
+8  <br />
+0 0 0 1 1 1 1 1  <br />
+1 0 0 0 1 0 0 1  <br />
+1 0 0 0 1 0 0 0  <br />
+1 1 0 0 0 0 0 1  <br />
+0 0 1 1 0 1 1 0  <br />
+0 0 0 0 0 0 1 1  <br />
+1 1 1 1 1 0 0 1  <br />
+0 0 0 0 1 0 0 0</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>Sample Output</strong></p>
+  <blockquote>
+    <p>[0,0]–[1,0]–[2,0]–[2,1]–[2,2]–  <br />
+[3,2]–[3,3] <br />
+[0,0]–[0,1]–[0,2]–[1,2]–[1,3]–  <br />
+[2,3]–[3,3]–[3,4]–[3,5]–[2,5]–  <br />
+[1,5]–[1,6]–[2,6]–[2,7]–[2,6]–  <br />
+[3,6]–[3,5]–[3,4]–[4,4]–[5,4]–  <br />
+[5,5]–[6,5]–[6,6]–[7,6]–[7,7]</p>
+  </blockquote>
+</blockquote>
+
+<p><strong>▲ 思路</strong></p>
+<ol>
+  <li><strong>如何知道上下左右？</strong>  <br />
+走路的时候不可避免需要知道左右和前面的方向向量，可是人的方向不同，他对应的左右和前面的方向向量也就不同。一开始我在想的时候是，先确定自身走路的方向，再分别讨论各个方向对应的前面和左右，但是这样打出来的代码会非常非常长长长长长~~~，那么如果我以一定方向定义方向向量数组，能否通过当前方向与前面、左右的相互联系获得他们的方向向量？答案是可以的。 <br />
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%96%B0%E6%96%87%E6%A1%A3%202017-11-25_1.jpg?sign=R08NTdpncUFSi0yB0Ze7lvzzYrZhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTU2NDUwNjg1NyZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTk2JUIwJUU2JTk2JTg3JUU2JUExJUEzJTIwMjAxNy0xMS0yNV8xLmpwZyZiPWhvdXphamJsb2c=" alt="" />
+如图，我以逆时针方向定义方向向量数组上右下左 <code class="highlighter-rouge">dir[4][2] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} }</code> ，而我当前方向则用 <code class="highlighter-rouge">dir_current(dir_current = 0, 1, 2, 3)</code> 表示，那么前面的方向向量则为对应自身方向 <code class="highlighter-rouge">dir[dir_current][2]</code> ，左边的方向则对应 <code class="highlighter-rouge">dir[(dir_current - 1 + 4)%4][2]</code> （加上4是加上一个周期的意思，防止0-1=-1的情况出现），右边的方向对应 <code class="highlighter-rouge">dir[(dir_current + 1)%4][2]</code> <br />
+现在有了方向向量数组，就能得到前面的坐标为 <code class="highlighter-rouge">forward_x = loc_x + dir[dir_current][0]</code>, <code class="highlighter-rouge">forward_y = loc_y + dir[dir_current][1]</code>， 左边的坐标为 <code class="highlighter-rouge">left_x = loc_x + dir[(dir_current -1 + 4)%4][0]</code>, <code class="highlighter-rouge">left_y = loc_y + dir[(dir_current -1 + 4)%4][1]</code>。</li>
+  <li><strong>如何走路？</strong>  <br />
+摸墙算法走迷宫可以分为三种情况：    <br />
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%96%B0%E6%96%87%E6%A1%A3%202017-11-25_2.jpg?sign=c1OIRcNvuV5sX6jCtkEU6JYkR6xhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTc4MzkyNDIyOSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTk2JUIwJUU2JTk2JTg3JUU2JUExJUEzJTIwMjAxNy0xMS0yNV8yLmpwZyZiPWhvdXphamJsb2c=" alt="" />
+<strong>① 左边有墙，前面有墙</strong> <br />
+因为左手法则要求左手要时刻贴墙，因此此时需要在原地右转，即 <code class="highlighter-rouge">dir_current = (dir_current + 1)%4</code>。  <br />
+<strong>② 左边没墙</strong>  <br />
+首先应该确定的是，左边没墙一定是从左边有墙那里走过来的，因为摸墙算法要求人的手时刻贴墙。那么人从左边有墙走到左边没墙，只可能发生在拐角处，此时应该原地左转，即 <code class="highlighter-rouge">dir_current = (dir_current - 1 + 4)%4</code>  <br />
+<strong>③ 前面没墙</strong>  <br />
+除了在拐角处，人的左手一定靠墙，即左边一定有墙，此时应该往前走；而人在拐角处原地左拐后也应该往前走。  <br />
+因此，如果前面没墙，在判定并执行前两种情况后，只需要往前走就可以了，即 <code class="highlighter-rouge">loc_x += dir[dir_current][0]</code> ,<code class="highlighter-rouge">loc_y += dir[dir_current][1]</code>。  <br />
+记得每次左转右转或者前进的时候都应该更新前面的坐标 <code class="highlighter-rouge">left_x</code>, <code class="highlighter-rouge">left_y</code> 和 <code class="highlighter-rouge">forward_x</code>, <code class="highlighter-rouge">forward_y</code>。</li>
+</ol>
+
+<p><strong>▲ 代码</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//摸墙算法
+</span><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dir</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span> <span class="p">};</span>
+<span class="kt">bool</span> <span class="n">is_in_border</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">change_dir</span><span class="p">(</span><span class="kt">int</span> <span class="n">loc_x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">dir_current</span><span class="p">,</span> <span class="kt">int</span> <span class="n">change</span><span class="p">){</span>
+    <span class="n">dir_current</span> <span class="o">=</span> <span class="p">(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="n">change</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">;</span>
+    <span class="n">left_x</span> <span class="o">=</span> <span class="n">loc_x</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">left_y</span> <span class="o">=</span> <span class="n">loc_y</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">forward_x</span> <span class="o">=</span> <span class="n">loc_x</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[</span><span class="n">dir_current</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">forward_y</span> <span class="o">=</span> <span class="n">loc_y</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[</span><span class="n">dir_current</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">dir_current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">100</span><span class="p">][</span><span class="mi">100</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">loc_x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">loc_y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">left_x</span><span class="p">,</span> <span class="n">left_y</span><span class="p">,</span> <span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">size</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[0,0]"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"--"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">change_dir</span><span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">,</span> <span class="n">left_x</span><span class="p">,</span> <span class="n">left_y</span><span class="p">,</span> <span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">,</span> <span class="n">dir_current</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">is_in_border</span><span class="p">(</span><span class="n">left_x</span><span class="p">,</span> <span class="n">left_y</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">left_x</span><span class="p">][</span><span class="n">left_y</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="n">change_dir</span><span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">,</span> <span class="n">left_x</span><span class="p">,</span> <span class="n">left_y</span><span class="p">,</span> <span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">,</span> <span class="n">dir_current</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">is_in_border</span><span class="p">(</span><span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="o">||</span> <span class="n">array</span><span class="p">[</span><span class="n">forward_x</span><span class="p">][</span><span class="n">forward_y</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+                <span class="n">change_dir</span><span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">,</span> <span class="n">left_x</span><span class="p">,</span> <span class="n">left_y</span><span class="p">,</span> <span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">,</span> <span class="n">dir_current</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">is_in_border</span><span class="p">(</span><span class="n">forward_x</span><span class="p">,</span> <span class="n">forward_y</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">[</span><span class="n">forward_x</span><span class="p">][</span><span class="n">forward_y</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="n">loc_x</span> <span class="o">+=</span> <span class="n">dir</span><span class="p">[</span><span class="n">dir_current</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+                <span class="n">loc_y</span> <span class="o">+=</span> <span class="n">dir</span><span class="p">[</span><span class="n">dir_current</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">"[%d,%d]"</span><span class="p">,</span> <span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">);</span>
+                <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">loc_x</span> <span class="o">==</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">loc_y</span> <span class="o">==</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+                    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="n">printf</span><span class="p">(</span><span class="s">"--"</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">%</span><span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="part-ii---后言">PART II - 后言</h3>
+<p>其实写这篇文章不单单是为了说明这种方向向量数组和当前方向相互联系的思维啦，还有介绍现实中走迷宫方法的意图[手动滑稽]。 <br />
+现实生活中走迷宫不可能用DFS的，毕竟根本就记不住自己走了哪些地方，更不可能用BFS的，人又不能分身。但是这种摸墙的方法是可以一试的！</p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2017/11/10/Recursion.html" class="read-next-link"></a>
+            <section>
+                <span>递归 (Recursion) —— PPT 与 实例</span>
+                <p>  （2017.11.17）更新了一些实例     |   其实，这是一篇试iframe的文…</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/Recursion%20Cover-01-01.png?sign=46bFsh7lC6bFk68nEg9P7/cFGRJhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTk2NDIyJnQ9MTUxMTAwNDQyMiZyPTE4MDAzMTM5MSZmPS8yMDE3MTExMCUyMFBSRVJlY3VzaW9uL1JlY3Vyc2lvbiUyMENvdmVyLTAxLTAxLnBuZyZiPWhvdXphamJsb2c=" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2017</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
