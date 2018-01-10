@@ -325,3 +325,118 @@ void clockType::setTime(int hours, int minutes, int seconds){
 }
 ```
 <br>
+- **类公有成员和私有成员**  
+类中默认成员声明为私有成员，故上述类定义可写为：  
+```cpp
+class clockType{
+    int hr;
+    int min;
+    int sec;
+public:
+    void setTime(int, int, int);
+    void getTime(int&, int&, int&);
+    void printTime()    const;
+    void incrementSeconds();
+    void incrementMinutes();
+    void incrementHours();
+    bool equalTime(const clockType& otherClock) const;
+};
+```
+<br>
+
+- **构造函数(Constructor)**  
+通过构造函数来保证类中数据成员的初始化，可有多个进行重载  
+当声明对象时，构造函数将自动执行  
+```cpp
+class clockType{
+public:
+    //省略成员函数
+    clockType(int, int, int);  //带参数的构造函数
+    clockType();  //默认构造函数
+private:
+    int hr;
+    int min;
+    int sec;
+};
+//相关实现
+clockType::clockType(int hours, int minutes, int seconds){
+    hr = (0 <= hours && hours < 24)?hours:0;
+    min = (0 <= minutes && minutes < 60)?minutes:0;
+    seconds = (0 <= seconds && seconds < 60)?seconds:0;
+}
+clockType::clockType(){
+    hr = 0;
+    min = 0;
+    sec = 0;
+}
+```  
+<br>
+构造函数可带默认参数，也称为默认构造函数  
+```cpp
+class clockType{
+public:
+    //省略成员函数
+    clockType(int = 0, int = 0, int = 0);  //默认构造函数
+private:
+    int hr;
+    int min;
+    int sec;
+};
+//相关实现
+clockType::clockType(int hours, int minutes, int seconds){
+    hr = (0 <= hours && hours < 24)?hours:0;
+    min = (0 <= minutes && minutes < 60)?minutes:0;
+    seconds = (0 <= seconds && seconds < 60)?seconds:0;
+}
+```  
+```cpp
+int main(){
+  clockType myclock1;
+  clockType myclock2(5, 12, 40);
+}
+```
+<br>
+
+- **析构函数(Destructor)**  
+每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。
+```cpp
+class clockType{
+public:
+    //省略成员函数
+    clockType();  //默认构造函数
+    ~clockType();   //析构函数
+private:
+    int hr;
+    int min;
+    int sec;
+};
+````
+
+- **抽象数据类型(Abstract data type, ADT)**  
+只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
+  1. 类型名称(Data Type Name)
+  2. 域(Domain)： 即属于ADT的一系列值
+  3. 一系列操作(Operations)  
+
+  由此可定义clockType抽象数据类型如下所示：
+  ```cpp
+  dataTypeName
+    clockType
+  domain
+    each clockType value is a time of day in the form of hours, minutes, and seconds.
+  operations
+    Set the time.
+    Return the time.
+    ......
+  ```   
+
+  可见，类是实现ADT的一种便利的方法
+<br>
+
+- **类与结构体**  
+如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体  
+<br>
+
+**继承与组成**  
+  C++类之间的两种常见关系：继承("is-a"关系)，组成("has-a"关系)  
+- **继承**
