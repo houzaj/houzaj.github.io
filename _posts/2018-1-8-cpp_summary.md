@@ -139,7 +139,8 @@ cin.clear();
     cout << "Enter an intger:" << flush;
     cin >> num;
     ```  
-<br>
+<br>  
+
 **文件输入/输出**  
 恕我直言，OJ生成随机数据常用……  
 大致模板如下：    
