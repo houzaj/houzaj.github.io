@@ -130,7 +130,8 @@ cin.clear();
     //取消left
     cout.unsetf(ios::left);
     ```
-- **endl, flush**  
+ <br>
+ - **endl, flush**  
     endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
     ```cpp
     //即使缓冲区的数据没有存满也可以显示提示信息
