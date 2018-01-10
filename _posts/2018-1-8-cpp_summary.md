@@ -28,7 +28,8 @@ tags: Programming
 ```cpp
 static_cast<int>(7.9 + 6.7);    //14
 static_cast<char>(65);    //A
-```
+```  
+<br>  
 **cin cout**  
 - **变量定义**  
 头文件iostream中包含cin、cout的变量定义   
@@ -130,7 +131,7 @@ cin.clear();
     //取消left
     cout.unsetf(ios::left);
     ```
- <br>
+<br>
  - **endl, flush**  
     endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
     ```cpp
@@ -138,9 +139,9 @@ cin.clear();
     int num;
     cout << "Enter an intger:" << flush;
     cin >> num;
-    ```  
-<br>  
+    ```   
 
+<br>   
 **文件输入/输出**  
 恕我直言，OJ生成随机数据常用……  
 大致模板如下：    
