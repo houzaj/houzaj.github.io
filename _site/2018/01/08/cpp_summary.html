@@ -57,7 +57,7 @@
     </div>
     
     <div class="filter"></div>
-    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png?sign=Tw2F9KLYM+BaU+RCP4PA3KAnGz5hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTcwMDI1NzAwNSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTlDJUFBJUU2JUEwJTg3JUU5JUEyJTk4LTItMDEucG5nJmI9aG91emFqYmxvZw==') center no-repeat; background-size: cover;">
+    <div class="post-cover" style="background: url('') center no-repeat; background-size: cover;">
     
 </header>
 
@@ -70,28 +70,34 @@
 
 <p><br /></p>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=28287132&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=33418878&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
 
 <p><br /></p>
 
-<h3 id="前言">前言</h3>
-<p>C++ Programming – Program Design Including Data Structures</p>
+<h3 id="part-i---前言">PART I - 前言</h3>
+<p>之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 _(:з」∠)_<br />
+参考书籍：</p>
+<ol>
+  <li>C++ Programming – Program Design Including Data Structures</li>
+</ol>
 
 <p><br /></p>
 
 <h3 id="part-ii---笔记">PART II - 笔记</h3>
-<h3 id="零散点">零散点</h3>
+<h3 id="-零散点">▲ 零散点</h3>
 <p><strong>C++的强制类型转换</strong></p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">7.9</span> <span class="o">+</span> <span class="mf">6.7</span><span class="p">);</span>    <span class="c1">//14</span>
 <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">65</span><span class="p">);</span>    <span class="c1">//A</span>
 </code></pre></div></div>
-<p><strong>cin cout</strong></p>
+<p><br />
+<strong>cin cout</strong></p>
 <ul>
   <li><strong>变量定义</strong><br />
 头文件iostream中包含cin、cout的变量定义
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">istream</span> <span class="n">cin</span><span class="p">;</span>
 <span class="n">ostream</span> <span class="n">cout</span><span class="p">;</span>
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
   <li><strong>读取有关函数</strong> <br />
 get、ignore、putback、peek函数
@@ -107,12 +113,14 @@ get、ignore、putback、peek函数
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//检测下一个字符为何值</span>
 <span class="n">ch</span> <span class="o">=</span> <span class="n">cin</span><span class="p">.</span><span class="n">peek</span><span class="p">();</span>
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
   <li><strong>输入失败</strong> <br />
 类型不匹配导致输入失败时（如将小数点’.’读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//使cin流恢复正常状态</span>
 <span class="n">cin</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
   <li><strong>格式化输出</strong>
     <ul>
@@ -159,8 +167,8 @@ get、ignore、putback、peek函数
           <li><code class="highlighter-rouge">setfill</code> : 当前输出语句设置填充字符</li>
         </ul>
 
-        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">cout</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="sc">'*'</span><span class="p">);</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">setfill</span><span class="p">(</span><span class="sc">'#'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cout</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="sc">'*'</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">setfill</span><span class="p">(</span><span class="sc">'#'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
   <span class="c1">//****1####2</span>
 </code></pre></div>        </div>
       </li>
@@ -182,20 +190,22 @@ get、ignore、putback、peek函数
         <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//取消left</span>
 <span class="n">cout</span><span class="p">.</span><span class="n">unsetf</span><span class="p">(</span><span class="n">ios</span><span class="o">::</span><span class="n">left</span><span class="p">);</span>
 </code></pre></div>        </div>
+        <p><br /></p>
       </li>
     </ul>
   </li>
   <li><strong>endl, flush</strong><br />
-  endl会将光标移到下一行开头(‘\n’)，并清空缓冲区(相当于执行flush)函数
-    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//即使缓冲区的数据没有存满也可以显示提示信息</span>
-    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter an intger:"</span> <span class="o">&lt;&lt;</span> <span class="n">flush</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+ endl会将光标移到下一行开头(‘\n’)，并清空缓冲区(相当于执行flush)函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//即使缓冲区的数据没有存满也可以显示提示信息</span>
+ <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+ <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter an intger:"</span> <span class="o">&lt;&lt;</span> <span class="n">flush</span><span class="p">;</span>
+ <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
 </code></pre></div>    </div>
   </li>
 </ul>
 
-<p><strong>文件输入/输出</strong><br />
+<p><br /> <br />
+<strong>文件输入/输出</strong><br />
 恕我直言，OJ生成随机数据常用……<br />
 大致模板如下：</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 声明流变量</span>
@@ -213,10 +223,165 @@ get、ignore、putback、peek函数
 <span class="n">outData</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 </code></pre></div></div>
 <p>可把inData改为cin，outData改为cout，这样就直接变成文本重定向 <br />
+<br />
 <strong>bool数据类型</strong></p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">is_valid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">//相当于 = 1</span>
 <span class="kt">bool</span> <span class="n">is_valid</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">//相当与 = 0</span>
 </code></pre></div></div>
+<p><br />
+<strong>assert函数</strong><br />
+终止程序执行，指出发生错误的表达式，包含错误源代码的文件名等，对提高代码质量起很大作用<br />
+需包含头文件cassert或assert.h</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="o">/</span><span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="c1">//输出：test3: ../test3/main.cpp:6: int main(): Assertion `b' failed.</span>
+</code></pre></div></div>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="c1">//输出：test3: ../test3/main.cpp:6: int main(): Assertion `b &gt; 0' failed.</span>
+</code></pre></div></div>
+<p>另外，可在预处理指令<code class="highlighter-rouge">#include &lt;cassert&gt;</code>前加入<code class="highlighter-rouge">#define NDEBUG</code>取消所有assert语句 <br />
+<br />
+<strong>eof函数</strong><br />
+检测输入流变量是否遇到了文件结束标志<br />
+在遇到文件结束标志时返回true，否则返回false</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">cin</span><span class="p">.</span><span class="n">eof</span><span class="p">()){</span>
+  <span class="c1">//Do Something</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+<strong>引用参数</strong><br />
+引用参数接受实参的内存地址，因此在以下三种情况中十分适用：</p>
+<ol>
+  <li>要从参数中返回多一个值，如<code class="highlighter-rouge">扩展欧几里德算法</code>：</li>
+  <li>实参值本身需要改动，如<code class="highlighter-rouge">交换函数</code>：
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>传递地址可以节省拷贝大量数据所需的内存空间和时间</li>
+</ol>
+
+<p><br />
+<strong>全局变量的副作用</strong><br />
+若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的<br />
+在某个部分引起全局变量错误，易误以为是由另一部分引起的。<br />
+<br />
+<strong>函数重载</strong><br />
+函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//可用函数larger判断两个int, char, double, string型变量的最大值，使用时无需使用四个函数，只需larger这一个函数</span>
+<span class="kt">int</span> <span class="nf">larger</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span>  <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span><span class="o">?</span><span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;}</span>
+<span class="kt">char</span> <span class="nf">larger</span><span class="p">(</span><span class="kt">char</span> <span class="n">x</span><span class="p">,</span> <span class="kt">char</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span><span class="o">?</span><span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;}</span>
+<span class="kt">double</span> <span class="nf">larger</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span><span class="o">?</span><span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;}</span>
+<span class="n">string</span> <span class="nf">larger</span><span class="p">(</span><span class="n">string</span> <span class="n">x</span><span class="p">,</span> <span class="n">string</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span><span class="o">?</span><span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="c1">//Do Something</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+<strong>枚举类型</strong><br />
+略<br />
+<br />
+<strong>typedef语句</strong><br />
+创建已定义数据类型别名，常用来简化数据类型名</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ull</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="n">ull</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">ll</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+<strong>namespace(名字空间)</strong><br />
+ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="n">temp</span><span class="p">{</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">temp</span><span class="p">;</span>   <span class="c1">//简化使用所有该namespace成员的语法</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="n">temp</span><span class="p">{</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">using</span> <span class="n">temp</span><span class="o">::</span><span class="n">a</span><span class="p">;</span>   <span class="c1">//简化使用某个该namespace成员的语法</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">temp</span><span class="o">::</span><span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+<strong>string数据类型</strong><br />
+string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">pos</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">str_sub</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">str2</span> <span class="o">=</span> <span class="s">"World"</span><span class="p">;</span>
+<span class="c1">// ----------------------</span>
+<span class="n">string</span> <span class="n">str3</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="sc">' '</span> <span class="o">+</span> <span class="n">str2</span><span class="p">;</span>  <span class="c1">//str3 == "Hello World"</span>
+<span class="n">str3</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'w'</span><span class="p">;</span>  <span class="c1">//可用下标访问与修改, str3 == "Hello world"</span>
+<span class="n">len</span> <span class="o">=</span> <span class="n">str3</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>  <span class="c1">//获取长度，也可用str3.size();</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">str3</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"or"</span><span class="p">);</span>  <span class="c1">//查找子串，失败返回npos</span>
+<span class="n">str_sub</span> <span class="o">=</span> <span class="n">str3</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>  <span class="c1">//返回子串，str_sub == "world"</span>
+<span class="n">str1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">str2</span><span class="p">);</span>  <span class="c1">//交换子串， str1 == "World", str2 == "Hello"  </span>
+</code></pre></div></div>
+<p><br />
+<strong>定义二维数组的另一种方法</strong><br />
+先用typedef定义一个二位数组数据类型，然后用该类型来定义数组</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">tableType</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">];</span>
+<span class="n">tableType</span> <span class="n">matrix</span><span class="p">;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="oop">▲OOP</h3>
+<p><strong>类</strong></p>
+<ul>
+  <li><strong>类定义</strong><br />
+如定义clockType类
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="kt">void</span> <span class="n">setTime</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="n">getTime</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="n">printTime</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>    <span class="c1">//const说明不能修改clockType类型的成员变量</span>
+  <span class="kt">void</span> <span class="n">incrementSeconds</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="n">incrementMinutes</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="n">incrementHours</span><span class="p">();</span>
+  <span class="kt">bool</span> <span class="n">equalTime</span><span class="p">(</span><span class="k">const</span> <span class="n">clockType</span><span class="o">&amp;</span> <span class="n">otherClock</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>    <span class="c1">//传引用可提高性能（因为无需拷贝）</span>
+<span class="k">private</span><span class="o">:</span>      <span class="c1">//私有成员不能被类外部访问</span>
+  <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">min</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">sec</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>    </div>
+    <p>另外注意：</p>
+    <ol>
+      <li>不能在变量定义时同时初始化</li>
+      <li>类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关  <br />
+<br /></li>
+    </ol>
+  </li>
+  <li><strong>成员函数实现</strong><br />
+以setTime函数为栗子
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">clockType</span><span class="o">::</span><span class="n">setTime</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
+  <span class="n">hr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">hours</span> <span class="o">&amp;&amp;</span> <span class="n">hours</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">)</span><span class="o">?</span><span class="n">hours</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minutes</span> <span class="o">&amp;&amp;</span> <span class="n">minutes</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">minutes</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">seconds</span> <span class="o">&amp;&amp;</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">seconds</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ul>
 
     </article>
     

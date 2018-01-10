@@ -23,13 +23,13 @@ tags: Programming
 <br>
 
 ### PART II - 笔记
-### 零散点
+### ▲ 零散点
 **C++的强制类型转换**   
 ```cpp
 static_cast<int>(7.9 + 6.7);    //14
 static_cast<char>(65);    //A
 ```  
-<br>  
+<br>
 **cin cout**  
 - **变量定义**  
 头文件iostream中包含cin、cout的变量定义   
@@ -287,4 +287,41 @@ const int row = 20;
 const int col = 10;
 typedef int tableType[row][col];
 tableType matrix;
+```  
+<br>
+
+### ▲OOP  
+**类**  
+- **类定义**  
+如定义clockType类
+```cpp
+class clockType{
+public:
+    void setTime(int, int, int);
+    void getTime(int&, int&, int&);
+    void printTime()    const;    //const说明不能修改clockType类型的成员变量
+    void incrementSeconds();
+    void incrementMinutes();
+    void incrementHours();
+    bool equalTime(const clockType& otherClock) const;    //传引用可提高性能（因为无需拷贝）
+private:      //私有成员不能被类外部访问
+    int hr;
+    int min;
+    int sec;
+};
 ```
+另外注意：  
+  1. 不能在变量定义时同时初始化  
+  2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关    
+<br>  
+
+- **成员函数实现**  
+以setTime函数为栗子
+```cpp
+void clockType::setTime(int hours, int minutes, int seconds){
+    hr = (0 <= hours && hours < 24)?hours:0;
+    min = (0 <= minutes && minutes < 60)?minutes:0;
+    seconds = (0 <= seconds && seconds < 60)?seconds:0;
+}
+```
+<br>
