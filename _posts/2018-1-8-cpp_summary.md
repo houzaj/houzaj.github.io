@@ -11,13 +11,14 @@ tags: Programming
 
 <br>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=282871&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=33418878&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
 
 <br>
 
 ### 前言
-之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_
-C++ Programming -- Program Design Including Data Structures    
+之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_  
+参考书籍：
+1. C++ Programming -- Program Design Including Data Structures    
 
 
 ### PART II - 笔记
@@ -178,7 +179,7 @@ assert(b > 0);
 cout << __gcd(a, b) << endl;
 //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
 ```  
-可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句  
+另外，可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句   
 
 **eof函数**  
 检测输入流变量是否遇到了文件结束标志  
@@ -188,3 +189,22 @@ while(!cin.eof()){
   //Do Something
 }
 ```  
+
+**引用参数**  
+引用参数接受实参的内存地址，因此在以下三种情况中十分适用：
+1. 要从参数中返回多一个值，如`扩展欧几里德算法`：
+2. 实参值本身需要改动，如`交换函数`：
+```cpp
+void swap(int& a, int& b){
+  int temp = a;
+  a = b;
+  b = temp;
+}
+```
+3. 传递地址可以节省拷贝大量数据所需的内存空间和时间  
+
+**全局变量的副作用**
+若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
+在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
+
+**函数重载**  
