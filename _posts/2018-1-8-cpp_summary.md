@@ -36,7 +36,7 @@ static_cast<char>(65);    //A
 istream cin;
 ostream cout;
 ```  
-
+<br>
 - **读取有关函数**   
 get、ignore、putback、peek函数   
 ```cpp    
@@ -55,14 +55,14 @@ cin.putback(ch);
 //检测下一个字符为何值
 ch = cin.peek();
 ```  
-
+<br>
 - **输入失败**   
 类型不匹配导致输入失败时（如将小数点'.'读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。
 ```cpp
 //使cin流恢复正常状态
 cin.clear();
 ```  
-
+<br>
 - **格式化输出**   
   - **头文件**  
   需包含头文件iomanip
@@ -106,8 +106,8 @@ cin.clear();
     - `setfill` : 当前输出语句设置填充字符  
 
     ```cpp
-      cout.fill('*');
-      cout << setw(5) << 1 << setw(5) << setfill('#') << 2 << endl;
+    cout.fill('*');
+    cout << setw(5) << 1 << setw(5) << setfill('#') << 2 << endl;
       //****1####2
     ```
   - **setw, fill, setfill**  
@@ -133,12 +133,12 @@ cin.clear();
 - **endl, flush**  
     endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
     ```cpp
-      //即使缓冲区的数据没有存满也可以显示提示信息
-      int num;
-      cout << "Enter an intger:" << flush;
-      cin >> num;
+    //即使缓冲区的数据没有存满也可以显示提示信息
+    int num;
+    cout << "Enter an intger:" << flush;
+    cin >> num;
     ```  
-
+<br>
 **文件输入/输出**  
 恕我直言，OJ生成随机数据常用……  
 大致模板如下：    
@@ -158,13 +158,13 @@ inData.close();
 outData.close();
 ```  
 可把inData改为cin，outData改为cout，这样就直接变成文本重定向   
-
+<br>
 **bool数据类型**
 ```cpp
 bool is_valid = true;  //相当于 = 1
 bool is_valid = false; //相当与 = 0
 ```  
-
+<br>
 **assert函数**  
 终止程序执行，指出发生错误的表达式，包含错误源代码的文件名等，对提高代码质量起很大作用  
 需包含头文件cassert或assert.h  
@@ -181,7 +181,7 @@ cout << __gcd(a, b) << endl;
 //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
 ```  
 另外，可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句   
-
+<br>
 **eof函数**  
 检测输入流变量是否遇到了文件结束标志  
 在遇到文件结束标志时返回true，否则返回false  
@@ -190,7 +190,7 @@ while(!cin.eof()){
   //Do Something
 }
 ```  
-
+<br>
 **引用参数**  
 引用参数接受实参的内存地址，因此在以下三种情况中十分适用：
 1. 要从参数中返回多一个值，如`扩展欧几里德算法`：
@@ -203,11 +203,11 @@ void swap(int& a, int& b){
 }
 ```
 3. 传递地址可以节省拷贝大量数据所需的内存空间和时间  
-
+<br>
 **全局变量的副作用**  
 若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
 在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
-
+<br>
 **函数重载**  
 函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表  
 ```cpp
@@ -220,11 +220,11 @@ int main(){
   //Do Something
 }
 ```  
-
+<br>
 **枚举类型**  
 略  
-
-**typedef语句**
+<br>
+**typedef语句**  
 创建已定义数据类型别名，常用来简化数据类型名
 ```cpp
 typedef unsigned long long ull;
@@ -234,7 +234,7 @@ int main(){
   ll b = 0;
 }
 ```  
-
+<br>
 **namespace(名字空间)**  
 ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题
 ```cpp
@@ -258,9 +258,9 @@ int main(){
   cout << a << endl;
   cout << temp::b << endl;
 }
-```
-
-**string数据类型**
+```  
+<br>
+**string数据类型**  
 string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：    
 ```cpp
 int len, pos;
@@ -273,9 +273,9 @@ str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
 len = str3.length();  //获取长度，也可用str3.size();
 pos = str3.find("or");  //查找子串，失败返回npos
 str_sub = str3.substr(6, 5);  //返回子串，str_sub == "world"
-str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"
+str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
 ```  
-
+<br>
 **定义二维数组的另一种方法**  
 先用typedef定义一个二位数组数据类型，然后用该类型来定义数组  
 ```cpp
