@@ -15,15 +15,16 @@ tags: Programming
 
 <br>
 
-### 前言
+### PART I - 前言
 之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_  
 参考书籍：
 1. C++ Programming -- Program Design Including Data Structures    
 
+<br>
 
 ### PART II - 笔记
 ### 零散点
-**C++的强制类型转换**   0
+**C++的强制类型转换**   
 ```cpp
 static_cast<int>(7.9 + 6.7);    //14
 static_cast<char>(65);    //A
@@ -203,9 +204,83 @@ void swap(int& a, int& b){
 ```
 3. 传递地址可以节省拷贝大量数据所需的内存空间和时间  
 
-**全局变量的副作用**
+**全局变量的副作用**  
 若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
 在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
 
 **函数重载**  
-函数重载为多个函数使用同个名字
+函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表  
+```cpp
+//可用函数larger判断两个int, char, double, string型变量的最大值，使用时无需使用四个函数，只需larger这一个函数
+int larger(int x, int y)  {return (x > y)?x:y;}
+char larger(char x, char y) {return (x > y)?x:y;}
+double larger(double x, double y) {return (x > y)?x:y;}
+string larger(string x, string y) {return (x > y)?x:y;}
+int main(){
+  //Do Something
+}
+```  
+
+**枚举类型**  
+略  
+
+**typedef语句**
+创建已定义数据类型别名，常用来简化数据类型名
+```cpp
+typedef unsigned long long ull;
+typedef long long ll;
+int main(){
+  ull a = 0;
+  ll b = 0;
+}
+```  
+
+**namespace(名字空间)**  
+ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题
+```cpp
+namespace temp{
+  const int a = 10;
+  const int b = 20;
+}
+using namespace temp;   //简化使用所有该namespace成员的语法
+int main(){
+  cout << a << endl;
+  cout << b << endl;
+}
+```  
+```cpp
+namespace temp{
+  const int a = 10;
+  const int b = 20;
+}
+using temp::a;   //简化使用某个该namespace成员的语法
+int main(){
+  cout << a << endl;
+  cout << temp::b << endl;
+}
+```
+
+**string数据类型**
+string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：    
+```cpp
+int len, pos;
+string str_sub;
+string str1 = "Hello";
+string str2 = "World";
+// ----------------------
+string str3 = str1 + ' ' + str2;  //str3 == "Hello World"
+str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
+len = str3.length();  //获取长度，也可用str3.size();
+pos = str3.find("or");  //查找子串，失败返回npos
+str_sub = str3.substr(6, 5);  //返回子串，str_sub == "world"
+str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"
+```  
+
+**定义二维数组的另一种方法**  
+先用typedef定义一个二位数组数据类型，然后用该类型来定义数组  
+```cpp
+const int row = 20;
+const int col = 10;
+typedef int tableType[row][col];
+tableType matrix;
+```
