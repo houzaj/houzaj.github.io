@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++学习笔记 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="C++学习笔记">
+    <meta name="keywords"  content="Programming">
+    <!-- Open Graph -->
+    <meta property="og:title" content="C++学习笔记 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/01/08/cpp_summary.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            
+            
+        </div>
+        <h1>C++学习笔记</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-01-08"><i class="iconfont icon-date"></i>08 Jan 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png?sign=Tw2F9KLYM+BaU+RCP4PA3KAnGz5hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTcwMDI1NzAwNSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTlDJUFBJUU2JUEwJTg3JUU5JUEyJTk4LTItMDEucG5nJmI9aG91emFqYmxvZw==') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>好好学习哈哈哈哈哈哈哈</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=28287132&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>C++ Programming – Program Design Including Data Structures</p>
+
+<p><br /></p>
+
+<h3 id="part-ii---笔记">PART II - 笔记</h3>
+<h3 id="零散点">零散点</h3>
+<p><strong>C++的强制类型转换</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">7.9</span> <span class="o">+</span> <span class="mf">6.7</span><span class="p">);</span>    <span class="c1">//14</span>
+<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">65</span><span class="p">);</span>    <span class="c1">//A</span>
+</code></pre></div></div>
+<p><strong>cin cout</strong></p>
+<ul>
+  <li><strong>变量定义</strong><br />
+头文件iostream中包含cin、cout的变量定义
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">istream</span> <span class="n">cin</span><span class="p">;</span>
+<span class="n">ostream</span> <span class="n">cout</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>读取有关函数</strong> <br />
+get、ignore、putback、peek函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//读取一个字符存到ch中，空格、回车均可存     </span>
+<span class="n">cin</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span>  
+</code></pre></div>    </div>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//忽略掉下面100个字符 或者 忽略掉下个'\n'之前的所有字符   </span>
+<span class="n">cin</span><span class="p">.</span><span class="n">ignore</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="sc">'A'</span><span class="p">);</span>   
+</code></pre></div>    </div>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//把ch变量退回输入流中    </span>
+<span class="n">cin</span><span class="p">.</span><span class="n">putback</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span>
+</code></pre></div>    </div>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//检测下一个字符为何值</span>
+<span class="n">ch</span> <span class="o">=</span> <span class="n">cin</span><span class="p">.</span><span class="n">peek</span><span class="p">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>输入失败</strong> <br />
+类型不匹配导致输入失败时（如将小数点’.’读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//使cin流恢复正常状态</span>
+<span class="n">cin</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>格式化输出</strong>
+    <ul>
+      <li><strong>头文件</strong><br />
+需包含头文件iomanip</li>
+      <li><strong>fixed, scientific, showpoint, setprecision</strong>
+        <ul>
+          <li><code class="highlighter-rouge">setprecision(n)</code> : 将输出的小数点指定为n位，一次设置，永久生效，直到下一个setprecision(n)覆盖设置</li>
+          <li><code class="highlighter-rouge">fixed</code> : 固定小数点形式</li>
+          <li><code class="highlighter-rouge">showpoint</code> : 强制显示输出数字的小数点和小数点后面的0</li>
+          <li><code class="highlighter-rouge">scientific</code> : 以科学计数法形式输出</li>
+        </ul>
+
+        <p>在标准C++的环境下，需要通过setf函数或者setiosflags函数控制符两种方式来使用</p>
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+    第一种方式：最常见方式
+    cout &lt;&lt; fixed &lt;&lt; showpoint &lt;&lt; setprecision(2);
+*/</span>
+<span class="cm">/*
+    第二种方式：使用流函数来指定fixed, scientific, showpoint
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.setf(ios::showpoint);
+    cout &lt;&lt; setprecision(2);
+*/</span>
+<span class="cm">/*
+    第三种方式：使用setiosflags控制符
+    cout &lt;&lt; setiosflags(ios::fixed | ios::showpoint);
+    cout &lt;&lt; setprecision(2);
+*/</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mf">1.234</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>      <span class="c1">//1.23</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mf">123456.0</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="c1">//123456.00</span>
+</code></pre></div>        </div>
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">scientific</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mf">123456.0</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="c1">//1.234560e+05</span>
+</code></pre></div>        </div>
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//取消fixed</span>
+<span class="n">cout</span><span class="p">.</span><span class="n">unsetf</span><span class="p">(</span><span class="n">ios</span><span class="o">::</span><span class="n">fixed</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+      <li><strong>setw, fill, setfill</strong>
+        <ul>
+          <li><code class="highlighter-rouge">setw(n)</code> : 设置域宽为n</li>
+          <li><code class="highlighter-rouge">fill</code> : 全局设置填充字符</li>
+          <li><code class="highlighter-rouge">setfill</code> : 当前输出语句设置填充字符</li>
+        </ul>
+
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">cout</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="sc">'*'</span><span class="p">);</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">setfill</span><span class="p">(</span><span class="sc">'#'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="c1">//****1####2</span>
+</code></pre></div>        </div>
+      </li>
+      <li><strong>setw, fill, setfill</strong><br />
+顾名思义，左右对齐。下面以left举例，right可同理。
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+  第一种方式：最常见方式
+  cout &lt;&lt; left;
+*/</span>
+<span class="cm">/*
+  第二种方式：使用流函数
+  cout.setf(ios::left, ios::adjustfield);
+*/</span>
+<span class="cm">/*
+  第三种方式：使用setiosflags控制符
+  cout &lt;&lt; setiosflags(ios::left);
+*/</span>
+</code></pre></div>        </div>
+        <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//取消left</span>
+<span class="n">cout</span><span class="p">.</span><span class="n">unsetf</span><span class="p">(</span><span class="n">ios</span><span class="o">::</span><span class="n">left</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>endl, flush</strong><br />
+  endl会将光标移到下一行开头(‘\n’)，并清空缓冲区(相当于执行flush)函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//即使缓冲区的数据没有存满也可以显示提示信息</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter an intger:"</span> <span class="o">&lt;&lt;</span> <span class="n">flush</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>文件输入/输出</strong><br />
+恕我直言，OJ生成随机数据常用……<br />
+大致模板如下：</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 声明流变量</span>
+<span class="n">ifstream</span> <span class="n">inData</span><span class="p">;</span>
+<span class="n">ofstream</span> <span class="n">outData</span><span class="p">;</span>
+<span class="c1">// 打开文件</span>
+<span class="n">inData</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">"xxx"</span><span class="p">);</span>
+<span class="n">outData</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">"xxx"</span><span class="p">);</span>
+<span class="c1">// Do Something</span>
+<span class="p">{</span>
+   <span class="c1">//把inData当作cin， outData当作cout使用，同文本重定向操作</span>
+<span class="p">}</span>
+<span class="c1">// 关闭文件</span>
+<span class="n">inData</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="n">outData</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+</code></pre></div></div>
+<p>可把inData改为cin，outData改为cout，这样就直接变成文本重定向 <br />
+<strong>bool数据类型</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">is_valid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">//相当于 = 1</span>
+<span class="kt">bool</span> <span class="n">is_valid</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">//相当与 = 0</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2017/11/21/maze.html" class="read-next-link"></a>
+            <section>
+                <span>迷宫问题（MAZE）</span>
+                <p>  这是一道OJ题引发的博文和现实的技巧……(不是来看题的同学就翻到最后吧)</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png?sign=Tw2F9KLYM+BaU+RCP4PA3KAnGz5hPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTcwMDI1NzAwNSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTlDJUFBJUU2JUEwJTg3JUU5JUEyJTk4LTItMDEucG5nJmI9aG91emFqYmxvZw==" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

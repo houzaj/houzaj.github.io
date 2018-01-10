@@ -137,8 +137,8 @@
 </ol>
 
 <p><strong>▲ 代码</strong></p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//简易计算器
-</span><span class="cp">#include &lt;bits/stdc++.h&gt;  
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//简易计算器</span>
+<span class="cp">#include &lt;bits/stdc++.h&gt;  
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">double</span> <span class="n">calc</span><span class="p">(){</span>
@@ -151,8 +151,8 @@
         <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">ch</span><span class="p">;</span>
         <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="o">||</span> <span class="n">ch</span> <span class="o">==</span> <span class="sc">'('</span><span class="p">){</span>
             <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">ch</span><span class="p">)){</span>
-                <span class="n">ungetc</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>  <span class="c1">//将ch压回输入流中
-</span>                <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+                <span class="n">ungetc</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>  <span class="c1">//将ch压回输入流中</span>
+                <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="k">if</span><span class="p">(</span><span class="n">ch</span> <span class="o">==</span> <span class="sc">'('</span><span class="p">){</span>
                 <span class="n">num</span> <span class="o">=</span> <span class="n">calc</span><span class="p">();</span>
@@ -267,20 +267,20 @@
 
 <p><strong>▲ 代码</strong></p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— 递归解
-</span><span class="cp">#include &lt;bits/stdc++.h&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— 递归解</span>
+<span class="cp">#include &lt;bits/stdc++.h&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="n">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">to</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//将当前范围的第一个数与后面的数逐一交换回来
-</span>        <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//将当前范围的第一个数与后面的数逐一交换回来</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
             <span class="n">set_str</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
         <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="n">permutation</span><span class="p">(</span><span class="n">from</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">set_str</span><span class="p">);</span>    <span class="c1">//缩小范围
-</span>        <span class="p">}</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//因为是string，记得交换回来，恢复原来的str
-</span>    <span class="p">}</span>
+            <span class="n">permutation</span><span class="p">(</span><span class="n">from</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">set_str</span><span class="p">);</span>    <span class="c1">//缩小范围</span>
+        <span class="p">}</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//因为是string，记得交换回来，恢复原来的str</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
@@ -298,8 +298,8 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— next_permutation
-</span><span class="cp">#include &lt;bits/stdc++.h&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//全排列问题 —— next_permutation</span>
+<span class="cp">#include &lt;bits/stdc++.h&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -362,7 +362,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2017</section>
+    <section>HouZAJ Blog © 2018</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 
