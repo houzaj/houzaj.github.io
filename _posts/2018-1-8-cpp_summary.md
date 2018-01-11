@@ -1052,4 +1052,150 @@ this指针为指向对象自己的指针
       cout << num1 << " + " << num2 << " = " << num3 << endl;
       //Output: (1,2i) + (2,4i) = (3,6i)
   }
+```  
+- **重载赋值运算符 =**  
+重载 = 运算符，可避免有指针数据成员的类的浅拷贝  
+这次以之前用过的向量类来举例子  
+```cpp
+  class myVector{
+  public:
+      myVector(int start);
+      ~myVector();
+      void print()    const;
+      const myVector& operator = (const myVector& other);
+  private:
+      unsigned t_size;
+      int* p;
+  };
+
+  myVector::myVector(int start){
+      t_size = 5;
+      p = new int[t_size]();
+      for(int i = 0; i < t_size; i++){  p[i] = start + i;  }
+  }
+
+  myVector::~myVector() { delete []p; }
+
+  void myVector::print() const{
+      for(int i = 0; i < t_size; i++){
+          cout << p[i] << " ";
+      }
+      cout << endl;
+  }
+
+  const myVector& myVector::operator = (const myVector& other){
+      if(this != &other){     //避免自身复制，浪费时间空间
+          t_size = other.t_size;
+          for(int i = 0; i < t_size; i++){
+              p[i] = (other.p)[i];
+          }
+      }
+      return * this;
+  }
+
+  //主函数----------------------------------------------------------
+  int main(){
+      myVector vec(0);
+      myVector vec2(10);
+      vec.print();
+      vec2.print();
+      //Output:
+      //0 1 2 3 4
+      //10 11 12 13 14
+
+      vec = vec2;
+      vec.print();
+      vec2.print();
+      //Output:
+      //10 11 12 13 14
+      //10 11 12 13 14
+  }
+```
+<br>
+- **重载单目运算符**  
+```cpp
+  //重载下标[]，以向量为栗
+  class myVector{
+  public:
+      myVector(int start);
+      ~myVector();
+      void print()    const;
+      int& operator[] (const int& i);     //重载下标[]
+  private:
+      unsigned t_size;
+      int* p;
+  };
+
+  myVector::myVector(int start){
+      t_size = 5;
+      p = new int[t_size]();
+      for(int i = 0; i < t_size; i++){  p[i] = start + i;  }
+  }
+
+  myVector::~myVector() { delete []p; }
+
+  void myVector::print() const{
+      for(int i = 0; i < t_size; i++){
+          cout << p[i] << " ";
+      }
+      cout << endl;
+  }
+
+  int& myVector:: operator[] (const int& i){
+      return p[i];
+  }
+
+  //主函数----------------------------------------------------------
+  int main(){
+      myVector vec(0);
+      myVector vec2(10);
+      cin >> vec[0];
+      vec.print();
+  }
+```
+```cpp
+  //重载自增运算符
+  class ComplexNum{
+  public:
+      ComplexNum(int a, int b)   {real = a, vir = b;}
+      ComplexNum operator ++();   //重载前置自增，自减同理
+      ComplexNum operator ++(int i);  //重载后置自增，自减同理，其中int i无实际意义，仅起标识为后置的作用
+      void display();
+  private:
+      int real;
+      int vir;
+  };
+
+  ComplexNum ComplexNum::operator ++(){
+      ComplexNum temp = * this;
+      real++;
+      return temp;
+  }
+
+  ComplexNum ComplexNum::operator ++(int i){
+      ComplexNum temp = * this;
+      real++;
+      return temp;
+  }
+
+  void ComplexNum::display(){ cout << real << "+" << vir << "i" << endl; }
+
+  // -------------------------
+  int main(){
+      ComplexNum num1(1, 2);
+      ComplexNum num2(2, 4);
+      num1.display();
+      num2.display();
+      //Output:
+      //1+2i
+      //2+4i
+
+      num1++;
+      ++num2;
+      num1.display();
+      num2.display();
+      //Output:
+      //2+2i
+      //3+4i
+  }
 ```
