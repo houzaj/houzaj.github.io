@@ -1015,5 +1015,41 @@ this指针为指向对象自己的指针
         //Output: 10+6i
     }
   ```  
-<br>  
+<br>
 - **重载流插入(<<)和流析取(>>)运算符**  
+仍以复数为栗子（这个栗子太好举了！）
+```cpp
+  class ComplexNum{
+  public:
+      ComplexNum(int a, int b)   {real = a, vir = b;}
+      //<< >> 重载的函数原型如下
+      //注意ostream和istream是不可以改变的，其为输入输出流
+      friend ostream& operator << (ostream& ostreamObject, const ComplexNum& num);
+      friend istream& operator >> (istream& istreamObject, ComplexNum& num);  //注意没有const，const就不能输入了！
+  private:
+      int real;
+      int vir;
+  };
+
+  ostream& operator << (ostream& ostreamObject, const ComplexNum& num){
+      ostreamObject << "(" << num.real << "," << num.vir << "i)";
+      return ostreamObject;   //注意return，后续可能接着用到
+  }
+
+  istream& operator >> (istream& istreamObject, ComplexNum& num){
+      istreamObject >> num.real >> num.vir;
+      return istreamObject;
+  }
+
+  // -------------------------
+  int main(){
+      ComplexNum num1(1, 2);
+      ComplexNum num2(2, 4);
+      ComplexNum num3(0, 0);
+      cin >> num3;
+      //Input: 3 6
+
+      cout << num1 << " + " << num2 << " = " << num3 << endl;
+      //Output: (1,2i) + (2,4i) = (3,6i)
+  }
+```
