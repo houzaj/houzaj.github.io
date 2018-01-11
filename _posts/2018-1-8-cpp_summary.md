@@ -296,7 +296,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
   len = str3.length();  //获取长度，也可用str3.size();
   pos = str3.find("or");  //查找子串，失败返回npos
-  str_sub = str3.substr(6, 5);  //返回子串，str_sub == "world"
+  str_sub = str3.substr(6, 5);  //返回子串，6为开始位置，5为长度，str_sub == "world"
   str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
 ```  
 <br>
@@ -308,6 +308,20 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   typedef int tableType[row][col];
   tableType matrix;
 ```  
+<br>
+**头文件的包含和多重包含**  
+```cpp
+  #include <iostream>   //系统提供的头文件用 < >
+  #include "myHeaderFile.h"   //用户定义的用 " "
+```
+```cpp
+  //写头文件时使用以下格式可避免多重包含变量导致编译错误
+  //Header file
+  #ifndef H_test    //if not define，第二次包含时已经define就会跳过下面的代码
+  #define H_test
+    //Do Something
+  #endif
+```
 <br>
 
 ### ▲OOP  
@@ -345,7 +359,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   }
 ```
 <br>
-- **类公有成员和私有成员**  
+- **类公有成员(public) 和 私有成员(private)， 受保护成员(protected)**    
+类成员分为：`公有成员(public)`，` 私有成员(private)`， `受保护成员(protected)` (protected成员在后面！)   
 类中默认成员声明为私有成员，故上述类定义可写为：  
 ```cpp
   class clockType{
@@ -390,8 +405,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       min = 0;
       sec = 0;
   }
-```  
-<br>
+```    
 构造函数可带默认参数，也称为默认构造函数  
 ```cpp
   class clockType{
@@ -433,7 +447,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       int sec;
 };
 ````
-
+<br>
 - **抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
   1. 类型名称(Data Type Name)
@@ -477,7 +491,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       //Do Something
     };
   ```
-- 基类成员函数重定义
+<br>
+- **基类成员函数重定义**  
 在baseClass中包含print函数，在derivedClass中也包含print函数且参数列表相同，则为基类成员函数重定义  
 ```cpp
   class baseClass{
@@ -518,4 +533,80 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       // derived_var
       return 0;
   }
+```  
+<br>
+- **基类和派生类的构造函数**  
+派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数
+```cpp
+  class baseClass{
+  public:
+      void print()    const;
+      baseClass(string var);
+  private:
+      string base_var;
+  };
+
+  class derivedClass: public baseClass{
+  public:
+      void print()    const;
+      derivedClass(string var, string var2);  //var是给derviedClass的，var2是给baseClass的
+  private:
+      string derived_var;
+  };
+
+  // ---------------------------------------
+  baseClass::baseClass(string var = "base_bar by default"){    //基类构造函数
+      base_var = var;
+  }
+
+  derivedClass::derivedClass(string var = "derived_var",
+   string var2 = "base_var provoked by derivedClass"):baseClass(var2) {   //触发基类构造函数
+      derived_var = var;
+  }
+
+  void baseClass::print() const{
+      cout << base_var << endl;
+  }
+  void derivedClass::print() const{
+      baseClass::print();
+      cout << derived_var << endl;
+  }
+  // ---------------------------------------
+  int main(){
+      baseClass base_object;
+      derivedClass derived_object;
+      base_object.print();
+      // Output:
+      // base_var by default
+
+      derived_object.print();
+      // Output:
+      // base_var provoked by derivedClass
+      // derived_var
+
+      derivedClass derived_object2("derived_bar by user", "base_bar by user");
+      derived_object2.print();
+      // Output:
+      // base_bar by user
+      // derived_bar by user
+
+      return 0;
+  }
 ```
+<br>
+- **类保护成员(protected)**    
+可访问性介于public和private之间，派生类可以直接访问基类protected成员   
+<br>
+- **继承：public, private, protected**  
+假设B Class 从 A Class派生，A成员在B成员中的属性如下表    
+下表中√表示可以直接访问，〇表示可以间接访问，×表示不能访问（除友元函数）   
+（友元函数通吃一切！）
+
+|  memberAccessSpecifier A  |  A's public      |  A's protected  |  A's private  |
+| :-----------------------: | :--------------: | :-------------: | :-----------: |
+|          public           |  √ (public)      |  〇 (protected) |      ×        |
+|          protected        |  〇 (protected)  |  〇 (protected) |      ×        |
+|          private          |  〇 (protected)  |  〇 (protected) |      ×        |
+
+<br>
+- **组成**  

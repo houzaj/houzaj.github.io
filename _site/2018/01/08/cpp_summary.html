@@ -259,15 +259,15 @@ get、ignore、putback、peek函数
 <ol>
   <li>要从参数中返回多一个值，如<code class="highlighter-rouge">扩展欧几里德算法</code>：
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="n">extgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
- <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
- <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-   <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
-   <span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
- <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-   <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-   <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
- <span class="p">}</span>
- <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+     <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+     <span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div>    </div>
   </li>
@@ -361,7 +361,18 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   <span class="k">typedef</span> <span class="kt">int</span> <span class="n">tableType</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">];</span>
   <span class="n">tableType</span> <span class="n">matrix</span><span class="p">;</span>
 </code></pre></div></div>
-<p><br /></p>
+<p><br />
+<strong>头文件的包含和多重包含</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;   //系统提供的头文件用 &lt; &gt;
+</span>  <span class="cp">#include "myHeaderFile.h"   //用户定义的用 " "
+</span></code></pre></div></div>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//写头文件时使用以下格式可避免多重包含变量导致编译错误</span>
+  <span class="c1">//Header file</span>
+  <span class="cp">#ifndef H_test    //if not define，第二次包含时已经define就会跳过下面的代码
+</span>  <span class="cp">#define H_test
+</span>    <span class="c1">//Do Something</span>
+  <span class="cp">#endif
+</span></code></pre></div></div>
 
 <h3 id="oop">▲OOP</h3>
 <p><strong>类</strong></p>
@@ -400,7 +411,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 </code></pre></div>    </div>
     <p><br /></p>
   </li>
-  <li><strong>类公有成员和私有成员</strong><br />
+  <li><strong>类公有成员(public) 和 私有成员(private)， 受保护成员(protected)</strong>  <br />
+类成员分为：<code class="highlighter-rouge">公有成员(public)</code>，<code class="highlighter-rouge"> 私有成员(private)</code>， <code class="highlighter-rouge">受保护成员(protected)</code> (protected成员在后面！)
 类中默认成员声明为私有成员，故上述类定义可写为：
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
@@ -521,10 +533,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       <li><code class="highlighter-rouge">单继承(Single inheritance)</code> : 派生类从一个基类派生</li>
       <li><code class="highlighter-rouge">多继承(Multiple inheritance)</code> : 派生类从多个基类派生</li>
     </ul>
-  </li>
-</ul>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//例如：cirle类和rectangle类从shape类派生</span>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//例如：cirle类和rectangle类从shape类派生</span>
   <span class="k">class</span> <span class="nc">circle</span><span class="o">:</span> <span class="k">public</span> <span class="n">shape</span><span class="p">{</span>   <span class="c1">//shape类的public成员变成cirle类的public成员</span>
     <span class="c1">//Do Something</span>
   <span class="p">};</span>
@@ -532,9 +542,10 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   <span class="k">class</span> <span class="nc">circle</span><span class="o">:</span> <span class="k">private</span> <span class="n">rectangle</span><span class="p">{</span>    <span class="c1">//shape类的public成员变成cirle类的private成员(private可省略)</span>
     <span class="c1">//Do Something</span>
   <span class="p">};</span>
-</code></pre></div></div>
-<ul>
-  <li>基类成员函数重定义
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>基类成员函数重定义</strong><br />
 在baseClass中包含print函数，在derivedClass中也包含print函数且参数列表相同，则为基类成员函数重定义
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">baseClass</span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -575,7 +586,110 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
+  <li><strong>基类和派生类的构造函数</strong><br />
+派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">baseClass</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>
+    <span class="n">baseClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">);</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">base_var</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">derivedClass</span><span class="o">:</span> <span class="k">public</span> <span class="n">baseClass</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>
+    <span class="n">derivedClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">,</span> <span class="n">string</span> <span class="n">var2</span><span class="p">);</span>  <span class="c1">//var是给derviedClass的，var2是给baseClass的</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">derived_var</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// ---------------------------------------</span>
+<span class="n">baseClass</span><span class="o">::</span><span class="n">baseClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span> <span class="o">=</span> <span class="s">"base_bar by default"</span><span class="p">){</span>    <span class="c1">//基类构造函数</span>
+    <span class="n">base_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">derivedClass</span><span class="o">::</span><span class="n">derivedClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span> <span class="o">=</span> <span class="s">"derived_var"</span><span class="p">,</span>
+ <span class="n">string</span> <span class="n">var2</span> <span class="o">=</span> <span class="s">"base_var provoked by derivedClass"</span><span class="p">)</span><span class="o">:</span><span class="n">baseClass</span><span class="p">(</span><span class="n">var2</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//触发基类构造函数</span>
+    <span class="n">derived_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">baseClass</span><span class="o">::</span><span class="n">print</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">base_var</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">derivedClass</span><span class="o">::</span><span class="n">print</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+    <span class="n">baseClass</span><span class="o">::</span><span class="n">print</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">derived_var</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// ---------------------------------------</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">baseClass</span> <span class="n">base_object</span><span class="p">;</span>
+    <span class="n">derivedClass</span> <span class="n">derived_object</span><span class="p">;</span>
+    <span class="n">base_object</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="c1">// Output:</span>
+    <span class="c1">// base_var by default</span>
+
+    <span class="n">derived_object</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="c1">// Output:</span>
+    <span class="c1">// base_var provoked by derivedClass</span>
+    <span class="c1">// derived_var</span>
+
+    <span class="n">derivedClass</span> <span class="n">derived_object2</span><span class="p">(</span><span class="s">"derived_bar by user"</span><span class="p">,</span> <span class="s">"base_bar by user"</span><span class="p">);</span>
+    <span class="n">derived_object2</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="c1">// Output:</span>
+    <span class="c1">// base_bar by user</span>
+    <span class="c1">// derived_bar by user</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>类保护成员(protected)</strong>  <br />
+可访问性介于public和private之间，派生类可以直接访问基类protected成员 <br />
+<br /></li>
+  <li><strong>继承：public, private, protected</strong><br />
+假设B Class 从 A Class派生，A成员在B成员中的属性如下表  <br />
+下表中√表示可以直接访问，〇表示可以间接访问，×表示不能访问（除友元函数） <br />
+（友元函数通吃一切！）</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">memberAccessSpecifier A</th>
+      <th style="text-align: center">A’s public</th>
+      <th style="text-align: center">A’s protected</th>
+      <th style="text-align: center">A’s private</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">public</td>
+      <td style="text-align: center">√ (public)</td>
+      <td style="text-align: center">〇 (protected)</td>
+      <td style="text-align: center">×</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">protected</td>
+      <td style="text-align: center">〇 (protected)</td>
+      <td style="text-align: center">〇 (protected)</td>
+      <td style="text-align: center">×</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">private</td>
+      <td style="text-align: center">〇 (protected)</td>
+      <td style="text-align: center">〇 (protected)</td>
+      <td style="text-align: center">×</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li><strong>组成</strong></li>
 </ul>
 
     </article>
