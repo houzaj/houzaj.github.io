@@ -26,35 +26,35 @@ tags: Programming
 ### ▲ 零散点
 **C++的强制类型转换**   
 ```cpp
-static_cast<int>(7.9 + 6.7);    //14
-static_cast<char>(65);    //A
+  static_cast<int>(7.9 + 6.7);    //14
+  static_cast<char>(65);    //A
 ```  
 <br>
 **cin cout**  
 - **变量定义**  
 头文件iostream中包含cin、cout的变量定义   
 ```cpp
-istream cin;
-ostream cout;
+  istream cin;
+  ostream cout;
 ```  
 <br>
 - **读取有关函数**   
 get、ignore、putback、peek函数   
 ```cpp    
-//读取一个字符存到ch中，空格、回车均可存     
-cin.get(ch);  
+  //读取一个字符存到ch中，空格、回车均可存     
+  cin.get(ch);  
 ```
 ```cpp
-//忽略掉下面100个字符 或者 忽略掉下个'\n'之前的所有字符   
-cin.ignore(100, 'A');   
+  //忽略掉下面100个字符 或者 忽略掉下个'\n'之前的所有字符   
+  cin.ignore(100, 'A');   
 ```
 ```cpp
-//把ch变量退回输入流中    
-cin.putback(ch);
+  //把ch变量退回输入流中    
+  cin.putback(ch);
 ```
 ```cpp
-//检测下一个字符为何值
-ch = cin.peek();
+  //检测下一个字符为何值
+  ch = cin.peek();
 ```  
 <br>
 - **输入失败**   
@@ -75,31 +75,31 @@ cin.clear();
 
     在标准C++的环境下，需要通过setf函数或者setiosflags函数控制符两种方式来使用  
   ```cpp
-    /*
-        第一种方式：最常见方式
-        cout << fixed << showpoint << setprecision(2);
-    */
-    /*
-        第二种方式：使用流函数来指定fixed, scientific, showpoint
-        cout.setf(ios::fixed, ios::floatfield);
-        cout.setf(ios::showpoint);
-        cout << setprecision(2);
-    */
-    /*
-        第三种方式：使用setiosflags控制符
-        cout << setiosflags(ios::fixed | ios::showpoint);
-        cout << setprecision(2);
-    */
-    cout << 1.234 << endl;      //1.23
-    cout << 123456.0 << endl;   //123456.00
+      /*
+          第一种方式：最常见方式
+          cout << fixed << showpoint << setprecision(2);
+      */
+      /*
+          第二种方式：使用流函数来指定fixed, scientific, showpoint
+          cout.setf(ios::fixed, ios::floatfield);
+          cout.setf(ios::showpoint);
+          cout << setprecision(2);
+      */
+      /*
+          第三种方式：使用setiosflags控制符
+          cout << setiosflags(ios::fixed | ios::showpoint);
+          cout << setprecision(2);
+      */
+      cout << 1.234 << endl;      //1.23
+      cout << 123456.0 << endl;   //123456.00
   ```
   ```cpp
-    cout << scientific;
-    cout << 123456.0 << endl;   //1.234560e+05
+      cout << scientific;
+      cout << 123456.0 << endl;   //1.234560e+05
   ```
   ```cpp
-    //取消fixed
-    cout.unsetf(ios::fixed);
+      //取消fixed
+      cout.unsetf(ios::fixed);
   ```
   - **setw, fill, setfill**  
     - `setw(n)` : 设置域宽为n  
@@ -107,81 +107,84 @@ cin.clear();
     - `setfill` : 当前输出语句设置填充字符  
 
     ```cpp
-    cout.fill('*');
-    cout << setw(5) << 1 << setw(5) << setfill('#') << 2 << endl;
+      cout.fill('*');
+      cout << setw(5) << 1 << setw(5) << setfill('#') << 2 << endl;
       //****1####2
     ```
   - **setw, fill, setfill**  
     顾名思义，左右对齐。下面以left举例，right可同理。
     ```cpp
-    /*
-      第一种方式：最常见方式
-      cout << left;
-    */
-    /*
-      第二种方式：使用流函数
-      cout.setf(ios::left, ios::adjustfield);
-    */
-    /*
-      第三种方式：使用setiosflags控制符
-      cout << setiosflags(ios::left);
-    */
+      /*
+        第一种方式：最常见方式
+        cout << left;
+      */
+      /*
+        第二种方式：使用流函数
+        cout.setf(ios::left, ios::adjustfield);
+      */
+      /*
+        第三种方式：使用setiosflags控制符
+        cout << setiosflags(ios::left);
+      */
     ```
     ```cpp
-    //取消left
-    cout.unsetf(ios::left);
-    ```
-<br>
+      //取消left
+      cout.unsetf(ios::left);
+    ```  
+
  - **endl, flush**  
     endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
     ```cpp
-    //即使缓冲区的数据没有存满也可以显示提示信息
-    int num;
-    cout << "Enter an intger:" << flush;
-    cin >> num;
+      //即使缓冲区的数据没有存满也可以显示提示信息
+      int num;
+      cout << "Enter an intger:" << flush;
+      cin >> num;
     ```   
 
-<br>   
+<br>
 **文件输入/输出**  
 恕我直言，OJ生成随机数据常用……  
 大致模板如下：    
 ```cpp
-// 声明流变量
-ifstream inData;
-ofstream outData;
-// 打开文件
-inData.open("xxx");
-outData.open("xxx");
-// Do Something
-{
-   //把inData当作cin， outData当作cout使用，同文本重定向操作
-}
-// 关闭文件
-inData.close();
-outData.close();
+  // 声明流变量
+  ifstream inData;
+  ofstream outData;
+
+  // 打开文件
+  inData.open("xxx");
+  outData.open("xxx");
+
+  {
+     // Do Something
+     //把inData当作cin， outData当作cout使用，同文本重定向操作
+  }
+
+  // 关闭文件
+  inData.close();
+  outData.close();
 ```  
 可把inData改为cin，outData改为cout，这样就直接变成文本重定向   
 <br>
 **bool数据类型**
 ```cpp
-bool is_valid = true;  //相当于 = 1
-bool is_valid = false; //相当与 = 0
+  bool is_valid = true;  //相当于 = 1
+  bool is_valid = false; //相当于 = 0
 ```  
 <br>
 **assert函数**  
 终止程序执行，指出发生错误的表达式，包含错误源代码的文件名等，对提高代码质量起很大作用  
 需包含头文件cassert或assert.h  
 ```cpp
-int a = 5, b = 0;
-assert(b);
-cout << a/b << endl;
-//输出：test3: ../test3/main.cpp:6: int main(): Assertion `b' failed.
+  int a = 5, b = 0;
+  assert(b);
+  cout << a/b << endl;
+  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b' failed.
 ```
 ```cpp
-int a = 5, b = -3;
-assert(b > 0);
-cout << __gcd(a, b) << endl;
-//输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
+  int a = 5, b = -3;
+  assert(b > 0);
+  cout << __gcd(a, b) << endl;
+  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
 ```  
 另外，可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句   
 <br>
@@ -189,21 +192,34 @@ cout << __gcd(a, b) << endl;
 检测输入流变量是否遇到了文件结束标志  
 在遇到文件结束标志时返回true，否则返回false  
 ```cpp
-while(!cin.eof()){
-  //Do Something
-}
+  while(!cin.eof()){
+    //Do Something
+  }
 ```  
 <br>
 **引用参数**  
 引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
 1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
+```cpp
+  int extgcd(int a, int b, int& x, int& y){
+      int d = a;
+      if(b != 0){
+        d = extgcd(b, a%b, y, x);
+        y -= (a / b) * x;
+      }else{
+        x = 1;
+        y = 0;
+      }
+      return a;
+  }
+```
 2. 实参值本身需要改动，如`交换函数`：  
 ```cpp
-void swap(int& a, int& b){
-  int temp = a;
-  a = b;
-  b = temp;
-}
+  void swap(int& a, int& b){
+    int temp = a;
+    a = b;
+    b = temp;
+  }
 ```
 3. 传递地址可以节省拷贝大量数据所需的内存空间和时间   
 
@@ -216,13 +232,14 @@ void swap(int& a, int& b){
 函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表  
 ```cpp
 //可用函数larger判断两个int, char, double, string型变量的最大值，使用时无需使用四个函数，只需larger这一个函数
-int larger(int x, int y)  {return (x > y)?x:y;}
-char larger(char x, char y) {return (x > y)?x:y;}
-double larger(double x, double y) {return (x > y)?x:y;}
-string larger(string x, string y) {return (x > y)?x:y;}
-int main(){
-  //Do Something
-}
+  int larger(int x, int y)  {return (x > y)?x:y;}
+  char larger(char x, char y) {return (x > y)?x:y;}
+  double larger(double x, double y) {return (x > y)?x:y;}
+  string larger(string x, string y) {return (x > y)?x:y;}
+
+  int main(){
+    //Do Something
+  }
 ```  
 <br>
 **枚举类型**  
@@ -231,62 +248,65 @@ int main(){
 **typedef语句**  
 创建已定义数据类型别名，常用来简化数据类型名
 ```cpp
-typedef unsigned long long ull;
-typedef long long ll;
-int main(){
-  ull a = 0;
-  ll b = 0;
-}
+  typedef unsigned long long ull;
+  typedef long long ll;
+
+  int main(){
+    ull a = 0;
+    ll b = 0;
+  }
 ```  
 <br>
 **namespace(名字空间)**  
 ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题
 ```cpp
-namespace temp{
-  const int a = 10;
-  const int b = 20;
-}
-using namespace temp;   //简化使用所有该namespace成员的语法
-int main(){
-  cout << a << endl;
-  cout << b << endl;
-}
+  namespace temp{
+    const int a = 10;
+    const int b = 20;
+  }
+  using namespace temp;   //简化使用所有该namespace成员的语法
+
+  int main(){
+    cout << a << endl;  //简化使用
+    cout << b << endl;  //简化使用
+  }
 ```  
 ```cpp
-namespace temp{
-  const int a = 10;
-  const int b = 20;
-}
-using temp::a;   //简化使用某个该namespace成员的语法
-int main(){
-  cout << a << endl;
-  cout << temp::b << endl;
-}
+  namespace temp{
+    const int a = 10;
+    const int b = 20;
+  }
+  using temp::a;   //简化使用某个该namespace成员的语法
+
+  int main(){
+    cout << a << endl;  //简化使用
+    cout << temp::b << endl;
+  }
 ```  
 <br>
 **string数据类型**  
 string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：    
 ```cpp
-int len, pos;
-string str_sub;
-string str1 = "Hello";
-string str2 = "World";
-// ----------------------
-string str3 = str1 + ' ' + str2;  //str3 == "Hello World"
-str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
-len = str3.length();  //获取长度，也可用str3.size();
-pos = str3.find("or");  //查找子串，失败返回npos
-str_sub = str3.substr(6, 5);  //返回子串，str_sub == "world"
-str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
+  int len, pos;
+  string str_sub;
+  string str1 = "Hello";
+  string str2 = "World";
+
+  string str3 = str1 + ' ' + str2;  //str3 == "Hello World"
+  str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
+  len = str3.length();  //获取长度，也可用str3.size();
+  pos = str3.find("or");  //查找子串，失败返回npos
+  str_sub = str3.substr(6, 5);  //返回子串，str_sub == "world"
+  str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
 ```  
 <br>
 **定义二维数组的另一种方法**  
 先用typedef定义一个二位数组数据类型，然后用该类型来定义数组  
 ```cpp
-const int row = 20;
-const int col = 10;
-typedef int tableType[row][col];
-tableType matrix;
+  const int row = 20;
+  const int col = 10;
+  typedef int tableType[row][col];
+  tableType matrix;
 ```  
 <br>
 
@@ -295,20 +315,20 @@ tableType matrix;
 - **类定义**  
 如定义clockType类
 ```cpp
-class clockType{
-public:
-    void setTime(int, int, int);
-    void getTime(int&, int&, int&);
-    void printTime()    const;    //const说明不能修改clockType类型的成员变量
-    void incrementSeconds();
-    void incrementMinutes();
-    void incrementHours();
-    bool equalTime(const clockType& otherClock) const;    //传引用可提高性能（因为无需拷贝）
-private:      //私有成员不能被类外部访问
-    int hr;
-    int min;
-    int sec;
-};
+  class clockType{
+  public:
+      void setTime(int, int, int);
+      void getTime(int&, int&, int&);
+      void printTime()    const;    //const说明不能修改clockType类型的成员变量
+      void incrementSeconds();
+      void incrementMinutes();
+      void incrementHours();
+      bool equalTime(const clockType& otherClock) const;    //传引用可提高性能（因为无需拷贝）
+  private:      //私有成员不能被类外部访问
+      int hr;
+      int min;
+      int sec;
+  };
 ```
 另外注意：  
   1. 不能在变量定义时同时初始化  
@@ -318,29 +338,29 @@ private:      //私有成员不能被类外部访问
 - **成员函数实现**  
 以setTime函数为栗子
 ```cpp
-void clockType::setTime(int hours, int minutes, int seconds){
-    hr = (0 <= hours && hours < 24)?hours:0;
-    min = (0 <= minutes && minutes < 60)?minutes:0;
-    seconds = (0 <= seconds && seconds < 60)?seconds:0;
-}
+  void clockType::setTime(int hours, int minutes, int seconds){
+      hr = (0 <= hours && hours < 24)?hours:0;
+      min = (0 <= minutes && minutes < 60)?minutes:0;
+      seconds = (0 <= seconds && seconds < 60)?seconds:0;
+  }
 ```
 <br>
 - **类公有成员和私有成员**  
 类中默认成员声明为私有成员，故上述类定义可写为：  
 ```cpp
-class clockType{
-    int hr;
-    int min;
-    int sec;
-public:
-    void setTime(int, int, int);
-    void getTime(int&, int&, int&);
-    void printTime()    const;
-    void incrementSeconds();
-    void incrementMinutes();
-    void incrementHours();
-    bool equalTime(const clockType& otherClock) const;
-};
+  class clockType{
+      int hr;
+      int min;
+      int sec;
+  public:
+      void setTime(int, int, int);
+      void getTime(int&, int&, int&);
+      void printTime()    const;
+      void incrementSeconds();
+      void incrementMinutes();
+      void incrementHours();
+      bool equalTime(const clockType& otherClock) const;
+  };
 ```
 <br>
 
@@ -348,67 +368,69 @@ public:
 通过构造函数来保证类中数据成员的初始化，可有多个进行重载  
 当声明对象时，构造函数将自动执行  
 ```cpp
-class clockType{
-public:
-    //省略成员函数
-    clockType(int, int, int);  //带参数的构造函数
-    clockType();  //默认构造函数
-private:
-    int hr;
-    int min;
-    int sec;
-};
-//相关实现
-clockType::clockType(int hours, int minutes, int seconds){
-    hr = (0 <= hours && hours < 24)?hours:0;
-    min = (0 <= minutes && minutes < 60)?minutes:0;
-    seconds = (0 <= seconds && seconds < 60)?seconds:0;
-}
-clockType::clockType(){
-    hr = 0;
-    min = 0;
-    sec = 0;
-}
+  class clockType{
+  public:
+      //省略成员函数
+      clockType(int, int, int);  //带参数的构造函数
+      clockType();  //默认构造函数
+  private:
+      int hr;
+      int min;
+      int sec;
+  };
+
+  //相关实现
+  clockType::clockType(int hours, int minutes, int seconds){
+      hr = (0 <= hours && hours < 24)?hours:0;
+      min = (0 <= minutes && minutes < 60)?minutes:0;
+      seconds = (0 <= seconds && seconds < 60)?seconds:0;
+  }
+  clockType::clockType(){
+      hr = 0;
+      min = 0;
+      sec = 0;
+  }
 ```  
 <br>
 构造函数可带默认参数，也称为默认构造函数  
 ```cpp
-class clockType{
-public:
-    //省略成员函数
-    clockType(int = 0, int = 0, int = 0);  //默认构造函数
-private:
-    int hr;
-    int min;
-    int sec;
-};
-//相关实现
-clockType::clockType(int hours, int minutes, int seconds){
-    hr = (0 <= hours && hours < 24)?hours:0;
-    min = (0 <= minutes && minutes < 60)?minutes:0;
-    seconds = (0 <= seconds && seconds < 60)?seconds:0;
-}
+  class clockType{
+  public:
+      //省略成员函数
+      clockType(int = 0, int = 0, int = 0);  //默认构造函数
+  private:
+      int hr;
+      int min;
+      int sec;
+  };
+
+  //相关实现
+  clockType::clockType(int hours, int minutes, int seconds){
+      hr = (0 <= hours && hours < 24)?hours:0;
+      min = (0 <= minutes && minutes < 60)?minutes:0;
+      seconds = (0 <= seconds && seconds < 60)?seconds:0;
+  }
 ```  
 ```cpp
-int main(){
-  clockType myclock1;
-  clockType myclock2(5, 12, 40);
-}
+  int main(){
+    clockType myclock1;
+    clockType myclock2(5, 12, 40);
+  }
 ```
 <br>
 
 - **析构函数(Destructor)**  
 每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。
 ```cpp
-class clockType{
-public:
-    //省略成员函数
-    clockType();  //默认构造函数
-    ~clockType();   //析构函数
-private:
-    int hr;
-    int min;
-    int sec;
+  class clockType{
+  public:
+      //省略成员函数
+      clockType();  //默认构造函数
+      ~clockType();   //析构函数
+  private:
+      int hr;
+      int min;
+      int sec;
 };
 ````
 
@@ -437,6 +459,63 @@ private:
 如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体  
 <br>
 
-**继承与组成**  
-  C++类之间的两种常见关系：继承("is-a"关系)，组成("has-a"关系)  
-- **继承**
+**继承("is-a"关系) 与 组成("has-a"关系)**  
+- **继承**  
+从现有类的基础上创建新类
+  - `派生类(Derived class)` : 创建的新类，创建的新类的新类……
+  - `现有类(Base class)` : 从现有类的基础上创建新类
+  - `单继承(Single inheritance)` : 派生类从一个基类派生
+  - `多继承(Multiple inheritance)` : 派生类从多个基类派生  
+
+  ```cpp
+    //例如：cirle类和rectangle类从shape类派生
+    class circle: public shape{   //shape类的public成员变成cirle类的public成员
+      //Do Something
+    };
+
+    class circle: private rectangle{    //shape类的public成员变成cirle类的private成员(private可省略)
+      //Do Something
+    };
+  ```
+- 基类成员函数重定义
+在baseClass中包含print函数，在derivedClass中也包含print函数且参数列表相同，则为基类成员函数重定义  
+```cpp
+  class baseClass{
+  public:
+      void print()    const;
+      baseClass() {base_var = "base_var";}
+  private:
+      string base_var;
+  };
+
+  class derivedClass: public baseClass{
+  public:
+      void print()    const;
+      derivedClass()  {derived_var = "derived_var";}
+  private:
+      string derived_var;
+   };
+
+  void baseClass::print() const{
+      cout << base_var << endl;
+  }
+
+  void derivedClass::print() const{
+      baseClass::print();
+      cout << derived_var << endl;
+  }
+
+  int main(){
+      baseClass base_object;
+      derivedClass derived_object;
+      base_object.print();
+      // Output:
+      // derived_var
+
+      derived_object.print();
+      //Output:
+      // base_var
+      // derived_var
+      return 0;
+  }
+```
