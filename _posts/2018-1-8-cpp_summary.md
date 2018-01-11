@@ -432,22 +432,55 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   }
 ```
 <br>
+- **拷贝构造函数(Copy Constructor)**  
+用已经存在的类对象进行初始化需使用拷贝构造函数  
+```cpp
+  class myVector{
+  public:
+      myVector();
+      myVector(const myVector& anotherVector);    //拷贝构造函数
+      ~myVector();
+      void print()    const;
+  private:
+      unsigned t_size;
+      int* p;
+  };
 
+  myVector::myVector(){
+      t_size = 10;
+      p = new int[t_size]();
+      for(int i = 0; i < t_size; i++){  p[i] = i;  }
+  }
 
+  myVector::myVector(const myVector &anotherVector){
+      t_size = anotherVector.t_size;      //t_size在向量中会改变，故要拷贝
+      p = new int[t_size];
+      for(int i = 0; i < t_size; i++){    //深拷贝
+          p[i] = (anotherVector.p)[i];    //注意需要打括号，优先级问题
+      }
+  }
+
+  myVector::~myVector() { delete []p; }
+
+  void myVector::print() const{
+      for(int i = 0; i < t_size; i++){
+          cout << p[i] << " ";
+      }
+      cout << endl;
+  }
+
+  //主函数----------------------------------------------------------
+  int main(){
+      myVector vec;
+      myVector vec2(vec);
+      vec2.print();
+      //Output:
+      //0 1 2 3 4 5 6 7 8 9
+  }
+```
+<br>
 - **析构函数(Destructor)**  
 每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。
-```cpp
-  class clockType{
-  public:
-      //省略成员函数
-      clockType();  //默认构造函数
-      ~clockType();   //析构函数
-  private:
-      int hr;
-      int min;
-      int sec;
-};
-```
 ```cpp
   //如在类中new了数组后，在实例退出作用域时需要将其删除，可编写析构函数delete掉
   class myVector{
