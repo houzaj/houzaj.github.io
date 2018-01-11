@@ -480,7 +480,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 ```
 <br>
 - **析构函数(Destructor)**  
-每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。
+每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。  
+有指针数据成员的类若有创建动态对象，都需要有析构函数  
 ```cpp
   //如在类中new了数组后，在实例退出作用域时需要将其删除，可编写析构函数delete掉
   class myVector{
@@ -754,4 +755,105 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
     2. `继承`： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)  
     3. `多态`： 使用相同表达式指定不同操作的能力  
 
+<br>
+**虚函数**  
+参考1里面似乎写的不好，或者是本人愚笨...故用[百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin)和[知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699)加以辅助  
+在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数  
+虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数  
+另外注意：`如果基类包含了虚函数，基类的析构函数同时也要设为虚函数`  
+```cpp
+  class A{
+  public:
+      virtual void print();   //只需要在基类加上virtual，派生类不需要
+  };
+
+  class B: public A{
+  public:
+      void print();
+  };
+
+  void A::print(){
+      cout << "It's in A" << endl;
+  }
+
+  void B::print(){
+      cout << "It's in B" << endl;
+  }
+
+  void callPrint(A& p){   //注意使用引用或者指针传参
+      p.print();
+  }
+
+  // -----------------------------------
+  int main(){
+      A instanceA;
+      B instanceB;
+      callPrint(instanceA);
+      callPrint(instanceB);
+      //Output：
+      //It's in A
+      //It's in B
+
+      //若不加virtual，Output：
+      //It's in A
+      //It's in A
+  }
+```
+<br>
+
+**重载和模板**  
+- **重载运算符限制**  
+    1. 不能改变运算符的优先级和结合律
+    2. 不能使用默认参数，不能改变运算符所需参数个数
+    3. 不能创建新运算符
+    4. 不能重载以下运算符  `.`  `.*`  `::`   `?:`   `sizeof`   
+
+<br>
+- **this指针**  
+this指针为指向对象自己的指针  
+```cpp
+  class A{
+  public:
+      void print()   const;
+      A get()   const;
+      int x;
+      int y;
+  };
+
+  void A::print()  const  { cout << x << " " << y << " " << endl;}
+
+  A A::get() const  { return  * this; }
+
+  int main(){
+      A instanceA;
+      A instanceB;
+      instanceA.x = 1, instanceA.y = 2;
+      instanceB = instanceA.get();
+      instanceB.print();
+  }
+```
+```cpp
+  //一个神奇的栗子
+  class person{
+  public:
+      person& setFirstName(string var);   //此处返回的是引用
+      person& setLastName(string var);
+      void print();
+  private:
+      string first_name;
+      string last_name;
+  };
+
+  person& person::setFirstName(string var){ first_name = var; return * this; }
+  person& person::setLastName(string var){ last_name = var; return * this; }
+  void person::print(){ cout << first_name << " " << last_name << endl; }
+
+  int main(){
+      person null;
+      null.setFirstName("Name").setLastName("Error");  //因为返回引用且为自身*this，故可连续用两次.
+      null.print();
+      //Output
+      //Name Error
+  }
+```
 <br>
