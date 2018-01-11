@@ -433,6 +433,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 ```
 <br>
 
+
 - **析构函数(Destructor)**  
 每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。
 ```cpp
@@ -446,15 +447,45 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       int min;
       int sec;
 };
-````
+```
+```cpp
+  //如在类中new了数组后，在实例退出作用域时需要将其删除，可编写析构函数delete掉
+  class myVector{
+  public:
+    myVector();
+    ~myVector();
+  private:
+    int* p;
+  };
+
+  myVector::myVector(){
+    p = new int[10];
+  }
+
+  myVector::~myVector(){
+    delete []p;
+    cout << "clear done!" << endl;
+  }
+
+  //主函数----------------------------------------------------------
+  int main(){
+    int n_case = 2;
+    for(int i = 1; i <= n_case; i++){
+        myVector vec;
+    }
+  }
+  //Output
+  //clear done!
+  //clear done!
+```
 <br>
 - **抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
-  1. 类型名称(Data Type Name)
-  2. 域(Domain)： 即属于ADT的一系列值
-  3. 一系列操作(Operations)  
+  1. `类型名称(Data Type Name)`
+  2. `域(Domain)`： 即属于ADT的一系列值
+  3. `一系列操作(Operations) `
 
-  由此可定义clockType抽象数据类型如下所示：
+  由此可定义clockType抽象数据类型如下所示，从中可见，类是实现ADT的一种便利的方法
   ```cpp
   dataTypeName
     clockType
@@ -465,8 +496,6 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
     Return the time.
     ......
   ```   
-
-  可见，类是实现ADT的一种便利的方法
 <br>
 
 - **类与结构体**  
@@ -610,3 +639,86 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 
 <br>
 - **组成**  
+如在personType类中包含dataType类和personalType类，代码如下  
+```cpp
+  //datatype类-------------------------------------------------------
+  class dateType{
+  public:
+      dateType(int year, int month, int day);
+      void print();
+  private:
+      int dYear;
+      int dMonth;
+      int dDay;
+  };
+
+  dateType::dateType(int year = 2018, int month = 2, int day = 30){   //dataType的默认构造函数
+      dYear = year;
+      dMonth = month;
+      dDay = day;
+  }
+
+  void dateType::print(){
+      cout << "Date: " << dYear << "-" << dMonth << "-" << dDay << endl;
+  }
+
+  // personalType类----------------------------------------------
+  class personalType{
+  public:
+      personalType(string name);
+      void print();
+  private:
+      string dName;
+  };
+
+  personalType::personalType(string name = "null"){
+      dName = name;
+  }
+
+  void personalType::print(){
+      cout << "Name: " << dName << endl;
+  }
+
+  //persoanlInfo类--------------------------------------------------
+  class personalInfo{
+  public:
+      personalInfo();
+      personalInfo(int year, int month, int day, string name);
+      void print();
+  private:
+      personalType personalName;
+      dateType bDay;
+  };
+
+  personalInfo::personalInfo(){}    //使用对象成员构造函数的默认值
+  personalInfo::personalInfo(int year, int month, int day,
+     string name):personalName(name), bDay(year, month, day){}  //向成员对象的构造函数传递参数
+
+  void personalInfo::print(){
+      personalName.print();
+      bDay.print();
+  }
+
+  //主函数----------------------------------------------------------
+  int main(){
+    personalInfo student;
+    student.print();
+    //Output
+    //Name: null
+    //Date: 2018-2-30
+
+    personalInfo student2(1999, 9, 9, "your nick name");
+    student2.print();
+    //Output
+    //Name: your nick name
+    //Date: 1999-9-9
+  }
+```
+<br>
+- **OOD(面向对象程序设计) 和 OOP(面向对象编程)**  
+  **OOD的三个基本特征**  
+    1. `封装`： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)  
+    2. `继承`： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)  
+    3. `多态`： 使用相同表达式指定不同操作的能力  
+
+<br>
