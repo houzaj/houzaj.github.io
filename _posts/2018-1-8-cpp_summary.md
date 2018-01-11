@@ -802,13 +802,6 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 <br>
 
 **重载和模板**  
-- **重载运算符限制**  
-    1. 不能改变运算符的优先级和结合律
-    2. 不能使用默认参数，不能改变运算符所需参数个数
-    3. 不能创建新运算符
-    4. 不能重载以下运算符   
-     `.`  |  `.*`  |  `::` | `?:` | `sizeof`   
-<br>
 - **this指针**  
 this指针为指向对象自己的指针  
 ```cpp
@@ -857,3 +850,167 @@ this指针为指向对象自己的指针
   }
 ```
 <br>
+- **类的友元函数(Friend Function)**  
+友元函数指在类作用域范围之外的函数，它是类的非成员函数，但是能访问类的私有数据成员  
+```cpp
+  class B;    //前置声明，因为下面的函数cSwap需要用到
+  class A{
+  public:
+      A() { x = 1; }
+      //下面一句是友元函数，函数原型前需加上friend
+      friend void cSwap(A& cA, B& cB);  //这是一个交换两个类数据的函数，需要用到友元函数，注意传的是引用
+      int get() { return x; }
+  private:
+      int x;
+  };
+
+  class B{
+  public:
+      B() { x = 2; }
+      friend void cSwap(A& cA, B& cB);
+      int get(){ return x; }
+  private:
+      int x;
+  };
+
+  void cSwap(A& cA, B& cB){    //友元函数定义，前面不需要加上friend
+      int temp = cA.x;
+      cA.x = cB.x;
+      cB.x = temp;
+  }
+
+  // ---------------------------
+  int main(){
+      A instanceA;
+      B instanceB;
+      cout << instanceA.get() << " " << instanceB.get() << endl;
+      //Output: 1 2
+
+      cSwap(instanceA, instanceB);
+      cout << instanceA.get() << " " << instanceB.get() << endl;
+      //Output: 2 1
+  }
+```  
+ <br>
+- **重载运算符限制**  
+     1. 不能改变运算符的优先级和结合律
+     2. 不能使用默认参数，不能改变运算符所需参数个数
+     3. 不能创建新运算符
+     4. 不能重载以下运算符   
+      `.`  |  `.*`  |  `::` | `?:` | `sizeof`   
+     5. 重载运算符 `()`, `[]`, `->`, `=` 的函数一定要声明为类的成员  
+     6. 重载`<<`, `>>`一定要作为非成员（友元函数）  
+     7. 假定OpOverClass类重载运算符op，则：  
+        - 若op最左边的操作数不是OpOverClass类型，则重载运算符op的函数一定要作为非成员（友元）  
+        - 若重载运算符op的函数是OpOverClass类的成员，则当opo用于OpOverClass类型的对象时，op最左边的操作数必须是OpOverClass类型  
+
+    （感觉这两点是废话！）  
+<br>
+- **重载双目运算符**  
+  - **作为成员函数重载 +**  （重载- / * 等同理）  
+  以复数相加为栗子   
+  ```cpp
+    class ComplexNum{
+    public:
+        ComplexNum()  {real = 0, vir = 0; }
+        ComplexNum(int a, int b)   {real = a, vir = b;}
+        ComplexNum operator + (const ComplexNum&)   const;  //函数原型
+        void display();
+    private:
+        int real;
+        int vir;
+    };
+
+    //重载运算符语法如下面这一句
+    ComplexNum ComplexNum::operator + (const ComplexNum& other_complex_num)  const{
+        ComplexNum res;
+        res.real = real + other_complex_num.real;
+        res.vir = vir + other_complex_num.vir;
+        return res;
+    }
+
+    void ComplexNum::display(){ cout << real << "+" << vir << "i" << endl; }
+
+    // -------------------------
+    int main(){
+        ComplexNum num1(1, 2);
+        ComplexNum num2(2, 4);
+        ComplexNum num3 = num1 + num2;
+        num3.display();
+        //Output: 3+6i
+    }
+  ```  
+  <br>
+  - **作为成员函数重载关系运算符**
+  ```cpp
+    class ComplexNum{
+    public:
+        ComplexNum(int a, int b)   {real = a, vir = b;}
+        bool operator == (const ComplexNum&)   const;
+    private:
+        int real;
+        int vir;
+    };
+
+    bool ComplexNum::operator == (const ComplexNum& other_complex_num)  const{
+        if(real == other_complex_num.real && vir == other_complex_num.vir)  return true;
+        return false;
+    }
+
+    // -------------------------
+    int main(){
+        ComplexNum num1(1, 2);
+        ComplexNum num2(1, 3);
+        cout << ((num1 == num2)?"TURE":"FALSE") << endl;
+        //Output: FALSE
+    }
+  ```
+  - **作为非成员函数重载双目运算符**  
+  把上面的复数重载+拿下来改改  
+  ```cpp
+    class ComplexNum{
+    public:
+        ComplexNum()  {real = 0, vir = 0; }
+        ComplexNum(int a, int b)   {real = a, vir = b;}
+        friend ComplexNum operator + (const ComplexNum& first, const ComplexNum& second)   ;  //函数原型1
+        friend ComplexNum operator + (const ComplexNum& first, const int& second)   ;  //函数原型2
+        friend ComplexNum operator + (const int& second, const ComplexNum& first)   ;  //函数原型3
+        void display();
+    private:
+        int real;
+        int vir;
+    };
+
+    //分别重载complex + complex, complex + int, int + complex三种情况
+    ComplexNum operator + (const ComplexNum& first, const ComplexNum &second){
+        ComplexNum res;
+        res.real = first.real + second.real;
+        res.vir = first.vir + second.vir;
+        return res;
+    }
+
+    ComplexNum operator + (const ComplexNum& first, const int& second){
+        ComplexNum res;
+        res.real = first.real + second;
+        res.vir = first.vir;
+        return res;
+    }
+
+    ComplexNum operator + (const int& second, const ComplexNum& first){
+        ComplexNum res;
+        res.real = first.real + second;
+        res.vir = first.vir;
+        return res;
+    }
+
+    void ComplexNum::display(){ cout << real << "+" << vir << "i" << endl; }
+
+    // ---------------------------------------------
+    int main(){
+        ComplexNum num1(1, 2);
+        ComplexNum num2(2, 4);
+        ComplexNum num3 = 4 + num1 + num2 + 3;
+        num3.display();
+        //Output: 10+6i
+    }
+  ```
