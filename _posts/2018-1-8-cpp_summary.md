@@ -166,10 +166,9 @@ cin.clear();
   // 关闭文件
   inData.close();
   outData.close();
-```  
-### OOP  
-#### **类**  
-- **类定义**  
+```   
+### **[OOP] 类**  
+#### **类定义**  
 如定义clockType类
 ```cpp
   class clockType{
@@ -191,9 +190,8 @@ cin.clear();
   1. 不能在变量定义时同时初始化  
   2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关，当函数定义于类内时，会变为inline函数，所有内联函数的限制和局限也适用于此，故只有小函数才定义在类的定义内  
 
-<br>  
-
-- **成员函数实现**  
+<br>
+#### **成员函数实现**  
 以setTime函数为栗子
 ```cpp
   void clockType::setTime(int hours, int minutes, int seconds){
@@ -203,7 +201,7 @@ cin.clear();
   }
 ```
 <br>
-- **类公有成员(public) 和 私有成员(private)， 受保护成员(protected)**    
+#### **类公有成员(public) 和 私有成员(private)， 受保护成员(protected)**    
 类成员分为：`公有成员(public)`，` 私有成员(private)`， `受保护成员(protected)` (protected成员在后面！)   
 类中默认成员声明为私有成员，故上述类定义可写为：  
 ```cpp
@@ -222,7 +220,7 @@ cin.clear();
   };
 ```
 <br>
-- **静态数据成员**  
+#### **静态数据成员**  
 特点：  
   1. 类的第一个对象被创建时，一次性被初始化为0  
   2. 所有实例共享一个静态成员变量  
@@ -254,7 +252,8 @@ cin.clear();
     }
   ```
 <br>
-- **静态成员函数**  
+
+#### **静态成员函数**  
 特点：  
   1. 只能访问类内声明的其他静态成员（函数或变量）  
   2. 调用时使用类名，而非对象名  
@@ -280,22 +279,26 @@ cin.clear();
     }
   ```
 <br>
-- **常量成员函数**  
+
+#### **常量成员函数**  
 可将不改变任何类内数据的函数声明为常量成员函数  
 ```cpp
   void get_balance()  const;
 ```
 <br>
-- **成员指针**  
+
+#### **成员指针**  
 ```cpp
   int A::* ip = &A::m;   //A::* 为“指向类A的成员的指针”， &A::m 为 “类A的成员的地址”  
 ```
 <br>
-- **类与结构体**  
+
+#### **类与结构体**  
 如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体  
 <br>
-#### **构造函数**  
-- **构造函数(Constructor)**  
+
+### **[OOP] 构造函数**  
+#### **构造函数(Constructor)**  
 通过构造函数来保证类中数据成员的初始化，可有多个进行重载  
 当声明对象时，构造函数将自动执行  
 ```cpp
@@ -350,7 +353,8 @@ cin.clear();
   }
 ```
 <br>
-- **拷贝构造函数(Copy Constructor)**  
+
+#### **拷贝构造函数(Copy Constructor)**  
 用已经存在的类对象进行初始化需使用拷贝构造函数  
 ```cpp
   class myVector{
@@ -397,7 +401,8 @@ cin.clear();
   }
 ```
 <br>
-- **析构函数(Destructor)**  
+
+#### **析构函数(Destructor)**  
 每个类只能有一个析构函数，在程序退出类对象的作用域（即类对象被释放）时，自动执行类的析构函数。  
 有指针数据成员的类若有创建动态对象，都需要有析构函数  
 ```cpp
@@ -431,7 +436,8 @@ cin.clear();
   //clear done!
 ```
 <br>
-#### **抽象数据类型(Abstract data type, ADT)**  
+
+### **[OOP] 抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
   1. `类型名称(Data Type Name)`
   2. `域(Domain)`： 即属于ADT的一系列值
@@ -450,13 +456,17 @@ cin.clear();
   ```   
 <br>
 
+### **[OOP] 继承 和 组成**  
 #### **继承("is-a"关系)**  
-- **继承**  
 从现有类的基础上创建新类
-  - `派生类(Derived class)` : 创建的新类，创建的新类的新类……
-  - `现有类(Base class)` : 从现有类的基础上创建新类
-  - `单继承(Single inheritance)` : 派生类从一个基类派生
+  - `派生类(Derived class)` : 创建的新类，创建的新类的新类……  
+  - `现有类(Base class)` : 从现有类的基础上创建新类  
+  - `单继承(Single inheritance)` : 派生类从一个基类派生  
   - `多继承(Multiple inheritance)` : 派生类从多个基类派生  
+  - `多级继承`： 基类派生出中间基类，中间基类再派生出派生类，即 A -> B -> C  
+  - `层次继承`： 子类从基类派生，作为继承的基类，类似河流主流和分流，作为继承类的在主流，派生类在直流  
+  - `混合继承`： 顾名思义！  
+
 
   ```cpp
     //例如：cirle类和rectangle类从shape类派生
@@ -469,7 +479,7 @@ cin.clear();
     };
   ```
 <br>
-- **基类成员函数重定义**  
+#### **基类成员函数重定义**  
 在baseClass中包含print函数，在derivedClass中也包含print函数且参数列表相同，则为基类成员函数重定义  
 ```cpp
   class baseClass{
@@ -512,7 +522,7 @@ cin.clear();
   }
 ```  
 <br>
-- **基类和派生类的构造函数**  
+#### **基类和派生类的构造函数**  
 派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数
 ```cpp
   class baseClass{
@@ -571,10 +581,12 @@ cin.clear();
   }
 ```
 <br>
-- **类保护成员(protected)**    
+
+#### **类保护成员(protected)**    
 可访问性介于public和private之间，派生类可以直接访问基类protected成员   
 <br>
-- **继承：public, private, protected**  
+
+#### **继承：public, private, protected**  
 假设B Class 从 A Class派生，A成员在B成员中的属性如下表    
 下表中√表示可以直接访问，〇表示可以间接访问，×表示不能访问（除友元函数）   
 （友元函数通吃一切！）
@@ -586,7 +598,72 @@ cin.clear();
 |          private          |  〇 (protected)  |  〇 (protected) |      ×        |
 
 <br>
+
+#### **多继承**  
+```cpp
+  class A{
+  public:
+      int a;
+  };
+
+  class B{
+  public:
+      int b;
+  };
+
+  class C: public A, public B{  //多继承语法
+  public:
+      int c;
+  };
+
+  int main(){
+      C obj;
+      obj.a;  //继承A，可访问
+      obj.b;  //继承B，可访问
+      obj.c;  //自身的，可访问
+  }
+```
+<br>
+
+#### **虚基类**  
+当某类被设为虚基类时，不管虚基类和派生类间有多少继承路径，C++都会确保只有一份该类的成员被继承  
+可避免多重路径继承引起的成员重复（比如菱形状的）  
+```cpp
+  class A{
+    //...
+  };
+
+  class B1 : virtual public A{
+    //...
+  };
+
+  class B2 : virtual public A{
+    //...
+  };
+
+  class C : public B1, public B2{   //因为B1，B2继承A时使用虚基类，所以C最终只会继承一份A，不会引起成员重复  
+    //...
+  };
+```
+<br>
+
+#### **抽象类**  
+C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现的成员函数（`纯虚函数`），纯虚函数用0作为初始值  
+具体类是没有纯虚函数的类，只有具体类才可实例化，抽象类一般作为基类派生出具体类  
+下面是一个具体类的栗子  
+```cpp
+  class linearList{
+  public:
+      virtual ~linearList() {}    //析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数
+      virtual bool empty()  const = 0;
+      virtual int size()  const = 0;
+      virtual void erase(int theIndex) = 0;
+  };
+```
+<br>
+
 #### **组成("has-a"关系)**  
+也称嵌套类  
 如在personType类中包含dataType类和personalType类，代码如下  
 ```cpp
   //datatype类-------------------------------------------------------
@@ -663,155 +740,36 @@ cin.clear();
   }
 ```
 <br>
-#### **OOD(面向对象程序设计) 和 OOP(面向对象编程)**  
+
+### **[OOP] OOD(面向对象程序设计) 和 OOP(面向对象编程)**  
   **OOD的三个基本特征**  
     1. `封装`： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)  
     2. `继承`： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)  
     3. `多态`： 使用相同表达式指定不同操作的能力  
 
 <br>
-#### **纯虚函数**  
-C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现的成员函数（纯虚函数），纯虚函数用0作为初始值  
-具体类是没有纯虚函数的类，只有具体类才可实例化，抽象类一般作为基类派生出具体类  
-下面是一个具体类的栗子  
+
+### **指针**   
+#### **函数指针**  
+在C++中广泛被用于动态绑定和基于事件的应用  
 ```cpp
-  class linearList{
-  public:
-      virtual ~linearList() {}    //析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数
-      virtual bool empty()  const = 0;
-      virtual int size()  const = 0;
-      virtual void erase(int theIndex) = 0;
-  };
-```
-<br>
-#### **虚函数**  
-参考1里面似乎写的不好，或者是本人愚笨...故用 [百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin) 和 [知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699) 加以辅助  
-在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数  
-虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数  
-另外注意：**如果基类包含了虚函数，基类的析构函数同时也要设为虚函数**  
-```cpp
-  class A{
-  public:
-      virtual void print();   //只需要在基类加上virtual，派生类不需要
-  };
-
-  class B: public A{
-  public:
-      void print();
-  };
-
-  void A::print(){
-      cout << "It's in A" << endl;
-  }
-
-  void B::print(){
-      cout << "It's in B" << endl;
-  }
-
-  void callPrint(A& p){   //注意使用引用或者指针传参
-      p.print();
-  }
-
-  // -----------------------------------
+  typedef void(* FunPtr)(int, int);   //typedef简化代码
+  void Add(int i, int j) { cout << i << " + " << j << " = " << i + j << endl; }
+  void Sub(int i, int j) { cout << i << " - " << j << " = " << i - j << endl; }
   int main(){
-      A instanceA;
-      B instanceB;
-      callPrint(instanceA);
-      callPrint(instanceB);
-      //Output：
-      //It's in A
-      //It's in B
+      FunPtr ptr;   //声明
+      ptr = &Add;   //绑定Add函数
+      ptr(3, 5);
+      //Output: 3 + 5 = 8
 
-      //若不加virtual，Output：
-      //It's in A
-      //It's in A
+      ptr = &Sub;
+      ptr(5, 3);    //绑定Sub函数
+      //Output: 5 - 3 = 2
   }
 ```
 <br>
-#### **类型转换**  
-- **基本类型 -> 类**  
-  ```cpp
-  class myString{
-  public:
-      myString(char* str);
-      myString() {}
-  private:
-      char* p;
-  };
 
-  myString::myString(char* str){
-      int length = strlen(str);
-      p = new char[length + 1];
-      strcpy(p, str);
-  }
-
-  int main(){
-      myString s1;
-      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
-  }
-  ```
-- **类 -> 基本类型**  
-重载类型转换符函数  
-```cpp
-  //以立方转原来的数为栗子
-  class cube{
-  public:
-      cube(double num = 0): res(num*num*num) {}
-      operator double() { return pow(res, 1.0/3) ; }    //重载类型转换符
-  private:
-      double res;
-  };
-
-  int main(){
-      cube num(double(4.0));
-      cout << double(num) << endl;
-      //Output: 4
-  }
-```
-<br>
-- **类A -> 类B**  
-  类A转换操作符，类B使用构造函数  
-  ```cpp
-  //以立方转开方为栗子
-  class square{
-  public:
-      square(double num = 0): res(sqrt(num)) {}
-      square(const square& obj2);   //复制拷贝函数
-      double get() { return res; }
-  private:
-      double res;
-  };
-
-
-  class cube{
-  public:
-      cube(double num = 0): res(num*num*num) {}
-      operator square();    //重载操作符
-  private:
-      double res;
-  };
-
-
-  cube::operator square(){
-      double temp = pow(res, 1.0/3);
-      return square(temp);
-  }
-
-  square::square(const square &obj2){
-      res = obj2.res;
-  }
-
-  // ---------------
-  int main(){
-      cube num(double(4.0));
-      square num2(num);
-      cout << num2.get() << endl;
-      //Output: 2
-  }
-```
-<br>
-#### **重载**  
-- **this指针**  
+#### **this指针**  
 this指针为指向对象自己的指针  
 ```cpp
   class A{
@@ -859,7 +817,166 @@ this指针为指向对象自己的指针
   }
 ```
 <br>
-- **类的友元函数(Friend Function)**  
+
+#### **派生类指针**  
+```cpp
+  class A{
+  public:
+      int public_data_a;
+  private:
+      int private_data_a;
+  };
+
+  class B: public A{
+  public:
+      int public_data_b;
+  private:
+      int private_data_b;
+  };
+
+  int main(){
+      B objB;
+
+      A* ptr = &objB;         //基类指针绑定派生类实例
+      ptr->public_data_a;     //能访问基类的成员，不能访问派生类的成员
+
+      B* ptr2 = &objB;        //派生类指针绑定派生类实例
+      ptr2->public_data_a;    //都能访问！
+      ptr2->public_data_b;
+  }
+```
+<br>
+
+#### **[OOP] 虚函数**  
+参考1里面似乎写的不好，或者是本人愚笨...故用 [百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin) 和 [知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699) 加以辅助  
+在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数  
+虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数  
+另外注意：**如果基类包含了虚函数，基类的析构函数同时也要设为虚函数**  
+```cpp
+  class A{
+  public:
+      virtual void print();   //只需要在基类加上virtual，派生类不需要
+  };
+
+  class B: public A{
+  public:
+      void print();
+  };
+
+  void A::print(){
+      cout << "It's in A" << endl;
+  }
+
+  void B::print(){
+      cout << "It's in B" << endl;
+  }
+
+  void callPrint(A& p){   //注意使用引用或者指针传参
+      p.print();
+  }
+
+  // -----------------------------------
+  int main(){
+      A instanceA;
+      B instanceB;
+      callPrint(instanceA);
+      callPrint(instanceB);
+      //Output：
+      //It's in A
+      //It's in B
+
+      //若不加virtual，Output：
+      //It's in A
+      //It's in A
+  }
+```
+<br>
+
+### **[OOP] 类型转换**  
+#### **基本类型 -> 类**  
+  ```cpp
+  class myString{
+  public:
+      myString(char* str);
+      myString() {}
+  private:
+      char* p;
+  };
+
+  myString::myString(char* str){
+      int length = strlen(str);
+      p = new char[length + 1];
+      strcpy(p, str);
+  }
+
+  int main(){
+      myString s1;
+      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
+  }
+  ```
+#### **类 -> 基本类型**  
+重载类型转换符函数  
+```cpp
+  //以立方转原来的数为栗子
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator double() { return pow(res, 1.0/3) ; }    //重载类型转换符
+  private:
+      double res;
+  };
+
+  int main(){
+      cube num(double(4.0));
+      cout << double(num) << endl;
+      //Output: 4
+  }
+```
+<br>
+#### **类A -> 类B**  
+  类A转换操作符，类B使用构造函数  
+  ```cpp
+  //以立方转开方为栗子
+  class square{
+  public:
+      square(double num = 0): res(sqrt(num)) {}
+      square(const square& obj2);   //复制拷贝函数
+      double get() { return res; }
+  private:
+      double res;
+  };
+
+
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator square();    //重载操作符
+  private:
+      double res;
+  };
+
+
+  cube::operator square(){
+      double temp = pow(res, 1.0/3);
+      return square(temp);
+  }
+
+  square::square(const square &obj2){
+      res = obj2.res;
+  }
+
+  // ---------------
+  int main(){
+      cube num(double(4.0));
+      square num2(num);
+      cout << num2.get() << endl;
+      //Output: 2
+  }
+```
+<br>
+
+### **[OOP] 重载**  
+#### **类的友元函数(Friend Function)**  
 友元函数指在类作用域范围之外的函数，它是类的非成员函数，但是能访问类的私有数据成员  
 ```cpp
   class B;    //前置声明，因为下面的函数cSwap需要用到
@@ -901,21 +1018,22 @@ this指针为指向对象自己的指针
   }
 ```  
  <br>
-- **重载运算符限制**  
-     1. 不能改变运算符的优先级和结合律
-     2. 不能使用默认参数，不能改变运算符所需参数个数
-     3. 不能创建新运算符
-     4. 不能重载以下运算符   
-      `.`  |  `.*`  |  `::` | `?:` | `sizeof`   
-     5. 重载运算符 `()`, `[]`, `->`, `=` 的函数一定要声明为类的成员  
-     6. 重载`<<`, `>>`一定要作为非成员（友元函数）  
-     7. 假定OpOverClass类重载运算符op，则：  
-        - 若op最左边的操作数不是OpOverClass类型，则重载运算符op的函数一定要作为非成员（友元）  
-        - 若重载运算符op的函数是OpOverClass类的成员，则当opo用于OpOverClass类型的对象时，op最左边的操作数必须是OpOverClass类型  
 
-    （感觉这两点是废话！）  
+#### **重载运算符限制**  
+  1. 不能改变运算符的优先级和结合律
+  2. 不能使用默认参数，不能改变运算符所需参数个数
+  3. 不能创建新运算符
+  4. 不能重载以下运算符   
+      `.`  |  `.*`  |  `::` | `?:` | `sizeof`   
+  5. 重载运算符 `()`, `[]`, `->`, `=` 的函数一定要声明为类的成员  
+  6. 重载`<<`, `>>`一定要作为非成员（友元函数）  
+  7. 假定OpOverClass类重载运算符op，则：  
+    - 若op最左边的操作数不是OpOverClass类型，则重载运算符op的函数一定要作为非成员（友元）  
+    - 若重载运算符op的函数是OpOverClass类的成员，则当opo用于OpOverClass类型的对象时，op最左边的操作数必须是OpOverClass类型   
+
 <br>
-- **重载双目运算符**  
+
+#### **重载双目运算符**  
   - **作为成员函数重载 +**  （重载- / * 等同理）  
   以复数相加为栗子   
   ```cpp
@@ -1210,8 +1328,8 @@ this指针为指向对象自己的指针
 ```
 <br>
 
-#### **模板**  
-- **函数模板**  
+### **[OOP] 模板**  
+#### **函数模板**  
 C++提供函数模板简化重载函数的过程  
 以之前写过的larger函数重载为栗  
 ```cpp
@@ -1230,7 +1348,7 @@ C++提供函数模板简化重载函数的过程
       //Output: 9.9999
   }
 ```
-- **类模板**  
+#### **类模板**  
 ```cpp
 template <class T>    //语法需要
   class point{
