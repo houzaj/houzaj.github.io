@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++学习笔记 - HouZAJ Blog</title>
+    <title>学习笔记 - C++ - HouZAJ Blog</title>
     <meta name="author"  content="HouZAJ">
-    <meta name="description" content="C++学习笔记">
+    <meta name="description" content="学习笔记 - C++">
     <meta name="keywords"  content="Programming">
     <!-- Open Graph -->
-    <meta property="og:title" content="C++学习笔记 - HouZAJ Blog">
+    <meta property="og:title" content="学习笔记 - C++ - HouZAJ Blog">
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://localhost:4000/2018/01/08/cpp_summary.html">
     <meta property="og:description" content="A emmmmmmm developer">
@@ -49,7 +49,7 @@
             
             
         </div>
-        <h1>C++学习笔记</h1>
+        <h1>学习笔记 - C++</h1>
         <div class="post-meta">
             <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-01-08"><i class="iconfont icon-date"></i>08 Jan 2018</time>
@@ -88,6 +88,7 @@
           <li><a href="#bool数据类型" id="markdown-toc-bool数据类型"><strong>bool数据类型</strong></a></li>
           <li><a href="#assert函数" id="markdown-toc-assert函数"><strong>assert函数</strong></a></li>
           <li><a href="#eof函数" id="markdown-toc-eof函数"><strong>eof函数</strong></a></li>
+          <li><a href="#内联函数" id="markdown-toc-内联函数"><strong>内联函数</strong></a></li>
           <li><a href="#引用参数" id="markdown-toc-引用参数"><strong>引用参数</strong></a></li>
           <li><a href="#全局变量的副作用" id="markdown-toc-全局变量的副作用"><strong>全局变量的副作用</strong></a></li>
           <li><a href="#函数重载" id="markdown-toc-函数重载"><strong>函数重载</strong></a></li>
@@ -100,9 +101,16 @@
       </li>
       <li><a href="#oop" id="markdown-toc-oop">▲OOP</a>        <ul>
           <li><a href="#类" id="markdown-toc-类"><strong>类</strong></a></li>
-          <li><a href="#继承is-a关系-与-组成has-a关系" id="markdown-toc-继承is-a关系-与-组成has-a关系"><strong>继承(“is-a”关系) 与 组成(“has-a”关系)</strong></a></li>
+          <li><a href="#构造函数" id="markdown-toc-构造函数"><strong>构造函数</strong></a></li>
+          <li><a href="#抽象数据类型abstract-data-type-adt" id="markdown-toc-抽象数据类型abstract-data-type-adt"><strong>抽象数据类型(Abstract data type, ADT)</strong></a></li>
+          <li><a href="#继承is-a关系" id="markdown-toc-继承is-a关系"><strong>继承(“is-a”关系)</strong></a></li>
+          <li><a href="#组成has-a关系" id="markdown-toc-组成has-a关系"><strong>组成(“has-a”关系)</strong></a></li>
+          <li><a href="#ood面向对象程序设计-和-oop面向对象编程" id="markdown-toc-ood面向对象程序设计-和-oop面向对象编程"><strong>OOD(面向对象程序设计) 和 OOP(面向对象编程)</strong></a></li>
+          <li><a href="#纯虚函数" id="markdown-toc-纯虚函数"><strong>纯虚函数</strong></a></li>
           <li><a href="#虚函数" id="markdown-toc-虚函数"><strong>虚函数</strong></a></li>
-          <li><a href="#重载和模板" id="markdown-toc-重载和模板"><strong>重载和模板</strong></a></li>
+          <li><a href="#类型转换" id="markdown-toc-类型转换"><strong>类型转换</strong></a></li>
+          <li><a href="#重载" id="markdown-toc-重载"><strong>重载</strong></a></li>
+          <li><a href="#模板" id="markdown-toc-模板"><strong>模板</strong></a></li>
         </ul>
       </li>
     </ul>
@@ -112,9 +120,11 @@
 <p><br /></p>
 <h2 id="part-i---前言">PART I - 前言</h2>
 <p>之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 _(:з」∠)_<br />
-参考书籍：</p>
+参考：</p>
 <ol>
   <li>C++ Programming – Program Design Including Data Structures</li>
+  <li>Data Structures, Algorithms, and Applications in C++</li>
+  <li>Object Oriented Programming with C++ (Fourth Edition)</li>
 </ol>
 
 <p><br /></p>
@@ -289,6 +299,13 @@ get、ignore、putback、peek函数
   <span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
+<h4 id="内联函数"><strong>内联函数</strong></h4>
+<p>当其被调用时，代码将逐行展开，类似于宏展开</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kr">inline</span> <span class="kt">double</span> <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">){</span>   <span class="c1">//关键字inline</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
 <h4 id="引用参数"><strong>引用参数</strong></h4>
 <p>引用参数接受实参的内存地址，因此在以下三种情况中十分适用：</p>
 <ol>
@@ -433,10 +450,14 @@ get、ignore、putback、peek函数
     <p>另外注意：</p>
     <ol>
       <li>不能在变量定义时同时初始化</li>
-      <li>类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关  <br />
-<br /></li>
+      <li>类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关，当函数定义于类内时，会变为inline函数，所有内联函数的限制和局限也适用于此，故只有小函数才定义在类的定义内</li>
     </ol>
   </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
   <li><strong>成员函数实现</strong><br />
 以setTime函数为栗子
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">clockType</span><span class="o">::</span><span class="n">setTime</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
@@ -466,6 +487,83 @@ get、ignore、putback、peek函数
 </code></pre></div>    </div>
     <p><br /></p>
   </li>
+  <li><strong>静态数据成员</strong><br />
+特点：
+    <ol>
+      <li>类的第一个对象被创建时，一次性被初始化为0</li>
+      <li>所有实例共享一个静态成员变量</li>
+      <li>只在类内可见</li>
+      <li>生存期为程序整个执行期</li>
+      <li>每个静态成员变量的类型和作用域，都定义于类的定义之外，与类关联但和对象没有关系</li>
+      <li>声明于类内，定义于源文件内</li>
+    </ol>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">test</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="kt">int</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span>
+      <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="k">static</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="kt">int</span> <span class="n">test</span><span class="o">::</span><span class="n">a</span><span class="p">;</span>  <span class="c1">//静态成员函数的定义</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">test</span> <span class="n">obj1</span><span class="p">;</span>
+      <span class="n">test</span> <span class="n">obj2</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">obj1</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//Output: 0</span>
+
+      <span class="n">obj1</span><span class="p">.</span><span class="n">fun</span><span class="p">();</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">obj1</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">obj2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//Output: 1 1</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>静态成员函数</strong><br />
+特点：
+    <ol>
+      <li>只能访问类内声明的其他静态成员（函数或变量）</li>
+      <li>调用时使用类名，而非对象名<br />
+```cpp
+  class test{
+  public:
+   static int showA() { return a; }
+   void fun() { a++; }
+  private:
+   static int a;
+  };</li>
+    </ol>
+
+    <p>int test::a;  //静态成员函数的定义</p>
+
+    <p>int main(){
+      test obj1;
+      cout « test::showA() « endl;
+      //Output: 0</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  obj1.fun();
+  cout &lt;&lt; test::showA() &lt;&lt; endl;
+  //Output: 1   } ``` &lt;br&gt;
+</code></pre></div>    </div>
+  </li>
+  <li><strong>常量成员函数</strong><br />
+可将不改变任何类内数据的函数声明为常量成员函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">get_balance</span><span class="p">()</span>  <span class="k">const</span><span class="p">;</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>成员指针</strong>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">A</span><span class="o">::*</span> <span class="n">ip</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>   <span class="c1">//A::* 为“指向类A的成员的指针”， &amp;A::m 为 “类A的成员的地址”  </span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>类与结构体</strong><br />
+如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体<br />
+<br />
+    <h4 id="构造函数"><strong>构造函数</strong></h4>
+  </li>
   <li><strong>构造函数(Constructor)</strong><br />
 通过构造函数来保证类中数据成员的初始化，可有多个进行重载<br />
 当声明对象时，构造函数将自动执行
@@ -486,11 +584,13 @@ get、ignore、putback、peek函数
     <span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minutes</span> <span class="o">&amp;&amp;</span> <span class="n">minutes</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">minutes</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
     <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">seconds</span> <span class="o">&amp;&amp;</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">seconds</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+
 <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">(){</span>
     <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">min</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">sec</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+<span class="c1">//也可写为 clockType::clockType(): hr(0), min(0), sec(0) {}</span>
 </code></pre></div>    </div>
     <p>构造函数可带默认参数，也称为默认构造函数</p>
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
@@ -597,9 +697,8 @@ get、ignore、putback、peek函数
 <span class="c1">//clear done!</span>
 </code></pre></div>    </div>
     <p><br /></p>
-  </li>
-  <li><strong>抽象数据类型(Abstract data type, ADT)</strong><br />
-只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：
+    <h4 id="抽象数据类型abstract-data-type-adt"><strong>抽象数据类型(Abstract data type, ADT)</strong></h4>
+    <p>只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：</p>
     <ol>
       <li><code class="highlighter-rouge">类型名称(Data Type Name)</code></li>
       <li><code class="highlighter-rouge">域(Domain)</code>： 即属于ADT的一系列值</li>
@@ -618,12 +717,9 @@ get、ignore、putback、peek函数
 </code></pre></div>    </div>
     <p><br /></p>
   </li>
-  <li><strong>类与结构体</strong><br />
-如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体<br />
-<br /></li>
 </ul>
 
-<h4 id="继承is-a关系-与-组成has-a关系"><strong>继承(“is-a”关系) 与 组成(“has-a”关系)</strong></h4>
+<h4 id="继承is-a关系"><strong>继承(“is-a”关系)</strong></h4>
 <ul>
   <li><strong>继承</strong><br />
 从现有类的基础上创建新类
@@ -788,97 +884,104 @@ get、ignore、putback、peek函数
 </table>
 
 <p><br /></p>
-<ul>
-  <li><strong>组成</strong><br />
-如在personType类中包含dataType类和personalType类，代码如下
-    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//datatype类-------------------------------------------------------</span>
-<span class="k">class</span> <span class="nc">dateType</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
-<span class="k">private</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">dYear</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dMonth</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dDay</span><span class="p">;</span>
-<span class="p">};</span>
+<h4 id="组成has-a关系"><strong>组成(“has-a”关系)</strong></h4>
+<p>如在personType类中包含dataType类和personalType类，代码如下</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//datatype类-------------------------------------------------------</span>
+  <span class="k">class</span> <span class="nc">dateType</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">);</span>
+      <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">int</span> <span class="n">dYear</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">dMonth</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">dDay</span><span class="p">;</span>
+  <span class="p">};</span>
 
-<span class="n">dateType</span><span class="o">::</span><span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span> <span class="o">=</span> <span class="mi">30</span><span class="p">){</span>   <span class="c1">//dataType的默认构造函数</span>
-    <span class="n">dYear</span> <span class="o">=</span> <span class="n">year</span><span class="p">;</span>
-    <span class="n">dMonth</span> <span class="o">=</span> <span class="n">month</span><span class="p">;</span>
-    <span class="n">dDay</span> <span class="o">=</span> <span class="n">day</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="n">dateType</span><span class="o">::</span><span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span> <span class="o">=</span> <span class="mi">30</span><span class="p">){</span>   <span class="c1">//dataType的默认构造函数</span>
+      <span class="n">dYear</span> <span class="o">=</span> <span class="n">year</span><span class="p">;</span>
+      <span class="n">dMonth</span> <span class="o">=</span> <span class="n">month</span><span class="p">;</span>
+      <span class="n">dDay</span> <span class="o">=</span> <span class="n">day</span><span class="p">;</span>
+  <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">dateType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Date: "</span> <span class="o">&lt;&lt;</span> <span class="n">dYear</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dMonth</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dDay</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="kt">void</span> <span class="n">dateType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Date: "</span> <span class="o">&lt;&lt;</span> <span class="n">dYear</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dMonth</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dDay</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-<span class="c1">// personalType类----------------------------------------------</span>
-<span class="k">class</span> <span class="nc">personalType</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
-<span class="k">private</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">dName</span><span class="p">;</span>
-<span class="p">};</span>
+  <span class="c1">// personalType类----------------------------------------------</span>
+  <span class="k">class</span> <span class="nc">personalType</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">);</span>
+      <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="n">string</span> <span class="n">dName</span><span class="p">;</span>
+  <span class="p">};</span>
 
-<span class="n">personalType</span><span class="o">::</span><span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"null"</span><span class="p">){</span>
-    <span class="n">dName</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="n">personalType</span><span class="o">::</span><span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"null"</span><span class="p">){</span>
+      <span class="n">dName</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+  <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">personalType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Name: "</span> <span class="o">&lt;&lt;</span> <span class="n">dName</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="kt">void</span> <span class="n">personalType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Name: "</span> <span class="o">&lt;&lt;</span> <span class="n">dName</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-<span class="c1">//persoanlInfo类--------------------------------------------------</span>
-<span class="k">class</span> <span class="nc">personalInfo</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">personalInfo</span><span class="p">();</span>
-    <span class="n">personalInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">,</span> <span class="n">string</span> <span class="n">name</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
-<span class="k">private</span><span class="o">:</span>
-    <span class="n">personalType</span> <span class="n">personalName</span><span class="p">;</span>
-    <span class="n">dateType</span> <span class="n">bDay</span><span class="p">;</span>
-<span class="p">};</span>
+  <span class="c1">//persoanlInfo类--------------------------------------------------</span>
+  <span class="k">class</span> <span class="nc">personalInfo</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">personalInfo</span><span class="p">();</span>
+      <span class="n">personalInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">,</span> <span class="n">string</span> <span class="n">name</span><span class="p">);</span>
+      <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="n">personalType</span> <span class="n">personalName</span><span class="p">;</span>
+      <span class="n">dateType</span> <span class="n">bDay</span><span class="p">;</span>
+  <span class="p">};</span>
 
-<span class="n">personalInfo</span><span class="o">::</span><span class="n">personalInfo</span><span class="p">(){}</span>    <span class="c1">//使用对象成员构造函数的默认值</span>
-<span class="n">personalInfo</span><span class="o">::</span><span class="n">personalInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">,</span>
-   <span class="n">string</span> <span class="n">name</span><span class="p">)</span><span class="o">:</span><span class="n">personalName</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">bDay</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">){}</span>  <span class="c1">//向成员对象的构造函数传递参数</span>
+  <span class="n">personalInfo</span><span class="o">::</span><span class="n">personalInfo</span><span class="p">(){}</span>    <span class="c1">//使用对象成员构造函数的默认值</span>
+  <span class="n">personalInfo</span><span class="o">::</span><span class="n">personalInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">,</span>
+     <span class="n">string</span> <span class="n">name</span><span class="p">)</span><span class="o">:</span><span class="n">personalName</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">bDay</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">){}</span>  <span class="c1">//向成员对象的构造函数传递参数</span>
 
-<span class="kt">void</span> <span class="n">personalInfo</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
-    <span class="n">personalName</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
-    <span class="n">bDay</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
-<span class="p">}</span>
+  <span class="kt">void</span> <span class="n">personalInfo</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
+      <span class="n">personalName</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+      <span class="n">bDay</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+  <span class="p">}</span>
 
-<span class="c1">//主函数----------------------------------------------------------</span>
-<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-  <span class="n">personalInfo</span> <span class="n">student</span><span class="p">;</span>
-  <span class="n">student</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
-  <span class="c1">//Output</span>
-  <span class="c1">//Name: null</span>
-  <span class="c1">//Date: 2018-2-30</span>
+  <span class="c1">//主函数----------------------------------------------------------</span>
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">personalInfo</span> <span class="n">student</span><span class="p">;</span>
+    <span class="n">student</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="c1">//Output</span>
+    <span class="c1">//Name: null</span>
+    <span class="c1">//Date: 2018-2-30</span>
 
-  <span class="n">personalInfo</span> <span class="n">student2</span><span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="s">"your nick name"</span><span class="p">);</span>
-  <span class="n">student2</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
-  <span class="c1">//Output</span>
-  <span class="c1">//Name: your nick name</span>
-  <span class="c1">//Date: 1999-9-9</span>
-<span class="p">}</span>
-</code></pre></div>    </div>
-    <p><br /></p>
-  </li>
-  <li><strong>OOD(面向对象程序设计) 和 OOP(面向对象编程)</strong><br />
-<strong>OOD的三个基本特征</strong>
-    <ol>
-      <li><code class="highlighter-rouge">封装</code>： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)</li>
-      <li><code class="highlighter-rouge">继承</code>： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)</li>
-      <li><code class="highlighter-rouge">多态</code>： 使用相同表达式指定不同操作的能力</li>
-    </ol>
-  </li>
-</ul>
+    <span class="n">personalInfo</span> <span class="n">student2</span><span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="s">"your nick name"</span><span class="p">);</span>
+    <span class="n">student2</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="c1">//Output</span>
+    <span class="c1">//Name: your nick name</span>
+    <span class="c1">//Date: 1999-9-9</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+<h4 id="ood面向对象程序设计-和-oop面向对象编程"><strong>OOD(面向对象程序设计) 和 OOP(面向对象编程)</strong></h4>
+<p><strong>OOD的三个基本特征</strong><br />
+    1. <code class="highlighter-rouge">封装</code>： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)<br />
+    2. <code class="highlighter-rouge">继承</code>： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)<br />
+    3. <code class="highlighter-rouge">多态</code>： 使用相同表达式指定不同操作的能力</p>
 
 <p><br /></p>
+<h4 id="纯虚函数"><strong>纯虚函数</strong></h4>
+<p>C++支持两种类：<code class="highlighter-rouge">抽象类</code>和<code class="highlighter-rouge">具体类</code>，抽象类中包含没有实现的成员函数（纯虚函数），纯虚函数用0作为初始值<br />
+具体类是没有纯虚函数的类，只有具体类才可实例化，抽象类一般作为基类派生出具体类<br />
+下面是一个具体类的栗子</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">linearList</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="k">virtual</span> <span class="o">~</span><span class="n">linearList</span><span class="p">()</span> <span class="p">{}</span>    <span class="c1">//析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数</span>
+      <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">virtual</span> <span class="kt">int</span> <span class="n">size</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">virtual</span> <span class="kt">void</span> <span class="n">erase</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">};</span>
+</code></pre></div></div>
+<p><br /></p>
 <h4 id="虚函数"><strong>虚函数</strong></h4>
-<p>参考1里面似乎写的不好，或者是本人愚笨…故用<a href="https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin">百度百科——虚函数</a>和<a href="https://www.zhihu.com/question/23971699">知乎——c++虚函数的作用是什么？</a>加以辅助<br />
+<p>参考1里面似乎写的不好，或者是本人愚笨…故用 <a href="https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin">百度百科——虚函数</a> 和 <a href="https://www.zhihu.com/question/23971699">知乎——c++虚函数的作用是什么？</a> 加以辅助<br />
 在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数<br />
 虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数<br />
 另外注意：<strong>如果基类包含了虚函数，基类的析构函数同时也要设为虚函数</strong></p>
@@ -920,9 +1023,90 @@ get、ignore、putback、peek函数
   <span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
-
-<h4 id="重载和模板"><strong>重载和模板</strong></h4>
+<h4 id="类型转换"><strong>类型转换</strong></h4>
 <ul>
+  <li><strong>基本类型 -&gt; 类</strong>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">myString</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
+    <span class="n">myString</span><span class="p">()</span> <span class="p">{}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">myString</span><span class="o">::</span><span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">myString</span> <span class="n">s1</span><span class="p">;</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">myString</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="s">"Apple"</span><span class="p">));</span>  <span class="c1">//从char*类型到myString类型，通过隐式调用构造函数</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>类 -&gt; 基本类型</strong><br />
+重载类型转换符函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//以立方转原来的数为栗子</span>
+<span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="k">operator</span> <span class="kt">double</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="p">;</span> <span class="p">}</span>    <span class="c1">//重载类型转换符</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="kt">double</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">//Output: 4</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>类A -&gt; 类B</strong><br />
+类A转换操作符，类B使用构造函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//以立方转开方为栗子</span>
+<span class="k">class</span> <span class="nc">square</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">square</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">))</span> <span class="p">{}</span>
+    <span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">);</span>   <span class="c1">//复制拷贝函数</span>
+    <span class="kt">double</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="k">operator</span> <span class="n">square</span><span class="p">();</span>    <span class="c1">//重载操作符</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="n">cube</span><span class="o">::</span><span class="k">operator</span> <span class="n">square</span><span class="p">(){</span>
+    <span class="kt">double</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">square</span><span class="o">::</span><span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span> <span class="o">&amp;</span><span class="n">obj2</span><span class="p">){</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">obj2</span><span class="p">.</span><span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
+    <span class="n">square</span> <span class="n">num2</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">//Output: 2</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+    <h4 id="重载"><strong>重载</strong></h4>
+  </li>
   <li><strong>this指针</strong><br />
 this指针为指向对象自己的指针
     <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">A</span><span class="p">{</span>
@@ -1326,6 +1510,67 @@ this指针为指向对象自己的指针
     <span class="c1">//3+4i</span>
 <span class="p">}</span>
 </code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="模板"><strong>模板</strong></h4>
+<ul>
+  <li><strong>函数模板</strong><br />
+C++提供函数模板简化重载函数的过程<br />
+以之前写过的larger函数重载为栗
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="c1">//模板语法，T是类型，由传参决定</span>
+<span class="n">T</span> <span class="n">larger</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span><span class="o">?</span><span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// -------------------------</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">larger</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">//Output: 7</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">larger</span><span class="p">(</span><span class="sc">'A'</span><span class="p">,</span> <span class="sc">'Z'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">//Output: Z</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">larger</span><span class="p">(</span><span class="mf">9.9999</span><span class="p">,</span> <span class="mf">9.9898</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">//Output: 9.9999</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>类模板</strong>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>    <span class="c1">//语法需要</span>
+<span class="k">class</span> <span class="nc">point</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">point</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">setPoint</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="n">ix</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">iy</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">display</span><span class="p">()</span>  <span class="k">const</span><span class="p">;</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">T</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">point</span><span class="p">(){</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;}</span>   <span class="c1">//注意是point&lt;T&gt;，并且每一处有使用T的地方，前面都要加 template &lt;class T&gt;</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">setPoint</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="n">ix</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">iy</span><span class="p">){</span> <span class="n">x</span> <span class="o">=</span> <span class="n">ix</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iy</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">display</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"x is "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">", y is "</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+
+<span class="c1">// -------------------------</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">point</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p1</span><span class="p">;</span>
+    <span class="n">point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">p2</span><span class="p">;</span>
+    <span class="n">p1</span><span class="p">.</span><span class="n">setPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">p2</span><span class="p">.</span><span class="n">setPoint</span><span class="p">(</span><span class="mf">3.1415</span><span class="p">,</span> <span class="mf">2.71</span><span class="p">);</span>
+
+    <span class="n">p1</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+    <span class="c1">//Output: x is 5, y is 6</span>
+
+    <span class="n">p2</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+    <span class="c1">//Output: x is 3.1415, y is 2.71</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
   </li>
 </ul>
 
@@ -1345,6 +1590,18 @@ this指针为指向对象自己的指针
         
     </section>
     <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/01/12/DS_Algorithm_summary.html" class="read-next-link"></a>
+            <section>
+                <span>学习笔记 - 数据结构和算法</span>
+                <p>  好好学习哈哈哈哈哈哈哈</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="" alt="">
+            
+        </div>
         
         
         <div class="read-next-item">

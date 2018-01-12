@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '数据结构和算法学习笔记'
+title: '学习笔记 - 数据结构和算法'
 date: 2018-01-12
 author: HouZAJ
 cover: ''
@@ -159,3 +159,41 @@ tags: Programming
 ```
 <br>
 #### **C++ 迭代器**   
+为了简化迭代器的开发和基于迭代器的通用算法的分类，C++的STL定义了5种迭代器：  
+1. **输入**: 提供对其指向元素的只读操作，具有 前置++, 后置++ 等操作符
+2. **输出**: 提供对其指向元素的写操作，具有 前置++, 后置++ 等操作符
+3. **向前**: 具有++操作符  
+4. **双向**: 具有++, --操作符  
+5. **随机访问**: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持  
+
+所有迭代器都具备操作符 `==`, `!=`, 解引用符 `*`,
+
+#### **arrayList 的一个迭代器**  
+```cpp
+// iterator 类 -------------------------------------------------
+  class iterator{
+  public:
+      //5个typedef语句实现双向迭代器
+      typedef bidirectional_iterator_tag iterator_category;
+      typedef T value_type;
+      typedef ptrdiff_t difference_type;
+      typedef T* pointer;
+      typedef T& reference;
+
+      iterator(T* thePosition = 0) { position = thePosition; }
+
+      T& operator*() const { return * position; }
+      T* operator->() const { return & * position; }
+
+      iterator& operator++ () { ++position; return * this; }
+      iterator operator++(int) () { iterator old = * his; ++position; return old; }
+      iterator& operator-- () { --position; return * this; }
+      iterator operator--(int) { iterator old = * this; --position; return old; }
+
+      bool operator!= (const iterator right)  const{ return position != right.position; }
+      bool operator== (const iterator right)  const{ return position == right.position; }
+
+  protected:
+      T* position;
+  };
+```

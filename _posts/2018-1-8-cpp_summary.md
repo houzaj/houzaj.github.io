@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'C++ 学习笔记'
+title: '学习笔记 - C++'
 date: 2018-01-08
 author: HouZAJ
 cover: ''
@@ -26,6 +26,8 @@ tags: Programming
 参考：
 1. C++ Programming -- Program Design Including Data Structures    
 2. Data Structures, Algorithms, and Applications in C++  
+3. Object Oriented Programming with C++ (Fourth Edition)  
+
 
 <br>
 {:toc}
@@ -204,6 +206,14 @@ cin.clear();
   }
 ```  
 <br>
+#### **内联函数**  
+当其被调用时，代码将逐行展开，类似于宏展开  
+```cpp
+  inline double cube(double a){   //关键字inline
+    return (a*a*a);
+  }
+```
+<br>
 #### **引用参数**  
 引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
 1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
@@ -353,7 +363,8 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 ```
 另外注意：  
   1. 不能在变量定义时同时初始化  
-  2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关    
+  2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关，当函数定义于类内时，会变为inline函数，所有内联函数的限制和局限也适用于此，故只有小函数才定义在类的定义内  
+
 <br>  
 
 - **成员函数实现**  
@@ -385,7 +396,79 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   };
 ```
 <br>
+- **静态数据成员**  
+特点：  
+  1. 类的第一个对象被创建时，一次性被初始化为0  
+  2. 所有实例共享一个静态成员变量  
+  3. 只在类内可见  
+  4. 生存期为程序整个执行期  
+  5. 每个静态成员变量的类型和作用域，都定义于类的定义之外，与类关联但和对象没有关系  
+  6. 声明于类内，定义于源文件内  
 
+  ```cpp
+    class test{
+    public:
+        int get() { return a; }
+        void fun() { a++; }
+    private:
+        static int a;
+    };
+
+    int test::a;  //静态成员函数的定义
+
+    int main(){
+        test obj1;
+        test obj2;
+        cout << obj1.get() << endl;
+        //Output: 0
+
+        obj1.fun();
+        cout << obj1.get() << " " << obj2.get() << endl;
+        //Output: 1 1
+    }
+  ```
+<br>
+- **静态成员函数**  
+特点：  
+  1. 只能访问类内声明的其他静态成员（函数或变量）  
+  2. 调用时使用类名，而非对象名  
+  ```cpp
+    class test{
+    public:
+        static int showA() { return a; }
+        void fun() { a++; }
+    private:
+        static int a;
+    };
+
+    int test::a;  //静态成员函数的定义
+
+    int main(){
+        test obj1;
+        cout << test::showA() << endl;
+        //Output: 0
+
+        obj1.fun();
+        cout << test::showA() << endl;
+        //Output: 1
+    }
+  ```
+<br>
+- **常量成员函数**  
+可将不改变任何类内数据的函数声明为常量成员函数  
+```cpp
+  void get_balance()  const;
+```
+<br>
+- **成员指针**  
+```cpp
+  int A::* ip = &A::m;   //A::* 为“指向类A的成员的指针”， &A::m 为 “类A的成员的地址”  
+```
+<br>
+- **类与结构体**  
+如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体  
+<br>
+#### **构造函数**  
 - **构造函数(Constructor)**  
 通过构造函数来保证类中数据成员的初始化，可有多个进行重载  
 当声明对象时，构造函数将自动执行  
@@ -407,11 +490,13 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       min = (0 <= minutes && minutes < 60)?minutes:0;
       seconds = (0 <= seconds && seconds < 60)?seconds:0;
   }
+
   clockType::clockType(){
       hr = 0;
       min = 0;
       sec = 0;
   }
+  //也可写为 clockType::clockType(): hr(0), min(0), sec(0) {}
 ```    
 构造函数可带默认参数，也称为默认构造函数  
 ```cpp
@@ -520,7 +605,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   //clear done!
 ```
 <br>
-- **抽象数据类型(Abstract data type, ADT)**  
+#### **抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
   1. `类型名称(Data Type Name)`
   2. `域(Domain)`： 即属于ADT的一系列值
@@ -539,11 +624,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   ```   
 <br>
 
-- **类与结构体**  
-如果类的所有数据成员都是公有成员，不包含任何成员函数，那么一般使用结构体  
-<br>
-
-#### **继承("is-a"关系) 与 组成("has-a"关系)**  
+#### **继承("is-a"关系)**  
 - **继承**  
 从现有类的基础上创建新类
   - `派生类(Derived class)` : 创建的新类，创建的新类的新类……
@@ -679,7 +760,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 |          private          |  〇 (protected)  |  〇 (protected) |      ×        |
 
 <br>
-- **组成**  
+#### **组成("has-a"关系)**  
 如在personType类中包含dataType类和personalType类，代码如下  
 ```cpp
   //datatype类-------------------------------------------------------
@@ -756,7 +837,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   }
 ```
 <br>
-- **OOD(面向对象程序设计) 和 OOP(面向对象编程)**  
+#### **OOD(面向对象程序设计) 和 OOP(面向对象编程)**  
   **OOD的三个基本特征**  
     1. `封装`： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)  
     2. `继承`： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)  
@@ -821,7 +902,88 @@ C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现�
   }
 ```
 <br>
+#### **类型转换**  
+- **基本类型 -> 类**  
+  ```cpp
+  class myString{
+  public:
+      myString(char* str);
+      myString() {}
+  private:
+      char* p;
+  };
 
+  myString::myString(char* str){
+      int length = strlen(str);
+      p = new char[length + 1];
+      strcpy(p, str);
+  }
+
+  int main(){
+      myString s1;
+      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
+  }
+  ```
+- **类 -> 基本类型**  
+重载类型转换符函数  
+```cpp
+  //以立方转原来的数为栗子
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator double() { return pow(res, 1.0/3) ; }    //重载类型转换符
+  private:
+      double res;
+  };
+
+  int main(){
+      cube num(double(4.0));
+      cout << double(num) << endl;
+      //Output: 4
+  }
+```
+<br>
+- **类A -> 类B**  
+  类A转换操作符，类B使用构造函数  
+  ```cpp
+  //以立方转开方为栗子
+  class square{
+  public:
+      square(double num = 0): res(sqrt(num)) {}
+      square(const square& obj2);   //复制拷贝函数
+      double get() { return res; }
+  private:
+      double res;
+  };
+
+
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator square();    //重载操作符
+  private:
+      double res;
+  };
+
+
+  cube::operator square(){
+      double temp = pow(res, 1.0/3);
+      return square(temp);
+  }
+
+  square::square(const square &obj2){
+      res = obj2.res;
+  }
+
+  // ---------------
+  int main(){
+      cube num(double(4.0));
+      square num2(num);
+      cout << num2.get() << endl;
+      //Output: 2
+  }
+```
+<br>
 #### **重载**  
 - **this指针**  
 this指针为指向对象自己的指针  
