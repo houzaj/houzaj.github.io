@@ -139,4 +139,7 @@ Prism.languages.yaml={scalar:{pattern:/([\-:]\s*(?:![^\s]+)?[ \t]*[|>])[ \t]*(?:
 $(function(){
   $("div").removeClass('highlight');
   $("pre").attr("style", "overflow-x:auto;overflow-y:auto;");
+  $('li > a > strong').each(function(){
+     $(this).replaceWith($(this).html());
+  })
 });
