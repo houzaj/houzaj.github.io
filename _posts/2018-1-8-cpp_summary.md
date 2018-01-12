@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'C++学习笔记'
+title: 'C++ 学习笔记'
 date: 2018-01-08
 author: HouZAJ
 cover: ''
@@ -23,8 +23,9 @@ tags: Programming
 <br>
 ## PART I - 前言
 之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_  
-参考书籍：
+参考：
 1. C++ Programming -- Program Design Including Data Structures    
+2. Data Structures, Algorithms, and Applications in C++  
 
 <br>
 {:toc}
@@ -762,8 +763,22 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
     3. `多态`： 使用相同表达式指定不同操作的能力  
 
 <br>
+#### **纯虚函数**  
+C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现的成员函数（纯虚函数），纯虚函数用0作为初始值  
+具体类是没有纯虚函数的类，只有具体类才可实例化，抽象类一般作为基类派生出具体类  
+下面是一个具体类的栗子  
+```cpp
+  class linearList{
+  public:
+      virtual ~linearList() {}    //析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数
+      virtual bool empty()  const = 0;
+      virtual int size()  const = 0;
+      virtual void erase(int theIndex) = 0;
+  };
+```
+<br>
 #### **虚函数**  
-参考1里面似乎写的不好，或者是本人愚笨...故用[百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin)和[知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699)加以辅助  
+参考1里面似乎写的不好，或者是本人愚笨...故用 [百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin) 和 [知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699) 加以辅助  
 在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数  
 虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数  
 另外注意：**如果基类包含了虚函数，基类的析构函数同时也要设为虚函数**  
@@ -807,7 +822,7 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
 ```
 <br>
 
-#### **重载和模板**  
+#### **重载**  
 - **this指针**  
 this指针为指向对象自己的指针  
 ```cpp
@@ -1205,3 +1220,62 @@ this指针为指向对象自己的指针
       //3+4i
   }
 ```
+<br>
+
+#### **模板**  
+- **函数模板**  
+C++提供函数模板简化重载函数的过程  
+以之前写过的larger函数重载为栗  
+```cpp
+  template <class T>  //模板语法，T是类型，由传参决定
+  T larger(T x, T y) { return (x > y)?x:y; }
+
+  // -------------------------
+  int main(){
+      cout << larger(5, 7) << endl;
+      //Output: 7
+
+      cout << larger('A', 'Z') << endl;
+      //Output: Z
+
+      cout << larger(9.9999, 9.9898) << endl;
+      //Output: 9.9999
+  }
+```
+- **类模板**  
+```cpp
+template <class T>    //语法需要
+  class point{
+  public:
+      point();
+      void setPoint(const T ix, const T iy);
+      void display()  const;
+  private:
+      T x;
+      T y;
+  };
+
+  template <class T>
+  point<T>::point(){ x = 0; y = 0;}   //注意是point<T>，并且每一处有使用T的地方，前面都要加 template <class T>
+
+  template <class T>
+  void point<T>::setPoint(const T ix, const T iy){ x = ix; y = iy; }
+
+  template <class T>
+  void point<T>::display() const{ cout << "x is " << x << ", y is " << y << endl;}
+
+  // -------------------------
+  int main(){
+      point<int> p1;
+      point<double> p2;
+      p1.setPoint(5, 6);
+      p2.setPoint(3.1415, 2.71);
+
+      p1.display();
+      //Output: x is 5, y is 6
+
+      p2.display();
+      //Output: x is 3.1415, y is 2.71
+  }
+```
+<br>
