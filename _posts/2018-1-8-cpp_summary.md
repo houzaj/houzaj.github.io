@@ -926,7 +926,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 ```  
 <br>
 #### **基类和派生类的构造函数**  
-派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数
+派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数，调用析构函数时，先调用自身的再调用基类的  
 ```cpp
   class baseClass{
   public:
@@ -1151,7 +1151,8 @@ C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现�
 ```cpp
   class linearList{
   public:
-      virtual ~linearList() {}    //析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数
+      //析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数，如果不写只会调用基类的析构函数，派生类的不会被调用
+      virtual ~linearList() {}
       virtual bool empty()  const = 0;
       virtual int size()  const = 0;
       virtual void erase(int theIndex) = 0;
