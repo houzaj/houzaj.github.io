@@ -659,6 +659,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 特点：  
   1. 只能访问类内声明的其他静态成员（函数或变量）  
   2. 调用时使用类名，而非对象名  
+
   ```cpp
     class test{
     public:
@@ -979,6 +980,100 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       // base_bar by user
       // derived_bar by user
 
+      return 0;
+  }
+```
+<br>
+#### **[OJ 填空题] 继承自string的MyString**  
+这道题惊艳到我了！  
+好好学习天天向上！  
+> **样例输入**  
+>>  无  
+
+> **样例输出**  
+>>  1. abcd-efgh-abcd-  
+>>  2. abcd-  
+>>  3.   
+>>  4. abcd-efgh-  
+>>  5. efgh-  
+>>  6. c  
+>>  7. abcd-  
+>>  8. ijAl-  
+>>  9. ijAl-mnop  
+>>  10. qrst-abcd-  
+>>  11. abcd-qrst-abcd- uvw xyz  
+>>  about  
+>>  big  
+>>  me  
+>>  take  
+>>  abcd  
+>>  qrst-abcd-  
+
+> **提示**
+>> **提示 1：** 如果将程序中所有 "MyString" 用 "string" 替换，那么除
+    了最后两条红色的语句编译无法通过外，其他语句都没有问题，而且输出和前
+    面给的结果吻合。也就是说，MyString 类对 string 类的功能扩充只体现在最
+    后两条语句上面。  
+>> **提示 2:** string 类有一个成员函数 string substr(int start,int
+    length); 能够求从 start 位置开始，长度为 length 的子串  
+>> **提示 3:** C++中，派生类的对象可以赋值给基类对象，因为，一个派生
+    类对象，也可看作是一个基类对象（大学生是学生）。反过来则不行(学生未
+    必是大学生） 同样，调用需要基类对象作参数的函数时，以派生类对象作为实参，也是没有问题的  
+
+```cpp
+  #include <cstdlib>
+  #include <iostream>
+  #include <string>
+  #include <algorithm>
+  using namespace std;
+  class MyString:public string
+  {
+
+      // 在此处补充你的代码 ------------------------------------------------------------------------
+  public:
+      MyString(): string() {}   //触发基类string类构造函数
+      MyString(const string s): string(s) {}  //触发基类string类构造函数
+      MyString(const char* s): string(s) {}   //触发基类string类构造函数
+      //触发基类string类构造函数，这里把派生类对象s交给string类构造函数处理是没问题的，反之则不行
+      MyString(const MyString& s): string(s) {}   
+      MyString operator () (int loc, int len){    //因此这是唯一的拓展
+          return this->substr(loc, len);          //但其实也是调用一下string类的方法substr然后完事
+      }
+      // -----------------------------------------------------------------------------------------
+
+  };
+
+
+  int main()
+  {
+      MyString s1("abcd-"),s2,s3("efgh-"),s4(s1);
+      MyString SArray[4] = {"big","me","about","take"};
+      cout << "1. " << s1 << s2 << s3<< s4<< endl;
+      s4 = s3;
+      s3 = s1 + s3;
+      cout << "2. " << s1 << endl;
+      cout << "3. " << s2 << endl;
+      cout << "4. " << s3 << endl;
+      cout << "5. " << s4 << endl;
+      cout << "6. " << s1[2] << endl;
+      s2 = s1;
+      s1 = "ijkl-";
+      s1[2] = 'A' ;
+      cout << "7. " << s2 << endl;
+      cout << "8. " << s1 << endl;
+      s1 += "mnop";
+      cout << "9. " << s1 << endl;
+      s4 = "qrst-" + s2;
+      cout << "10. " << s4 << endl;
+      s1 = s2 + s4 + " uvw " + "xyz";
+      cout << "11. " << s1 << endl;
+          sort(SArray,SArray+4);
+      for( int i = 0;i < 4;i ++ )
+      cout << SArray[i] << endl;
+      //s1的从下标0开始长度为4的子串
+      cout << s1(0,4) << endl;
+      //s1的从下标5开始长度为10的子串
+      cout << s1(5,10) << endl;
       return 0;
   }
 ```
@@ -1931,23 +2026,29 @@ C++11反对，故不写
 - **关联式容器** ： set, multiset, map, multimap  
 - **衍生容器** ： stack, queue, priority-queue  
 
-![]()
-![]()  
+![容器1](http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/1.jpg)  
+![容器2](http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/2.jpg)   
 <br>
 
 #### **算法**  
-![]()
-![]()   
+![算法1](http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/3.jpg)  
+![算法2](http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/4.jpg)   
 <br>
 
 #### **迭代器**  
-这部分内容直接copy数据结构那篇文写的  
-<br>
-
-#### **函数对象**  
+（这部分内容直接copy数据结构那篇文写的）  
 为了简化迭代器的开发和基于迭代器的通用算法的分类，C++的STL定义了5种迭代器：  
 1. **输入**: 提供对其指向元素的只读操作，具有 前置++, 后置++ 等操作符
 2. **输出**: 提供对其指向元素的写操作，具有 前置++, 后置++ 等操作符
 3. **向前**: 具有++操作符  
 4. **双向**: 具有++, --操作符  
 5. **随机访问**: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持  
+<br>
+
+#### **函数对象**  
+![函数对象](http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/5.jpg)  
+```cpp
+  //比如在sort中
+  sort(arr, arr + N, greater<int>());    //降序排序
+```
+<br>

@@ -870,29 +870,30 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p>特点：</p>
 <ol>
   <li>只能访问类内声明的其他静态成员（函数或变量）</li>
-  <li>调用时使用类名，而非对象名<br />
-  ```cpp
-    class test{
-    public:
-   static int showA() { return a; }
-   void fun() { a++; }
-    private:
-   static int a;
-    };</li>
+  <li>调用时使用类名，而非对象名</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int test::a;  //静态成员函数的定义
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">class</span> <span class="nc">test</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">showA</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="p">};</span>
 
-int main(){
-    test obj1;
-    cout &lt;&lt; test::showA() &lt;&lt; endl;
-    //Output: 0
+    <span class="kt">int</span> <span class="n">test</span><span class="o">::</span><span class="n">a</span><span class="p">;</span>  <span class="c1">//静态成员函数的定义</span>
 
-    obj1.fun();
-    cout &lt;&lt; test::showA() &lt;&lt; endl;
-    //Output: 1
-}   ``` &lt;br&gt;
+    <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+        <span class="n">test</span> <span class="n">obj1</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">test</span><span class="o">::</span><span class="n">showA</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="c1">//Output: 0</span>
+
+        <span class="n">obj1</span><span class="p">.</span><span class="n">fun</span><span class="p">();</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">test</span><span class="o">::</span><span class="n">showA</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="c1">//Output: 1</span>
+    <span class="p">}</span>
 </code></pre></div></div>
+<p><br /></p>
 
 <h4 id="常量成员函数"><strong>常量成员函数</strong></h4>
 <p>可将不改变任何类内数据的函数声明为常量成员函数</p>
@@ -2147,28 +2148,33 @@ C++中提出的异常处理机制 <strong>只用来应付同步异常</strong><b
   <li><strong>衍生容器</strong> ： stack, queue, priority-queue</li>
 </ul>
 
-<p><img src="" alt="" />
-<img src="" alt="" /><br />
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/1.jpg" alt="容器1" /><br />
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/2.jpg" alt="容器2" /> <br />
 <br /></p>
 
 <h4 id="算法"><strong>算法</strong></h4>
-<p><img src="" alt="" />
-<img src="" alt="" /> <br />
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/3.jpg" alt="算法1" /><br />
+<img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/4.jpg" alt="算法2" /> <br />
 <br /></p>
 
 <h4 id="迭代器"><strong>迭代器</strong></h4>
-<p>这部分内容直接copy数据结构那篇文写的<br />
-<br /></p>
-
-<h4 id="函数对象"><strong>函数对象</strong></h4>
-<p>为了简化迭代器的开发和基于迭代器的通用算法的分类，C++的STL定义了5种迭代器：</p>
+<p>（这部分内容直接copy数据结构那篇文写的）<br />
+为了简化迭代器的开发和基于迭代器的通用算法的分类，C++的STL定义了5种迭代器：</p>
 <ol>
   <li><strong>输入</strong>: 提供对其指向元素的只读操作，具有 前置++, 后置++ 等操作符</li>
   <li><strong>输出</strong>: 提供对其指向元素的写操作，具有 前置++, 后置++ 等操作符</li>
   <li><strong>向前</strong>: 具有++操作符</li>
   <li><strong>双向</strong>: 具有++, –操作符</li>
-  <li><strong>随机访问</strong>: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持</li>
+  <li><strong>随机访问</strong>: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持<br />
+<br /></li>
 </ol>
+
+<h4 id="函数对象"><strong>函数对象</strong></h4>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/5.jpg" alt="函数对象" /></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//比如在sort中</span>
+  <span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="n">N</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>    <span class="c1">//降序排序</span>
+</code></pre></div></div>
+<p><br /></p>
 
     </article>
     
