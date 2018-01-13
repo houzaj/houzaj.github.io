@@ -57,7 +57,7 @@
     </div>
     
     <div class="filter"></div>
-    <div class="post-cover" style="background: url('') center no-repeat; background-size: cover;">
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png') center no-repeat; background-size: cover;">
     
 </header>
 
@@ -65,7 +65,7 @@
     
     <article class="markdown-body">
         <blockquote>
-  <p>好好学习哈哈哈哈哈哈哈</p>
+  <p>C++ 是个无底洞……</p>
 </blockquote>
 
 <p><br /></p>
@@ -90,7 +90,6 @@
           <li><a href="#assert函数" id="markdown-toc-assert函数"><strong>assert函数</strong></a></li>
           <li><a href="#eof函数" id="markdown-toc-eof函数"><strong>eof函数</strong></a></li>
           <li><a href="#内联函数" id="markdown-toc-内联函数"><strong>内联函数</strong></a></li>
-          <li><a href="#引用参数" id="markdown-toc-引用参数"><strong>引用参数</strong></a></li>
           <li><a href="#全局变量的副作用" id="markdown-toc-全局变量的副作用"><strong>全局变量的副作用</strong></a></li>
           <li><a href="#函数重载" id="markdown-toc-函数重载"><strong>函数重载</strong></a></li>
           <li><a href="#typedef语句" id="markdown-toc-typedef语句"><strong>typedef语句</strong></a></li>
@@ -99,6 +98,11 @@
           <li><a href="#定义二维数组的另一种方法" id="markdown-toc-定义二维数组的另一种方法"><strong>定义二维数组的另一种方法</strong></a></li>
           <li><a href="#头文件的包含和多重包含" id="markdown-toc-头文件的包含和多重包含"><strong>头文件的包含和多重包含</strong></a></li>
           <li><a href="#函数指针" id="markdown-toc-函数指针"><strong>函数指针</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#引用" id="markdown-toc-引用"><strong>引用</strong></a>        <ul>
+          <li><a href="#引用参数" id="markdown-toc-引用参数"><strong>引用参数</strong></a></li>
+          <li><a href="#引用返回" id="markdown-toc-引用返回"><strong>引用返回</strong></a></li>
         </ul>
       </li>
       <li><a href="#cin-cout" id="markdown-toc-cin-cout"><strong>cin cout</strong></a>        <ul>
@@ -139,6 +143,7 @@
           <li><a href="#继承is-a关系" id="markdown-toc-继承is-a关系"><strong>继承(“is-a”关系)</strong></a></li>
           <li><a href="#基类成员函数重定义" id="markdown-toc-基类成员函数重定义"><strong>基类成员函数重定义</strong></a></li>
           <li><a href="#基类和派生类的构造函数" id="markdown-toc-基类和派生类的构造函数"><strong>基类和派生类的构造函数</strong></a></li>
+          <li><a href="#oj-填空题-继承自string的mystring" id="markdown-toc-oj-填空题-继承自string的mystring"><strong>[OJ 填空题] 继承自string的MyString</strong></a></li>
           <li><a href="#类保护成员protected" id="markdown-toc-类保护成员protected"><strong>类保护成员(protected)</strong></a></li>
           <li><a href="#继承public-private-protected" id="markdown-toc-继承public-private-protected"><strong>继承：public, private, protected</strong></a></li>
           <li><a href="#多继承" id="markdown-toc-多继承"><strong>多继承</strong></a></li>
@@ -154,20 +159,22 @@
           <li><a href="#虚函数" id="markdown-toc-虚函数"><strong>虚函数</strong></a></li>
         </ul>
       </li>
-      <li><a href="#oop-类型转换" id="markdown-toc-oop-类型转换"><strong>[OOP] 类型转换</strong></a>        <ul>
-          <li><a href="#基本类型---类" id="markdown-toc-基本类型---类"><strong>基本类型 -&gt; 类</strong></a></li>
-          <li><a href="#类---基本类型" id="markdown-toc-类---基本类型"><strong>类 -&gt; 基本类型</strong></a></li>
-          <li><a href="#类a---类b" id="markdown-toc-类a---类b"><strong>类A -&gt; 类B</strong></a></li>
-        </ul>
-      </li>
       <li><a href="#oop-重载" id="markdown-toc-oop-重载"><strong>[OOP] 重载</strong></a>        <ul>
           <li><a href="#类的友元函数friend-function" id="markdown-toc-类的友元函数friend-function"><strong>类的友元函数(Friend Function)</strong></a></li>
           <li><a href="#重载运算符限制" id="markdown-toc-重载运算符限制"><strong>重载运算符限制</strong></a></li>
           <li><a href="#重载双目运算符" id="markdown-toc-重载双目运算符"><strong>重载双目运算符</strong></a></li>
         </ul>
       </li>
+      <li><a href="#oop-类型转换" id="markdown-toc-oop-类型转换"><strong>[OOP] 类型转换</strong></a>        <ul>
+          <li><a href="#基本类型---类" id="markdown-toc-基本类型---类"><strong>基本类型 -&gt; 类</strong></a></li>
+          <li><a href="#类---基本类型" id="markdown-toc-类---基本类型"><strong>类 -&gt; 基本类型</strong></a></li>
+          <li><a href="#类a---类b" id="markdown-toc-类a---类b"><strong>类A -&gt; 类B</strong></a></li>
+          <li><a href="#oj-填空题--你真的搞清楚为啥-whilecin-n-能成立了吗" id="markdown-toc-oj-填空题--你真的搞清楚为啥-whilecin-n-能成立了吗"><strong>[OJ 填空题]  你真的搞清楚为啥 while(cin » n) 能成立了吗？</strong></a></li>
+        </ul>
+      </li>
       <li><a href="#oop-模板" id="markdown-toc-oop-模板"><strong>[OOP] 模板</strong></a>        <ul>
           <li><a href="#函数模板" id="markdown-toc-函数模板"><strong>函数模板</strong></a></li>
+          <li><a href="#oj-填空题--简单的sumarray" id="markdown-toc-oj-填空题--简单的sumarray"><strong>[OJ 填空题]  简单的SumArray</strong></a></li>
           <li><a href="#类模板" id="markdown-toc-类模板"><strong>类模板</strong></a></li>
           <li><a href="#带多个参数的类模板和函数模板" id="markdown-toc-带多个参数的类模板和函数模板"><strong>带多个参数的类模板和函数模板</strong></a></li>
           <li><a href="#无类型模板参数" id="markdown-toc-无类型模板参数"><strong>无类型模板参数</strong></a></li>
@@ -327,35 +334,7 @@
   <span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
-<h4 id="引用参数"><strong>引用参数</strong></h4>
-<p>引用参数接受实参的内存地址，因此在以下三种情况中十分适用：</p>
-<ol>
-  <li>要从参数中返回多一个值，如<code class="highlighter-rouge">扩展欧几里德算法</code>：
-    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="n">extgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
-   <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-     <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
-     <span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
-   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-     <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-   <span class="p">}</span>
-   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
-  <span class="p">}</span>
-</code></pre></div>    </div>
-  </li>
-  <li>实参值本身需要改动，如<code class="highlighter-rouge">交换函数</code>：
-    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">){</span>
- <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
- <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
- <span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-  <span class="p">}</span>
-</code></pre></div>    </div>
-  </li>
-  <li>传递地址可以节省拷贝大量数据所需的内存空间和时间</li>
-</ol>
 
-<p><br /></p>
 <h4 id="全局变量的副作用"><strong>全局变量的副作用</strong></h4>
 <p>若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的<br />
 在某个部分引起全局变量错误，易误以为是由另一部分引起的。<br />
@@ -465,6 +444,48 @@
   <span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
+
+<h3 id="引用"><strong>引用</strong></h3>
+<h4 id="引用参数"><strong>引用参数</strong></h4>
+<p>引用参数接受实参的内存地址，因此在以下三种情况中十分适用：</p>
+<ol>
+  <li>要从参数中返回多一个值，如<code class="highlighter-rouge">扩展欧几里德算法</code>：
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="n">extgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+   <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+     <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+     <span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>实参值本身需要改动，如<code class="highlighter-rouge">交换函数</code>：
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">){</span>
+ <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+ <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+ <span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>传递地址可以节省拷贝大量数据所需的内存空间和时间</li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="引用返回"><strong>引用返回</strong></h4>
+<p>到C++写类时非常常用，这里在只举一个简单的栗子</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">&amp;</span> <span class="n">max</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>  <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">?</span> <span class="n">a</span> <span class="o">:</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>   <span class="c1">//引用传参且返回引用</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>  <span class="c1">//将-1赋给a,b中的最大值, a = -1</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>另外特别注意！上栗中a, b需要引用传参，因为如果不用引用的话，函数内a,b只是拷贝出来的变量，退出作用域后销毁，返回会失效<br />
+<br /></p>
 
 <h3 id="cin-cout"><strong>cin cout</strong></h3>
 <h4 id="变量定义"><strong>变量定义</strong></h4>
@@ -1131,7 +1152,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 </code></pre></div></div>
 <p><br /></p>
 <h4 id="基类和派生类的构造函数"><strong>基类和派生类的构造函数</strong></h4>
-<p>派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数</p>
+<p>派生类执行自身构造函数和触发基类构造函数代码如下，值得一提的是，派生类会先调用基类构造函数，再调用自身构造函数，调用析构函数时，先调用自身的再调用基类的</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">baseClass</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>
@@ -1184,6 +1205,113 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="c1">// base_bar by user</span>
       <span class="c1">// derived_bar by user</span>
 
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+<h4 id="oj-填空题-继承自string的mystring"><strong>[OJ 填空题] 继承自string的MyString</strong></h4>
+<p>这道题惊艳到我了！<br />
+好好学习天天向上！</p>
+<blockquote>
+  <p><strong>样例输入</strong></p>
+  <blockquote>
+    <p>无</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>样例输出</strong></p>
+  <blockquote>
+    <ol>
+      <li>abcd-efgh-abcd-</li>
+      <li>abcd-</li>
+      <li></li>
+      <li>abcd-efgh-</li>
+      <li>efgh-</li>
+      <li>c</li>
+      <li>abcd-</li>
+      <li>ijAl-</li>
+      <li>ijAl-mnop</li>
+      <li>qrst-abcd-</li>
+      <li>abcd-qrst-abcd- uvw xyz<br />
+ about<br />
+ big<br />
+ me<br />
+ take<br />
+ abcd<br />
+ qrst-abcd-</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>提示</strong></p>
+  <blockquote>
+    <p><strong>提示 1：</strong> 如果将程序中所有 “MyString” 用 “string” 替换，那么除
+    了最后两条红色的语句编译无法通过外，其他语句都没有问题，而且输出和前
+    面给的结果吻合。也就是说，MyString 类对 string 类的功能扩充只体现在最
+    后两条语句上面。<br />
+<strong>提示 2:</strong> string 类有一个成员函数 string substr(int start,int
+    length); 能够求从 start 位置开始，长度为 length 的子串<br />
+<strong>提示 3:</strong> C++中，派生类的对象可以赋值给基类对象，因为，一个派生
+    类对象，也可看作是一个基类对象（大学生是学生）。反过来则不行(学生未
+    必是大学生） 同样，调用需要基类对象作参数的函数时，以派生类对象作为实参，也是没有问题的</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdlib&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;string&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">MyString</span><span class="o">:</span><span class="k">public</span> <span class="n">string</span>
+  <span class="p">{</span>
+
+      <span class="c1">// 在此处补充你的代码 ------------------------------------------------------------------------</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">MyString</span><span class="p">()</span><span class="o">:</span> <span class="n">string</span><span class="p">()</span> <span class="p">{}</span>   <span class="c1">//触发基类string类构造函数</span>
+      <span class="n">MyString</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span> <span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{}</span>  <span class="c1">//触发基类string类构造函数</span>
+      <span class="n">MyString</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span> <span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{}</span>   <span class="c1">//触发基类string类构造函数</span>
+      <span class="c1">//触发基类string类构造函数，这里把派生类对象s交给string类构造函数处理是没问题的，反之则不行</span>
+      <span class="n">MyString</span><span class="p">(</span><span class="k">const</span> <span class="n">MyString</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span> <span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{}</span>   
+      <span class="n">MyString</span> <span class="k">operator</span> <span class="p">()</span> <span class="p">(</span><span class="kt">int</span> <span class="n">loc</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">){</span>    <span class="c1">//因此这是唯一的拓展</span>
+          <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">substr</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>          <span class="c1">//但其实也是调用一下string类的方法substr然后完事</span>
+      <span class="p">}</span>
+      <span class="c1">// -----------------------------------------------------------------------------------------</span>
+
+  <span class="p">};</span>
+
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="n">MyString</span> <span class="n">s1</span><span class="p">(</span><span class="s">"abcd-"</span><span class="p">),</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">(</span><span class="s">"efgh-"</span><span class="p">),</span><span class="n">s4</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+      <span class="n">MyString</span> <span class="n">SArray</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"big"</span><span class="p">,</span><span class="s">"me"</span><span class="p">,</span><span class="s">"about"</span><span class="p">,</span><span class="s">"take"</span><span class="p">};</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"1. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">s2</span> <span class="o">&lt;&lt;</span> <span class="n">s3</span><span class="o">&lt;&lt;</span> <span class="n">s4</span><span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">s4</span> <span class="o">=</span> <span class="n">s3</span><span class="p">;</span>
+      <span class="n">s3</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s3</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"2. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"3. "</span> <span class="o">&lt;&lt;</span> <span class="n">s2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"4. "</span> <span class="o">&lt;&lt;</span> <span class="n">s3</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"5. "</span> <span class="o">&lt;&lt;</span> <span class="n">s4</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"6. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span><span class="p">;</span>
+      <span class="n">s1</span> <span class="o">=</span> <span class="s">"ijkl-"</span><span class="p">;</span>
+      <span class="n">s1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'A'</span> <span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"7. "</span> <span class="o">&lt;&lt;</span> <span class="n">s2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"8. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">s1</span> <span class="o">+=</span> <span class="s">"mnop"</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"9. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">s4</span> <span class="o">=</span> <span class="s">"qrst-"</span> <span class="o">+</span> <span class="n">s2</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"10. "</span> <span class="o">&lt;&lt;</span> <span class="n">s4</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">s1</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">+</span> <span class="n">s4</span> <span class="o">+</span> <span class="s">" uvw "</span> <span class="o">+</span> <span class="s">"xyz"</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"11. "</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+          <span class="n">sort</span><span class="p">(</span><span class="n">SArray</span><span class="p">,</span><span class="n">SArray</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span>
+      <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span><span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">SArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//s1的从下标0开始长度为4的子串</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//s1的从下标5开始长度为10的子串</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div></div>
@@ -1283,7 +1411,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 下面是一个具体类的栗子</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">linearList</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
-      <span class="k">virtual</span> <span class="o">~</span><span class="n">linearList</span><span class="p">()</span> <span class="p">{}</span>    <span class="c1">//析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数</span>
+      <span class="c1">//析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数，如果不写只会调用基类的析构函数，派生类的不会被调用</span>
+      <span class="k">virtual</span> <span class="o">~</span><span class="n">linearList</span><span class="p">()</span> <span class="p">{}</span>
       <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">virtual</span> <span class="kt">int</span> <span class="n">size</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">virtual</span> <span class="kt">void</span> <span class="n">erase</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1497,86 +1626,6 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 </code></pre></div></div>
 <p><br /></p>
 
-<h3 id="oop-类型转换"><strong>[OOP] 类型转换</strong></h3>
-<h4 id="基本类型---类"><strong>基本类型 -&gt; 类</strong></h4>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">myString</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-      <span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
-      <span class="n">myString</span><span class="p">()</span> <span class="p">{}</span>
-  <span class="k">private</span><span class="o">:</span>
-      <span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
-  <span class="p">};</span>
-
-  <span class="n">myString</span><span class="o">::</span><span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
-      <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-      <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
-      <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-      <span class="n">myString</span> <span class="n">s1</span><span class="p">;</span>
-      <span class="n">s1</span> <span class="o">=</span> <span class="n">myString</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="s">"Apple"</span><span class="p">));</span>  <span class="c1">//从char*类型到myString类型，通过隐式调用构造函数</span>
-  <span class="p">}</span>
-</code></pre></div></div>
-<h4 id="类---基本类型"><strong>类 -&gt; 基本类型</strong></h4>
-<p>重载类型转换符函数</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//以立方转原来的数为栗子</span>
-  <span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-      <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
-      <span class="k">operator</span> <span class="kt">double</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="p">;</span> <span class="p">}</span>    <span class="c1">//重载类型转换符</span>
-  <span class="k">private</span><span class="o">:</span>
-      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
-  <span class="p">};</span>
-
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-      <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="kt">double</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-      <span class="c1">//Output: 4</span>
-  <span class="p">}</span>
-</code></pre></div></div>
-<p><br /></p>
-<h4 id="类a---类b"><strong>类A -&gt; 类B</strong></h4>
-<p>类A转换操作符，类B使用构造函数</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//以立方转开方为栗子</span>
-  <span class="k">class</span> <span class="nc">square</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-      <span class="n">square</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">))</span> <span class="p">{}</span>
-      <span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">);</span>   <span class="c1">//复制拷贝函数</span>
-      <span class="kt">double</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span> <span class="p">}</span>
-  <span class="k">private</span><span class="o">:</span>
-      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
-  <span class="p">};</span>
-
-
-  <span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-      <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
-      <span class="k">operator</span> <span class="n">square</span><span class="p">();</span>    <span class="c1">//重载操作符</span>
-  <span class="k">private</span><span class="o">:</span>
-      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
-  <span class="p">};</span>
-
-
-  <span class="n">cube</span><span class="o">::</span><span class="k">operator</span> <span class="n">square</span><span class="p">(){</span>
-      <span class="kt">double</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
-      <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">square</span><span class="o">::</span><span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span> <span class="o">&amp;</span><span class="n">obj2</span><span class="p">){</span>
-      <span class="n">res</span> <span class="o">=</span> <span class="n">obj2</span><span class="p">.</span><span class="n">res</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="c1">// ---------------</span>
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-      <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
-      <span class="n">square</span> <span class="n">num2</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-      <span class="c1">//Output: 2</span>
-  <span class="p">}</span>
-</code></pre></div></div>
-<p><br /></p>
-
 <h3 id="oop-重载"><strong>[OOP] 重载</strong></h3>
 <h4 id="类的友元函数friend-function"><strong>类的友元函数(Friend Function)</strong></h4>
 <p>友元函数指在类作用域范围之外的函数，它是类的非成员函数，但是能访问类的私有数据成员</p>
@@ -1621,6 +1670,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p><br /></p>
 
 <h4 id="重载运算符限制"><strong>重载运算符限制</strong></h4>
+<p>以下说明需在刷题中慢慢体会</p>
 <ol>
   <li>不能改变运算符的优先级和结合律</li>
   <li>不能使用默认参数，不能改变运算符所需参数个数</li>
@@ -1783,6 +1833,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
     <span class="c1">//Output: (1,2i) + (2,4i) = (3,6i)</span>
 <span class="p">}</span>
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
   <li><strong>重载赋值运算符 =</strong><br />
 重载 = 运算符，可避免有指针数据成员的类的浅拷贝<br />
@@ -1932,6 +1983,122 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   </li>
 </ul>
 
+<h3 id="oop-类型转换"><strong>[OOP] 类型转换</strong></h3>
+<h4 id="基本类型---类"><strong>基本类型 -&gt; 类</strong></h4>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">myString</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
+      <span class="n">myString</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="n">myString</span><span class="o">::</span><span class="n">myString</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
+      <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+      <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">myString</span> <span class="n">s1</span><span class="p">;</span>
+      <span class="n">s1</span> <span class="o">=</span> <span class="n">myString</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="s">"Apple"</span><span class="p">));</span>  <span class="c1">//从char*类型到myString类型，通过隐式调用构造函数</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<h4 id="类---基本类型"><strong>类 -&gt; 基本类型</strong></h4>
+<p>重载类型转换符函数</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//以立方转原来的数为栗子</span>
+  <span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="k">operator</span> <span class="kt">double</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="p">;</span> <span class="p">}</span>    <span class="c1">//重载类型转换符</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="kt">double</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//Output: 4</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+<h4 id="类a---类b"><strong>类A -&gt; 类B</strong></h4>
+<p>类A转换操作符，类B使用构造函数</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//以立方转开方为栗子</span>
+  <span class="k">class</span> <span class="nc">square</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">square</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">))</span> <span class="p">{}</span>
+      <span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">);</span>   <span class="c1">//复制拷贝函数</span>
+      <span class="kt">double</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">};</span>
+
+
+  <span class="k">class</span> <span class="nc">cube</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">cube</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="o">*</span><span class="n">num</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="k">operator</span> <span class="n">square</span><span class="p">();</span>    <span class="c1">//重载操作符</span>
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">};</span>
+
+
+  <span class="n">cube</span><span class="o">::</span><span class="k">operator</span> <span class="n">square</span><span class="p">(){</span>
+      <span class="kt">double</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">square</span><span class="o">::</span><span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span> <span class="o">&amp;</span><span class="n">obj2</span><span class="p">){</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="n">obj2</span><span class="p">.</span><span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ---------------</span>
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">cube</span> <span class="n">num</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="mf">4.0</span><span class="p">));</span>
+      <span class="n">square</span> <span class="n">num2</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//Output: 2</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="oj-填空题--你真的搞清楚为啥-whilecin-n-能成立了吗"><strong>[OJ 填空题]  你真的搞清楚为啥 while(cin » n) 能成立了吗？</strong></h4>
+<blockquote>
+  <p><strong>题目描述</strong></p>
+  <blockquote>
+    <p>读入两个整数，输出两个整数 ，直到碰到-1</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">MyCin</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+      <span class="n">MyCin</span><span class="p">()</span> <span class="p">{</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+      <span class="n">MyCin</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">obj</span><span class="p">){</span>    <span class="c1">// 重载运算符 &gt;&gt;</span>
+          <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">obj</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">obj</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">return</span> <span class="p">(</span><span class="o">*</span> <span class="k">this</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">operator</span> <span class="kt">bool</span><span class="p">(){</span>    <span class="c1">// 重点！ 重载操作符bool，适用于 while(),  if() 等或者显示的 bool()调用转换</span>
+          <span class="k">return</span> <span class="n">flag</span><span class="p">;</span>
+      <span class="p">}</span>
+
+  <span class="k">private</span><span class="o">:</span>
+      <span class="kt">int</span> <span class="n">flag</span><span class="p">;</span>   <span class="c1">//标记是否遇到-1</span>
+  <span class="p">};</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="n">MyCin</span> <span class="n">m</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">n1</span><span class="p">,</span><span class="n">n2</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">m</span> <span class="o">&gt;&gt;</span> <span class="n">n1</span> <span class="o">&gt;&gt;</span> <span class="n">n2</span><span class="p">)</span>
+          <span class="n">cout</span>  <span class="o">&lt;&lt;</span> <span class="n">n1</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">n2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
 <h3 id="oop-模板"><strong>[OOP] 模板</strong></h3>
 <h4 id="函数模板"><strong>函数模板</strong></h4>
 <p>C++提供函数模板简化重载函数的过程<br />
@@ -1951,6 +2118,51 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="c1">//Output: 9.9999</span>
   <span class="p">}</span>
 </code></pre></div></div>
+<p><br /></p>
+
+<h4 id="oj-填空题--简单的sumarray"><strong>[OJ 填空题]  简单的SumArray</strong></h4>
+<blockquote>
+  <p><strong>输入</strong></p>
+  <blockquote>
+    <p>无</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>输出</strong></p>
+  <blockquote>
+    <p>TomJackMaryJohn<br />
+10</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;string&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">T</span> <span class="n">SumArray</span><span class="p">(</span>
+
+  <span class="c1">// 在此处补充你的代码 ---------------------------</span>
+   <span class="n">T</span> <span class="o">*</span> <span class="n">begin</span><span class="p">,</span> <span class="n">T</span> <span class="o">*</span> <span class="n">end</span><span class="p">){</span>
+      <span class="n">T</span> <span class="n">res</span> <span class="o">=</span> <span class="o">*</span> <span class="n">begin</span><span class="p">;</span>
+      <span class="n">T</span> <span class="o">*</span> <span class="n">it</span> <span class="o">=</span> <span class="n">begin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">end</span><span class="p">){</span>
+          <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="o">*</span> <span class="n">it</span><span class="p">;</span>   <span class="c1">//注意string类重载了+，所以这样子是可以的</span>
+          <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="c1">// -------------------------------------------</span>
+  <span class="p">}</span>
+  <span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="n">string</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">"Tom"</span><span class="p">,</span><span class="s">"Jack"</span><span class="p">,</span><span class="s">"Mary"</span><span class="p">,</span><span class="s">"John"</span><span class="p">};</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">SumArray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">array</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>  <span class="c1">//提示：1+2+3+4 = 10</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">SumArray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
 <h4 id="类模板"><strong>类模板</strong></h4>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>    <span class="c1">//语法需要</span>
   <span class="k">class</span> <span class="nc">point</span><span class="p">{</span>

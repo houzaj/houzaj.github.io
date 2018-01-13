@@ -3,11 +3,11 @@ layout: post
 title: '学习笔记 - C++'
 date: 2018-01-08
 author: HouZAJ
-cover: ''
+cover: 'http://houzajblog-1252277898.coscd.myqcloud.com/20180108%20CPP/%E6%9C%AA%E6%A0%87%E9%A2%98-2-01.png'
 tags: Programming
 ---
 
-> 好好学习哈哈哈哈哈哈哈
+> C++ 是个无底洞……  
 
 <br>
 
@@ -1827,7 +1827,6 @@ this指针为指向对象自己的指针
 <br>
 
 #### **[OJ 填空题]  你真的搞清楚为啥 while(cin >> n) 能成立了吗？**  
-
 > **题目描述**  
 >> 读入两个整数，输出两个整数 ，直到碰到-1  
 
