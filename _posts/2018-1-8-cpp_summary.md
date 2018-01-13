@@ -31,7 +31,289 @@ tags: Programming
 
 <br>
 {:toc}
-## PART II - 笔记
+## PART II - 笔记  
+### 零散点
+#### **C++的强制类型转换**   
+```cpp
+  double x = (double) 1;  //C语言的强制类型转换
+  double y = double(1);   //C++的强制类型转换
+  int a = static_cast<int>(7.9 + 6.7);    //C++的强制类型转换
+```
+<br>
+
+#### **新的操作符**  
+对这四个我是一脸蒙蔽啊……  
+```cpp
+    //static_cast操作符，用于强制类型转换
+    int a = static_cast<int>(7.9 + 6.7);    
+```
+```cpp
+    //const_cast 操作符，显式改变变量的const或volatile属性
+    const int constant = 1;
+    int& var = const_cast<int&>(constant);
+    var = 2;
+    cout << "constant's value: " << constant << endl;
+    cout << "var's value: " << var << endl;
+    //Output:
+    //constant's value: 1
+    //var's value: 2
+    //常量值依然不变，但两者地址相同，神奇！
+
+    cout << "constant's address: " << &constant << endl;
+    cout << "var's address: " << &var << endl;
+    //Output:
+    //constant's address: 0x7ffdba948dac
+    //var's address: 0x7ffdba948dac
+```
+```cpp
+    //reinterpret_cast 操作符， 无视类型强型转换，过于强大一般不建议使用
+    reinterpret_cast<type> (object);
+```
+```cpp
+    //dynamic_cast 操作符，主要应用在执行多态对象的类型转换  
+    dynamic_cast<type> (object);
+```
+```cpp
+    //typeid操作符，可用于在程序运行期间获取未知对象的类型，比如类名
+    char* objectType = typeid(object).name();
+```
+<br>
+
+#### **新的关键字**  
+**explicit**： 阻止单参数构造函数调用时执行的隐式转换  
+```cpp
+  class test{
+  public:
+      explicit test(int a): data(a) {}
+  private:
+      int data;
+  };
+
+  int main(){
+      test obj1(100);     //合法
+      test obj2 = 200;    //error: conversion from ‘int’ to non-scalar type ‘test’ requested
+  }
+```
+**mutable**: 使常量成员函数能够修改被mutable修饰的变量的值  
+```cpp
+  class test{
+  public:
+      test(int a): data(a), data2(0) {}
+      void modify()    const;
+  private:
+      int data;
+      mutable int data2;
+  };
+
+  void test::modify() const{
+      data = 0;   //error: assignment of member ‘test::data’ in read-only object
+      data2 = 0;  //ok
+  }
+```
+<br>
+
+#### **bool数据类型**
+```cpp
+  bool is_valid = true;  //相当于 = 1
+  bool is_valid = false; //相当于 = 0
+```  
+<br>
+
+#### **wchar_t数据类型**  
+标准C++定义了字符类型 wchar_t，以存储16位宽的字符   
+标准C++引入了一种新的字符串，称为宽字符字符串   
+```cpp
+  int main(){
+      setlocale(LC_ALL, "");
+      const wchar_t* str = L"哈哈哈哈哈哈哈嗝emmm";
+      wprintf(str);
+      cout << endl;
+      //Output: 哈哈哈哈哈哈哈嗝emmm
+  }
+```
+<br>
+
+#### **assert函数**  
+终止程序执行，指出发生错误的表达式，包含错误源代码的文件名等，对提高代码质量起很大作用  
+需包含头文件cassert或assert.h  
+```cpp
+  int a = 5, b = 0;
+  assert(b);
+  cout << a/b << endl;
+  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b' failed.
+```
+```cpp
+  int a = 5, b = -3;
+  assert(b > 0);
+  cout << __gcd(a, b) << endl;
+  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
+```  
+另外，可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句   
+<br>
+
+#### **eof函数**  
+检测输入流变量是否遇到了文件结束标志  
+在遇到文件结束标志时返回true，否则返回false  
+```cpp
+  while(!cin.eof()){    //写成 while(cin)也是可以的
+    //Do Something
+  }
+```  
+<br>
+
+#### **内联函数**  
+当其被调用时，代码将逐行展开，类似于宏展开  
+```cpp
+  inline double cube(double a){   //关键字inline
+    return (a*a*a);
+  }
+```
+<br>
+#### **引用参数**  
+引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
+1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
+```cpp
+  int extgcd(int a, int b, int& x, int& y){
+      int d = a;
+      if(b != 0){
+        d = extgcd(b, a%b, y, x);
+        y -= (a / b) * x;
+      }else{
+        x = 1;
+        y = 0;
+      }
+      return a;
+  }
+```
+2. 实参值本身需要改动，如`交换函数`：  
+```cpp
+  void swap(int& a, int& b){
+    int temp = a;
+    a = b;
+    b = temp;
+  }
+```
+3. 传递地址可以节省拷贝大量数据所需的内存空间和时间   
+
+<br>
+#### **全局变量的副作用**  
+若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
+在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
+<br>
+#### **函数重载**  
+函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表  
+```cpp
+//可用函数larger判断两个int, char, double, string型变量的最大值，使用时无需使用四个函数，只需larger这一个函数
+  int larger(int x, int y)  {return (x > y)?x:y;}
+  char larger(char x, char y) {return (x > y)?x:y;}
+  double larger(double x, double y) {return (x > y)?x:y;}
+  string larger(string x, string y) {return (x > y)?x:y;}
+
+  int main(){
+    //Do Something
+  }
+```  
+<br>
+**枚举类型**  
+略  
+<br>
+#### **typedef语句**  
+创建已定义数据类型别名，常用来简化数据类型名
+```cpp
+  typedef unsigned long long ull;
+  typedef long long ll;
+
+  int main(){
+    ull a = 0;
+    ll b = 0;
+  }
+```  
+<br>
+#### **namespace(名字空间)**  
+ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题
+```cpp
+  namespace temp{
+    const int a = 10;
+    const int b = 20;
+  }
+  using namespace temp;   //简化使用所有该namespace成员的语法
+
+  int main(){
+    cout << a << endl;  //简化使用
+    cout << b << endl;  //简化使用
+  }
+```  
+```cpp
+  namespace temp{
+    const int a = 10;
+    const int b = 20;
+  }
+  using temp::a;   //简化使用某个该namespace成员的语法
+
+  int main(){
+    cout << a << endl;  //简化使用
+    cout << temp::b << endl;
+  }
+```  
+<br>
+#### **string数据类型**  
+string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：    
+```cpp
+  int len, pos;
+  string str_sub;
+  string str1 = "Hello";
+  string str2 = "World";
+
+  string str3 = str1 + ' ' + str2;  //str3 == "Hello World"
+  str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
+  len = str3.length();  //获取长度，也可用str3.size();
+  pos = str3.find("or");  //查找子串，失败返回npos
+  str_sub = str3.substr(6, 5);  //返回子串，6为开始位置，5为长度，str_sub == "world"
+  str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
+```  
+<br>
+#### **定义二维数组的另一种方法**  
+先用typedef定义一个二位数组数据类型，然后用该类型来定义数组  
+```cpp
+  const int row = 20;
+  const int col = 10;
+  typedef int tableType[row][col];
+  tableType matrix;
+```  
+<br>
+#### **头文件的包含和多重包含**  
+```cpp
+  #include <iostream>   //系统提供的头文件用 < >
+  #include "myHeaderFile.h"   //用户定义的用 " "
+```
+```cpp
+  //写头文件时使用以下格式可避免多重包含变量导致编译错误
+  //Header file
+  #ifndef H_test    //if not define，第二次包含时已经define就会跳过下面的代码
+  #define H_test
+    //Do Something
+  #endif
+```
+<br>
+
+#### **函数指针**  
+在C++中广泛被用于动态绑定和基于事件的应用  
+```cpp
+  typedef void(* FunPtr)(int, int);   //typedef简化代码
+  void Add(int i, int j) { cout << i << " + " << j << " = " << i + j << endl; }
+  void Sub(int i, int j) { cout << i << " - " << j << " = " << i - j << endl; }
+  int main(){
+      FunPtr ptr;   //声明
+      ptr = &Add;   //绑定Add函数
+      ptr(3, 5);
+      //Output: 3 + 5 = 8
+
+      ptr = &Sub;
+      ptr(5, 3);    //绑定Sub函数
+      //Output: 5 - 3 = 2
+  }
+```
+<br>
 
 ### **cin cout**  
 #### **变量定义**  
@@ -41,12 +323,42 @@ tags: Programming
   ostream cout;
 ```  
 <br>
-#### **读取有关函数**   
-get、ignore、putback、peek函数   
+#### **输入输出有关的函数**   
+cin.get、cout.put函数  
 ```cpp    
   //读取一个字符存到ch中，空格、回车均可存     
   cin.get(ch);  
+
+  //输出字符
+  cout.put(ch);    
 ```
+
+cin.getline、cout.write函数  
+```cpp
+  char str[20];
+  cin.getline(str, 20);  //读取到 \n 或 20-1个字符
+  cout << str << endl;
+  //Input:  123456 78910
+  //Output: 123456 78910
+
+  //Input:  123456 789101112131415
+  //Output: 123456 789101112131
+```
+```cpp
+  const char* str = "Apple";
+  for(int i = 1; i <= 5; i++){
+      cout.write(str, i);
+      cout << endl;
+  }
+  //Output:
+  //A
+  //Ap
+  //App
+  //Appl
+  //Apple
+```
+
+cin.ignore、cin.putback、cin.peek函数   
 ```cpp
   //忽略掉下面100个字符 或者 忽略掉下个'\n'之前的所有字符   
   cin.ignore(100, 'A');   
@@ -59,6 +371,7 @@ get、ignore、putback、peek函数
   //检测下一个字符为何值
   ch = cin.peek();
 ```  
+
 <br>
 #### **输入失败**   
 类型不匹配导致输入失败时（如将小数点'.'读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。
@@ -66,6 +379,7 @@ get、ignore、putback、peek函数
 //使cin流恢复正常状态
 cin.clear();
 ```  
+
 <br>
 #### **格式化输出**   
   - **头文件**  
@@ -143,8 +457,23 @@ cin.clear();
       cout << "Enter an intger:" << flush;
       cin >> num;
     ```   
+<br>
+
+#### **自定义的操纵器**  
+```cpp
+  ostream& unit(ostream& output){     //语法
+      output << " GB";
+      return output;
+  }
+
+  int main(){
+      cout << 1 + 2 << unit << endl;
+      //output: 3 GB
+  }
+```
 
 <br>
+
 ### **文件输入/输出**  
 ##### **一般文件的输入/输出**  
 恕我直言，OJ生成随机数据常用……  
@@ -155,8 +484,8 @@ cin.clear();
   ofstream outData;
 
   // 打开文件
-  inData.open("xxx");
-  outData.open("xxx");
+  inData.open("FilePath1");    //打开文件路径为FilePath1的文件
+  outData.open("FilePath2");
 
   {
      // Do Something
@@ -166,7 +495,80 @@ cin.clear();
   // 关闭文件
   inData.close();
   outData.close();
-```   
+```
+可把inData改为cin，outData改为cout，这样就直接变成文本重定向   
+<br>
+
+#### **open的更多细节**  
+open第二个参数是mode，可指定打开文件目的，具体如下：  
+
+|   参数       |        意义    |      参数       |      意义           |
+| ----------- | -------------- | -------------- | ------------------ |
+| ios::app    | 添加到文件尾     | ios::nocreate  | 若不存在，打开失败    |
+| ios::ate    | 打开时就到文件尾  | ios::noreplace | 若已存在，打开失败    |
+| ios::binary | 二进制文件       | ios::out       | 只写                |
+| ios::in     | 只读            | ios::trunc     | 若已存在，删除所有内容 |  
+
+<br>
+
+#### **文件指针**  
+```cpp
+    ifstream in;
+    ofstream out;
+    in.open("FilePath", ios::in);
+    out.open("FilePath", ios::app);
+
+    int pin = in.tellg();     //取得输入指针
+    int pout = out.tellp();   //取得输出指针
+
+    in.seekg(0);   //移动到指定位置，0代表文件头
+    out.seekp(0);
+```
+seekg和seekp具体用法如下表：  
+其中cur代表当前，begin为文件头，end为文件尾  
+
+|      seek函数调用              |         行为         |
+| ----------------------------- | ------------------- |
+|    fout.seekg(m, ios::cur)    |    指针前移m个字节    |
+|    fout.seekg(-m, ios::cur)   |    指针后移m个字节    |
+|    fout.seekg(m, ios::beg)    |    移到到m+1个字节处  |
+|    fout.seekg(-m, ios::end)   |    从文件尾后移m个字节 |
+
+<br>
+
+#### **串行的输入输出操作**  
+cin.put, cout.get是和之前一样的，略  
+cin.read, cout.write用于二进制形式输入输出，存储速度快  
+```cpp
+    ofstream out;
+    ifstream in;
+    out.open("/home/a/1.out");
+    double arr[4] = {3.14, 6.28, 2.7100, 9.99990};
+    double arr2[4] = {0};
+
+    out.write((char*) &arr, sizeof(arr));   //语法
+    out.close();
+
+    in.open("/home/a/1.out");
+    in.read((char*) &arr2, sizeof(arr2));     //同样是语法
+    copy(arr2, arr2 + 4, ostream_iterator<double>(cout, " "));
+    cout << endl;
+    //Output: 3.14 6.28 2.71 9.9999
+```
+<br>
+
+#### **文件操纵时的错误处理**  
+错误处理函数如下：  
+
+|  函数        |        返回值和意义                        |
+| ----------- | ---------------------------------------- |
+|  eof()      | 读取到文件尾返回true                        |
+|  fail()     | 输入输出操作失败返回true                     |
+|  bad()      | 有非法操作时，或有不可恢复的错误发生时，返回true |
+|  good()     | 无错误返回true，返回false不能进行任何操作      |
+
+<br>
+
 ### **[OOP] 类**  
 #### **类定义**  
 如定义clockType类
@@ -749,26 +1151,7 @@ C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现�
 
 <br>
 
-### **指针**   
-#### **函数指针**  
-在C++中广泛被用于动态绑定和基于事件的应用  
-```cpp
-  typedef void(* FunPtr)(int, int);   //typedef简化代码
-  void Add(int i, int j) { cout << i << " + " << j << " = " << i + j << endl; }
-  void Sub(int i, int j) { cout << i << " - " << j << " = " << i - j << endl; }
-  int main(){
-      FunPtr ptr;   //声明
-      ptr = &Add;   //绑定Add函数
-      ptr(3, 5);
-      //Output: 3 + 5 = 8
-
-      ptr = &Sub;
-      ptr(5, 3);    //绑定Sub函数
-      //Output: 5 - 3 = 2
-  }
-```
-<br>
-
+### **[OOP] 有关类的指针**   
 #### **this指针**  
 this指针为指向对象自己的指针  
 ```cpp
@@ -847,7 +1230,7 @@ this指针为指向对象自己的指针
 ```
 <br>
 
-#### **[OOP] 虚函数**  
+#### **虚函数**  
 参考1里面似乎写的不好，或者是本人愚笨...故用 [百度百科——虚函数](https://baike.baidu.com/item/%E8%99%9A%E5%87%BD%E6%95%B0/2912832?fr=aladdin) 和 [知乎——c++虚函数的作用是什么？](https://www.zhihu.com/question/23971699) 加以辅助  
 在某基类中声明为 virtual 并在一个或多个派生类中被重新定义的成员函数，可实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数  
 虚函数的绑定发生在程序执行期间(动态绑定 Run-time Binding)，在编译时，编译器向系统提供必要信息，使得运行时系统能产生实际代码来调用相应函数  
@@ -1385,177 +1768,186 @@ template <class T>    //语法需要
   }
 ```
 <br>
-### 零散点
-#### **C++的强制类型转换**   
+
+#### **带多个参数的类模板和函数模板**  
 ```cpp
-  static_cast<int>(7.9 + 6.7);    //14
-  static_cast<char>(65);    //A
-```
-可把inData改为cin，outData改为cout，这样就直接变成文本重定向   
-<br>
-#### **bool数据类型**
-```cpp
-  bool is_valid = true;  //相当于 = 1
-  bool is_valid = false; //相当于 = 0
-```  
-<br>
-#### **assert函数**  
-终止程序执行，指出发生错误的表达式，包含错误源代码的文件名等，对提高代码质量起很大作用  
-需包含头文件cassert或assert.h  
-```cpp
-  int a = 5, b = 0;
-  assert(b);
-  cout << a/b << endl;
-  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b' failed.
-```
-```cpp
-  int a = 5, b = -3;
-  assert(b > 0);
-  cout << __gcd(a, b) << endl;
-  //输出：test3: ../test3/main.cpp:6: int main(): Assertion `b > 0' failed.
-```  
-另外，可在预处理指令`#include <cassert>`前加入`#define NDEBUG`取消所有assert语句   
-<br>
-#### **eof函数**  
-检测输入流变量是否遇到了文件结束标志  
-在遇到文件结束标志时返回true，否则返回false  
-```cpp
-  while(!cin.eof()){
-    //Do Something
+  //类模板
+  template <class T1, class T2>   //两个参数
+  class test{
+  public:
+      test(T1 x, T2 y): a(x), b(y) {}
+      void print() { cout << a << " and " << b << endl;}
+  private:
+      T1 a;
+      T2 b;
+  };
+
+  int main(){
+      test<string, double> obj1("HAhhhhhh", 1.234567);
+      obj1.print();
+      //Output: HAhhhhhh and 1.23457
   }
-```  
-<br>
-#### **内联函数**  
-当其被调用时，代码将逐行展开，类似于宏展开  
+```
 ```cpp
-  inline double cube(double a){   //关键字inline
-    return (a*a*a);
+  //函数模板
+  template <class T1, class T2>   //两个参数
+  void print(T1 x, T2 y){ cout << x << " or " << y << endl; }
+
+  int main(){
+      print("emmm", 12580);
+      //Output: emmm or 12580
   }
 ```
 <br>
-#### **引用参数**  
-引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
-1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
+
+#### **无类型模板参数**  
 ```cpp
-  int extgcd(int a, int b, int& x, int& y){
-      int d = a;
-      if(b != 0){
-        d = extgcd(b, a%b, y, x);
-        y -= (a / b) * x;
-      }else{
-        x = 1;
-        y = 0;
+  template <class T, int size>    //size作为参数传进去
+  class array{
+  public:
+      array() { arr = new T[size]; }
+  private:
+      T* arr;
+  };
+
+  int main(){
+      array<string, 10> obj1;
+  }
+```
+<br>
+
+### **异常处理**  
+#### **基本概念**  
+异常分为 **同步异常** 和 **异步异常**， 异步异常指程序控制力之外的事件产生的错误  
+C++中提出的异常处理机制 **只用来应付同步异常**  
+异常处理机制：  
+1. 发现异常
+2. 抛出异常  
+3. 捕捉异常  
+4. 处理异常  
+
+<br>
+
+#### **异常处理机制**  
+C++异常处理机制基本建立在三个关键词上：`try`, `throw`, `catch`  
+**try块**： 块内可能产生错误  
+**throw语句**： 抛出异常   
+**catch块**： 必须紧跟在try块后，捕捉异常  
+以经典的除0错误举栗子  
+```cpp
+  int a, b;
+  cin >> a >> b;
+  try{
+      if(b != 0){ cout << "a/b = " << a/b << endl;}
+      else{ throw(b); }
+      cout << "Try END" << endl;  //发生异常时没有被执行，因为流程从try块中退出，转到catch块中
+  }
+  catch(int i){
+      cout << "Exception caught: b = " << b << endl;
+  }
+  cout << "END" << endl;  //仍然执行
+
+  //Input: 7 1
+  //Output:
+  //a/b = 7
+  //Try END
+  //END
+
+  //Input: 5 0
+  //Output:
+  //Exception caught: b = 0
+  //END
+```
+<br>
+
+#### **捕捉机制**  
+catch块会捕捉和catch参数类型匹配的异常，捕捉成功则catch块中的代码会被执行  
+若catch块中的参数有名称，则该参数可用在异常处理的代码中  
+```cpp
+    char ch;
+    cin.get(ch);
+    try{
+        if(isalpha(ch))     throw 'a';
+        else if(isdigit(ch))    throw 1;
+        else if(isspace(ch))    throw 1.0;
+    }
+    catch(char){
+        cout << "Catch a Alpha!" << endl;
+    }
+    catch(int){
+        cout << "Catch a Number!" << endl;
+    }
+    catch(double){
+        cout << "Catch a Space!" << endl;
+    }
+    //Input: z
+    //Output: Catch a Alpha!
+
+    //Input: 5
+    //Output: Catch a Number!
+
+    //Input: (空格，打出来你也看不见)
+    //Output: Catch a Space!
+```
+<br>
+
+#### **重新抛出异常**  
+直接调用throw即可，无需任何参数  
+```cpp
+  void divide(int x, int y){
+      try{
+          if(y != 0){ cout << "x/y = " << x/y << endl; }
+          else{ throw y; }
       }
-      return a;
+      catch(int){
+          cout << "Divide ERROR!" << endl;
+          throw;  //重新抛出
+      }
+  }
+  int main(){
+      int x, y;
+      cin >> x >> y;
+      try{
+          divide(x, y);
+      }
+      catch(int){     //捕捉重新抛出的错误
+          cout << "Function ERROR!" << endl;
+      }
+      //Input:8 0
+      //Output:
+      //Divide ERROR!
+      //Function ERROR!
   }
 ```
-2. 实参值本身需要改动，如`交换函数`：  
-```cpp
-  void swap(int& a, int& b){
-    int temp = a;
-    a = b;
-    b = temp;
-  }
-```
-3. 传递地址可以节省拷贝大量数据所需的内存空间和时间   
+<br>
 
+#### **指定异常**  
+C++11反对，故不写  
 <br>
-#### **全局变量的副作用**  
-若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
-在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
-<br>
-#### **函数重载**  
-函数重载为多个函数使用同个名字，每个函数必须有不同的行参列表  
-```cpp
-//可用函数larger判断两个int, char, double, string型变量的最大值，使用时无需使用四个函数，只需larger这一个函数
-  int larger(int x, int y)  {return (x > y)?x:y;}
-  char larger(char x, char y) {return (x > y)?x:y;}
-  double larger(double x, double y) {return (x > y)?x:y;}
-  string larger(string x, string y) {return (x > y)?x:y;}
 
-  int main(){
-    //Do Something
-  }
-```  
-<br>
-**枚举类型**  
-略  
-<br>
-#### **typedef语句**  
-创建已定义数据类型别名，常用来简化数据类型名
-```cpp
-  typedef unsigned long long ull;
-  typedef long long ll;
+### **标准模板库(STL)**  
+#### **容器**  
+- **线性容器** ： vector, list, deque  
+- **关联式容器** ： set, multiset, map, multimap  
+- **衍生容器** ： stack, queue, priority-queue  
 
-  int main(){
-    ull a = 0;
-    ll b = 0;
-  }
-```  
+![]()
+![]()  
 <br>
-#### **namespace(名字空间)**  
-ANSI/ISO标准C++试图用namespace来解决全局标识符名字重复的问题
-```cpp
-  namespace temp{
-    const int a = 10;
-    const int b = 20;
-  }
-  using namespace temp;   //简化使用所有该namespace成员的语法
 
-  int main(){
-    cout << a << endl;  //简化使用
-    cout << b << endl;  //简化使用
-  }
-```  
-```cpp
-  namespace temp{
-    const int a = 10;
-    const int b = 20;
-  }
-  using temp::a;   //简化使用某个该namespace成员的语法
+#### **算法**  
+![]()
+![]()   
+<br>
 
-  int main(){
-    cout << a << endl;  //简化使用
-    cout << temp::b << endl;
-  }
-```  
+#### **迭代器**  
+这部分内容直接copy数据结构那篇文写的  
 <br>
-#### **string数据类型**  
-string是C++的字符串，比起C语言中用字符数组那是简单得多，具体语法如下：    
-```cpp
-  int len, pos;
-  string str_sub;
-  string str1 = "Hello";
-  string str2 = "World";
 
-  string str3 = str1 + ' ' + str2;  //str3 == "Hello World"
-  str3[6] = 'w';  //可用下标访问与修改, str3 == "Hello world"
-  len = str3.length();  //获取长度，也可用str3.size();
-  pos = str3.find("or");  //查找子串，失败返回npos
-  str_sub = str3.substr(6, 5);  //返回子串，6为开始位置，5为长度，str_sub == "world"
-  str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
-```  
-<br>
-#### **定义二维数组的另一种方法**  
-先用typedef定义一个二位数组数据类型，然后用该类型来定义数组  
-```cpp
-  const int row = 20;
-  const int col = 10;
-  typedef int tableType[row][col];
-  tableType matrix;
-```  
-<br>
-#### **头文件的包含和多重包含**  
-```cpp
-  #include <iostream>   //系统提供的头文件用 < >
-  #include "myHeaderFile.h"   //用户定义的用 " "
-```
-```cpp
-  //写头文件时使用以下格式可避免多重包含变量导致编译错误
-  //Header file
-  #ifndef H_test    //if not define，第二次包含时已经define就会跳过下面的代码
-  #define H_test
-    //Do Something
-  #endif
-```
-<br>
+#### **函数对象**  
+为了简化迭代器的开发和基于迭代器的通用算法的分类，C++的STL定义了5种迭代器：  
+1. **输入**: 提供对其指向元素的只读操作，具有 前置++, 后置++ 等操作符
+2. **输出**: 提供对其指向元素的写操作，具有 前置++, 后置++ 等操作符
+3. **向前**: 具有++操作符  
+4. **双向**: 具有++, --操作符  
+5. **随机访问**: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持  
