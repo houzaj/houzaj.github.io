@@ -169,33 +169,7 @@ tags: Programming
   }
 ```
 <br>
-#### **引用参数**  
-引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
-1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
-```cpp
-  int extgcd(int a, int b, int& x, int& y){
-      int d = a;
-      if(b != 0){
-        d = extgcd(b, a%b, y, x);
-        y -= (a / b) * x;
-      }else{
-        x = 1;
-        y = 0;
-      }
-      return a;
-  }
-```
-2. 实参值本身需要改动，如`交换函数`：  
-```cpp
-  void swap(int& a, int& b){
-    int temp = a;
-    a = b;
-    b = temp;
-  }
-```
-3. 传递地址可以节省拷贝大量数据所需的内存空间和时间   
 
-<br>
 #### **全局变量的副作用**  
 若多个函数都使用到某个全局变量，一旦出现差错，就很难发现是由哪个函数引起的  
 在某个部分引起全局变量错误，易误以为是由另一部分引起的。  
@@ -313,6 +287,47 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
       //Output: 5 - 3 = 2
   }
 ```
+<br>
+
+### **引用**  
+#### **引用参数**  
+引用参数接受实参的内存地址，因此在以下三种情况中十分适用：  
+1. 要从参数中返回多一个值，如`扩展欧几里德算法`：  
+```cpp
+  int extgcd(int a, int b, int& x, int& y){
+      int d = a;
+      if(b != 0){
+        d = extgcd(b, a%b, y, x);
+        y -= (a / b) * x;
+      }else{
+        x = 1;
+        y = 0;
+      }
+      return a;
+  }
+```
+2. 实参值本身需要改动，如`交换函数`：  
+```cpp
+  void swap(int& a, int& b){
+    int temp = a;
+    a = b;
+    b = temp;
+  }
+```
+3. 传递地址可以节省拷贝大量数据所需的内存空间和时间   
+
+<br>
+
+#### **引用返回**  
+到C++写类时非常常用，这里在只举一个简单的栗子  
+```cpp
+int& max(int& a, int& b)  { return (a > b) ? a : b; }   //引用传参且返回引用
+int main(){
+    int a = 2, b = 1;
+    max(a, b) = -1;  //将-1赋给a,b中的最大值, a = -1
+}
+```
+另外特别注意！上栗中a, b需要引用传参，因为如果不用引用的话，函数内a,b只是拷贝出来的变量，退出作用域后销毁，返回会失效  
 <br>
 
 ### **cin cout**  
@@ -1371,89 +1386,6 @@ this指针为指向对象自己的指针
 ```
 <br>
 
-### **[OOP] 类型转换**  
-#### **基本类型 -> 类**  
-  ```cpp
-  class myString{
-  public:
-      myString(char* str);
-      myString() {}
-  private:
-      char* p;
-  };
-
-  myString::myString(char* str){
-      int length = strlen(str);
-      p = new char[length + 1];
-      strcpy(p, str);
-  }
-
-  int main(){
-      myString s1;
-      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
-  }
-  ```
-#### **类 -> 基本类型**  
-重载类型转换符函数  
-```cpp
-  //以立方转原来的数为栗子
-  class cube{
-  public:
-      cube(double num = 0): res(num*num*num) {}
-      operator double() { return pow(res, 1.0/3) ; }    //重载类型转换符
-  private:
-      double res;
-  };
-
-  int main(){
-      cube num(double(4.0));
-      cout << double(num) << endl;
-      //Output: 4
-  }
-```
-<br>
-#### **类A -> 类B**  
-  类A转换操作符，类B使用构造函数  
-  ```cpp
-  //以立方转开方为栗子
-  class square{
-  public:
-      square(double num = 0): res(sqrt(num)) {}
-      square(const square& obj2);   //复制拷贝函数
-      double get() { return res; }
-  private:
-      double res;
-  };
-
-
-  class cube{
-  public:
-      cube(double num = 0): res(num*num*num) {}
-      operator square();    //重载操作符
-  private:
-      double res;
-  };
-
-
-  cube::operator square(){
-      double temp = pow(res, 1.0/3);
-      return square(temp);
-  }
-
-  square::square(const square &obj2){
-      res = obj2.res;
-  }
-
-  // ---------------
-  int main(){
-      cube num(double(4.0));
-      square num2(num);
-      cout << num2.get() << endl;
-      //Output: 2
-  }
-```
-<br>
-
 ### **[OOP] 重载**  
 #### **类的友元函数(Friend Function)**  
 友元函数指在类作用域范围之外的函数，它是类的非成员函数，但是能访问类的私有数据成员  
@@ -1499,6 +1431,7 @@ this指针为指向对象自己的指针
  <br>
 
 #### **重载运算符限制**  
+以下说明需在刷题中慢慢体会  
   1. 不能改变运算符的优先级和结合律
   2. 不能使用默认参数，不能改变运算符所需参数个数
   3. 不能创建新运算符
@@ -1622,6 +1555,7 @@ this指针为指向对象自己的指针
     }
   ```  
 <br>
+
 - **重载流插入(<<)和流析取(>>)运算符**  
 仍以复数为栗子（这个栗子太好举了！）
 ```cpp
@@ -1659,6 +1593,8 @@ this指针为指向对象自己的指针
       //Output: (1,2i) + (2,4i) = (3,6i)
   }
 ```  
+<br>
+
 - **重载赋值运算符 =**  
 重载 = 运算符，可避免有指针数据成员的类的浅拷贝  
 这次以之前用过的向量类来举例子  
@@ -1807,6 +1743,123 @@ this指针为指向对象自己的指针
 ```
 <br>
 
+### **[OOP] 类型转换**  
+#### **基本类型 -> 类**  
+  ```cpp
+  class myString{
+  public:
+      myString(char* str);
+      myString() {}
+  private:
+      char* p;
+  };
+
+  myString::myString(char* str){
+      int length = strlen(str);
+      p = new char[length + 1];
+      strcpy(p, str);
+  }
+
+  int main(){
+      myString s1;
+      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
+  }
+  ```
+#### **类 -> 基本类型**  
+重载类型转换符函数  
+```cpp
+  //以立方转原来的数为栗子
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator double() { return pow(res, 1.0/3) ; }    //重载类型转换符
+  private:
+      double res;
+  };
+
+  int main(){
+      cube num(double(4.0));
+      cout << double(num) << endl;
+      //Output: 4
+  }
+```
+<br>
+#### **类A -> 类B**  
+  类A转换操作符，类B使用构造函数  
+  ```cpp
+  //以立方转开方为栗子
+  class square{
+  public:
+      square(double num = 0): res(sqrt(num)) {}
+      square(const square& obj2);   //复制拷贝函数
+      double get() { return res; }
+  private:
+      double res;
+  };
+
+
+  class cube{
+  public:
+      cube(double num = 0): res(num*num*num) {}
+      operator square();    //重载操作符
+  private:
+      double res;
+  };
+
+
+  cube::operator square(){
+      double temp = pow(res, 1.0/3);
+      return square(temp);
+  }
+
+  square::square(const square &obj2){
+      res = obj2.res;
+  }
+
+  // ---------------
+  int main(){
+      cube num(double(4.0));
+      square num2(num);
+      cout << num2.get() << endl;
+      //Output: 2
+  }
+```
+<br>
+
+#### **[OJ 填空题]  你真的搞清楚为啥 while(cin >> n) 能成立了吗？**  
+
+> **题目描述**  
+>> 读入两个整数，输出两个整数 ，直到碰到-1  
+
+```cpp
+  class MyCin{
+  public:
+      MyCin() { flag = 1; }
+      MyCin& operator >> (int& obj){    // 重载运算符 >>
+          cin >> obj;
+          if(obj == -1)   flag = 0;
+          return (* this);
+      }
+
+      operator bool(){    // 重点！ 重载操作符bool，适用于 while(),  if() 等或者显示的 bool()调用转换
+          return flag;
+      }
+
+  private:
+      int flag;   //标记是否遇到-1
+  };
+
+  int main()
+  {
+      MyCin m;
+      int n1,n2;
+      while(m >> n1 >> n2)
+          cout  << n1 << " " << n2 << endl;
+      return 0;
+  }
+```
+<br>
+
 ### **[OOP] 模板**  
 #### **函数模板**  
 C++提供函数模板简化重载函数的过程  
@@ -1827,6 +1880,44 @@ C++提供函数模板简化重载函数的过程
       //Output: 9.9999
   }
 ```
+<br>
+
+#### **[OJ 填空题]  简单的SumArray**  
+> **输入**    
+>> 无  
+
+> **输出**    
+>> TomJackMaryJohn  
+>> 10  
+
+```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+  template <class T>
+  T SumArray(
+
+  // 在此处补充你的代码 ---------------------------
+   T * begin, T * end){
+      T res = * begin;
+      T * it = begin + 1;
+      while(it != end){
+          res = res + * it;   //注意string类重载了+，所以这样子是可以的
+          it++;
+      }
+      return res;
+  // -------------------------------------------
+  }
+  int main() {
+      string array[4] = { "Tom","Jack","Mary","John"};
+      cout << SumArray(array,array+4) << endl;
+      int a[4] = { 1, 2, 3, 4};  //提示：1+2+3+4 = 10
+      cout << SumArray(a,a+4) << endl;
+      return 0;
+  }
+```
+<br>
+
 #### **类模板**  
 ```cpp
 template <class T>    //语法需要
