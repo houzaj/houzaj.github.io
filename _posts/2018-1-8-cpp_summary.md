@@ -21,6 +21,8 @@ tags: Programming
 {:toc}
 
 <br>
+
+{:toc}
 ## PART I - 前言
 之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_  
 参考：
@@ -30,9 +32,8 @@ tags: Programming
 4. C++ Primer  
 5. 学堂在线 —— C++语言程序设计进阶  
 
-
 <br>
-{:toc}
+
 ## PART II - 笔记  
 ### 零散点
 #### **C++的强制类型转换**   
@@ -623,10 +624,20 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 <br>
 
 ### **[OOP] 类**  
-#### **类定义**  
+#### **类成员 与 类定义**  
+类成员分为：  
+**公有成员(public)**： 作为外部接口，任何外部函数都可访问类的public成员  
+**私有成员(private)**： 只允许本类中的函数访问，类外函数不能访问（友元除外，友元函数在后面！）  
+**受保护成员(protected)**：  允许派生类内函数的访问 (protected成员在后面！)   
 如定义clockType类，并在其中说明为什么类是实现ADT的一种便利的方式  
 ```cpp
   class clockType{    //ADT的类型名称
+  private:      //私有成员不能被类外部访问，类内部默认为private，故若private出现在public和protected前面时可以省略
+      //ADT的domain
+      int hr;
+      int min;
+      int sec;
+
   public:
       // ADT的Operations
       void setTime(int, int, int);
@@ -636,47 +647,27 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       void incrementMinutes();
       void incrementHours();
       bool equalTime(const clockType& otherClock) const;    //传引用可提高性能（因为无需拷贝）
-
-  private:      //私有成员不能被类外部访问
-      //ADT的domain
-      int hr;
-      int min;
-      int sec;
   };
 ```
 另外注意：  
   1. 不能在变量定义时同时初始化  
-  2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关，当函数定义于类内时，会变为inline函数，所有内联函数的限制和局限也适用于此，故只有小函数才定义在类的定义内  
+  2. 类成员函数在类内一般只用函数原型定义，因为如果在类中提供函数原型，会导致类定义变长，以至于难以理解，同时与信息隐藏有关
+  3. 当函数定义于类内时，会变为inline函数，所有内联函数的限制和局限也适用于此，故只有小函数才定义在类的定义内  
 
 <br>
+
 #### **成员函数实现**  
 以setTime函数为栗子
 ```cpp
+  class clockType{
+    //......
+  };
+
   void clockType::setTime(int hours, int minutes, int seconds){
       hr = (0 <= hours && hours < 24)?hours:0;
       min = (0 <= minutes && minutes < 60)?minutes:0;
       seconds = (0 <= seconds && seconds < 60)?seconds:0;
   }
-```
-<br>
-
-#### **类公有成员(public) 和 私有成员(private)， 受保护成员(protected)**    
-类成员分为：`公有成员(public)`，` 私有成员(private)`， `受保护成员(protected)` (protected成员在后面！)   
-类中默认成员声明为私有成员，故上述类定义可写为：  
-```cpp
-  class clockType{
-      int hr;
-      int min;
-      int sec;
-  public:
-      void setTime(int, int, int);
-      void getTime(int&, int&, int&);
-      void printTime()    const;
-      void incrementSeconds();
-      void incrementMinutes();
-      void incrementHours();
-      bool equalTime(const clockType& otherClock) const;
-  };
 ```
 <br>
 
@@ -819,8 +810,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       min = (0 <= minutes && minutes < 60)?minutes:0;
       seconds = (0 <= seconds && seconds < 60)?seconds:0;
   }
-```  
-```cpp
+
   int main(){
     clockType myclock1;
     clockType myclock2(5, 12, 40);
