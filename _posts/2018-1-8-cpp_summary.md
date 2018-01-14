@@ -22,7 +22,7 @@ tags: Programming
 
 <br>
 
-{:toc}
+
 ## PART I - 前言
 之前C++只啃了一点很基础的东西和学了些STL的用法方便打代码哈哈哈，然后期末还是没用到 \_(:з」∠)_  
 参考：
@@ -250,6 +250,10 @@ string是C++的字符串，比起C语言中用字符数组那是简单得多，�
   pos = str3.find("or");  //查找子串，失败返回npos
   str_sub = str3.substr(6, 5);  //返回子串，6为开始位置，5为长度，str_sub == "world"
   str1.swap(str2);  //交换子串， str1 == "World", str2 == "Hello"  
+
+  str1 < str2;    //可以直接用 > >= == <= < 比较两个字符串  
+
+  getline(cin, str1, ',');    //读取整行字符串直到遇到','，第三个参数可省略
 ```  
 <br>
 
@@ -818,6 +822,28 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 ```
 <br>
 
+#### **委托构造函数**  
+用其他的构造函数来构造某个构造函数，如    
+```cpp
+  class clockType{
+  public:
+      //省略成员函数
+      clockType(int hours, int minutes, int seconds);
+      clockType();
+  private:
+      int hr;
+      int min;
+      int sec;
+  };
+
+  //相关实现
+  //省略clockType(int hours, int minutes, int seconds)的实现
+
+  clockType::clockType(): clockType(0, 0, 0) {}   
+  //委托给clockType(int hours, int minutes, int seconds)进行构造
+```
+<br>
+
 #### **拷贝构造函数(Copy Constructor)**  
 用已经存在的类对象进行初始化需使用拷贝构造函数，十分重要的点！  
 ```cpp
@@ -864,6 +890,12 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       //0 1 2 3 4 5 6 7 8 9
   }
 ```
+<br>
+
+#### **移动构造函数**   
+移动构造函数可将要返回的局部对象转移到主调函数,省去了构造和删除临时对象的过程   
+在 **有可被利用的临时对象** 时可使用   
+详细的介绍在后面 **移动构造函数和移动赋值**  
 <br>
 
 #### **析构函数(Destructor)**  
@@ -1027,7 +1059,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   }
 ```
 <br>
-#### **[OJ 填空题] 继承自string的MyString**  
+**[OJ 填空题] 继承自string的MyString**  
 这道题惊艳到我了！  
 好好学习天天向上！  
 > **样例输入**  
@@ -1184,6 +1216,72 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   class C : public B1, public B2{   //因为B1，B2继承A时使用虚基类，所以C最终只会继承一份A，不会引起成员重复  
     //...
   };
+```
+<br>
+
+#### **有虚基类时的构造函数**   
+建立对象时所指定的类称为 **最远派生类**  
+虚基类的成员是由最远派生类的构造函数通过调用虚基类的构造函数进行初始化的  
+在整个继承结构中,直接或间接继承虚基类的所有派生类,都必须在构造函数的成员初始化表中为虚基类的构造函数列出参数。如果未列出,则表示调用该虚基类的默认构造函数  
+在建立对象时,只有最远派生类的构造函数调用虚基类的构造函数,其他类对虚基类构造函数的调用被忽略  
+```cpp
+  class A{
+  public:
+      string var_A;
+      A() {}
+      A(string var): var_A(var)   {}
+  };
+
+  class B1 : virtual public A{
+  public:
+      string var_B1;
+      B1(string var): A(var + "B1 to A"), var_B1(var)   {}
+  };
+
+  class B2 : virtual public A{
+  public:
+      string var_B2;
+      B2(string var){
+           A(var + "B2 to A");
+           var_B2 = var;
+      }
+  };
+
+  class C : public B1, public B2{
+  public:
+      string var_C;
+      C(string var): A(var + "C to A"), B1(var + "C to B1"), B2(var + "C to B2"), var_C(var)  {}
+  };
+
+  int main(){
+      A obj_A("A's var ");
+      B1 obj_B1("B1's var ");
+      B2 obj_B2("B2's var ");
+      C obj_C("C's var ");
+
+
+      cout << obj_A.var_A << endl;
+      // Output:
+      // A's var
+
+
+      cout << obj_B1.var_A << endl;
+      cout << obj_B1.var_B1 << endl;
+      // Output:
+      // B1's var B1 to A
+      // B1's var
+
+
+      cout << obj_C.var_A << endl;    //B1,B2中A的构造函数被忽略，但必须写
+      cout << obj_C.var_B1 << endl;
+      cout << obj_C.var_B2 << endl;
+      cout << obj_C.var_C << endl;
+      // Output:
+      // C's var C to A
+      // C's var C to B1
+      // C's var C to B2
+      // C's var
+  }
 ```
 <br>
 
@@ -1406,11 +1504,18 @@ this指针为指向对象自己的指针
 ```
 <br>
 
+#### **浅拷贝与深拷贝**  
+**浅拷贝**： 实现对象间数据元素的一一对应复制。
+**深拷贝**： 当被复制的对象数据成员是指针类型时,不是复制该指针成员本身,而是将指针所指对象进行复制   
+应尽量避免浅拷贝而使用深拷贝，深拷贝栗子看 **重载赋值运算符 =**  
+<br>
+
 ### **[OOP] 重载**  
 #### **类的友元函数(Friend Function)**  
 友元函数指在类作用域范围之外的函数，**它是类的非成员函数**，但是能访问类的私有数据成员  
+为了确保数据的完整性,及数据封装与隐藏的原则,建议尽量不使用或少使用友元。  
 ```cpp
-  class B;    //前置声明，因为下面的函数cSwap需要用到
+  class B;    //前向引用声明，因为下面的函数cSwap需要用到
   class A{
   public:
       A() { x = 1; }
@@ -1651,7 +1756,7 @@ this指针为指向对象自己的指针
   const myVector& myVector::operator = (const myVector& other){
       if(this != &other){     //避免自身复制，浪费时间空间
           t_size = other.t_size;
-          for(int i = 0; i < t_size; i++){
+          for(int i = 0; i < t_size; i++){    //深拷贝
               p[i] = (other.p)[i];
           }
       }
@@ -1813,6 +1918,11 @@ this指针为指向对象自己的指针
     //hhh hhh
   }
 ```
+<br>
+
+#### **移动构造函数和移动赋值**  
+参考 [C++类的特殊成员-默认/拷贝/移动构造函数](http://blog.csdn.net/shenwanjiang111/article/details/53576196)
+<br>
 
 ### **[OOP] 类型转换**  
 #### **基本类型 -> 类**  
@@ -1918,7 +2028,7 @@ this指针为指向对象自己的指针
 ```
 <br>
 
-#### **[OJ 填空题]  你真的搞清楚为啥 while(cin >> n) 能成立了吗？**    
+**[OJ 填空题]  你真的搞清楚为啥 while(cin >> n) 能成立了吗？**    
 > **题目描述**  
 >> 读入两个整数，输出两个整数 ，直到碰到-1  
 
@@ -1973,7 +2083,7 @@ C++提供函数模板简化重载函数的过程
 ```
 <br>
 
-#### **[OJ 填空题]  简单的SumArray**  
+**[OJ 填空题]  简单的SumArray**  
 > **输入**    
 >> 无  
 
