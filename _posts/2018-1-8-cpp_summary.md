@@ -602,7 +602,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 
 <br>
 
-### **抽象数据类型(Abstract data type, ADT)**  
+#### **抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
   1. `类型名称(Data Type Name)`
   2. `域(Domain)`： 即属于ADT的一系列值
