@@ -177,7 +177,6 @@
           <li><a href="#重载运算符--1" id="markdown-toc-重载运算符--1"><strong>重载运算符 ++</strong></a></li>
           <li><a href="#重载成员访问运算符-" id="markdown-toc-重载成员访问运算符-"><strong>重载成员访问运算符 *</strong></a></li>
           <li><a href="#重载函数调用运算符函数对象" id="markdown-toc-重载函数调用运算符函数对象"><strong>重载函数调用运算符（函数对象）</strong></a></li>
-          <li><a href="#移动构造函数和移动赋值" id="markdown-toc-移动构造函数和移动赋值"><strong>移动构造函数和移动赋值</strong></a></li>
         </ul>
       </li>
       <li><a href="#oop-类型转换" id="markdown-toc-oop-类型转换"><strong>[OOP] 类型转换</strong></a>        <ul>
@@ -208,6 +207,11 @@
           <li><a href="#算法" id="markdown-toc-算法"><strong>算法</strong></a></li>
           <li><a href="#迭代器" id="markdown-toc-迭代器"><strong>迭代器</strong></a></li>
           <li><a href="#函数对象" id="markdown-toc-函数对象"><strong>函数对象</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#标准模板库stl的应用" id="markdown-toc-标准模板库stl的应用"><strong>标准模板库(STL)的应用</strong></a>        <ul>
+          <li><a href="#string" id="markdown-toc-string"><strong>string</strong></a></li>
+          <li><a href="#map" id="markdown-toc-map"><strong>map</strong></a></li>
         </ul>
       </li>
     </ul>
@@ -569,8 +573,8 @@
 
 <h4 id="输入失败"><strong>输入失败</strong></h4>
 <p>类型不匹配导致输入失败时（如将小数点’.’读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//使cin流恢复正常状态</span>
-<span class="n">cin</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//使cin流恢复正常状态</span>
+  <span class="n">cin</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 </code></pre></div></div>
 <p><br /></p>
 
@@ -845,9 +849,9 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h4 id="抽象数据类型abstract-data-type-adt"><strong>抽象数据类型(Abstract data type, ADT)</strong></h4>
 <p>只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：</p>
 <ol>
-  <li><code class="highlighter-rouge">类型名称(Data Type Name)</code></li>
-  <li><code class="highlighter-rouge">域(Domain)</code>： 即属于ADT的一系列值</li>
-  <li><code class="highlighter-rouge">一系列操作(Operations) </code></li>
+  <li><strong>类型名称(Data Type Name)</strong></li>
+  <li><strong>域(Domain)</strong>： 即属于ADT的一系列值</li>
+  <li><strong>一系列操作(Operations)</strong></li>
 </ol>
 
 <p>由此可定义clockType抽象数据类型如下所示，从中可见，类是实现ADT的一种便利的方法</p>
@@ -1008,7 +1012,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h3 id="oop-构造函数"><strong>[OOP] 构造函数</strong></h3>
 <h4 id="构造函数constructor"><strong>构造函数(Constructor)</strong></h4>
 <p>通过构造函数来保证类中数据成员的初始化，可有多个进行重载<br />
-当声明对象时，构造函数将自动执行</p>
+当声明对象时，构造函数将自动执行<br />
+构造函数应使用 <strong>构造函数初始值列表</strong> 初始化类成员，<strong>赋值会先初始化后复制</strong>（编译器不支持该成员的默认初始化就GG）</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="c1">//省略成员函数</span>
@@ -1027,8 +1032,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">seconds</span> <span class="o">&amp;&amp;</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">seconds</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">()</span><span class="o">:</span> <span class="n">hr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">sec</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
-  <span class="c1">//也可写为 clockType::clockType()  { hr = 0; min = 0; sec = 0; }</span>
+  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">()</span><span class="o">:</span> <span class="n">hr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">sec</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>    <span class="c1">// 构造函数初始化值列表</span>
+  <span class="c1">//一般不写作 clockType::clockType()  { hr = 0; min = 0; sec = 0; }  ，因为赋值会先初始化后赋值</span>
 </code></pre></div></div>
 <p>构造函数可带默认参数，也称为默认构造函数</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
@@ -1126,7 +1131,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h4 id="移动构造函数"><strong>移动构造函数</strong></h4>
 <p>移动构造函数可将要返回的局部对象转移到主调函数,省去了构造和删除临时对象的过程 <br />
 在 <strong>有可被利用的临时对象</strong> 时可使用 <br />
-详细的介绍在后面 <strong>移动构造函数和移动赋值</strong><br />
+可参考 <a href="http://blog.csdn.net/shenwanjiang111/article/details/53576196">C++类的特殊成员-默认/拷贝/移动构造函数</a><br />
 <br /></p>
 
 <h4 id="析构函数destructor"><strong>析构函数(Destructor)</strong></h4>
@@ -1167,13 +1172,13 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h4 id="继承is-a关系"><strong>继承(“is-a”关系)</strong></h4>
 <p>从现有类的基础上创建新类</p>
 <ul>
-  <li><code class="highlighter-rouge">派生类(Derived class)</code> : 创建的新类，创建的新类的新类……</li>
-  <li><code class="highlighter-rouge">现有类(Base class)</code> : 从现有类的基础上创建新类</li>
-  <li><code class="highlighter-rouge">单继承(Single inheritance)</code> : 派生类从一个基类派生</li>
-  <li><code class="highlighter-rouge">多继承(Multiple inheritance)</code> : 派生类从多个基类派生</li>
-  <li><code class="highlighter-rouge">多级继承</code>： 基类派生出中间基类，中间基类再派生出派生类，即 A -&gt; B -&gt; C</li>
-  <li><code class="highlighter-rouge">层次继承</code>： 子类从基类派生，作为继承的基类，类似河流主流和分流，作为继承类的在主流，派生类在直流</li>
-  <li><code class="highlighter-rouge">混合继承</code>： 顾名思义！</li>
+  <li><strong>派生类(Derived class)</strong> : 创建的新类，创建的新类的新类……</li>
+  <li><strong>现有类(Base class)</strong> : 从现有类的基础上创建新类</li>
+  <li><strong>单继承(Single inheritance)</strong> : 派生类从一个基类派生</li>
+  <li><strong>多继承(Multiple inheritance)</strong> : 派生类从多个基类派生</li>
+  <li><strong>多级继承</strong>： 基类派生出中间基类，中间基类再派生出派生类，即 A -&gt; B -&gt; C</li>
+  <li><strong>层次继承</strong>： 子类从基类派生，作为继承的基类，类似河流主流和分流，作为继承类的在主流，派生类在直流</li>
+  <li><strong>混合继承</strong>： 顾名思义！</li>
 </ul>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//例如：cirle类和rectangle类从shape类派生</span>
@@ -2131,7 +2136,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p><br /></p>
 
 <h4 id="重载成员访问运算符-"><strong>重载成员访问运算符 *</strong></h4>
-<p><br /></p>
+<p>略<br />
+<br /></p>
 
 <h4 id="重载函数调用运算符函数对象"><strong>重载函数调用运算符（函数对象）</strong></h4>
 <p>像使用函数一样使用该类对象</p>
@@ -2168,10 +2174,6 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
-
-<h4 id="移动构造函数和移动赋值"><strong>移动构造函数和移动赋值</strong></h4>
-<p>参考 <a href="http://blog.csdn.net/shenwanjiang111/article/details/53576196">C++类的特殊成员-默认/拷贝/移动构造函数</a>
-<br /></p>
 
 <h3 id="oop-类型转换"><strong>[OOP] 类型转换</strong></h3>
 <h4 id="基本类型---类"><strong>基本类型 -&gt; 类</strong></h4>
@@ -2597,6 +2599,336 @@ C++中提出的异常处理机制 <strong>只用来应付同步异常</strong><b
   <span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="n">N</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>    <span class="c1">//降序排序</span>
 </code></pre></div></div>
 <p><br /></p>
+
+<h3 id="标准模板库stl的应用"><strong>标准模板库(STL)的应用</strong></h3>
+<h4 id="string"><strong>string</strong></h4>
+<p><strong>[OJ题]  H04:字符串操作</strong></p>
+<blockquote>
+  <p><strong>描述</strong></p>
+  <blockquote>
+    <p>给定n个字符串（从1开始编号），每个字符串中的字符位置从0开始编号，长度为1-500，现有如下若干操作：</p>
+
+    <p>copy N X L：取出第N个字符串第X个字符开始的长度为L的字符串。<br />
+add S1 S2：判断S1，S2是否为0-99999之间的整数，若是则将其转化为整数做加法，若不是，则作字符串加法，返回的值为一字符串。<br />
+find S N：在第N个字符串中从左开始找寻S字符串，返回其第一次出现的位置，若没有找到，返回字符串的长度。<br />
+rfind S N：在第N个字符串中从右开始找寻S字符串，返回其第一次出现的位置，若没有找到，返回字符串的长度。<br />
+insert S N X：在第N个字符串的第X个字符位置中插入S字符串。<br />
+reset S N：将第N个字符串变为S。<br />
+print N：打印输出第N个字符串。<br />
+printall：打印输出所有字符串。<br />
+over：结束操作。</p>
+
+    <p>其中N，X，L可由find与rfind操作表达式构成，S，S1，S2可由copy与add操作表达式构成。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>输入</strong></p>
+  <blockquote>
+    <p>第一行为一个整数n（n在1-20之间）<br />
+接下来n行为n个字符串，字符串不包含空格及操作命令等。<br />
+接下来若干行为一系列操作，直到over结束。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>输出</strong></p>
+  <blockquote>
+    <p>根据操作提示输出对应字符串。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>样例输入</strong></p>
+  <blockquote>
+    <p>3<br />
+329strjvc<br />
+Opadfk48<br />
+Ifjoqwoqejr<br />
+insert copy 1 find 2 1 2 2 2<br />
+print 2<br />
+reset add copy 1 find 3 1 3 copy 2 find 2 2 2 3<br />
+print 3<br />
+insert a 3 2<br />
+printall<br />
+over</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>样例输出</strong></p>
+  <blockquote>
+    <p>Op29adfk48<br />
+358<br />
+329strjvc<br />
+Op29adfk48<br />
+35a8</p>
+  </blockquote>
+</blockquote>
+
+<p>本题用string类中的操作特别方便，故我将本题作为string类的应用题放在这儿 <br />
+看完题目后，会发现本题的难点在于 S，S1，S2 和 N，X，L 不一定直接给出，可能通过调用函数获得，所以我们可以考虑 <strong>将获取n，x，l作为一个函数，获取s，s1,s2作为另一个函数</strong>， 调用这两个函数，而函数内又可判断是否继续调用别的函数获取所需值，这样处理就会方便很多</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cp">#include &lt;iostream&gt;
+</span>    <span class="cp">#include &lt;cctype&gt;
+</span>    <span class="cp">#include &lt;cstdlib&gt;
+</span>    <span class="cp">#include &lt;vector&gt;
+</span>    <span class="cp">#include &lt;sstream&gt;
+</span>
+    <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+    <span class="k">class</span> <span class="nc">myString</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">myString</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">pvec</span><span class="p">)</span><span class="o">:</span> <span class="n">vec</span><span class="p">(</span><span class="n">pvec</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vec</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">string</span><span class="p">(</span><span class="s">"none"</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="kt">bool</span> <span class="n">op</span><span class="p">();</span>            <span class="c1">//对外调用接口，每一行指令调用一次op()，指令为over时返回false</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span>
+
+        <span class="kt">void</span> <span class="n">insert</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="n">reset</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="n">printall</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">find</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">rfind</span><span class="p">();</span>
+        <span class="n">string</span> <span class="n">copy</span><span class="p">();</span>
+        <span class="n">string</span> <span class="n">add</span><span class="p">();</span>
+
+        <span class="kt">int</span> <span class="n">getNXL</span><span class="p">();</span>         <span class="c1">//获取n，x，l</span>
+        <span class="n">string</span> <span class="n">getS</span><span class="p">();</span>        <span class="c1">//获取s</span>
+    <span class="p">};</span>
+
+    <span class="kt">int</span> <span class="n">myString</span><span class="o">::</span><span class="n">getNXL</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"find"</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">find</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"rfind"</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">rfind</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">atoi</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>   <span class="c1">//str.c_str():返回char*型字符串</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">string</span> <span class="n">myString</span><span class="o">::</span><span class="n">getS</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"copy"</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">copy</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"add"</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">add</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">myString</span><span class="o">::</span><span class="n">insert</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">getS</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">].</span><span class="n">insert</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>    <span class="c1">//vec[n].insert(x, s)：在第x的位置插入元素s</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">myString</span><span class="o">::</span><span class="n">reset</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">getS</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">myString</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">myString</span><span class="o">::</span><span class="n">printall</span><span class="p">(){</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>  <span class="c1">//迭代器，可看作指针</span>
+        <span class="n">it</span><span class="o">++</span><span class="p">;</span>                                       <span class="c1">//第一个是“none”故需++</span>
+        <span class="k">for</span><span class="p">(;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span> <span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">myString</span><span class="o">::</span><span class="n">find</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">getS</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>  <span class="c1">//str.find(s): 正向查找子串s第一次出现的位置，失败返回npos</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">!=</span> <span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">){</span>        <span class="c1">//string::npos: find(), rfind() 失败返回npos</span>
+            <span class="k">return</span> <span class="n">pos</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>            <span class="c1">//s.size(): 返回s的长度,也可写作s.length()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">myString</span><span class="o">::</span><span class="n">rfind</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">getS</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span> <span class="c1">//str.rfind(s):逆向查找子串s第一次出现的位置，失败返回npos</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">!=</span> <span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">pos</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">string</span> <span class="n">myString</span><span class="o">::</span><span class="n">copy</span><span class="p">(){</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">(),</span> <span class="n">x</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">(),</span> <span class="n">l</span> <span class="o">=</span> <span class="n">getNXL</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">vec</span><span class="p">[</span><span class="n">n</span><span class="p">].</span><span class="n">substr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="p">);</span>     <span class="c1">//str.substr(x, l):返回str的子串，该子串为str的第x个字符开始长度为l的字符串</span>
+    <span class="p">}</span>
+
+    <span class="n">string</span> <span class="n">myString</span><span class="o">::</span><span class="n">add</span><span class="p">(){</span>
+        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>      <span class="c1">//使用stringstream实现类型转换</span>
+        <span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">getS</span><span class="p">(),</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">getS</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">c_str</span><span class="p">()),</span> <span class="n">b</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s2</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+
+        <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="sc">'0'</span> <span class="o">||</span> <span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="sc">'9'</span><span class="p">){</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="sc">'0'</span> <span class="o">||</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="sc">'9'</span><span class="p">){</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">99999</span> <span class="o">&amp;&amp;</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">99999</span> <span class="o">&amp;&amp;</span> <span class="n">flag</span><span class="p">){</span>
+            <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+            <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="n">myString</span><span class="o">::</span><span class="n">op</span><span class="p">(){</span>
+        <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"over"</span><span class="p">)</span>           <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"copy"</span><span class="p">)</span>      <span class="n">copy</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"add"</span><span class="p">)</span>       <span class="n">add</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"find"</span><span class="p">)</span>      <span class="n">find</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"rfind"</span><span class="p">)</span>     <span class="n">rfind</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"insert"</span><span class="p">)</span>    <span class="n">insert</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"reset"</span><span class="p">)</span>     <span class="n">reset</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"print"</span><span class="p">)</span>     <span class="n">print</span><span class="p">();</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span> <span class="o">==</span> <span class="s">"printall"</span><span class="p">)</span>  <span class="n">printall</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ------------------------------</span>
+
+    <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+            <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
+            <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">myString</span> <span class="n">obj</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">op</span><span class="p">());</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="map"><strong>map</strong></h4>
+<p><strong>[OJ题]  H06:冷血格斗场</strong></p>
+<blockquote>
+  <p><strong>描述</strong></p>
+  <blockquote>
+    <p>为了迎接08年的奥运会，让大家更加了解各种格斗运动，facer新开了一家冷血格斗场。格斗场实行会员制，但是新来的会员不需要交入会费，而只要同一名老会员打一场表演赛，证明自己的实力。<br />
+我们假设格斗的实力可以用一个正整数表示，成为实力值，两人的实力值可以相同。另外，每个人都有一个唯一的id，也是一个正整数。为了使得比赛更好看，每一个新队员都会选择与他实力最为接近的人比赛，即比赛双方的实力值之差的绝对值越小越好，如果有多个人的实力值与他差别相同，则他会选择id最小的那个。<br />
+不幸的是，Facer一不小心把比赛记录弄丢了，但是他还保留着会员的注册记录。现在请你帮facer恢复比赛纪录，按照时间顺序依次输出每场比赛双方的id。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>输入</strong></p>
+  <blockquote>
+    <p>第一行一个数n(0 &lt; n &lt;=100000)，表示格斗场新来的会员数（不包括facer）。以后n行每一行两个数，按照入会的时间给出会员的id和实力值。一开始，facer就算是会员，id为1，实力值1000000000。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>输出</strong></p>
+  <blockquote>
+    <p>N行，每行两个数，为每场比赛双方的id，新手的id写在前面。</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>样例输入</strong></p>
+  <blockquote>
+    <p>3<br />
+2 3<br />
+3 1<br />
+4 2</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p><strong>样例输出</strong></p>
+  <blockquote>
+    <p>2 1<br />
+3 2<br />
+4 2</p>
+  </blockquote>
+</blockquote>
+
+<p><strong>map内部由二叉树（红黑树）封装而成，数据默认按照key值升序排序，插入和查找操作时间复杂度都为O(logN)</strong><br />
+本题使用map是因为根据题意，需要按实力值排序，并且需要不断进行插入和查找操作，而给的数据比较大，所以使用map作为存储结构<br />
+另外，本题的难点为，若按实力值排序，而map只能单一key对应单一value，而可能有不同id的人拥有相同的实力值，但考虑到每次都选择id最小的人作为对手，因此每次输入数据时可检测是否存在该key，若存在则当id小于该key时替换该key即可</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;bits/stdc++.h&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span>
+      <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">,</span> <span class="n">it_before</span><span class="p">,</span> <span class="n">it_after</span><span class="p">;</span>
+      <span class="n">mp</span><span class="p">[</span><span class="mi">1000000000</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">ans_id</span><span class="p">;</span>
+          <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">id</span> <span class="o">&gt;&gt;</span> <span class="n">val</span><span class="p">;</span>
+
+          <span class="n">it</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">mp</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>       <span class="c1">//若找到，则替换为id更小的</span>
+              <span class="n">ans_id</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+              <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="n">mp</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+              <span class="n">it</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+              <span class="n">it_before</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>   <span class="c1">//取it前一个的迭代器</span>
+              <span class="n">it_after</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>     <span class="c1">//取it后一个的迭代器</span>
+
+
+              <span class="k">if</span><span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">mp</span><span class="p">.</span><span class="n">begin</span><span class="p">()){</span>
+                  <span class="n">ans_id</span> <span class="o">=</span> <span class="n">it_after</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+              <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">mp</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                  <span class="n">ans_id</span> <span class="o">=</span> <span class="n">it_before</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+              <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">it_after</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">==</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">-</span> <span class="n">it_before</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">){</span>
+                  <span class="n">ans_id</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">it_before</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">,</span> <span class="n">it_after</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
+              <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                  <span class="n">ans_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">it_after</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">-</span> <span class="n">it_before</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">)</span> <span class="o">?</span> <span class="n">it_after</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">:</span> <span class="n">it_before</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">ans_id</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
 
     </article>
     

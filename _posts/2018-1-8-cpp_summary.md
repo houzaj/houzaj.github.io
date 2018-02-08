@@ -404,8 +404,8 @@ cin.ignore、cin.putback、cin.peek函数
 #### **输入失败**   
 类型不匹配导致输入失败时（如将小数点'.'读入int型变量中），输入流会处于Fail State（错误状态），接下来使用该输入流的所有I/O语句都将被忽略掉，使用clear()函数可使其恢复到正常状态。
 ```cpp
-//使cin流恢复正常状态
-cin.clear();
+  //使cin流恢复正常状态
+  cin.clear();
 ```  
 <br>
 
@@ -602,16 +602,16 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 1. **对象**： 程序中用来描述客观事物的实体  
 2. **抽象**： 抽象出同一类对象的共同属性和行为形成类  
 3. **封装**： 把数据和数据上的操作组合在一个独立单元中的能力 (类 class)， 隐蔽对象的内部细节，只保留有限的对外接口  
-4. **继承**： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)，意义在于软件复用
-5. **多态**： 使用相同表达式指定不同操作的能力
+4. **继承**： 在现有的对象基础上创建新的对象的能力 (继承inheritance, 组合)，意义在于软件复用  
+5. **多态**： 使用相同表达式指定不同操作的能力  
 
 <br>
 
 #### **抽象数据类型(Abstract data type, ADT)**  
 只确定逻辑特性而没有实现细节的数据类型，有3个相关属性：  
-  1. `类型名称(Data Type Name)`
-  2. `域(Domain)`： 即属于ADT的一系列值
-  3. `一系列操作(Operations) `
+  1. **类型名称(Data Type Name)**  
+  2. **域(Domain)**： 即属于ADT的一系列值  
+  3. **一系列操作(Operations)**  
 
   由此可定义clockType抽象数据类型如下所示，从中可见，类是实现ADT的一种便利的方法
 ```cpp
@@ -774,6 +774,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 #### **构造函数(Constructor)**  
 通过构造函数来保证类中数据成员的初始化，可有多个进行重载  
 当声明对象时，构造函数将自动执行  
+构造函数应使用 **构造函数初始值列表** 初始化类成员，**赋值会先初始化后复制**（编译器不支持该成员的默认初始化就GG）
 ```cpp
   class clockType{
   public:
@@ -793,8 +794,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       seconds = (0 <= seconds && seconds < 60)?seconds:0;
   }
 
-  clockType::clockType(): hr(0), min(0), sec(0) {}
-  //也可写为 clockType::clockType()  { hr = 0; min = 0; sec = 0; }
+  clockType::clockType(): hr(0), min(0), sec(0) {}    // 构造函数初始化值列表
+  //一般不写作 clockType::clockType()  { hr = 0; min = 0; sec = 0; }  ，因为赋值会先初始化后赋值
 ```    
 构造函数可带默认参数，也称为默认构造函数  
 ```cpp
@@ -895,7 +896,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 #### **移动构造函数**   
 移动构造函数可将要返回的局部对象转移到主调函数,省去了构造和删除临时对象的过程   
 在 **有可被利用的临时对象** 时可使用   
-详细的介绍在后面 **移动构造函数和移动赋值**  
+可参考 [C++类的特殊成员-默认/拷贝/移动构造函数](http://blog.csdn.net/shenwanjiang111/article/details/53576196)  
 <br>
 
 #### **析构函数(Destructor)**  
@@ -936,14 +937,13 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 ### **[OOP] 继承 和 组成**  
 #### **继承("is-a"关系)**  
 从现有类的基础上创建新类
-  - `派生类(Derived class)` : 创建的新类，创建的新类的新类……  
-  - `现有类(Base class)` : 从现有类的基础上创建新类  
-  - `单继承(Single inheritance)` : 派生类从一个基类派生  
-  - `多继承(Multiple inheritance)` : 派生类从多个基类派生  
-  - `多级继承`： 基类派生出中间基类，中间基类再派生出派生类，即 A -> B -> C  
-  - `层次继承`： 子类从基类派生，作为继承的基类，类似河流主流和分流，作为继承类的在主流，派生类在直流  
-  - `混合继承`： 顾名思义！  
-
+  - **派生类(Derived class)** : 创建的新类，创建的新类的新类……  
+  - **现有类(Base class)** : 从现有类的基础上创建新类  
+  - **单继承(Single inheritance)** : 派生类从一个基类派生  
+  - **多继承(Multiple inheritance)** : 派生类从多个基类派生  
+  - **多级继承**： 基类派生出中间基类，中间基类再派生出派生类，即 A -> B -> C  
+  - **层次继承**： 子类从基类派生，作为继承的基类，类似河流主流和分流，作为继承类的在主流，派生类在直流  
+  - **混合继承**： 顾名思义！  
 
   ```cpp
     //例如：cirle类和rectangle类从shape类派生
@@ -1879,7 +1879,8 @@ this指针为指向对象自己的指针
 ```
 <br>
 
-#### **重载成员访问运算符 \***
+#### **重载成员访问运算符 \***  
+略  
 <br>
 
 #### **重载函数调用运算符（函数对象）**
@@ -1918,10 +1919,6 @@ this指针为指向对象自己的指针
     //hhh hhh
   }
 ```
-<br>
-
-#### **移动构造函数和移动赋值**  
-参考 [C++类的特殊成员-默认/拷贝/移动构造函数](http://blog.csdn.net/shenwanjiang111/article/details/53576196)
 <br>
 
 ### **[OOP] 类型转换**  
@@ -2345,3 +2342,295 @@ C++11反对，故不写
   sort(arr, arr + N, greater<int>());    //降序排序
 ```
 <br>
+
+### **标准模板库(STL)的应用**   
+#### **string**  
+**[OJ题]  H04:字符串操作**  
+> **描述**  
+>> 给定n个字符串（从1开始编号），每个字符串中的字符位置从0开始编号，长度为1-500，现有如下若干操作：  
+>>  
+>> copy N X L：取出第N个字符串第X个字符开始的长度为L的字符串。  
+>> add S1 S2：判断S1，S2是否为0-99999之间的整数，若是则将其转化为整数做加法，若不是，则作字符串加法，返回的值为一字符串。  
+>> find S N：在第N个字符串中从左开始找寻S字符串，返回其第一次出现的位置，若没有找到，返回字符串的长度。  
+>> rfind S N：在第N个字符串中从右开始找寻S字符串，返回其第一次出现的位置，若没有找到，返回字符串的长度。  
+>> insert S N X：在第N个字符串的第X个字符位置中插入S字符串。  
+>> reset S N：将第N个字符串变为S。  
+>> print N：打印输出第N个字符串。  
+>> printall：打印输出所有字符串。  
+>> over：结束操作。  
+>>  
+>> 其中N，X，L可由find与rfind操作表达式构成，S，S1，S2可由copy与add操作表达式构成。  
+
+> **输入**  
+>> 第一行为一个整数n（n在1-20之间）  
+>> 接下来n行为n个字符串，字符串不包含空格及操作命令等。  
+>> 接下来若干行为一系列操作，直到over结束。  
+
+> **输出**  
+>> 根据操作提示输出对应字符串。  
+
+> **样例输入**  
+>> 3  
+>> 329strjvc  
+>> Opadfk48  
+>> Ifjoqwoqejr  
+>> insert copy 1 find 2 1 2 2 2  
+>> print 2  
+>> reset add copy 1 find 3 1 3 copy 2 find 2 2 2 3  
+>> print 3  
+>> insert a 3 2  
+>> printall  
+>> over  
+
+> **样例输出**  
+>> Op29adfk48  
+>> 358  
+>> 329strjvc  
+>> Op29adfk48  
+>> 35a8  
+
+本题用string类中的操作特别方便，故我将本题作为string类的应用题放在这儿   
+看完题目后，会发现本题的难点在于 S，S1，S2 和 N，X，L 不一定直接给出，可能通过调用函数获得，所以我们可以考虑 **将获取n，x，l作为一个函数，获取s，s1,s2作为另一个函数**， 调用这两个函数，而函数内又可判断是否继续调用别的函数获取所需值，这样处理就会方便很多  
+
+```cpp
+    #include <iostream>
+    #include <cctype>
+    #include <cstdlib>
+    #include <vector>
+    #include <sstream>
+
+    using namespace std;
+
+    class myString{
+    public:
+        myString(const vector<string>& pvec): vec(pvec) {
+            vec.insert(vec.begin(), string("none"));
+        }
+        bool op();            //对外调用接口，每一行指令调用一次op()，指令为over时返回false
+    private:
+        vector<string> vec;
+
+        void insert();
+        void reset();
+        void print();
+        void printall();
+        int find();
+        int rfind();
+        string copy();
+        string add();
+
+        int getNXL();         //获取n，x，l
+        string getS();        //获取s
+    };
+
+    int myString::getNXL(){
+        string str;
+        cin >> str;
+        if(str == "find"){
+            return find();
+        }else if(str == "rfind"){
+            return rfind();
+        }else{
+            return atoi(str.c_str());   //str.c_str():返回char*型字符串
+        }
+    }
+
+    string myString::getS(){
+        string str;
+        cin >> str;
+        if(str == "copy"){
+            return copy();
+        }else if(str == "add"){
+            return add();
+        }else{
+            return str;
+        }
+    }
+
+    void myString::insert(){
+        string s = getS();
+        int n = getNXL();
+        int x = getNXL();
+        vec[n].insert(x, s);    //vec[n].insert(x, s)：在第x的位置插入元素s
+    }
+
+    void myString::reset(){
+        string s = getS();
+        int n = getNXL();
+        vec[n] = s;
+    }
+
+    void myString::print(){
+        int n = getNXL();
+        cout << vec[n] << endl;
+    }
+
+    void myString::printall(){
+        vector<string>::iterator it = vec.begin();  //迭代器，可看作指针
+        it++;                                       //第一个是“none”故需++
+        for(; it != vec.end(); it++){
+            cout << * it << endl;
+        }
+    }
+
+    int myString::find(){
+        string s = getS();
+        int n = getNXL();
+        string str = vec[n];
+        int pos = str.find(s.c_str());  //str.find(s): 正向查找子串s第一次出现的位置，失败返回npos
+        if(pos != string::npos){        //string::npos: find(), rfind() 失败返回npos
+            return pos;
+        }else{
+            return s.size();            //s.size(): 返回s的长度,也可写作s.length()
+        }
+    }
+
+    int myString::rfind(){
+        string s = getS();
+        int n = getNXL();
+        string str = vec[n];
+        int pos = str.rfind(s.c_str()); //str.rfind(s):逆向查找子串s第一次出现的位置，失败返回npos
+        if(pos != string::npos){
+            return pos;
+        }else{
+            return s.size();
+        }
+    }
+
+    string myString::copy(){
+        int n = getNXL(), x = getNXL(), l = getNXL();
+        return vec[n].substr(x, l);     //str.substr(x, l):返回str的子串，该子串为str的第x个字符开始长度为l的字符串
+    }
+
+    string myString::add(){
+        stringstream ss;      //使用stringstream实现类型转换
+        string s1 = getS(), s2 = getS();
+        int a = atoi(s1.c_str()), b = atoi(s2.c_str());
+
+        int flag = 1;
+        for(int i = 0; i < s1.size(); i++){
+            if(s1[i] < '0' || s1[i] > '9'){
+                flag = 0;
+                break;
+            }
+        }
+        for(int i = 0; i < s2.size(); i++){
+            if(s2[i] < '0' || s2[i] > '9'){
+                flag = 0;
+                break;
+            }
+        }
+
+        if(0 <= a && a <= 99999 && 0 <= b && b <= 99999 && flag){
+            ss << a + b;
+            string str;
+            ss >> str;
+            return str;
+        }else{
+            return (s1 + s2);
+        }
+    }
+
+    bool myString::op(){
+        string str;
+        cin >> str;
+        if(str == "over")           return false;
+        else if(str == "copy")      copy();
+        else if(str == "add")       add();
+        else if(str == "find")      find();
+        else if(str == "rfind")     rfind();
+        else if(str == "insert")    insert();
+        else if(str == "reset")     reset();
+        else if(str == "print")     print();
+        else if(str == "printall")  printall();
+        return true;
+    }
+
+    // ------------------------------
+
+    int main(){
+        vector<string> vec;
+        int t;
+        cin >> t;
+        while(t--){
+            string str;
+            cin >> str;
+            vec.push_back(str);
+        }
+        myString obj(vec);
+        while(obj.op());
+        return 0;
+    }
+```
+<br>
+
+#### **map**
+**[OJ题]  H06:冷血格斗场**  
+> **描述**  
+>> 为了迎接08年的奥运会，让大家更加了解各种格斗运动，facer新开了一家冷血格斗场。格斗场实行会员制，但是新来的会员不需要交入会费，而只要同一名老会员打一场表演赛，证明自己的实力。  
+>> 我们假设格斗的实力可以用一个正整数表示，成为实力值，两人的实力值可以相同。另外，每个人都有一个唯一的id，也是一个正整数。为了使得比赛更好看，每一个新队员都会选择与他实力最为接近的人比赛，即比赛双方的实力值之差的绝对值越小越好，如果有多个人的实力值与他差别相同，则他会选择id最小的那个。  
+>> 不幸的是，Facer一不小心把比赛记录弄丢了，但是他还保留着会员的注册记录。现在请你帮facer恢复比赛纪录，按照时间顺序依次输出每场比赛双方的id。  
+
+> **输入**  
+>> 第一行一个数n(0 < n <=100000)，表示格斗场新来的会员数（不包括facer）。以后n行每一行两个数，按照入会的时间给出会员的id和实力值。一开始，facer就算是会员，id为1，实力值1000000000。   
+
+> **输出**  
+>> N行，每行两个数，为每场比赛双方的id，新手的id写在前面。  
+
+> **样例输入**  
+>> 3  
+>> 2 3  
+>> 3 1  
+>> 4 2  
+
+> **样例输出**  
+>> 2 1  
+>> 3 2  
+>> 4 2   
+
+**map内部由二叉树（红黑树）封装而成，数据默认按照key值升序排序，插入和查找操作时间复杂度都为O(logN)**  
+本题使用map是因为根据题意，需要按实力值排序，并且需要不断进行插入和查找操作，而给的数据比较大，所以使用map作为存储结构  
+另外，本题的难点为，若按实力值排序，而map只能单一key对应单一value，而可能有不同id的人拥有相同的实力值，但考虑到每次都选择id最小的人作为对手，因此每次输入数据时可检测是否存在该key，若存在则当id小于该key时替换该key即可  
+
+```cpp
+  #include <bits/stdc++.h>
+  using namespace std;
+
+  int main(){
+      map<int, int> mp;
+      map<int, int>::iterator it, it_before, it_after;
+      mp[1000000000] = 1;
+
+      int t;
+      cin >> t;
+      while(t--){
+          int id, val, ans_id;
+          cin >> id >> val;
+
+          it = mp.find(val);
+          if(it != mp.end()){       //若找到，则替换为id更小的
+              ans_id = it->second;
+              it->second = min(it->second, id);
+          }else{
+              mp[val] = id;
+              it = mp.find(val);
+              it_before = next(it, -1);   //取it前一个的迭代器
+              it_after = next(it, 1);     //取it后一个的迭代器
+
+
+              if(it == mp.begin()){
+                  ans_id = it_after->second;
+              }else if(it == mp.end()){
+                  ans_id = it_before->second;
+              }else if(it_after->first - it->first == it->first - it_before->first){
+                  ans_id = min(it_before->second, it_after->second);
+              }else{
+                  ans_id = (it_after->first - it->first < it->first - it_before->first) ? it_after->second : it_before->second;
+              }
+          }
+          cout << id << " " << ans_id << endl;
+
+      }
+      return 0;
+  }
+```
