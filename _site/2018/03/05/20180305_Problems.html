@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记 —— 2018.3.5 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记 —— 2018.3.5">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记 —— 2018.3.5 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/03/05/20180305_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记 —— 2018.3.5</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-03-05"><i class="iconfont icon-date"></i>05 Mar 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180305%20Problem0305/20180305-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>CodeForces 669D， CodeForces 570B</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=33418878&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="题">题</h3>
+<p><strong>会做的题：</strong></p>
+<ol>
+  <li>（水题）Cows and Poker Game —— CodeForces - 284B <br />
+<a href="http://codeforces.com/problemset/problem/284/B">http://codeforces.com/problemset/problem/284/B</a></li>
+  <li>（水题）Guest From the Past —— CodeForces - 625A<br />
+<a href="http://codeforces.com/problemset/problem/625/A">http://codeforces.com/problemset/problem/625/A</a></li>
+  <li>（水题）Simple Game —— CodeForces - 570B<br />
+<a href="http://codeforces.com/problemset/problem/570/B">http://codeforces.com/problemset/problem/570/B</a></li>
+  <li>Little Artem and Dance —— CodeForces - 669D<br />
+<a href="http://codeforces.com/problemset/problem/669/D">http://codeforces.com/problemset/problem/669/D</a></li>
+</ol>
+
+<p><strong>不会做的题：</strong></p>
+<ol>
+  <li>Buy Low Sell High —— CodeForces - 867E<br />
+<a href="http://codeforces.com/problemset/problem/867/E">http://codeforces.com/problemset/problem/867/E</a></li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="little-artem-and-dance--codeforces---669d">Little Artem and Dance —— CodeForces - 669D</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180305%20Problem0305/Little%20Artem%20and%20Danc%20CodeForces-669D.png" alt="" />
+<strong>思路</strong><br />
+题目大意是给定一个圈圈上有N个点，N为偶数，他们的位置顺时针记为1,2,3,……，N，同时一开始每个位置上的值等于它们自身的位置的值，现在给定两种操作，第一种操作是将圈上所有值都顺时针走x个单位或逆时针走x个单位，第二种操作是将位置1和2, 3和4, 5和6, ……， n-1和n上的值进行互换，请输出q次给定操作后圆圈从位置1顺时针顺序开始的所有的值。在样例输入中，1代表操作1, x代表顺时针走x个单位，-x代表逆时针走x个单位，2代表操作2<br />
+<br />
+首先注意范围分别是 n &lt;= 1e6, q &lt;= 2e6， 模拟全部过程妥妥TLE，但是又要输出最后的结果，而且给定的操作都是随机的，因此我们需要想一个能够部分模拟或者不模拟方法来计算出最后的结果。首先 <strong>对于所有点，操作1对于他们都是相同的，因此每次的操作1都可以累加结果</strong>， 对于操作2, 题干的交换其实可以理解为 <strong>奇数位置的点+1, 偶数位置的点-1</strong>， 因此其实只需要模拟一遍一开始在位置1的点的整个过程, 就能够计算出对于所有奇数点和偶数点最后的位置<br />
+一开始本来想用 k^=tmp 优化，没想到WA了，改成 k = (k + tmp)%2 就AC了，似乎是位运算不能接受那么大的数 QAQ</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1000005</span><span class="p">;</span>
+
+  <span class="n">ll</span> <span class="n">op_tot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>  <span class="c1">// [0]为奇数点最后移动的距离，[1]为偶数点最后移动的距离</span>
+  <span class="n">ll</span> <span class="n">ans</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">ll</span> <span class="n">n</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
+      <span class="n">ll</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>    <span class="c1">// 位置1的点</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">);</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">op</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">op</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">);</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">tmp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>     <span class="n">tmp</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+              <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">;</span>    <span class="c1">//为了方便计算奇偶，可以假设k在一个2个点的圈子里面</span>
+              <span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>  <span class="c1">//%n只是为了防止溢出</span>
+              <span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">){</span>  <span class="c1">//k如果此时走到奇数位置</span>
+                  <span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>      <span class="c1">//所有的奇数点就+1</span>
+                  <span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>  <span class="c1">//对应的偶数点就-1,下同</span>
+              <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                  <span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+                  <span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">op_tot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="n">k</span> <span class="o">^=</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">//交换位置后，奇数变偶数位置，偶数位置变奇数位置</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">ans</span><span class="p">[(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">op_tot</span><span class="p">[</span><span class="n">i</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">])</span><span class="o">%</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">printf</span><span class="p">((</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">?</span> <span class="s">"%lld "</span> <span class="o">:</span> <span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">),</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="simple-game--codeforces---570b">Simple Game —— CodeForces - 570B</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180305%20Problem0305/Simple%20Game%20CodeForces-570B.png" alt="" />
+<strong>思路</strong><br />
+题目大意为，给定一行整数1,2,……，N，已知N，给定一个数m，现有任意一整数点c在区间[1,N]上，求在区间[1,N]上的一整数点a，使其满足|c - a| &lt; |c - m|的概率最大 <br />
+<br />
+本题其实蛮水的，不难发现，当m离某一端点更远时，在那一边取离m最近的点就能满足题意，即 <strong>a = m - 1 &gt;= n - m ? m - 1 : m + 1</strong>，然后就非常漂亮的WA了 T^T<br />
+本题还挖了个坑，<strong>当 n == 1 且 m == 1 时， 因为只有m这一个点，所以a只能取1</strong>，需要特判一下</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+      <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+          <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span> <span class="o">?</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/03/04/20180304_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记 —— 2018.3.4</span>
+                <p>  CodeForces 344C， CodeForces 359A</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180304%20Problem0304/%E6%9C%AA%E6%A0%87%E9%A2%98-1-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
