@@ -411,7 +411,7 @@ cin.getline、cout.write函数
 cin.ignore、cin.putback、cin.peek函数   
 ```cpp
   //忽略掉下面100个字符 或者 忽略掉下个'\n'之前的所有字符   
-  cin.ignore(100, 'A');   
+  cin.ignore(100, '\n');   
 ```
 ```cpp
   //把ch变量退回输入流中    
