@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（反素数 & Emirp） —— 2018.3.31 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（反素数 & Emirp） —— 2018.3.31">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（反素数 & Emirp） —— 2018.3.31 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/03/31/20180331_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（反素数 & Emirp） —— 2018.3.31</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-03-31"><i class="iconfont icon-date"></i>31 Mar 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180331%20Problem0331/20180331-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>反素数 和 Emirp</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=640866&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>昨天竟然有同学说我打广告！程序猿的事，怎么能叫广告呢[手动滑稽]<br />
+反素数有两种，一种找不到英文名，下面的博文具体阐述了那种反素数，另一种是指把一个素数颠倒过来是一个与原数不同的素数，叫做emirp<br />
+反素数的题目，简单的就是模板了，难的做不动，会涉及到各类知识，比如排列组合之类的……所以这篇文中都是模板来着的  <br />
+<br /></p>
+
+<h3 id="不会做的题目">不会做的题目</h3>
+<ol>
+  <li>小明系列故事——未知剩余系 - HDU - 4542<br />
+<a href="http://acm.hdu.edu.cn/showproblem.php?pid=4542">http://acm.hdu.edu.cn/showproblem.php?pid=4542</a></li>
+  <li>Factors - UVALive - 6396<br />
+<a href="https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4407">https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4407</a><br />
+<br /></li>
+</ol>
+
+<h3 id="number-with-the-given-amount---codeforces-27e">Number With The Given Amount - CodeForces-27E</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180331%20Problem0331/Number%20With%20The%20Given%20Amount%20-%20CodeForces-27E.png" alt="" />
+<strong>题目大意</strong><br />
+求最小的恰好有n个因子的正整数 <br />
+<br />
+<strong>思路</strong>  <br />
+模板题</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ull</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">ull</span> <span class="n">INF</span> <span class="o">=</span> <span class="o">~</span><span class="mi">0ull</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">prime</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span>       <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">57</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">prime_nums</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+
+  <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">ull</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">n</span><span class="p">,</span> <span class="n">ull</span><span class="o">&amp;</span> <span class="n">ans</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">cnt</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">)</span>     <span class="k">return</span><span class="p">;</span>         <span class="c1">//枚举超过所需的n，直接返回，剪枝</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="n">n</span><span class="p">){</span>                   <span class="c1">//cnt == n时，更新最小值</span>
+          <span class="n">ans</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>        <span class="c1">//剪枝，因为 t[i+1] &gt; t[i]</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">ull</span><span class="p">)</span><span class="mf">1e18</span><span class="o">/</span><span class="n">prime</span><span class="p">[</span><span class="n">depth</span><span class="p">])</span>      <span class="k">break</span><span class="p">;</span>        <span class="c1">//超过题目范围剪枝</span>
+          <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>                              <span class="c1">//更新t[i]，为 t[i+1] 的剪枝做准备</span>
+          <span class="n">num</span><span class="o">*=</span><span class="n">prime</span><span class="p">[</span><span class="n">depth</span><span class="p">];</span>                                  <span class="c1">//更新num值</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cnt</span><span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">num</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>           <span class="c1">//cnt传的是 cnt*(i+1)，因为1是不算的，要往后挪一位</span>
+      <span class="p">}</span>
+      <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+          <span class="n">ull</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">INF</span><span class="p">;</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="the-most-complex-number---ural-1748">The Most Complex Number - URAL-1748</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180331%20Problem0331/The%20Most%20Complex%20Number%20-%20URAL-1748.png" alt="" />
+<strong>题目大意</strong><br />
+求小于n的反素数，输出数值和因子数<br />
+<br />
+<strong>思路</strong>  <br />
+模板题，和上题十分类似</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ull</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">ull</span> <span class="n">INF</span> <span class="o">=</span> <span class="o">~</span><span class="mi">0ull</span><span class="p">;</span>
+
+  <span class="n">ull</span> <span class="n">prime</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span>       <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">57</span><span class="p">};</span>
+  <span class="n">ull</span> <span class="n">prime_nums</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+
+  <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="n">ull</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">ull</span> <span class="n">num</span><span class="p">,</span> <span class="n">ull</span><span class="o">&amp;</span> <span class="n">upper</span><span class="p">,</span> <span class="n">ull</span><span class="o">&amp;</span> <span class="n">max_num</span><span class="p">,</span> <span class="n">ull</span><span class="o">&amp;</span> <span class="n">ans</span><span class="p">){</span>  <span class="c1">//传入的n作为上界</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">cnt</span> <span class="o">&gt;</span> <span class="n">max_num</span> <span class="o">||</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="n">max_num</span> <span class="o">&amp;&amp;</span> <span class="n">ans</span> <span class="o">&gt;</span> <span class="n">num</span><span class="p">)){</span>   <span class="c1">//因子数大于 或 因子数相同但值小则更新</span>
+          <span class="n">ans</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
+          <span class="n">max_num</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">for</span><span class="p">(</span><span class="n">ull</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">upper</span><span class="o">/</span><span class="n">prime</span><span class="p">[</span><span class="n">depth</span><span class="p">])</span>     <span class="k">break</span><span class="p">;</span>
+          <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+          <span class="n">num</span><span class="o">*=</span><span class="n">prime</span><span class="p">[</span><span class="n">depth</span><span class="p">];</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cnt</span><span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">num</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">max_num</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="n">prime_nums</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="n">ull</span> <span class="n">n</span><span class="p">;</span>
+          <span class="n">ull</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">INF</span><span class="p">;</span>
+          <span class="n">ull</span> <span class="n">max_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">max_num</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld %lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">,</span> <span class="n">max_num</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="ucyhf---codeforces-171f">ucyhf - CodeForces-171F</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180331%20Problem0331/ucyhf%20-%20CodeForces-171F.png" alt="" />
+<strong>题目大意</strong><br />
+题干也是题  <br />
+<br />
+<strong>思路</strong>  <br />
+看到有题解标题写“千古神题”笑出声，一点儿也不过分<br />
+首先拿题干跑循环，当整体偏移10的时候就可以看见题干，求的是Empir序列第d位的值 <br />
+那就素数打表咯，但是打多少不知道，题干只给了d &lt;= 11184，我自己开了1e6的数组，跑到1e6的时候刚刚好溢出，此时刚好跑到11184……<br />
+真是精妙呀这题目</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ull</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">ull</span> <span class="n">INF</span> <span class="o">=</span> <span class="o">~</span><span class="mi">0ull</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="cm">/*  破译题干
+  int main(){
+      char str[] = "qd ucyhf yi q fhycu dkcruh mxeiu huluhiu yi q tyvvuhudj fhycu dkcruh. oekh jqia yi je vydt jxu djx ucyhf.";
+          for(int i = 0; i &lt; strlen(str); i++){
+              if(isalpha(str[i]))     str[i] = ((str[i] - 'a') + 10)%26 + 'a';
+          }
+          puts(str);
+  }
+  */</span>
+
+  <span class="kt">bool</span> <span class="n">used</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">apos</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">used</span><span class="p">));</span>
+      <span class="n">apos</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">used</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">used</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">used</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+              <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                  <span class="n">used</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">reverse</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+      <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+          <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="n">x</span><span class="o">%</span><span class="mi">10</span><span class="p">;</span>
+          <span class="n">x</span> <span class="o">/=</span> <span class="mi">10</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">init</span><span class="p">();</span>
+      <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">11184</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">used</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">used</span><span class="p">[</span><span class="n">y</span><span class="p">]){</span>
+              <span class="n">a</span><span class="p">[</span><span class="n">apos</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+              <span class="n">n</span><span class="o">++</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">in</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">)){</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">in</span><span class="p">]);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/03/30/20180330_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（Hash） —— 2018.3.30</span>
+                <p>  哈希</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180330%20Problem0330/20180330-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
