@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（FFT I） —— 2018.4.6 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（FFT I） —— 2018.4.6">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（FFT I） —— 2018.4.6 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/04/06/20180406_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（FFT I） —— 2018.4.6</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-04-06"><i class="iconfont icon-date"></i>06 Apr 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180406%20Problem0406/20180406-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>FFT解决大数乘法</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=510309106&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>FFT是至今让我感觉最绝望的东西，因为真的除了模板题勉强能做，剩下的完全就做不了了QAQ<br />
+FFT用于加速多项式乘法计算，从O(n^2)优化到O(nlogn)，在其他领域用的很广，在ACM领域可以用来算大数乘法，更重要的是用来计算卷积，加速DP，这类题目神难……<br />
+还有就是FFT本身难，下面的代码没有理论基础的话，十有八九是看不懂的，除了数学大佬和高智商大佬orz，而且有了理论基础，模板也不一定看得懂……会了模板，题目还是不会做………… <br />
+个人感觉FFT需要的理论基础有：线性代数，欧拉方程，复数的运算</p>
+<ol>
+  <li>FFT详解 <br />
+<a href="https://blog.csdn.net/ggn_2015/article/details/68922404">https://blog.csdn.net/ggn_2015/article/details/68922404</a> <br />
+<a href="https://www.zybuluo.com/397915842/note/37965">https://www.zybuluo.com/397915842/note/37965</a></li>
+  <li>二进制反转   <br />
+<a href="https://blog.csdn.net/GGN_2015/article/details/69518685">https://blog.csdn.net/GGN_2015/article/details/69518685</a> <br />
+<br /></li>
+</ol>
+
+<h3 id="大数乘法-v2-问题---51nod-1028">大数乘法 V2 问题 - 51Nod-1028</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180406%20Problem0406/%E5%A4%A7%E6%95%B0%E4%B9%98%E6%B3%95%20V2%20%E9%97%AE%E9%A2%98%20-%2051Nod-1028.png" alt="" />
+<strong>题目大意</strong><br />
+模板题    <br />
+<br />
+<strong>思路</strong>  <br />
+使用std的complex类做，旋转因子用 wn = exp(PI*i/(n/2))   <br />
+这是第一道我能把注释写得如此详细的题目……</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;complex&gt;
+</span>  <span class="cp">#include &lt;cmath&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">3e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="k">typedef</span> <span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">cd</span><span class="p">;</span>
+
+  <span class="n">cd</span>   <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>     <span class="c1">//complex数组</span>
+  <span class="kt">int</span>  <span class="n">rev</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>         <span class="c1">//记录反转二进制数字</span>
+  <span class="kt">char</span> <span class="n">s1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">s2</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span>  <span class="n">ans</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="c1">//getRev:</span>
+  <span class="c1">//作用：生成1 到 2^bit（也就是s）的颠倒二进制数的数组</span>
+  <span class="c1">//原理：将当前数字二进制反转，即是</span>
+  <span class="c1">//当前数字前bit - 1位的颠倒结果右移一位 + 当前数字末位移到最高位</span>
+  <span class="c1">//其中前者的工作已经在rev[i &gt;&gt; 1]生成的时候完成了，所以把这个值直接右移一位，</span>
+  <span class="c1">//再加上当前数字末位最高位</span>
+  <span class="kt">void</span> <span class="n">getRev</span><span class="p">(</span><span class="kt">int</span> <span class="n">bit</span><span class="p">){</span>   <span class="c1">//bit = log2(s)</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">rev</span><span class="p">[</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">i</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">bit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">//fft:</span>
+  <span class="c1">//作用：计算dft（系数式转点值式）和idft（点值式转系数式）</span>
+  <span class="c1">//参数：</span>
+  <span class="c1">// cd a[]: 系数表达式中的系数向量</span>
+  <span class="c1">// int n:  结果的点值表达式的次数界</span>
+  <span class="c1">// int dft:传1进行dft，传-1进行idft</span>
+  <span class="kt">void</span> <span class="n">fft</span><span class="p">(</span><span class="n">cd</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dft</span><span class="p">){</span>
+      <span class="c1">//根据得到的rev数组调整a，为下一步的循环做准备</span>
+      <span class="c1">//加入 if(i &lt; rev[i])，防止双次交换变回原样</span>
+      <span class="c1">//建议debug看一下原理</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>     <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">]]);</span>
+      <span class="p">}</span>
+
+      <span class="c1">//step为每次的步长，从底层递推回去，因此</span>
+      <span class="c1">//不需要走到n，只需要走到step/2</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">step</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="c1">//计算单位复根，根据消去引理，计算的是w[n/2](k)，而不是w[n](2k)</span>
+          <span class="n">cd</span> <span class="n">wn</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">cd</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PI</span><span class="o">*</span><span class="n">dft</span><span class="o">/</span><span class="n">step</span><span class="p">));</span>
+
+          <span class="c1">//计算每一个块，具体可看《算法导论》的那颗树</span>
+          <span class="c1">//加上step &lt;&lt; 1是因为下面是同时跑k和k+step的，总共就跑了step &lt;&lt; 1</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="n">step</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="c1">//递归时同深度的子树相互独立，因此递推回去也是一样</span>
+              <span class="n">cd</span> <span class="n">wnk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+              <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">+</span> <span class="n">step</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                  <span class="n">cd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+                  <span class="n">cd</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wnk</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">step</span><span class="p">];</span>
+                  <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>        <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+                  <span class="n">a</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">;</span>
+                  <span class="n">wnk</span><span class="o">*=</span><span class="n">wn</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="n">dft</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>      <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">n</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s%s"</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)){</span>
+          <span class="n">memset</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ans</span><span class="p">));</span>
+          <span class="kt">int</span> <span class="n">len_s1</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="n">len_s2</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_s1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cd</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">len_s1</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_s2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cd</span><span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">len_s2</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+          <span class="c1">//找到第一个超过(len_s1 + len_s2 - 1)的2的整数幂s作为次数界，并记录下指数bit</span>
+          <span class="c1">//bit给getRev函数用, s给fft函数用</span>
+          <span class="kt">int</span> <span class="n">bit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="n">bit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">len_s1</span> <span class="o">+</span> <span class="n">len_s2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">bit</span><span class="o">++</span><span class="p">,</span> <span class="n">s</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">);</span>
+
+          <span class="c1">//调用getRev函数生成反转二进制，从1到2^bit - 1</span>
+          <span class="n">getRev</span><span class="p">(</span><span class="n">bit</span><span class="p">);</span>
+
+          <span class="c1">//将a和b转为点值式，并相乘</span>
+          <span class="c1">//将相乘的结果</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>      <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+          <span class="c1">//还原成十进制，目前表达式是</span>
+          <span class="c1">//a[0] + a[1] * x + a[2] * x^2 + ... + a[s - 1] * x^(s - 1)</span>
+          <span class="c1">//其中a[i]并不一定是10以内的数，所以该进位的要进位</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">real</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">);</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">10</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="c1">//输出答案，去掉前导0</span>
+          <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">+</span> <span class="n">len_s1</span> <span class="o">+</span> <span class="n">len_s2</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="o">*</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="n">p</span><span class="o">--</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">printf</span><span class="p">(</span><span class="s">"0</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+                  <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">*</span> <span class="n">p</span><span class="p">);</span>
+                  <span class="n">p</span><span class="o">--</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="bull-math---poj-2389">Bull Math - POJ 2389</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180406%20Problem0406/Bull%20Math%20-%20POJ%202389.png" alt="" />
+<strong>题目大意</strong><br />
+同样是大数乘法  <br />
+<br />
+<strong>思路</strong>  <br />
+本题可模拟做，当然这里用FFT做<br />
+复数类是自己写的，wn取 i*sin(PI/(n/2)) + cos(PI/(n/2))</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cmath&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+
+  <span class="k">struct</span> <span class="n">cd</span><span class="p">{</span>
+      <span class="kt">double</span> <span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">;</span>
+
+      <span class="n">cd</span><span class="p">(</span><span class="kt">double</span> <span class="n">_real</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">double</span> <span class="n">_imag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="n">_real</span><span class="p">),</span> <span class="n">imag</span><span class="p">(</span><span class="n">_imag</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="n">cd</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">cd</span> <span class="n">_obj</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cd</span><span class="p">(</span><span class="n">real</span> <span class="o">+</span> <span class="n">_obj</span><span class="p">.</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span> <span class="o">+</span> <span class="n">_obj</span><span class="p">.</span><span class="n">imag</span><span class="p">);}</span>
+      <span class="n">cd</span> <span class="k">operator</span> <span class="o">-</span> <span class="p">(</span><span class="n">cd</span> <span class="n">_obj</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cd</span><span class="p">(</span><span class="n">real</span> <span class="o">-</span> <span class="n">_obj</span><span class="p">.</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span> <span class="o">-</span> <span class="n">_obj</span><span class="p">.</span><span class="n">imag</span><span class="p">);}</span>
+      <span class="n">cd</span> <span class="k">operator</span> <span class="o">*</span> <span class="p">(</span><span class="n">cd</span> <span class="n">_obj</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cd</span><span class="p">(</span><span class="n">real</span> <span class="o">*</span> <span class="n">_obj</span><span class="p">.</span><span class="n">real</span> <span class="o">-</span> <span class="n">imag</span> <span class="o">*</span> <span class="n">_obj</span><span class="p">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span> <span class="o">*</span> <span class="n">_obj</span><span class="p">.</span><span class="n">imag</span> <span class="o">+</span> <span class="n">imag</span> <span class="o">*</span> <span class="n">_obj</span><span class="p">.</span><span class="n">real</span><span class="p">);}</span>
+      <span class="n">cd</span> <span class="k">operator</span> <span class="o">*</span> <span class="p">(</span><span class="kt">double</span> <span class="n">_real</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span> <span class="o">*</span> <span class="k">this</span><span class="p">)</span> <span class="o">*</span> <span class="n">cd</span><span class="p">(</span><span class="n">_real</span><span class="p">,</span> <span class="mi">0</span><span class="p">);}</span>
+      <span class="n">cd</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">real</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">imag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;}</span>
+  <span class="p">};</span>
+
+  <span class="n">cd</span>   <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span>  <span class="n">rev</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="n">s1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">s2</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span>  <span class="n">ans</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ans</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">getRev</span><span class="p">(</span><span class="kt">int</span> <span class="n">bit</span><span class="p">){</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">rev</span><span class="p">[</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">i</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">bit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">mswap</span><span class="p">(</span><span class="n">cd</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">cd</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+      <span class="n">cd</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">fft</span><span class="p">(</span><span class="n">cd</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dft</span><span class="p">){</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="n">mswap</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">rev</span><span class="p">[</span><span class="n">i</span><span class="p">]]);</span>
+      <span class="p">}</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">step</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="n">cd</span> <span class="n">wn</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">dft</span><span class="o">*</span><span class="n">PI</span><span class="o">/</span><span class="n">step</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">dft</span><span class="o">*</span><span class="n">PI</span><span class="o">/</span><span class="n">step</span><span class="p">));</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="n">step</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">cd</span> <span class="n">wnk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+              <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">+</span> <span class="n">step</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                  <span class="n">cd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+                  <span class="n">cd</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wnk</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">step</span><span class="p">];</span>
+                  <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>        <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+                  <span class="n">a</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">;</span>
+                  <span class="n">wnk</span> <span class="o">=</span> <span class="n">wnk</span><span class="o">*</span><span class="n">wn</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">dft</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">real</span> <span class="o">/=</span> <span class="n">n</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s%s"</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)){</span>
+          <span class="n">init</span><span class="p">();</span>
+          <span class="kt">int</span> <span class="n">len_s1</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="n">len_s2</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_s1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+              <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">len_s1</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_s2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+              <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">len_s2</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">);</span>
+          <span class="kt">int</span> <span class="n">bit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="n">bit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">len_s1</span> <span class="o">+</span> <span class="n">len_s2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">bit</span><span class="o">++</span><span class="p">,</span> <span class="n">s</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="n">getRev</span><span class="p">(</span><span class="n">bit</span><span class="p">);</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>      <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+          <span class="n">fft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">real</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">);</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+              <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">10</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">+</span> <span class="n">s</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="n">p</span><span class="o">--</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">printf</span><span class="p">(</span><span class="s">"0</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">ans</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
+                  <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+                  <span class="n">p</span><span class="o">--</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/04/01/20180401_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（线段树 I） —— 2018.4.1</span>
+                <p>  线段树的单点更新</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180401%20Problem0401/20180401-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
