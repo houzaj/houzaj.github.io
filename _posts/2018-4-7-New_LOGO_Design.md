@@ -24,7 +24,7 @@ tags: Design
 
 ### 导出
 1. **方形斑点**  
-![方形斑点](http://houzajblog-1252277898.coscd.myqcloud.com/20180407%20%E6%96%B0%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7%E5%A4%B4%E5%83%8F/%E6%96%B9%E7%81%B0.png)  
+![方形斑点](http://houzajblog-1252277898.coscd.myqcloud.com/20180407%20%E6%96%B0%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7%E5%A4%B4%E5%83%8F/%E6%96%B9%E7%82%B9.png)  
 
 2. **方形纯灰**  
 ![](http://houzajblog-1252277898.coscd.myqcloud.com/20180407%20%E6%96%B0%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7%E5%A4%B4%E5%83%8F/%E6%96%B9%E7%81%B0.png)  
