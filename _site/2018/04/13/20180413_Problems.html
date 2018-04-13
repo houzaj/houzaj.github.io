@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（字典树） —— 2018.4.13 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（字典树） —— 2018.4.13">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（字典树） —— 2018.4.13 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/04/13/20180413_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（字典树） —— 2018.4.13</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-04-13"><i class="iconfont icon-date"></i>13 Apr 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/20180413-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>字典树的静态建树</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=26379029&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>数学大战即将来袭！所以写的少一些，还没怎么看数学呢！<br />
+字典树又称前缀树，顾名思义，用公共前缀来存储字符串，优点是效率高，但是缺点也明显，就是每个节点都要有一个next指针数组，极大的浪费内存<br />
+字典树可以动态建树，即每个节点都是new出来的，也可以静态建树，即用一个tot变量为每个节点连上一个node数组中的元素，因为ACM追求时间效率，所以本文通篇采用静态建树</p>
+<ol>
+  <li>动态建树与静态建树 <br />
+<a href="https://www.cnblogs.com/George1994/p/6346790.html">https://www.cnblogs.com/George1994/p/6346790.html</a></li>
+  <li>Trie树详解<br />
+<a href="https://segmentfault.com/a/1190000008877595">https://segmentfault.com/a/1190000008877595</a><br />
+<br /></li>
+</ol>
+
+<h3 id="不会做的题">不会做的题</h3>
+<ol>
+  <li>POJ 2513 - Colored Sticks</li>
+  <li>HDU 2846 - Repository<br />
+<br /></li>
+</ol>
+
+<h3 id="phone-list---hdu-1671">Phone List - HDU 1671</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/Phone%20List%20-%20HDU%201671.jpg" alt="" />
+<strong>题目大意</strong><br />
+给定电话号码，求是否任意一个电话号码都不是其他电话号码的前缀 <br />
+<br />
+<strong>思路</strong>  <br />
+模板题<br />
+一边加入单词一边建树，那么“任意一个电话号码都不是其他电话号码的前缀”就体现在：<br />
+① <strong>这个单词不是别的单词的前缀</strong>： 加入过程中有new一个新结点，说明一定不是别的单词的前缀<br />
+② <strong>别的单词不是这个单词的前缀</strong>： 加入过程中没经过end == true的节点，说明别的单词一定不是它的前缀</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
+      <span class="kt">bool</span>  <span class="n">end</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="p">};</span>
+  <span class="n">pNode</span>  <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>   <span class="c1">//静态建树预定义节点数组</span>
+  <span class="n">pNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>      <span class="c1">//根节点</span>
+  <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>          <span class="c1">//控制节点的分配</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>   <span class="c1">//初始化节点，如果要用到的话</span>
+      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>          <span class="c1">//给根节点分配节点</span>
+      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">push</span><span class="p">(</span><span class="kt">char</span> <span class="n">str</span><span class="p">[]){</span>
+      <span class="kt">bool</span> <span class="n">ans</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="kt">bool</span> <span class="n">after</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span><span class="n">str</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span>
+          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>   <span class="c1">//如果没有这个节点就创建</span>
+              <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+              <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+              <span class="n">after</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>    <span class="c1">//后面肯定无节点</span>
+          <span class="p">}</span>
+          <span class="n">ans</span> <span class="o">|=</span> <span class="p">(</span><span class="n">pnext</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">);</span>  <span class="c1">//判断是否经过某个单词的end  </span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+          <span class="n">str</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">ans</span> <span class="o">==</span> <span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="n">after</span> <span class="o">==</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="kt">bool</span> <span class="n">flag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+          <span class="n">init</span><span class="p">();</span>
+          <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">flag</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">push</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>   <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">flag</span> <span class="o">?</span> <span class="s">"YES"</span> <span class="o">:</span> <span class="s">"NO"</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="统计难题---hdu-1251">统计难题 - HDU 1251</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/%E7%BB%9F%E8%AE%A1%E9%9A%BE%E9%A2%98%20-%20HDU%201251-NSConflict-deathhouz.png" alt="" />
+<strong>题目大意</strong><br />
+OMIT！ <br />
+<br />
+<strong>思路</strong>  <br />
+这道题太邪门了……选G++过不了题，会Memory Limit Exceeded……选C++才过了<br />
+还有，<strong>不给范围，天！诛！地！灭！</strong><br />
+这道题就是所走过之处，cnt++，然后查询的时候输出cnt就完事了<br />
+不过这题get了个点是gets的话，如果为空行，那么str[0]会被它改为NULL</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
+      <span class="kt">int</span>    <span class="n">cnt</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+  <span class="p">};</span>
+
+  <span class="kt">char</span>   <span class="n">str</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+
+  <span class="n">pNode</span>  <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">pNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>
+      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>
+              <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+              <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+          <span class="n">s</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">query</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+          <span class="n">s</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">cnt</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">init</span><span class="p">();</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">))</span>    <span class="k">break</span><span class="p">;</span>
+          <span class="n">push</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">query</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="xor-sum---hdu-4825">Xor Sum - HDU 4825</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/Xor%20Sum%20-%20HDU%204825.jpg" alt="" />
+<strong>题目大意</strong><br />
+Omit as well   <br />
+<br />
+<strong>思路</strong>  <br />
+这题目一开始看上去和Trie树并没有什么关系…… <br />
+但是不妨想一想，要是异或和最大，就要 <strong>每一位都和当前的查询的数的对应位相反</strong><br />
+所以可以先把所给集合的每一个数以二进制形式存入树中，查询的数取反后查询，如果有这一位，那么就往下执行，如果没有，那就只能先妥协，走另一边，而另一边是一定有节点的，因为我们的数字都是全部位存进去的，而位只能是0和1，所以集合只要非空，一定有一条边可以走到底，不管它是不是妥协的</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">4e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="n">val</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">};</span>
+
+  <span class="n">pNode</span>  <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">pNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>
+      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">val</span><span class="p">){</span>
+      <span class="kt">unsigned</span> <span class="n">b</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">t</span><span class="o">++</span><span class="p">,</span> <span class="n">b</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="kt">unsigned</span> <span class="n">idx</span> <span class="o">=</span> <span class="p">((</span><span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">);</span>
+          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>
+              <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+              <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">query</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">val</span><span class="p">){</span>
+      <span class="kt">unsigned</span> <span class="n">b</span> <span class="o">=</span> <span class="o">~</span><span class="n">val</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">t</span><span class="o">++</span><span class="p">,</span> <span class="n">b</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="kt">unsigned</span> <span class="n">idx</span> <span class="o">=</span> <span class="p">((</span><span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>   <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+          <span class="k">else</span>               <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="o">^</span><span class="mi">1</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">caseno</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="n">init</span><span class="p">();</span>
+          <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+              <span class="kt">unsigned</span> <span class="n">v</span><span class="p">;</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%u"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">);</span>
+              <span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"Case #%d:</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">caseno</span><span class="o">++</span><span class="p">);</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>
+              <span class="kt">unsigned</span> <span class="n">q</span><span class="p">;</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%u"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">);</span>
+              <span class="n">printf</span><span class="p">(</span><span class="s">"%u</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">));</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="t9---poj-1451">T9 - POJ 1451</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/T9%20-%20POJ%201451.jpg" alt="" />
+<strong>题目大意</strong><br />
+题目太长，很想omit<br />
+本题其实就是输入法的9键模式 <br />
+注意本题中相同前缀的机率是相加的（因为这个WA了 T^T）<br />
+就这样，基本Omit！<br />
+<br />
+<strong>思路</strong> <br />
+开个数组保存字典，然后建两棵树<br />
+第一棵树插入字符串，所走之处把对应字符串的机率加上去，并且写入对应字符串在字典中的位置，这样就得到了前缀机率相加后的字典树<br />
+第二棵树插入字符串对应数字，所走之处不断更新当前机率最大对应的字符串在字典中的位置，并更新节点的最大机率<br />
+最后问啥查啥，注意走到str[i] == ‘1’就可以了<br />
+（这题真的是模板题嘛？）</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">p</span><span class="p">,</span> <span class="n">lv</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+  <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">trans</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">};</span>
+  <span class="kt">char</span>  <span class="n">str</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">M</span><span class="p">];</span>
+  <span class="kt">int</span>   <span class="n">lv</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">pNode</span> <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">word</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>   <span class="c1">//node是字符串对应数字的节点数组，word是字符串节点数组</span>
+  <span class="n">pNode</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="o">*</span><span class="n">wroot</span><span class="p">;</span>
+  <span class="kt">int</span>   <span class="n">tot</span><span class="p">,</span> <span class="n">wtot</span><span class="p">;</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
+      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">nd</span><span class="o">-&gt;</span><span class="n">lv</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">wroot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+      <span class="n">wroot</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">word</span><span class="p">[</span><span class="n">wtot</span><span class="o">++</span><span class="p">];</span>
+      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+      <span class="n">nodeInit</span><span class="p">(</span><span class="n">wroot</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">build_word</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+          <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">wroot</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
+              <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+              <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+              <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>
+                  <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">word</span><span class="p">[</span><span class="n">wtot</span><span class="o">++</span><span class="p">];</span>
+                  <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+              <span class="p">}</span>
+              <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+              <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">lv</span> <span class="o">+=</span> <span class="n">lv</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+              <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+              <span class="n">s</span><span class="o">++</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">build</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+      <span class="n">build_word</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+          <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+          <span class="n">pNode</span><span class="o">*</span> <span class="n">wp</span> <span class="o">=</span> <span class="n">wroot</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
+              <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">trans</span><span class="p">[</span><span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">];</span>
+              <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+              <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">wpnext</span> <span class="o">=</span> <span class="n">wp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">];</span>
+              <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>
+                  <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
+                  <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+              <span class="p">}</span>
+              <span class="k">if</span><span class="p">((</span><span class="n">pnext</span><span class="o">-&gt;</span><span class="n">lv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">wpnext</span><span class="o">-&gt;</span><span class="n">lv</span><span class="p">)){</span>
+                  <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">lv</span> <span class="o">=</span> <span class="n">wpnext</span><span class="o">-&gt;</span><span class="n">lv</span><span class="p">;</span>
+                  <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">wpnext</span><span class="o">-&gt;</span><span class="n">p</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+              <span class="n">wp</span> <span class="o">=</span> <span class="n">wpnext</span><span class="p">;</span>
+              <span class="n">s</span><span class="o">++</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">query</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">[]){</span>
+      <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">'1'</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span>
+          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">)</span>  <span class="k">break</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>     <span class="n">putchar</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">pnext</span><span class="o">-&gt;</span><span class="n">p</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">'1'</span><span class="p">){</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">"MANUALLY"</span><span class="p">);</span>
+          <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">char</span> <span class="n">q</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">caseno</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="n">init</span><span class="p">();</span>
+          <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%s%d"</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">lv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+          <span class="p">}</span>
+          <span class="n">build</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"Scenario #%d:</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">caseno</span><span class="o">++</span><span class="p">);</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+              <span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+              <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/04/09/20180409_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（优先队列） —— 2018.4.9</span>
+                <p>  纯优先队列题目、用优先队列解决带权值的BFS问题、用优先队列优化Dijkstra算法</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180409%20Problem0409/20180409-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
