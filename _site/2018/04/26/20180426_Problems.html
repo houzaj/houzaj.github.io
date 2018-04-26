@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（哈夫曼树） —— 2018.4.26 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（哈夫曼树） —— 2018.4.26">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（哈夫曼树） —— 2018.4.26 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4000/2018/04/26/20180426_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（哈夫曼树） —— 2018.4.26</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-04-26"><i class="iconfont icon-date"></i>26 Apr 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180426%20Problem0426/20180426-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>哈夫曼树、哈夫曼编码</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=22743825&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>哈夫曼树思想，其实一直都在用，只是这次才知道，这个东西叫做“哈夫曼树”<br />
+目前没做到有关真的建树的题目，都是考思想</p>
+<ol>
+  <li>哈夫曼树 与 哈夫曼编码<br />
+<a href="http://www.cnblogs.com/kubixuesheng/p/4397798.html">http://www.cnblogs.com/kubixuesheng/p/4397798.html</a> <br />
+<a href="https://blog.csdn.net/xgf415/article/details/52628073">https://blog.csdn.net/xgf415/article/details/52628073</a><br />
+<br /></li>
+</ol>
+
+<h3 id="entropy---hdu-1053">Entropy - HDU 1053</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180426%20Problem0426/Entropy%20-%20HDU%201053.jpg" alt="" />
+<strong>题目大意</strong><br />
+求字符串转换为二进制后所占总位数值，进行编码后字符串总位数的最小值，以及两者的比 <br />
+<br />
+<strong>思路</strong>  <br />
+裸的哈夫曼<br />
+注意不要先给队列压个0,因为会影响其他字符的编码位数</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;queue&gt;
+</span>  <span class="cp">#include &lt;functional&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">cnt</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">"END"</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+          <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+          <span class="n">memset</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cnt</span><span class="p">));</span>
+          <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">cnt</span><span class="p">[(</span><span class="kt">int</span><span class="p">)</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>         <span class="c1">//统计个字符出现次数</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>   <span class="c1">//以次数建树，哈夫曼树思想</span>
+          <span class="p">}</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">ans</span> <span class="o">+=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>       <span class="c1">//只有一个元素建不了树，要特判</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">){</span>
+                  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+                  <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                  <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+                  <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                  <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">);</span>
+                  <span class="n">ans</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>       
+                  <span class="c1">//画图可知，x和y最终给ans加的次数刚好等于其哈夫曼编码的位数，特别巧妙！</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%d %d %.1f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">len</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ans</span><span class="p">,</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">len</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="fence-repair---poj-3253">Fence Repair - POJ 3253</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180426%20Problem0426/Fence%20Repair%20-%20POJ%203253%20.jpg" alt="" />
+<strong>题目大意</strong><br />
+切割总长为 sigma(a[i]) 的木头， 最终切成 a[i]， 每次切割的代价为当前这块木头的长度，求怎样切割总代价最小<br />
+<br />
+<strong>思路</strong>  <br />
+裸的哈夫曼<br />
+本题考哈夫曼树的思想<br />
+注意开long long，不然结果溢出会WA</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;queue&gt;
+</span>  <span class="cp">#include &lt;functional&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+  <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">ll</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="n">ll</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+      	  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>   <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+          <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+          	<span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+          	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">);</span>
+          	<span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">){</span>
+              <span class="n">ll</span> <span class="n">x</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">ll</span> <span class="n">y</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">);</span>
+              <span class="n">ans</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="stripies---poj-1862">Stripies - POJ 1862</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180426%20Problem0426/Stripies%20-%20POJ%201862.jpg" alt="" />
+<strong>题目大意</strong><br />
+给定n个值，每次可选择其中两个值合并，合并的后的值为 2<em>sqrt(m1</em>m2)，直到剩下一个值，问这个值最小能是多少 <br />
+<br />
+<strong>思路</strong>  <br />
+这道题我是蒙着AC的，事后问了一下大佬，被大佬一句话点醒<br />
+这道题的贪心策略是每次选择最大的两个值合并，因为乘2对最终结果是没什么影响的，有影响的是sqrt，那么数被越早的选择，它被开方的次数就越多，所以应该尽早的选择较大的数</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;queue&gt;
+</span>  <span class="cp">#include &lt;functional&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;cmath&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+  <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">less</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+      	  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>   <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+          <span class="kt">double</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+          	<span class="kt">double</span> <span class="n">tmp</span><span class="p">;</span>
+          	<span class="n">scanf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">);</span>
+          	<span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">){</span>
+              <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">));</span>
+              <span class="n">ans</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%.3f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">());</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="boxes-and-balls---codeforces-884d">Boxes And Balls - CodeForces-884D</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180426%20Problem0426/Boxes%20And%20Balls%20-%20CodeForces-884D.jpg" alt="" />
+<strong>题目大意</strong><br />
+有n个盒子，第一个盒子有许多不同颜色的球，剩下的盒子没有球。现在要把第i种颜色的球全部分到第i个盒子里面，要求每次从一个盒子里拿出全部球，并将这些球的个数作为每次的代价，然后把这些球放到k个盒子里面，k=2或3,问选择怎样的策略才能使总代价最小     <br />
+<br />
+<strong>思路</strong>  <br />
+这题我还真是傻了去查题解<br />
+其实正向很难思考，可以反向思考：每次从k=2或3个盒子里面选出所有的数，加到某个空盒子里面，这些数的和为每次的代价，这样就转变为哈夫曼树<br />
+然后k=3自然是优于k=2的，然后因为这个合并策略是每次减3个数加1个数，所以当输入的数有偶数个时，可加一个0,使其变为奇数，这样就能每次-2直到剩下一个数</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;cctype&gt;
+</span>  <span class="cp">#include &lt;queue&gt;
+</span>  <span class="cp">#include &lt;functional&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">ll</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="n">ll</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+          <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+          <span class="n">ll</span> <span class="n">tmp</span><span class="p">;</span>
+          <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">((</span><span class="n">n</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">);</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">ll</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">tmp</span> <span class="o">+=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">tmp</span> <span class="o">+=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">ans</span> <span class="o">+=</span> <span class="n">tmp</span><span class="p">;</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/04/23/20180423_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（入门DP） —— 2018.4.23</span>
+                <p>  数塔，LCS，LIS，LCIS，01背包</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180423%20Problem0423/20180424-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2018</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>
