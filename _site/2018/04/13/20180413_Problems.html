@@ -93,6 +93,67 @@
 <br /></li>
 </ol>
 
+<h3 id="统计难题---hdu-1251">统计难题 - HDU 1251</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/%E7%BB%9F%E8%AE%A1%E9%9A%BE%E9%A2%98%20-%20HDU%201251-NSConflict-deathhouz.png" alt="" />
+<strong>题目大意</strong><br />
+OMIT！ <br />
+<br />
+<strong>思路</strong>  <br />
+这道题太邪门了……选G++过不了题，会Memory Limit Exceeded……选C++才过了<br />
+还有，<strong>不给范围，天！诛！地！灭！</strong><br />
+这道题就是所走过之处，cnt++，然后查询的时候输出cnt就完事了<br />
+不过这题get了个点是gets的话，如果为空行，那么str[0]会被它改为NULL</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">5e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+  <span class="kt">int</span>  <span class="n">cnt</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>        <span class="c1">//计数</span>
+  <span class="kt">int</span>  <span class="n">nxt</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">26</span><span class="p">];</span>    <span class="c1">//next指针</span>
+  <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+  <span class="kt">int</span>  <span class="n">tot</span><span class="p">;</span>           <span class="c1">//节点分配</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>        <span class="c1">//从1开始，因为0给了root节点</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cnt</span><span class="p">));</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nxt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nxt</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+      <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span> <span class="p">;</span> <span class="o">*</span> <span class="n">s</span><span class="p">;</span> <span class="n">s</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>      <span class="c1">//如果下一个节点不存在</span>
+              <span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>    <span class="c1">//分配节点</span>
+          <span class="p">}</span>
+          <span class="n">cnt</span><span class="p">[</span><span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>         <span class="c1">//走过之处cnt++</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">];</span>            <span class="c1">//走向下一个节点</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">query</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+      <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span> <span class="p">;</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="n">s</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>   <span class="c1">//没走完直接返回0</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">cnt</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+      <span class="n">init</span><span class="p">();</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
+          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">))</span>    <span class="k">break</span><span class="p">;</span>
+          <span class="n">push</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">query</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
 <h3 id="phone-list---hdu-1671">Phone List - HDU 1671</h3>
 <p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/Phone%20List%20-%20HDU%201671.jpg" alt="" />
 <strong>题目大意</strong><br />
@@ -110,42 +171,30 @@
 </span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
   <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 
-  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
-      <span class="kt">bool</span>  <span class="n">end</span><span class="p">;</span>
-      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-  <span class="p">};</span>
-  <span class="n">pNode</span>  <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>   <span class="c1">//静态建树预定义节点数组</span>
-  <span class="n">pNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>      <span class="c1">//根节点</span>
+  <span class="kt">bool</span> <span class="n">mend</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span>  <span class="n">nxt</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">10</span><span class="p">];</span>
   <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>          <span class="c1">//控制节点的分配</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>   <span class="c1">//初始化节点，如果要用到的话</span>
-      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
-  <span class="p">}</span>
-
   <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
-      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>          <span class="c1">//给根节点分配节点</span>
-      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+      <span class="n">tot</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">mend</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">mend</span><span class="p">));</span>
+      <span class="n">memset</span><span class="p">(</span><span class="n">nxt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nxt</span><span class="p">));</span>
   <span class="p">}</span>
 
   <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">push</span><span class="p">(</span><span class="kt">char</span> <span class="n">str</span><span class="p">[]){</span>
       <span class="kt">bool</span> <span class="n">ans</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
       <span class="kt">bool</span> <span class="n">after</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">){</span>
-          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span><span class="n">str</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span>
-          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
-          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>   <span class="c1">//如果没有这个节点就创建</span>
-              <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
-              <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span> <span class="p">;</span> <span class="o">*</span> <span class="n">str</span><span class="p">;</span> <span class="n">str</span><span class="o">++</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span> <span class="n">str</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>   <span class="c1">//如果没有这个节点就创建</span>
+              <span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
               <span class="n">after</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>    <span class="c1">//后面肯定无节点</span>
           <span class="p">}</span>
-          <span class="n">ans</span> <span class="o">|=</span> <span class="p">(</span><span class="n">pnext</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">);</span>  <span class="c1">//判断是否经过某个单词的end  </span>
-          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
-          <span class="n">str</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">ans</span> <span class="o">|=</span> <span class="p">(</span><span class="n">mend</span><span class="p">[</span><span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]]);</span>  <span class="c1">//判断是否经过某个单词的end</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">];</span>
       <span class="p">}</span>
-      <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="n">mend</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
       <span class="k">return</span> <span class="p">(</span><span class="n">ans</span> <span class="o">==</span> <span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="n">after</span> <span class="o">==</span> <span class="nb">false</span><span class="p">);</span>
   <span class="p">}</span>
 
@@ -163,81 +212,6 @@
               <span class="k">if</span><span class="p">(</span><span class="n">flag</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">push</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>   <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
           <span class="p">}</span>
           <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">flag</span> <span class="o">?</span> <span class="s">"YES"</span> <span class="o">:</span> <span class="s">"NO"</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-</code></pre></div></div>
-<p><br /></p>
-
-<h3 id="统计难题---hdu-1251">统计难题 - HDU 1251</h3>
-<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180413%20Problem0413/%E7%BB%9F%E8%AE%A1%E9%9A%BE%E9%A2%98%20-%20HDU%201251-NSConflict-deathhouz.png" alt="" />
-<strong>题目大意</strong><br />
-OMIT！ <br />
-<br />
-<strong>思路</strong>  <br />
-这道题太邪门了……选G++过不了题，会Memory Limit Exceeded……选C++才过了<br />
-还有，<strong>不给范围，天！诛！地！灭！</strong><br />
-这道题就是所走过之处，cnt++，然后查询的时候输出cnt就完事了<br />
-不过这题get了个点是gets的话，如果为空行，那么str[0]会被它改为NULL</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
-</span>  <span class="cp">#include &lt;cstring&gt;
-</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
-
-  <span class="k">struct</span> <span class="n">pNode</span><span class="p">{</span>
-      <span class="kt">int</span>    <span class="n">cnt</span><span class="p">;</span>
-      <span class="n">pNode</span><span class="o">*</span> <span class="n">next</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
-  <span class="p">};</span>
-
-  <span class="kt">char</span>   <span class="n">str</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
-
-  <span class="n">pNode</span>  <span class="n">node</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
-  <span class="n">pNode</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
-
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">nodeInit</span><span class="p">(</span><span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">nd</span><span class="p">){</span>
-      <span class="n">nd</span><span class="o">-&gt;</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">memset</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nd</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
-  <span class="p">}</span>
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
-      <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">root</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
-      <span class="n">nodeInit</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
-      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
-          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
-          <span class="n">pNode</span><span class="o">*&amp;</span> <span class="n">pnext</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
-          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pnext</span><span class="p">){</span>
-              <span class="n">pnext</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">[</span><span class="n">tot</span><span class="o">++</span><span class="p">];</span>
-              <span class="n">nodeInit</span><span class="p">(</span><span class="n">pnext</span><span class="p">);</span>
-          <span class="p">}</span>
-          <span class="n">pnext</span><span class="o">-&gt;</span><span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
-          <span class="n">p</span> <span class="o">=</span> <span class="n">pnext</span><span class="p">;</span>
-          <span class="n">s</span><span class="o">++</span><span class="p">;</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kt">int</span> <span class="n">query</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
-      <span class="n">pNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-      <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">){</span>
-          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
-          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-          <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
-          <span class="n">s</span><span class="o">++</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">cnt</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-      <span class="n">init</span><span class="p">();</span>
-      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
-          <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">))</span>    <span class="k">break</span><span class="p">;</span>
-          <span class="n">push</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-      <span class="p">}</span>
-      <span class="k">while</span><span class="p">(</span><span class="n">gets</span><span class="p">(</span><span class="n">str</span><span class="p">)){</span>
-          <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">query</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
       <span class="p">}</span>
   <span class="p">}</span>
 </code></pre></div></div>
