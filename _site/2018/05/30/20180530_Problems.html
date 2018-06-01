@@ -70,21 +70,23 @@
 
 <p><br /></p>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=423406940&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=4010884&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
 
 <p><br /></p>
 
 <h3 id="前言">前言</h3>
-<p>拖了很久，就因为少看了一句话理解不了T^T<br />
+<p>拖了很久，就因为少看了一句话理解不了 T^T<br />
 权值线段树看上去名字高大上，其实就是以值为下标的线段树<br />
-主席树是可持久化权值线段树，但是后来我们就不理了，可持久化线段树全都写成主席树。所谓可持久化，就是保存了历史版本，所以这是黑科技呀！(⊙o⊙)<br />
-1.线段树：
+主席树是可持久化权值线段树，但是后来我们就不理了，可持久化线段树全都写成主席树。所谓可持久化，就是保存了历史版本，所以这是黑科技呀！(⊙o⊙)</p>
+<ol>
+  <li>线段树：
 电子科大 —— 算法讲堂 《权值线段树 主席树》<br />
-<a href="https://www.bilibili.com/video/av16552942?from=search&amp;seid=7293261633840621022">https://www.bilibili.com/video/av16552942?from=search&amp;seid=7293261633840621022</a><br />
-2.主席树：<br />
+<a href="https://www.bilibili.com/video/av16552942?from=search&amp;seid=7293261633840621022">https://www.bilibili.com/video/av16552942?from=search&amp;seid=7293261633840621022</a></li>
+  <li>主席树：<br />
 <a href="http://www.yhzq-blog.cc/%e4%b8%bb%e5%b8%ad%e6%a0%91%e5%ad%a6%e4%b9%a0%e6%80%bb%e7%bb%93/">http://www.yhzq-blog.cc/%e4%b8%bb%e5%b8%ad%e6%a0%91%e5%ad%a6%e4%b9%a0%e6%80%bb%e7%bb%93/</a><br />
 <a href="https://www.cnblogs.com/zyf0163/p/4749042.html">https://www.cnblogs.com/zyf0163/p/4749042.html</a><br />
-<br /></p>
+<br /></li>
+</ol>
 
 <h3 id="一些思考">一些思考</h3>
 <p>1.<strong>求任意区间不同数的和</strong> <br />
@@ -98,7 +100,7 @@
 <strong>思路</strong><br />
 权值线段树<br />
 动态插入，这时比这个数大的数的数量即为新增的逆序对，累加后再处理循环位移的问题<br />
-循环位视为将最后一个数搬到最开始，答案的改变为 - (n – 末尾数 - 1) (即 末尾数 + 1 ~ n - 1) + (末尾数 – 1)（即 0 ~ 末尾数-1）</p>
+循环位视为将最后一个数搬到最开始，答案的改变为 - (n – 末尾数 - 1) (即 末尾数 + 1 ~ n - 1) + (末尾数)（即 0 ~ 末尾数-1）</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include &lt;cstdio&gt;
 </span>	<span class="cp">#include &lt;cstring&gt;
 </span>	<span class="cp">#include &lt;algorithm&gt;
@@ -166,8 +168,8 @@
 <strong>思路</strong><br />
 离散化 + 权值线段树<br />
 数字过大，不能直接用下标，所以先离散化<br />
-也了离散化，只能转离线了
-最后求中位数就是求第k小数</p>
+因为离散化，只能转离线了
+最后求中位数就是求第 sum/2 + 1 小数</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include &lt;cstdio&gt;
 </span>	<span class="cp">#include &lt;cstring&gt;
 </span>	<span class="cp">#include &lt;algorithm&gt;
@@ -457,6 +459,18 @@
         
     </section>
     <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/06/02/20180602_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（平衡树 I） —— 2018.6.2</span>
+                <p>  Treap、基础Splay、Splay的区间求和与区间修改</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180601%20Problem0601/20180530-01.png" alt="">
+            
+        </div>
         
         
         <div class="read-next-item">
