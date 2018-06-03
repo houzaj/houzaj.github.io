@@ -657,7 +657,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 **受保护成员(protected)**：  允许派生类内函数的访问 (protected成员在后面！)   
 如定义clockType类，并在其中说明为什么类是实现ADT的一种便利的方式  
 ```cpp
-  class clockType{    //ADT的类型名称
+  class clockType{
   private:      //私有成员不能被类外部访问，类内部默认为private，故若private出现在public和protected前面时可以省略
       //ADT的domain
       int hr;
@@ -709,7 +709,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   ```cpp
     class test{
     public:
-        int get() { return a; }
+        int get()  { return a; }
         void fun() { a++; }
     private:
         static int a;
@@ -804,17 +804,12 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       clockType(int hours, int minutes, int seconds);  //带参数的构造函数
       clockType();  //默认构造函数
   private:
-      int hr;
-      int min;
-      int sec;
+      int hr, min, sec;
   };
 
   //相关实现
-  clockType::clockType(int hours, int minutes, int seconds){
-      hr = (0 <= hours && hours < 24)?hours:0;
-      min = (0 <= minutes && minutes < 60)?minutes:0;
-      seconds = (0 <= seconds && seconds < 60)?seconds:0;
-  }
+  //实际上无需写拷贝构造，因为不含指针数据成员
+  clockType::clockType(int hours, int minutes, int seconds): hr(hours), min(minutes), seconds(sec){}
 
   clockType::clockType(): hr(0), min(0), sec(0) {}    // 构造函数初始化值列表
   //一般不写作 clockType::clockType()  { hr = 0; min = 0; sec = 0; }  ，因为赋值会先初始化后赋值
@@ -826,17 +821,11 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       //省略成员函数
       clockType(int = 0, int = 0, int = 0);  //默认构造函数
   private:
-      int hr;
-      int min;
-      int sec;
+      int hr, min, sec;
   };
 
   //相关实现
-  clockType::clockType(int hours, int minutes, int seconds){
-      hr = (0 <= hours && hours < 24)?hours:0;
-      min = (0 <= minutes && minutes < 60)?minutes:0;
-      seconds = (0 <= seconds && seconds < 60)?seconds:0;
-  }
+  clockType::clockType(int hours, int minutes, int seconds): hr(hours), min(minutes), seconds(sec){}
 
   int main(){
     clockType myclock1;
@@ -846,7 +835,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
 <br>
 
 #### **委托构造函数**  
-用其他的构造函数来构造某个构造函数，如    
+用其他的构造函数来构造某个构造函数，如（注意：C++11特性）    
 ```cpp
   class clockType{
   public:
@@ -854,9 +843,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       clockType(int hours, int minutes, int seconds);
       clockType();
   private:
-      int hr;
-      int min;
-      int sec;
+      int hr, min, sec;
   };
 
   //相关实现
@@ -895,7 +882,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
       }
   }
 
-  myVector::~myVector() { delete []p; }
+  myVector::~myVector() { delete [] p; }
 
   void myVector::print() const{
       for(int i = 0; i < t_size; i++){
@@ -939,7 +926,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   }
 
   myVector::~myVector(){
-    delete []p;
+    delete [] p;
     cout << "clear done!" << endl;
   }
 
@@ -985,7 +972,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   class baseClass{
   public:
       void print()    const;
-      baseClass() {base_var = "base_var";}
+      baseClass():base_var("base_var"){}
   private:
       string base_var;
   };
@@ -993,7 +980,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   class derivedClass: public baseClass{
   public:
       void print()    const;
-      derivedClass()  {derived_var = "derived_var";}
+      derivedClass():derived_var("derived_var"){}
   private:
       string derived_var;
    };
@@ -1042,14 +1029,10 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   };
 
   // ---------------------------------------
-  baseClass::baseClass(string var = "base_bar by default"){    //基类构造函数
-      base_var = var;
-  }
+  baseClass::baseClass(string var = "base_bar by default"): base_var(var){}    //基类构造函数
 
   derivedClass::derivedClass(string var = "derived_var",
-   string var2 = "base_var provoked by derivedClass"):baseClass(var2) {   //触发基类构造函数
-      derived_var = var;
-  }
+   string var2 = "base_var provoked by derivedClass"):baseClass(var2), derived_var(var) {}   //触发基类构造函数
 
   void baseClass::print() const{
       cout << base_var << endl;
@@ -1257,16 +1240,13 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   class B1 : virtual public A{
   public:
       string var_B1;
-      B1(string var): A(var + "B1 to A"), var_B1(var)   {}
+      B1(string var): A(var + "B1 to A"), var_B1(var) {}
   };
 
   class B2 : virtual public A{
   public:
       string var_B2;
-      B2(string var){
-           A(var + "B2 to A");
-           var_B2 = var;
-      }
+      B2(string var): A(var + "B2 to A"), var_B2(var) {}
   };
 
   class C : public B1, public B2{
@@ -1333,16 +1313,11 @@ C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现�
       dateType(int year, int month, int day);
       void print();
   private:
-      int dYear;
-      int dMonth;
-      int dDay;
+      int dYear, dMonth, dDay;
   };
 
-  dateType::dateType(int year = 2018, int month = 2, int day = 30){   //dataType的默认构造函数
-      dYear = year;
-      dMonth = month;
-      dDay = day;
-  }
+  dateType::dateType(int year = 2018, int month = 2, int day = 30):
+      dYear(year), dMonth(month), dDay(day){}   //dataType的默认构造函数
 
   void dateType::print(){
       cout << "Date: " << dYear << "-" << dMonth << "-" << dDay << endl;
@@ -1357,9 +1332,7 @@ C++支持两种类：`抽象类`和`具体类`，抽象类中包含没有实现�
       string dName;
   };
 
-  personalType::personalType(string name = "null"){
-      dName = name;
-  }
+  personalType::personalType(string name = "null"): dName(name){}
 
   void personalType::print(){
       cout << "Name: " << dName << endl;
@@ -1410,8 +1383,7 @@ this指针为指向对象自己的指针
   public:
       void print()   const;
       A get()   const;
-      int x;
-      int y;
+      int x, y;
   };
 
   void A::print()  const  { cout << x << " " << y << " " << endl;}
@@ -1529,7 +1501,7 @@ this指针为指向对象自己的指针
 #### **浅拷贝与深拷贝**  
 **浅拷贝**： 实现对象间数据元素的一一对应复制。
 **深拷贝**： 当被复制的对象数据成员是指针类型时,不是复制该指针成员本身,而是将指针所指对象进行复制   
-应尽量避免浅拷贝而使用深拷贝，深拷贝栗子看 **重载赋值运算符 =**  
+应尽量避免浅拷贝而使用深拷贝，深拷贝在 **重载赋值运算符 =** 与 **拷贝构造函数** 中体现
 <br>
 
 ### **[OOP] 重载**  
@@ -1550,7 +1522,7 @@ this指针为指向对象自己的指针
 
   class B{
   public:
-      B() { x = 2; }
+      B(): x(2) {}
       friend void cSwap(A& cA, B& cB);
       int get(){ return x; }
   private:
@@ -1597,8 +1569,8 @@ this指针为指向对象自己的指针
   ```cpp
     class ComplexNum{
     public:
-        ComplexNum()  {real = 0, vir = 0; }
-        ComplexNum(int a, int b)   {real = a, vir = b;}
+        ComplexNum(): real(0), vir(0)  {}
+        ComplexNum(int a, int b): real(a), vir(b)  {}
 
         // 下面是运算符+重载的函数原型，ComplexNum是返回类型，operator+其实是函数名，(const ComplexNum&) 则是右值  
         // 仔细想想，其实和普通的类内函数声明没有区别  
@@ -1611,11 +1583,9 @@ this指针为指向对象自己的指针
     };
 
     //重载运算符语法如下面这一句
+    // 重载+需要定义一个先的类对象返回，如果返回引用，res退出函数已被销毁，引用会失效
     ComplexNum ComplexNum::operator + (const ComplexNum& other_complex_num)  const{
-        ComplexNum res;   // 重载+需要定义一个先的类对象返回，如果返回引用，res退出函数已被销毁，引用会失效
-        res.real = real + other_complex_num.real;
-        res.vir = vir + other_complex_num.vir;
-        return res;
+        return ComplexNum(real + other_complex_num.real, vir + other_complex_num.vir);
     }
 
     void ComplexNum::display(){ cout << real << "+" << vir << "i" << endl; }
@@ -1634,16 +1604,14 @@ this指针为指向对象自己的指针
   ```cpp
     class ComplexNum{
     public:
-        ComplexNum(int a, int b)   {real = a, vir = b;}
+        ComplexNum(int a, int b): real(a), vir(b)  {}
         bool operator == (const ComplexNum&)   const;
     private:
-        int real;
-        int vir;
+        int real, vir;
     };
 
     bool ComplexNum::operator == (const ComplexNum& other_complex_num)  const{
-        if(real == other_complex_num.real && vir == other_complex_num.vir)  return true;
-        return false;
+        return (real == other_complex_num.real && vir == other_complex_num.vir);
     }
 
     // -------------------------
@@ -1660,8 +1628,8 @@ this指针为指向对象自己的指针
   ```cpp
     class ComplexNum{
     public:
-        ComplexNum()  {real = 0, vir = 0; }
-        ComplexNum(int a, int b)   {real = a, vir = b;}
+        ComplexNum(): real(0), vir(0)  {}
+        ComplexNum(int a, int b): real(a), vir(b)  {}
         friend ComplexNum operator + (const ComplexNum& first, const ComplexNum& second)   ;  //函数原型1
         friend ComplexNum operator + (const ComplexNum& first, const int& second)   ;  //函数原型2
         friend ComplexNum operator + (const int& second, const ComplexNum& first)   ;  //函数原型3
@@ -1673,24 +1641,15 @@ this指针为指向对象自己的指针
 
     //分别重载complex + complex, complex + int, int + complex三种情况
     ComplexNum operator + (const ComplexNum& first, const ComplexNum &second){
-        ComplexNum res;
-        res.real = first.real + second.real;
-        res.vir = first.vir + second.vir;
-        return res;
+        return ComplexNum(first.real + second.real, first.vir + second.vir);
     }
 
     ComplexNum operator + (const ComplexNum& first, const int& second){
-        ComplexNum res;
-        res.real = first.real + second;
-        res.vir = first.vir;
-        return res;
+        return ComplexNum(first.real + second, first.vir);
     }
 
     ComplexNum operator + (const int& second, const ComplexNum& first){
-        ComplexNum res;
-        res.real = first.real + second;
-        res.vir = first.vir;
-        return res;
+        return ComplexNum(first.real + second, first.vir);
     }
 
     void ComplexNum::display(){ cout << real << "+" << vir << "i" << endl; }
@@ -1711,14 +1670,13 @@ this指针为指向对象自己的指针
 ```cpp
   class ComplexNum{
   public:
-      ComplexNum(int a, int b)   {real = a, vir = b;}
+      ComplexNum(int a, int b): real(a), vir(b)  {}
       //<< >> 重载的函数原型如下
       //注意ostream和istream是不可以改变的，其为输入输出流
       friend ostream& operator << (ostream& ostreamObject, const ComplexNum& num);
       friend istream& operator >> (istream& istreamObject, ComplexNum& num);  //注意没有const，const就不能输入了！
   private:
-      int real;
-      int vir;
+      int real, vir;
   };
 
   ostream& operator << (ostream& ostreamObject, const ComplexNum& num){
@@ -1775,7 +1733,7 @@ this指针为指向对象自己的指针
       cout << endl;
   }
 
-  const myVector& myVector::operator = (const myVector& other){
+  myVector& myVector::operator = (const myVector& other){
       if(this != &other){     //避免自身复制，浪费时间空间
           t_size = other.t_size;
           for(int i = 0; i < t_size; i++){    //深拷贝
@@ -1825,7 +1783,7 @@ this指针为指向对象自己的指针
       for(int i = 0; i < t_size; i++){  p[i] = start + i;  }
   }
 
-  myVector::~myVector() { delete []p; }
+  myVector::~myVector() { delete [] p; }
 
   void myVector::print() const{
       for(int i = 0; i < t_size; i++){
@@ -1859,20 +1817,18 @@ this指针为指向对象自己的指针
       ComplexNum& operator ++();
 
       // 重载后置自增，自减同理，其中int i无实际意义，仅起标识为后置的作用，注意为与内置版本一致，需返回值   
-      ComplexNum operator ++(int i);  
+      ComplexNum operator ++(int);  
       void display();
   private:
-      int real;
-      int vir;
+      int real, vir;
   };
 
   ComplexNum& ComplexNum::operator ++(){
-      ComplexNum temp = * this;
       real++;
-      return temp;
+      return * this;
   }
 
-  ComplexNum ComplexNum::operator ++(int i){
+  ComplexNum ComplexNum::operator ++(int){
       ComplexNum temp = * this;
       real++;
       return temp;
@@ -1961,8 +1917,7 @@ this指针为指向对象自己的指针
   }
 
   int main(){
-      myString s1;
-      s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
+      myString s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
   }
   ```
 #### **类 -> 基本类型**  
@@ -1991,7 +1946,6 @@ this指针为指向对象自己的指针
   class square{
   public:
       square(double num = 0): res(sqrt(num)) {}
-      square(const square& obj2);   //复制拷贝函数
       double get() { return res; }
   private:
       double res;
@@ -2008,12 +1962,7 @@ this指针为指向对象自己的指针
 
 
   cube::operator square(){
-      double temp = pow(res, 1.0/3);
-      return square(temp);
-  }
-
-  square::square(const square &obj2){
-      res = obj2.res;
+      return square(pow(res, 1.0/3));
   }
 
   // ---------------
@@ -2152,7 +2101,7 @@ template <class T>    //语法需要
   };
 
   template <class T>
-  point<T>::point(){ x = 0; y = 0;}   //注意是point<T>，并且每一处有使用T的地方，前面都要加 template <class T>
+  point<T>::point(): x(0), y(0) {}   //注意是point<T>，并且每一处有使用T的地方，前面都要加 template <class T>
 
   template <class T>
   void point<T>::setPoint(const T ix, const T iy){ x = ix; y = iy; }
