@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="学习笔记 - C++ - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/03/11/cpp_summary.html">
+    <meta property="og:url" content="http://localhost:4000/2018/06/03/cpp_summary.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -52,7 +52,7 @@
         <h1>学习笔记 - C++</h1>
         <div class="post-meta">
             <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
-            <time class="post-meta-item" datetime="18-03-11"><i class="iconfont icon-date"></i>11 Mar 2018</time>
+            <time class="post-meta-item" datetime="18-06-03"><i class="iconfont icon-date"></i>03 Jun 2018</time>
         </div>
     </div>
     
@@ -79,6 +79,7 @@
 </blockquote>
 
 <ul id="markdown-toc">
+  <li><a href="#更新日志0311---0603" id="markdown-toc-更新日志0311---0603">更新日志(0311 -&gt; 0603)</a></li>
   <li><a href="#更新日志0108---0311" id="markdown-toc-更新日志0108---0311">更新日志(0108 -&gt; 0311)</a></li>
   <li><a href="#part-i---前言" id="markdown-toc-part-i---前言">PART I - 前言</a></li>
   <li><a href="#part-ii---笔记" id="markdown-toc-part-ii---笔记">PART II - 笔记</a>    <ul>
@@ -220,6 +221,13 @@
 </ul>
 
 <p><br /></p>
+
+<h2 id="更新日志0311---0603">更新日志(0311 -&gt; 0603)</h2>
+<ol>
+  <li>修改之前的不优美写法</li>
+  <li>修正了一堆bug</li>
+  <li>新增了一堆bug</li>
+</ol>
 
 <h2 id="更新日志0108---0311">更新日志(0108 -&gt; 0311)</h2>
 <p><strong>概念性错误</strong></p>
@@ -678,11 +686,11 @@
 </code></pre></div>    </div>
   </li>
   <li><strong>endl, flush</strong><br />
- endl会将光标移到下一行开头(‘\n’)，并清空缓冲区(相当于执行flush)函数
-    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c1">//即使缓冲区的数据没有存满也可以显示提示信息</span>
-   <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter an intger:"</span> <span class="o">&lt;&lt;</span> <span class="n">flush</span><span class="p">;</span>
-   <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+  endl会将光标移到下一行开头(‘\n’)，并清空缓冲区(相当于执行flush)函数
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//即使缓冲区的数据没有存满也可以显示提示信息</span>
+ <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+ <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter an intger:"</span> <span class="o">&lt;&lt;</span> <span class="n">flush</span><span class="p">;</span>
+ <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
 </code></pre></div>    </div>
     <p><br /></p>
   </li>
@@ -904,7 +912,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <strong>私有成员(private)</strong>： 只允许本类中的函数访问，类外函数不能访问（友元除外，友元函数在后面！）<br />
 <strong>受保护成员(protected)</strong>：  允许派生类内函数的访问 (protected成员在后面！) <br />
 如定义clockType类，并在其中说明为什么类是实现ADT的一种便利的方式</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>    <span class="c1">//ADT的类型名称</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
   <span class="k">private</span><span class="o">:</span>      <span class="c1">//私有成员不能被类外部访问，类内部默认为private，故若private出现在public和protected前面时可以省略</span>
       <span class="c1">//ADT的domain</span>
       <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
@@ -958,7 +966,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">class</span> <span class="nc">test</span><span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
-        <span class="kt">int</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">get</span><span class="p">()</span>  <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span>
         <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
     <span class="k">private</span><span class="o">:</span>
         <span class="k">static</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
@@ -1050,17 +1058,12 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>  <span class="c1">//带参数的构造函数</span>
       <span class="n">clockType</span><span class="p">();</span>  <span class="c1">//默认构造函数</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">min</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">sec</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">hr</span><span class="p">,</span> <span class="n">min</span><span class="p">,</span> <span class="n">sec</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="c1">//相关实现</span>
-  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
-      <span class="n">hr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">hours</span> <span class="o">&amp;&amp;</span> <span class="n">hours</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">)</span><span class="o">?</span><span class="n">hours</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-      <span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minutes</span> <span class="o">&amp;&amp;</span> <span class="n">minutes</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">minutes</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-      <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">seconds</span> <span class="o">&amp;&amp;</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">seconds</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="c1">//实际上无需写拷贝构造，因为不含指针数据成员</span>
+  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">)</span><span class="o">:</span> <span class="n">hr</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="n">minutes</span><span class="p">),</span> <span class="n">seconds</span><span class="p">(</span><span class="n">sec</span><span class="p">){}</span>
 
   <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">()</span><span class="o">:</span> <span class="n">hr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">sec</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>    <span class="c1">// 构造函数初始化值列表</span>
   <span class="c1">//一般不写作 clockType::clockType()  { hr = 0; min = 0; sec = 0; }  ，因为赋值会先初始化后赋值</span>
@@ -1071,17 +1074,11 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="c1">//省略成员函数</span>
       <span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>  <span class="c1">//默认构造函数</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">min</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">sec</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">hr</span><span class="p">,</span> <span class="n">min</span><span class="p">,</span> <span class="n">sec</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="c1">//相关实现</span>
-  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
-      <span class="n">hr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">hours</span> <span class="o">&amp;&amp;</span> <span class="n">hours</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">)</span><span class="o">?</span><span class="n">hours</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-      <span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minutes</span> <span class="o">&amp;&amp;</span> <span class="n">minutes</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">minutes</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-      <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">seconds</span> <span class="o">&amp;&amp;</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">?</span><span class="n">seconds</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="n">clockType</span><span class="o">::</span><span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">)</span><span class="o">:</span> <span class="n">hr</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="n">minutes</span><span class="p">),</span> <span class="n">seconds</span><span class="p">(</span><span class="n">sec</span><span class="p">){}</span>
 
   <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
     <span class="n">clockType</span> <span class="n">myclock1</span><span class="p">;</span>
@@ -1091,16 +1088,14 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p><br /></p>
 
 <h4 id="委托构造函数"><strong>委托构造函数</strong></h4>
-<p>用其他的构造函数来构造某个构造函数，如</p>
+<p>用其他的构造函数来构造某个构造函数，如（注意：C++11特性）</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">clockType</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="c1">//省略成员函数</span>
       <span class="n">clockType</span><span class="p">(</span><span class="kt">int</span> <span class="n">hours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">minutes</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>
       <span class="n">clockType</span><span class="p">();</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">hr</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">min</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">sec</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">hr</span><span class="p">,</span> <span class="n">min</span><span class="p">,</span> <span class="n">sec</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="c1">//相关实现</span>
@@ -1138,7 +1133,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="n">myVector</span><span class="o">::~</span><span class="n">myVector</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="p">[]</span><span class="n">p</span><span class="p">;</span> <span class="p">}</span>
+  <span class="n">myVector</span><span class="o">::~</span><span class="n">myVector</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="p">[]</span> <span class="n">p</span><span class="p">;</span> <span class="p">}</span>
 
   <span class="kt">void</span> <span class="n">myVector</span><span class="o">::</span><span class="n">print</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -1181,7 +1176,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="p">}</span>
 
   <span class="n">myVector</span><span class="o">::~</span><span class="n">myVector</span><span class="p">(){</span>
-    <span class="k">delete</span> <span class="p">[]</span><span class="n">p</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="p">[]</span> <span class="n">p</span><span class="p">;</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"clear done!"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
   <span class="p">}</span>
 
@@ -1227,7 +1222,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">baseClass</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>
-      <span class="n">baseClass</span><span class="p">()</span> <span class="p">{</span><span class="n">base_var</span> <span class="o">=</span> <span class="s">"base_var"</span><span class="p">;}</span>
+      <span class="n">baseClass</span><span class="p">()</span><span class="o">:</span><span class="n">base_var</span><span class="p">(</span><span class="s">"base_var"</span><span class="p">){}</span>
   <span class="k">private</span><span class="o">:</span>
       <span class="n">string</span> <span class="n">base_var</span><span class="p">;</span>
   <span class="p">};</span>
@@ -1235,7 +1230,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="k">class</span> <span class="nc">derivedClass</span><span class="o">:</span> <span class="k">public</span> <span class="n">baseClass</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>    <span class="k">const</span><span class="p">;</span>
-      <span class="n">derivedClass</span><span class="p">()</span>  <span class="p">{</span><span class="n">derived_var</span> <span class="o">=</span> <span class="s">"derived_var"</span><span class="p">;}</span>
+      <span class="n">derivedClass</span><span class="p">()</span><span class="o">:</span><span class="n">derived_var</span><span class="p">(</span><span class="s">"derived_var"</span><span class="p">){}</span>
   <span class="k">private</span><span class="o">:</span>
       <span class="n">string</span> <span class="n">derived_var</span><span class="p">;</span>
    <span class="p">};</span>
@@ -1283,14 +1278,10 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="p">};</span>
 
   <span class="c1">// ---------------------------------------</span>
-  <span class="n">baseClass</span><span class="o">::</span><span class="n">baseClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span> <span class="o">=</span> <span class="s">"base_bar by default"</span><span class="p">){</span>    <span class="c1">//基类构造函数</span>
-      <span class="n">base_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="n">baseClass</span><span class="o">::</span><span class="n">baseClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span> <span class="o">=</span> <span class="s">"base_bar by default"</span><span class="p">)</span><span class="o">:</span> <span class="n">base_var</span><span class="p">(</span><span class="n">var</span><span class="p">){}</span>    <span class="c1">//基类构造函数</span>
 
   <span class="n">derivedClass</span><span class="o">::</span><span class="n">derivedClass</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span> <span class="o">=</span> <span class="s">"derived_var"</span><span class="p">,</span>
-   <span class="n">string</span> <span class="n">var2</span> <span class="o">=</span> <span class="s">"base_var provoked by derivedClass"</span><span class="p">)</span><span class="o">:</span><span class="n">baseClass</span><span class="p">(</span><span class="n">var2</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//触发基类构造函数</span>
-      <span class="n">derived_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span>
-  <span class="p">}</span>
+   <span class="n">string</span> <span class="n">var2</span> <span class="o">=</span> <span class="s">"base_var provoked by derivedClass"</span><span class="p">)</span><span class="o">:</span><span class="n">baseClass</span><span class="p">(</span><span class="n">var2</span><span class="p">),</span> <span class="n">derived_var</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{}</span>   <span class="c1">//触发基类构造函数</span>
 
   <span class="kt">void</span> <span class="n">baseClass</span><span class="o">::</span><span class="n">print</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
       <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">base_var</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1533,16 +1524,13 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="k">class</span> <span class="nc">B1</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">A</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="n">string</span> <span class="n">var_B1</span><span class="p">;</span>
-      <span class="n">B1</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">)</span><span class="o">:</span> <span class="n">A</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="s">"B1 to A"</span><span class="p">),</span> <span class="n">var_B1</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>   <span class="p">{}</span>
+      <span class="n">B1</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">)</span><span class="o">:</span> <span class="n">A</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="s">"B1 to A"</span><span class="p">),</span> <span class="n">var_B1</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{}</span>
   <span class="p">};</span>
 
   <span class="k">class</span> <span class="nc">B2</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">A</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="n">string</span> <span class="n">var_B2</span><span class="p">;</span>
-      <span class="n">B2</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">){</span>
-           <span class="n">A</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="s">"B2 to A"</span><span class="p">);</span>
-           <span class="n">var_B2</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span>
-      <span class="p">}</span>
+      <span class="n">B2</span><span class="p">(</span><span class="n">string</span> <span class="n">var</span><span class="p">)</span><span class="o">:</span> <span class="n">A</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="s">"B2 to A"</span><span class="p">),</span> <span class="n">var_B2</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{}</span>
   <span class="p">};</span>
 
   <span class="k">class</span> <span class="nc">C</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B1</span><span class="p">,</span> <span class="k">public</span> <span class="n">B2</span><span class="p">{</span>
@@ -1607,16 +1595,11 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">);</span>
       <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">dYear</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">dMonth</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">dDay</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">dYear</span><span class="p">,</span> <span class="n">dMonth</span><span class="p">,</span> <span class="n">dDay</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="n">dateType</span><span class="o">::</span><span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span> <span class="o">=</span> <span class="mi">30</span><span class="p">){</span>   <span class="c1">//dataType的默认构造函数</span>
-      <span class="n">dYear</span> <span class="o">=</span> <span class="n">year</span><span class="p">;</span>
-      <span class="n">dMonth</span> <span class="o">=</span> <span class="n">month</span><span class="p">;</span>
-      <span class="n">dDay</span> <span class="o">=</span> <span class="n">day</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="n">dateType</span><span class="o">::</span><span class="n">dateType</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">2018</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span><span class="o">:</span>
+      <span class="n">dYear</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="n">dMonth</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="n">dDay</span><span class="p">(</span><span class="n">day</span><span class="p">){}</span>   <span class="c1">//dataType的默认构造函数</span>
 
   <span class="kt">void</span> <span class="n">dateType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
       <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Date: "</span> <span class="o">&lt;&lt;</span> <span class="n">dYear</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dMonth</span> <span class="o">&lt;&lt;</span> <span class="s">"-"</span> <span class="o">&lt;&lt;</span> <span class="n">dDay</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1631,9 +1614,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">string</span> <span class="n">dName</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="n">personalType</span><span class="o">::</span><span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"null"</span><span class="p">){</span>
-      <span class="n">dName</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="n">personalType</span><span class="o">::</span><span class="n">personalType</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"null"</span><span class="p">)</span><span class="o">:</span> <span class="n">dName</span><span class="p">(</span><span class="n">name</span><span class="p">){}</span>
 
   <span class="kt">void</span> <span class="n">personalType</span><span class="o">::</span><span class="n">print</span><span class="p">(){</span>
       <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Name: "</span> <span class="o">&lt;&lt;</span> <span class="n">dName</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1683,8 +1664,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="k">public</span><span class="o">:</span>
       <span class="kt">void</span> <span class="n">print</span><span class="p">()</span>   <span class="k">const</span><span class="p">;</span>
       <span class="n">A</span> <span class="n">get</span><span class="p">()</span>   <span class="k">const</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">print</span><span class="p">()</span>  <span class="k">const</span>  <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
@@ -1799,7 +1779,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h4 id="浅拷贝与深拷贝"><strong>浅拷贝与深拷贝</strong></h4>
 <p><strong>浅拷贝</strong>： 实现对象间数据元素的一一对应复制。
 <strong>深拷贝</strong>： 当被复制的对象数据成员是指针类型时,不是复制该指针成员本身,而是将指针所指对象进行复制 <br />
-应尽量避免浅拷贝而使用深拷贝，深拷贝栗子看 <strong>重载赋值运算符 =</strong><br />
+应尽量避免浅拷贝而使用深拷贝，深拷贝在 <strong>重载赋值运算符 =</strong> 与 <strong>拷贝构造函数</strong> 中体现
 <br /></p>
 
 <h3 id="oop-重载"><strong>[OOP] 重载</strong></h3>
@@ -1819,7 +1799,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 
   <span class="k">class</span> <span class="nc">B</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
-      <span class="n">B</span><span class="p">()</span> <span class="p">{</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+      <span class="n">B</span><span class="p">()</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{}</span>
       <span class="k">friend</span> <span class="kt">void</span> <span class="n">cSwap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span> <span class="n">cA</span><span class="p">,</span> <span class="n">B</span><span class="o">&amp;</span> <span class="n">cB</span><span class="p">);</span>
       <span class="kt">int</span> <span class="n">get</span><span class="p">(){</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
   <span class="k">private</span><span class="o">:</span>
@@ -1867,8 +1847,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p>以复数相加为栗子</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">class</span> <span class="nc">ComplexNum</span><span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
-        <span class="n">ComplexNum</span><span class="p">()</span>  <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>   <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="n">b</span><span class="p">;}</span>
+        <span class="n">ComplexNum</span><span class="p">()</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="p">{}</span>
+        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="p">{}</span>
 
         <span class="c1">// 下面是运算符+重载的函数原型，ComplexNum是返回类型，operator+其实是函数名，(const ComplexNum&amp;) 则是右值  </span>
         <span class="c1">// 仔细想想，其实和普通的类内函数声明没有区别  </span>
@@ -1881,11 +1861,9 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
     <span class="p">};</span>
 
     <span class="c1">//重载运算符语法如下面这一句</span>
+    <span class="c1">// 重载+需要定义一个先的类对象返回，如果返回引用，res退出函数已被销毁，引用会失效</span>
     <span class="n">ComplexNum</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">other_complex_num</span><span class="p">)</span>  <span class="k">const</span><span class="p">{</span>
-        <span class="n">ComplexNum</span> <span class="n">res</span><span class="p">;</span>   <span class="c1">// 重载+需要定义一个先的类对象返回，如果返回引用，res退出函数已被销毁，引用会失效</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">real</span> <span class="o">+</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">real</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">vir</span> <span class="o">=</span> <span class="n">vir</span> <span class="o">+</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">vir</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ComplexNum</span><span class="p">(</span><span class="n">real</span> <span class="o">+</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">real</span><span class="p">,</span> <span class="n">vir</span> <span class="o">+</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">vir</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="kt">void</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="n">display</span><span class="p">(){</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">real</span> <span class="o">&lt;&lt;</span> <span class="s">"+"</span> <span class="o">&lt;&lt;</span> <span class="n">vir</span> <span class="o">&lt;&lt;</span> <span class="s">"i"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
@@ -1903,16 +1881,14 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <h4 id="作为成员函数重载关系运算符-"><strong>作为成员函数重载关系运算符 ==</strong></h4>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">class</span> <span class="nc">ComplexNum</span><span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
-        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>   <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="n">b</span><span class="p">;}</span>
+        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="p">{}</span>
         <span class="kt">bool</span> <span class="k">operator</span> <span class="o">==</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span><span class="p">)</span>   <span class="k">const</span><span class="p">;</span>
     <span class="k">private</span><span class="o">:</span>
-        <span class="kt">int</span> <span class="n">real</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">vir</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">real</span><span class="p">,</span> <span class="n">vir</span><span class="p">;</span>
     <span class="p">};</span>
 
     <span class="kt">bool</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="k">operator</span> <span class="o">==</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">other_complex_num</span><span class="p">)</span>  <span class="k">const</span><span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">real</span> <span class="o">==</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">real</span> <span class="o">&amp;&amp;</span> <span class="n">vir</span> <span class="o">==</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">vir</span><span class="p">)</span>  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">real</span> <span class="o">==</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">real</span> <span class="o">&amp;&amp;</span> <span class="n">vir</span> <span class="o">==</span> <span class="n">other_complex_num</span><span class="p">.</span><span class="n">vir</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="c1">// -------------------------</span>
@@ -1928,8 +1904,8 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p>把上面的复数重载+拿下来改改</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">class</span> <span class="nc">ComplexNum</span><span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
-        <span class="n">ComplexNum</span><span class="p">()</span>  <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>   <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="n">b</span><span class="p">;}</span>
+        <span class="n">ComplexNum</span><span class="p">()</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="p">{}</span>
+        <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="p">{}</span>
         <span class="k">friend</span> <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">)</span>   <span class="p">;</span>  <span class="c1">//函数原型1</span>
         <span class="k">friend</span> <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">)</span>   <span class="p">;</span>  <span class="c1">//函数原型2</span>
         <span class="k">friend</span> <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">)</span>   <span class="p">;</span>  <span class="c1">//函数原型3</span>
@@ -1941,24 +1917,15 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 
     <span class="c1">//分别重载complex + complex, complex + int, int + complex三种情况</span>
     <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span> <span class="o">&amp;</span><span class="n">second</span><span class="p">){</span>
-        <span class="n">ComplexNum</span> <span class="n">res</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">.</span><span class="n">real</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">vir</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span> <span class="o">+</span> <span class="n">second</span><span class="p">.</span><span class="n">vir</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ComplexNum</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">.</span><span class="n">real</span><span class="p">,</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span> <span class="o">+</span> <span class="n">second</span><span class="p">.</span><span class="n">vir</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">){</span>
-        <span class="n">ComplexNum</span> <span class="n">res</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">vir</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ComplexNum</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">,</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">){</span>
-        <span class="n">ComplexNum</span> <span class="n">res</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">;</span>
-        <span class="n">res</span><span class="p">.</span><span class="n">vir</span> <span class="o">=</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ComplexNum</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">second</span><span class="p">,</span> <span class="n">first</span><span class="p">.</span><span class="n">vir</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="kt">void</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="n">display</span><span class="p">(){</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">real</span> <span class="o">&lt;&lt;</span> <span class="s">"+"</span> <span class="o">&lt;&lt;</span> <span class="n">vir</span> <span class="o">&lt;&lt;</span> <span class="s">"i"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
@@ -1978,14 +1945,13 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 <p>仍以复数为栗子（这个栗子太好举了！）</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">ComplexNum</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
-      <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>   <span class="p">{</span><span class="n">real</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">vir</span> <span class="o">=</span> <span class="n">b</span><span class="p">;}</span>
+      <span class="n">ComplexNum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vir</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="p">{}</span>
       <span class="c1">//&lt;&lt; &gt;&gt; 重载的函数原型如下</span>
       <span class="c1">//注意ostream和istream是不可以改变的，其为输入输出流</span>
       <span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">ostreamObject</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">num</span><span class="p">);</span>
       <span class="k">friend</span> <span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">istreamObject</span><span class="p">,</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">num</span><span class="p">);</span>  <span class="c1">//注意没有const，const就不能输入了！</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">real</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">vir</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">real</span><span class="p">,</span> <span class="n">vir</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">ostreamObject</span><span class="p">,</span> <span class="k">const</span> <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">num</span><span class="p">){</span>
@@ -2041,7 +2007,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="k">const</span> <span class="n">myVector</span><span class="o">&amp;</span> <span class="n">myVector</span><span class="o">::</span><span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">myVector</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+  <span class="n">myVector</span><span class="o">&amp;</span> <span class="n">myVector</span><span class="o">::</span><span class="k">operator</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">myVector</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
       <span class="k">if</span><span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">other</span><span class="p">){</span>     <span class="c1">//避免自身复制，浪费时间空间</span>
           <span class="n">t_size</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">t_size</span><span class="p">;</span>
           <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>    <span class="c1">//深拷贝</span>
@@ -2090,7 +2056,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>  <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>  <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="n">myVector</span><span class="o">::~</span><span class="n">myVector</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="p">[]</span><span class="n">p</span><span class="p">;</span> <span class="p">}</span>
+  <span class="n">myVector</span><span class="o">::~</span><span class="n">myVector</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="p">[]</span> <span class="n">p</span><span class="p">;</span> <span class="p">}</span>
 
   <span class="kt">void</span> <span class="n">myVector</span><span class="o">::</span><span class="n">print</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -2123,20 +2089,18 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
       <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="o">++</span><span class="p">();</span>
 
       <span class="c1">// 重载后置自增，自减同理，其中int i无实际意义，仅起标识为后置的作用，注意为与内置版本一致，需返回值   </span>
-      <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">++</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">);</span>  
+      <span class="n">ComplexNum</span> <span class="k">operator</span> <span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>  
       <span class="kt">void</span> <span class="n">display</span><span class="p">();</span>
   <span class="k">private</span><span class="o">:</span>
-      <span class="kt">int</span> <span class="n">real</span><span class="p">;</span>
-      <span class="kt">int</span> <span class="n">vir</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">real</span><span class="p">,</span> <span class="n">vir</span><span class="p">;</span>
   <span class="p">};</span>
 
   <span class="n">ComplexNum</span><span class="o">&amp;</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="k">operator</span> <span class="o">++</span><span class="p">(){</span>
-      <span class="n">ComplexNum</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span> <span class="k">this</span><span class="p">;</span>
       <span class="n">real</span><span class="o">++</span><span class="p">;</span>
-      <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+      <span class="k">return</span> <span class="o">*</span> <span class="k">this</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="n">ComplexNum</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="k">operator</span> <span class="o">++</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
+  <span class="n">ComplexNum</span> <span class="n">ComplexNum</span><span class="o">::</span><span class="k">operator</span> <span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">){</span>
       <span class="n">ComplexNum</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span> <span class="k">this</span><span class="p">;</span>
       <span class="n">real</span><span class="o">++</span><span class="p">;</span>
       <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
@@ -2222,8 +2186,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="p">}</span>
 
   <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-      <span class="n">myString</span> <span class="n">s1</span><span class="p">;</span>
-      <span class="n">s1</span> <span class="o">=</span> <span class="n">myString</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="s">"Apple"</span><span class="p">));</span>  <span class="c1">//从char*类型到myString类型，通过隐式调用构造函数</span>
+      <span class="n">myString</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">myString</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="s">"Apple"</span><span class="p">));</span>  <span class="c1">//从char*类型到myString类型，通过隐式调用构造函数</span>
   <span class="p">}</span>
 </code></pre></div></div>
 <h4 id="类---基本类型"><strong>类 -&gt; 基本类型</strong></h4>
@@ -2250,8 +2213,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="k">class</span> <span class="nc">square</span><span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
       <span class="n">square</span><span class="p">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">res</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">))</span> <span class="p">{}</span>
-      <span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">);</span>   <span class="c1">//复制拷贝函数</span>
-      <span class="kt">double</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span> <span class="p">}</span>
+      <span class="kt">double</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span> <span class="p">}</span>
   <span class="k">private</span><span class="o">:</span>
       <span class="kt">double</span> <span class="n">res</span><span class="p">;</span>
   <span class="p">};</span>
@@ -2267,12 +2229,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
 
 
   <span class="n">cube</span><span class="o">::</span><span class="k">operator</span> <span class="n">square</span><span class="p">(){</span>
-      <span class="kt">double</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
-      <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">square</span><span class="o">::</span><span class="n">square</span><span class="p">(</span><span class="k">const</span> <span class="n">square</span> <span class="o">&amp;</span><span class="n">obj2</span><span class="p">){</span>
-      <span class="n">res</span> <span class="o">=</span> <span class="n">obj2</span><span class="p">.</span><span class="n">res</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">));</span>
   <span class="p">}</span>
 
   <span class="c1">// ---------------</span>
@@ -2418,7 +2375,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快</p>
   <span class="p">};</span>
 
   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">point</span><span class="p">(){</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;}</span>   <span class="c1">//注意是point&lt;T&gt;，并且每一处有使用T的地方，前面都要加 template &lt;class T&gt;</span>
+  <span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">point</span><span class="p">()</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>   <span class="c1">//注意是point&lt;T&gt;，并且每一处有使用T的地方，前面都要加 template &lt;class T&gt;</span>
 
   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="kt">void</span> <span class="n">point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">setPoint</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="n">ix</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">iy</span><span class="p">){</span> <span class="n">x</span> <span class="o">=</span> <span class="n">ix</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iy</span><span class="p">;</span> <span class="p">}</span>
@@ -2978,27 +2935,27 @@ Op29adfk48<br />
     <section class="post-footer-item read-next">
         
         <div class="read-next-item">
-            <a href="/2018/03/12/20180312_Problems.html" class="read-next-link"></a>
+            <a href="/2018/06/04/20180604_Problems.html" class="read-next-link"></a>
             <section>
-                <span>刷题记（KMP） —— 2018.3.12</span>
-                <p>  KMP算法</p>
+                <span>刷题记（RMQ） —— 2018.6.4</span>
+                <p>  RMQ</p>
             </section>
             
             <div class="filter"></div>
-            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180312%20Problem0312/20180312-01.png" alt="">
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180603%20Problem0603/20180604-01.png" alt="">
             
         </div>
         
         
         <div class="read-next-item">
-            <a href="/2018/03/10/20180310_Problems.html" class="read-next-link"></a>
+            <a href="/2018/06/03/20180603_Problems.html" class="read-next-link"></a>
             <section>
-                <span>刷题记 —— 2018.3.10</span>
-                <p>  扩展欧几里德  |  CodeForces 898B， CodeForces 599B</p>
+                <span>刷题记（树状数组 I） —— 2018.6.3</span>
+                <p>  树状数组基础、二维树状数组</p>
             </section>
             
             <div class="filter"></div>
-            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180310%20Problem0310/20180309-01.png" alt="">
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180602%20Problem0602/20180603-01.png" alt="">
             
         </div>
         

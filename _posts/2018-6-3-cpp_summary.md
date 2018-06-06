@@ -380,7 +380,7 @@ int main(){
 
 #### **输入输出有关的函数**   
 cin.get、cout.put函数  
-```cpp    
+```cpp
   //读取一个字符存到ch中，空格、回车均可存     
   cin.get(ch);  
 
@@ -505,13 +505,13 @@ cin.ignore、cin.putback、cin.peek函数
     ```  
 
  - **endl, flush**  
-    endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
-    ```cpp
-      //即使缓冲区的数据没有存满也可以显示提示信息
-      int num;
-      cout << "Enter an intger:" << flush;
-      cin >> num;
-    ```   
+  endl会将光标移到下一行开头('\n')，并清空缓冲区(相当于执行flush)函数  
+```cpp
+    //即使缓冲区的数据没有存满也可以显示提示信息
+    int num;
+    cout << "Enter an intger:" << flush;
+    cin >> num;
+```
 <br>
 
 #### **自定义的操纵器**  
@@ -711,7 +711,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   5. 每个静态成员变量的类型和作用域，都定义于类的定义之外，与类关联但和对象没有关系  
   6. 声明于类内，定义于源文件内  
 
-  ```cpp
+```cpp
     class test{
     public:
         int get()  { return a; }
@@ -732,7 +732,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
         cout << obj1.get() << " " << obj2.get() << endl;
         //Output: 1 1
     }
-  ```
+```
 <br>
 
 #### **静态成员函数**  
@@ -740,7 +740,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
   1. 只能访问类内声明的其他静态成员（函数或变量）  
   2. 调用时使用类名，而非对象名  
 
-  ```cpp
+```cpp
     class test{
     public:
         static int showA() { return a; }
@@ -760,7 +760,7 @@ cin.read, cout.write用于二进制形式输入输出，存储速度快
         cout << test::showA() << endl;
         //Output: 1
     }
-  ```
+```
 <br>
 
 #### **常量成员函数**  
@@ -1551,7 +1551,7 @@ this指针为指向对象自己的指针
       cout << instanceA.get() << " " << instanceB.get() << endl;
       //Output: 2 1
   }
-```  
+```
  <br>
 
 #### **重载运算符限制**  
@@ -1570,8 +1570,8 @@ this指针为指向对象自己的指针
 <br>
 
 #### **作为成员函数重载 +  （重载- / * 等同理）**  
-  以复数相加为栗子   
-  ```cpp
+以复数相加为栗子   
+```cpp
     class ComplexNum{
     public:
         ComplexNum(): real(0), vir(0)  {}
@@ -1603,10 +1603,10 @@ this指针为指向对象自己的指针
         num3.display();
         //Output: 3+6i
     }
-  ```  
-  <br>
+```
+<br>
 #### **作为成员函数重载关系运算符 ==**
-  ```cpp
+```cpp
     class ComplexNum{
     public:
         ComplexNum(int a, int b): real(a), vir(b)  {}
@@ -1626,8 +1626,8 @@ this指针为指向对象自己的指针
         cout << ((num1 == num2)?"TURE":"FALSE") << endl;
         //Output: FALSE
     }
-  ```
-  <br>
+```
+<br>
 #### **作为非成员函数重载 +**  
   把上面的复数重载+拿下来改改  
   ```cpp
@@ -1667,7 +1667,7 @@ this指针为指向对象自己的指针
         num3.display();
         //Output: 10+6i
     }
-  ```  
+  ```
 <br>
 
 #### **重载流插入(<<)和流析取(>>)运算符**  
@@ -1705,7 +1705,7 @@ this指针为指向对象自己的指针
       cout << num1 << " + " << num2 << " = " << num3 << endl;
       //Output: (1,2i) + (2,4i) = (3,6i)
   }
-```  
+```
 <br>
 
 #### **重载赋值运算符 =**  
@@ -1906,7 +1906,7 @@ this指针为指向对象自己的指针
 
 ### **[OOP] 类型转换**  
 #### **基本类型 -> 类**  
-  ```cpp
+```cpp
   class myString{
   public:
       myString(char* str);
@@ -1924,7 +1924,7 @@ this指针为指向对象自己的指针
   int main(){
       myString s1 = myString((char*)("Apple"));  //从char*类型到myString类型，通过隐式调用构造函数
   }
-  ```
+```
 #### **类 -> 基本类型**  
 重载类型转换符函数  
 ```cpp
