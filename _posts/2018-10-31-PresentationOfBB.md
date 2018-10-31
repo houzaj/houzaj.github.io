@@ -3,15 +3,11 @@ layout: post
 title: '文 · 给计科1吹水的讲稿'
 date: 2018-10-31
 author: HouZAJ
-cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181022%20Problem1022/20181022-01.png'
+cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181031%20%E7%BB%99%E8%AE%A1%E7%A7%911%E5%90%B9%E6%B0%B4%E7%9A%84%E8%AE%B2%E7%A8%BF/20181031-01.png'
 tags: Text
 ---
 
 > 应该是给计科1吹水的讲稿 emmmm
-
-<br>
-
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=475774775&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
 
 <br>
 
@@ -60,6 +56,6 @@ eg. 官方文档时不时就更新一次，一更新书中就有部分内容过�
 2. **数据结构与算法可视化网站**  
   VisualGO: [https://visualgo.net/zh](https://visualgo.net/zh)  
 3. **编程语言**  
-  C++: 《C++ Primer Plus》《C++ Primer》  
-  Java: 《Core Java》《疯狂Java讲义》（实际上个人对Java没什么话语权，毕竟没修）  
-  Python: 廖雪峰Python教程 [https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
+  **C++:** 《C++ Primer Plus》《C++ Primer》  
+  **Java:** 《Core Java》《疯狂Java讲义》（实际上个人对Java没什么话语权，毕竟没修）  
+  **Python:** 廖雪峰Python教程 [https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
