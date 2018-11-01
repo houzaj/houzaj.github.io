@@ -15,10 +15,12 @@ tags: Text
 受邀给计科1班吹水 \_(:з」∠)\_  
 对于分享会这种东西，个人赞同彪神的观点（大概就是分享经验没啥用，我这么菜更没啥用！）  
 因此，留下此文，以后一般情况下再找本蒟蒻分享经验的，直接丢本文，然后一概拒绝！  
+<br>
 
 ### PART II - 关于绩点  
 首先，**本人不是很care绩点**，所以问我怎么取得高绩点的话，我也不清楚为什么老师给我成绩这么高，可能是大一运气太好了  
 其次，个人一直认为，**绩点不能说明什么问题，最多说明你的学习态度不错**，换句话说，我相信如果你的学习态度ok的话，绩点不会低到哪里去。什么叫做学习态度不错呢？举个栗子，写一篇实验报告你自己都觉得不咋滴你就交了，那老师给你的成绩也不咋滴，如果能改到自己满意再交相信成绩还是不错的，具有本校特色的高数考试就是另外一个栗子了 \[滑稽.jpg\]  
+<br>
 
 ### PART III - 关于学习
 1. **提高效率**  
@@ -45,6 +47,7 @@ eg. 官方文档时不时就更新一次，一更新书中就有部分内容过�
 无论掌握多少门编程语言，个人都不觉得是厉害的  
 编程语言是共通的，比如当你学习了C语言、C++后，你能将它的思维自然而然拓展到Java、Python等语言，学习之后新的编程语言花不了多少时间与精力  
 能够理解算法，应用算法，甚至是创造算法，才是真的niubility的  
+<br>
 
 ### PART IV - 关于资源
 1. **Online Judge**  
@@ -52,7 +55,7 @@ eg. 官方文档时不时就更新一次，一更新书中就有部分内容过�
   LeetCode: [https://leetcode.com/](https://leetcode.com/)  
   牛客网: [https://www.nowcoder.com/](https://www.nowcoder.com/)  
   - **acm方向**  
-  POJ, HDU, ZOJ, CodeForces, ...
+  POJ, HDU, ZOJ, CodeForces, ...  
   更多加入acm新生周训你就会知道\(没错这是硬广，\[滑稽.jpg\]\)  
 2. **数据结构与算法可视化网站**  
   VisualGO: [https://visualgo.net/zh](https://visualgo.net/zh)  
@@ -62,5 +65,5 @@ eg. 官方文档时不时就更新一次，一更新书中就有部分内容过�
 3. **编程语言（入门）**  
   **C++:** 《C++ Primer Plus》《C++ Primer》  
   **Java:** 《Core Java》《疯狂Java讲义》（实际上个人对Java没什么话语权，毕竟没修）  
-  **Python:** 廖雪峰Python教程 [https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
+  **Python:** 廖雪峰Python教程   [https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
   **其他：** Django, Kotlin, Node.js, ...，查官方文档、YouTube视频以及Google  
