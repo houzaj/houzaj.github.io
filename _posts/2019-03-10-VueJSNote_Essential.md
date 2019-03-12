@@ -1,21 +1,17 @@
 ---
 layout: post
-title: '刷题记（无向图的极大团与最大团）'
+title: 'Vue.js Guide - Essential'
 date: 2019-03-07
 author: HouZAJ
-cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190307%203-21/20190307-01.png'
-tags: Programming
+cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190310%20VueJSNote_Essential/20190310-01.png'
+tags: VueJS
 ---
 
-> CONTENT:  无向图的极大团与最大团的Bron–Kerbosch算法  
-> DETAIL: Bron–Kerbosch算法个人的一点理解
-> PROBLEMS:  
-> ZOJ 1492  
-> CF 1105E  
+> Vue.js Notebook - Essential  
 
 <br>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=28377225&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=33361761&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
 
 <br>
 
@@ -580,4 +576,244 @@ Add a `key` attribute to make elements separate
 ```
 <br>
 
-###
+### List Rendering
+#### Mapping an array to list with v-for
+```javascript
+<body>
+    <div id="app">
+        <ol>
+            <li v-for="ele in arr">
+                {{ ele.msg }}
+            </li>
+        </ol>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arr: [
+                    { msg: 'Hello' },
+                    { msg: 'World' }
+                ]
+            },
+        })
+    </script>
+</body>
+```
+<br>
+
+An optional second argument is for the index of item  
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(ele, idx) in arr">
+                {{ ele.msg }} ranks {{ idx + 1 }}.
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arr: [
+                    { msg: 'Hello' },
+                    { msg: 'World' }
+                ]
+            },
+        })
+    </script>
+</body>
+```
+<br>
+
+#### An object with v-for
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="ele in obj">
+                {{ ele }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    firstName: 'houz',
+                    lastName: 'aj',
+                    score: 0,
+                    ranking: 999
+                }
+            },
+        })
+    </script>
+</body>
+```
+<br>
+
+An optional second argument is for the key of item
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(ele, key) in obj">
+                {{ key }}: {{ ele }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    firstName: 'houz',
+                    lastName: 'aj',
+                    score: 0,
+                    ranking: 999
+                }
+            },
+        })
+    </script>
+</body>
+```
+<br>
+
+#### About array
+Because of limitations in javascript, Vue cannot detect the following changes to an array:  
+```javascript
+vm.items[indexOfItem] = newValue
+vm.items.length = newLength
+```
+Therefore, use the following code to replace them  
+```javascript
+Vue.set(vm.items, indexOfItem, newValue) //vm.$set <==> Vue.set
+vm.items.splice(indexOfItem, 1, newValue)
+vm.items.splice(newLength)
+```
+<br>
+
+#### Object Change Detection
+Vue cannot detect property addition or deletion. the method `Vue.set(object, key, value)` can be used to make Vue detect it.  
+```javascript
+var vm = new Vue({
+  data: {
+    userProfile: {
+      name: 'Anika'
+    }
+  }
+})
+
+Vue.set(vm.userProfile, 'age', 27)
+```
+the method `Vue.assign()` can assign a number of new properties to an existing object  
+```javascript
+vm.userProfile = Object.assign({}, vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+```
+<br>
+
+#### Displaying Filtered/Sorted Results
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="n in evenNumbers">
+                {{ n }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                numbers: [1, 2, 3, 4, 5, 7, 8, 888]
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return (number & 1) === 0
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="n in even(numbers)">
+                {{ n }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                numbers: [1, 2, 3, 4, 5, 7, 8, 888]
+            },
+            methods: {
+                even: function (numbers) {
+                    return this.numbers.filter(function (number) {
+                        return (number & 1) === 0
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### v-for in range
+```javascript
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="n in 10">
+                {{ n }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### v-for on a <template>
+```javascript
+<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>
+```
+<br>
+
+
+#### v-for with a Component
+In 2.2.0+, when using v-for with a component, a key is now required.  
+```javascript
+<my-component
+  v-for="(item, index) in items"
+  v-bind:item="item"
+  v-bind:index="index"
+  v-bind:key="item.id"
+></my-component>
+```
