@@ -15,6 +15,10 @@ tags: VueJS
 
 <br>
 
+* CATAlOGY  
+{:toc}  
+
+<br>
 
 ### Introduction
 #### Text Interpolation
@@ -578,7 +582,7 @@ Add a `key` attribute to make elements separate
 
 ### List Rendering
 #### Mapping an array to list with v-for
-```javascript
+```html
 <body>
     <div id="app">
         <ol>
@@ -603,7 +607,7 @@ Add a `key` attribute to make elements separate
 <br>
 
 An optional second argument is for the index of item  
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -628,7 +632,7 @@ An optional second argument is for the index of item
 <br>
 
 #### An object with v-for
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -655,7 +659,7 @@ An optional second argument is for the index of item
 <br>
 
 An optional second argument is for the key of item
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -683,12 +687,12 @@ An optional second argument is for the key of item
 
 #### About array
 Because of limitations in javascript, Vue cannot detect the following changes to an array:  
-```javascript
+```html
 vm.items[indexOfItem] = newValue
 vm.items.length = newLength
 ```
 Therefore, use the following code to replace them  
-```javascript
+```html
 Vue.set(vm.items, indexOfItem, newValue) //vm.$set <==> Vue.set
 vm.items.splice(indexOfItem, 1, newValue)
 vm.items.splice(newLength)
@@ -697,7 +701,7 @@ vm.items.splice(newLength)
 
 #### Object Change Detection
 Vue cannot detect property addition or deletion. the method `Vue.set(object, key, value)` can be used to make Vue detect it.  
-```javascript
+```html
 var vm = new Vue({
   data: {
     userProfile: {
@@ -709,7 +713,7 @@ var vm = new Vue({
 Vue.set(vm.userProfile, 'age', 27)
 ```
 the method `Vue.assign()` can assign a number of new properties to an existing object  
-```javascript
+```html
 vm.userProfile = Object.assign({}, vm.userProfile, {
   age: 27,
   favoriteColor: 'Vue Green'
@@ -718,7 +722,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 <br>
 
 #### Displaying Filtered/Sorted Results
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -746,7 +750,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 ```
 <br>
 
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -775,7 +779,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 <br>
 
 #### v-for in range
-```javascript
+```html
 <body>
     <div id="app">
         <ul>
@@ -796,7 +800,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 <br>
 
 #### v-for on a <template>
-```javascript
+```html
 <ul>
   <template v-for="item in items">
     <li>{{ item.msg }}</li>
@@ -806,10 +810,9 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 ```
 <br>
 
-
 #### v-for with a Component
 In 2.2.0+, when using v-for with a component, a key is now required.  
-```javascript
+```html
 <my-component
   v-for="(item, index) in items"
   v-bind:item="item"
@@ -817,3 +820,212 @@ In 2.2.0+, when using v-for with a component, a key is now required.
   v-bind:key="item.id"
 ></my-component>
 ```
+<br>
+
+### Event Handling
+#### Listening to Events
+```html
+<body>
+    <div id="app">
+        <button v-on:click="counter += 1">Add 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Method Event Handlers
+```html
+<body>
+    <div id="app">
+        <button @click="greet">Click</button>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+            },
+            methods: {
+                greet: function () {
+                    alert("Hello World!")
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+```html
+<body>
+    <div id="app">
+        <button @click="greet('HHHH')">Click</button>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+            },
+            methods: {
+                greet: function (msg) {
+                    alert("Hello " + msg + "!")
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Access the original DOM event
+`$event`:  pass it into a method using the special $event variable in an inline statement  
+```html
+<body>
+    <div id="app">
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+        </button>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+            },
+            methods: {
+                warn: function (message, event) {
+                    // now we have access to the native event
+                    if (event) event.preventDefault()
+                    alert(message)
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Event Modifiers
+Vue provides event modifiers for `v-on`. Recall that modifiers are directive postfixes denoted by a dot.  
+- .stop  
+- .prevent  
+- .capture  
+- .self  
+- .once  
+- .passive  
+
+```html
+<!-- the click events propagation will be stopped -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- the submit event will no longer reload the page -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- modifiers can be chained -->
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- just the modifier -->
+<form v-on:submit.prevent></form>
+
+<!-- use capture mode when adding the event listener -->
+<!-- i.e. an event targeting an inner element is handled here before being handled by that element -->
+<div v-on:click.capture="doThis">...</div>
+
+<!-- only trigger handler if event.target is the element itself -->
+<!-- i.e. not from a child element -->
+<div v-on:click.self="doThat">...</div>
+
+<!-- New in 2.1.4+ -->
+<!-- the click event will be triggered at most once -->
+<a v-on:click.once="doThis"></a>
+
+<!-- New in 2.3.0+ -->
+<!-- the scroll event's default behavior (scrolling) will happen -->
+<!-- immediately, instead of waiting for `onScroll` to complete  -->
+<!-- in case it contains `event.preventDefault()`                -->
+<div v-on:scroll.passive="onScroll">...</div>
+```
+<br>
+
+#### Key Modifiers
+Vue allows adding key modifiers for v-on when listening for key events:  
+Vue provides aliases for the most commonly used key codes when necessary for legacy browser support:  
+- .enter  
+- .tab  
+- .delete (captures both “Delete” and “Backspace” keys)  
+- .esc   
+- .space  
+- .up  
+- .down  
+- .left  
+- .right  
+- .ctrl  
+- .alt  
+- .shift  
+- .meta  
+- .exact (new in 2.5.0+, allows control of the exact combination of system modifiers needed to trigger an event)   
+
+```html
+<body>
+    <div id="app">
+        <!-- only call `vm.submit()` when the `key` is `Enter` -->
+        <input v-on:keyup.enter="submit">
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                submit: function () {
+                    alert('success!')
+                }
+            },
+
+        })
+    </script>
+</body>
+```
+<br>
+
+```html
+<body>
+    <div id="app">
+        <textarea cols="30" rows="10" v-on:keyup.67.ctrl="perCopy">
+
+        </textarea>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                perCopy: function () {
+                    alert('Don\'t Copy!')
+                }
+            },
+
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Mouse Button Modifiers
+(New in 2.2.0+)  
+- .left  
+- .right  
+- .middle  
+
+<br>
+
+###
