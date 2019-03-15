@@ -11,7 +11,7 @@ tags: VueJS
 
 <br>
 
-<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=33361761&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&id=401722084&auto=0&height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>      
 
 <br>
 
@@ -19,6 +19,12 @@ tags: VueJS
 {:toc}  
 
 <br>
+
+### BB
+HI EVERYONE!  
+In order to avoid ambiguity, I try my best to write this article in English. \( Nevertheless, I'm poor in English QAQ  
+This article is concerning the essential part of `Vue.js`, and most of the content is from official guide(documentation). Of course, I may modify the samples in some part.   
+Additionally, the note of this series may **NOT** be updated, because I just want to use some nice UI library based on Vue.js.
 
 ### Introduction
 #### Text Interpolation
@@ -1028,4 +1034,204 @@ Vue provides aliases for the most commonly used key codes when necessary for leg
 
 <br>
 
-###
+### Form Input Bindings
+#### Basic Usage
+`v-model`: binding to input, textarea, checkbox, ratio, select, etc  
+<br>
+e.g. Bind to an array  
+```html
+<body>
+    <div id="app">
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label>Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label>John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label>Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                checkedNames: []
+            }
+        })
+    </script>
+</body>
+```
+<br>
+```html
+<body>
+    <div id="app">
+        <select v-model="selected" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                selected: []
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Value Bindings
+```html
+<!-- `picked` is a string "a" when checked -->
+<input type="radio" v-model="picked" value="a">
+
+<!-- `toggle` is either true or false -->
+<input type="checkbox" v-model="toggle">
+
+<!-- `selected` is a string "abc" when the first option is selected -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+
+<!-- When toggle is true, the value is 'yes'. Otherwise, it is 'no' -->
+<input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+```
+<br>
+
+#### Modifiers
+`.lazy`:  add the `lazy` modifier to instead sync after `change` events  
+```html
+<body>
+    <div id="app">
+        <input v-model.lazy="msg" @change="show">
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: ''
+            },
+            methods: {
+                show: function () {
+                    alert(this.msg);
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+`.number`: automatically typecast as a number  
+```html
+<input v-model.number="age" type="number">
+```
+<br>
+`.trim`: make user input be trimmed automatically  
+```html
+<input v-model.trim="msg">
+```
+<br>
+
+### Components Basics
+#### data must be a function
+In order to make component independent, data must be a function  
+```html
+data: function () {
+  return {
+    count: 0
+  }
+}
+```
+<br>
+
+#### Passing Data to Child Components with Props
+```html
+<body>
+    <div id="app">
+        <sample title="HELLO WORLD!"></sample>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('sample', {
+            props: ['title'],
+            template: `<button>{{ title }}</button>`
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: ''
+            },
+            methods: {
+                show: function () {
+                    alert(this.msg);
+                }
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### A Single Root Element
+Every component must have a single root element  
+<br>
+
+#### Passing Data to Parent Component with $emit
+```html
+<body>
+    <div id="app">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post
+                    v-for="post in posts"
+                    v-bind:key="post.id"
+                    v-bind:post="post"
+                    v-on:enlarge-text="postFontSize += $event"
+            ></blog-post>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                  <h3>{{ post.title }}</h3>
+                  <button v-on:click="$emit('enlarge-text', 0.1)">
+                      Enlarge text
+                  </button>
+                  <div v-html="post.content"></div>
+                </div>`
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                postFontSize: 1,
+                posts: [
+                    {
+                        title: 'Hello World',
+                        id: 0,
+                        content: 'NOTHING'
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+```
+<br>
+
+#### Dynamic Components
+```html
+<!-- Component changes when currentTabComponent changes -->
+<component v-bind:is="currentTabComponent"></component>
+```
