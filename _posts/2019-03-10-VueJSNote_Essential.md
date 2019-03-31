@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Vue.js Guide - Essential'
+title: 'Vue.js Guide Notebook - Essential'
 date: 2019-03-07
 author: HouZAJ
 cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190310%20VueJSNote_Essential/20190310-01.png'
