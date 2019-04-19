@@ -7,7 +7,7 @@ cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190310%20Vue
 tags: VueJS
 ---
 
-> Vue.js Notebook - Essential  
+> Vue.js Guide Notebook - Essential  
 
 <br>
 
@@ -24,7 +24,8 @@ tags: VueJS
 HI EVERYONE!  
 In order to avoid ambiguity, I try my best to write this article in English. \( Nevertheless, I'm poor in English QAQ  
 This article is concerning the essential part of `Vue.js`, and most of the content is from official guide(documentation). Of course, I may modify the samples in some part.   
-Additionally, the note of this series may **NOT** be updated, because I just want to use some nice UI library based on Vue.js.
+Additionally, the note of this series may **NOT** be updated, because I just want to use some nice UI library based on Vue.js.  
+<br>
 
 ### Introduction
 #### Text Interpolation
@@ -805,7 +806,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 ```
 <br>
 
-#### v-for on a <template>
+#### v-for on a \<template\>
 ```html
 <ul>
   <template v-for="item in items">
