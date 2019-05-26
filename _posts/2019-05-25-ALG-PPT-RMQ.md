@@ -4,7 +4,7 @@ title: '蒟蒻的算法PPT - 区间最值查询（RMQ）'
 date: 2019-05-25
 author: HouZAJ
 cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%871.PNG'
-tags: Problem
+tags: Algorithm PPT
 ---
 
 > CONTENT: 蒟蒻的算法PPT - 区间最值查询（RMQ）  
