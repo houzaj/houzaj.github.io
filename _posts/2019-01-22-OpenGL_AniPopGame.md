@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'OpenGL大作业之沙雕消消乐 —— 2019.1.22'
+title: '计 · OpenGL大作业之沙雕消消乐 —— 2019.1.22'
 date: 2019-01-22
 author: HouZAJ
 cover: 'https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190122%20OpenGLAniPop/20190122-01.png'
