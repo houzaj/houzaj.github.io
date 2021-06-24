@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（树状数组 I） —— 2018.6.3 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/06/03/20180603_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/06/03/20180603_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（树状数组 I） —— 2018.6.3</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-06-03"><i class="iconfont icon-date"></i>03 Jun 2018</time>
         </div>
     </div>
@@ -106,10 +117,10 @@
 	<span class="p">}</span>
 
 	<span class="c1">//lowbit： 获取最末位的1,表示为0000...1...00..的形式</span>
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
 
 	<span class="c1">//根据性质，不断减去末尾的1求和</span>
-	<span class="kt">int</span> <span class="n">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
+	<span class="kt">int</span> <span class="nf">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
 	    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
 	    <span class="k">for</span><span class="p">(</span><span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">idx</span> <span class="o">-=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">idx</span><span class="p">)){</span>
 	        <span class="n">sum</span> <span class="o">+=</span> <span class="n">tree</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
@@ -118,14 +129,14 @@
 	<span class="p">}</span>
 
 	<span class="c1">//根据定义，不断加上末尾的1来进位以更新</span>
-	<span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="k">while</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">){</span>
 	        <span class="n">tree</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
 	        <span class="n">idx</span> <span class="o">+=</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -157,7 +168,7 @@
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">3e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">id</span><span class="p">;</span>
 	    <span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">node</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
 	        <span class="k">if</span><span class="p">(</span><span class="n">e</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">e</span><span class="p">)</span>    <span class="k">return</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">e</span><span class="p">;</span>
@@ -170,9 +181,9 @@
 	<span class="n">node</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
 	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">));</span> <span class="p">}</span>
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
 	    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">-=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="n">sum</span> <span class="o">+=</span> <span class="n">tree</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
@@ -180,13 +191,13 @@
 	    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="n">tree</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span><span class="p">){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -233,7 +244,7 @@
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span>   <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">;</span>
 	    <span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">node</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
 	        <span class="k">if</span><span class="p">(</span><span class="n">s</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">s</span><span class="p">)</span>    <span class="k">return</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">s</span><span class="p">;</span>
@@ -244,9 +255,9 @@
 	<span class="n">node</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
 	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">));</span> <span class="p">}</span>
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="n">ll</span> <span class="n">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="n">ll</span> <span class="nf">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
 	    <span class="n">ll</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">-=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="n">sum</span> <span class="o">+=</span> <span class="n">tree</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
@@ -254,13 +265,13 @@
 	    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ll</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ll</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="n">tree</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">t</span><span class="p">,</span> <span class="n">csn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 	    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
 	    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
@@ -300,9 +311,9 @@
 	<span class="kt">int</span> <span class="n">tree</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
 
 	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">));}</span>
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">lowbit</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span><span class="p">);</span> <span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">int</span> <span class="n">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idy</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">getSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idy</span><span class="p">){</span>
 	    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">-=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">idy</span><span class="p">;</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">-=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">y</span><span class="p">)){</span>
@@ -312,7 +323,7 @@
 	    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idy</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idy</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
 	        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">idy</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">y</span> <span class="o">+=</span> <span class="n">lowbit</span><span class="p">(</span><span class="n">y</span><span class="p">)){</span>
 	            <span class="n">tree</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
@@ -320,7 +331,7 @@
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="n">init</span><span class="p">();</span>
 	    <span class="kt">int</span> <span class="n">op</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">op</span><span class="p">)){</span>
@@ -351,7 +362,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -375,7 +386,7 @@
         
         
         <div class="read-next-item">
-            <a href="/2018/06/02/20180602_Problems.html" class="read-next-link"></a>
+            <a href="/2018/06/02/20181118_Problems.html" class="read-next-link"></a>
             <section>
                 <span>刷题记（平衡树 I） —— 2018.6.2</span>
                 <p>  Treap、基础Splay、Splay的区间求和与区间修改</p>
@@ -391,7 +402,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

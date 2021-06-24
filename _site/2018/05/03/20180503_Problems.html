@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（后缀数组 I） —— 2018.5.3 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/05/03/20180503_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/05/03/20180503_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（后缀数组 I） —— 2018.5.3</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-05-03"><i class="iconfont icon-date"></i>03 May 2018</time>
         </div>
     </div>
@@ -71,6 +82,13 @@
 <p><br /></p>
 
 <iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=34998369&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="update20190709">Update(2019.07.09)</h3>
+<ol>
+  <li>修改了模板，并加入更详细的注释</li>
+</ol>
 
 <p><br /></p>
 
@@ -97,76 +115,123 @@
 <br />
 <strong>思路</strong>  <br />
 将一个串接到另一个串后面，中间用别的字符分割开，然后求sa、rank、height数组，那么最长公共子串就是height数组中满足sa[i]和sa[i - 1]分别位于两个串条件的最大值</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include&lt;cstdio&gt;
-</span>  <span class="cp">#include&lt;iostream&gt;
-</span>  <span class="cp">#include&lt;cstring&gt;
-</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">200010</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>  <span class="c1">//s是输入的字符串</span>
-  <span class="kt">int</span> <span class="n">sa</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t2</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">buc</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>  <span class="c1">//sa是后缀数组、buc是桶（给基数排序用）、t1和t2是临时数组</span>
-  <span class="kt">int</span> <span class="n">rk</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>   <span class="c1">//rk是名次数组，height是一个数组，用于保存相邻排名两个串的LCP</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">200000</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">buildSA</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">){</span>
-      <span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="p">;</span>
-      <span class="kt">int</span><span class="o">*</span> <span class="n">y</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">t1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t2</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">buc</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">sa</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">rk</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-      <span class="c1">//首先求出长度为1的字符串的sa数组</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>     <span class="n">sa</span><span class="p">[</span><span class="o">--</span><span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="c1">// buc：桶</span>
+<span class="c1">// sa[i]：第i名是第sa[i]个字符串，即sa形成了后缀排序后的数组</span>
+<span class="c1">// rank[i]：第i个字符串排第rank[i]名 (rank = rk)</span>
+<span class="c1">// height[i]：第sa[i]与第sa[i-1]个字符串的LCP值，即height[i] = lcp(sa[i], sa[i-1])</span>
 
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">){</span>
-          <span class="c1">//用sa数组排序第二关键字</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">j</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>   <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-              <span class="k">if</span><span class="p">(</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">j</span><span class="p">)</span>   <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">j</span><span class="p">;</span>
-          <span class="p">}</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">buildSA</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">128</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="p">,</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">buc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="c1">//使用基数排序获得初始排序值</span>
+    <span class="c1">//x[i]：第i个的排名是x[i]</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">buc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sa</span><span class="p">[</span><span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">--</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
 
-          <span class="c1">//再排序第一关键字</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]]</span><span class="o">++</span><span class="p">;</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>     <span class="n">sa</span><span class="p">[</span><span class="o">--</span><span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//y[i]：第i名是第y[i]个，属于次要关键字</span>
+        <span class="c1">//由于后面k个都没有次要关键字，所以都是第1名</span>
+        <span class="c1">//上一层的前面k个不能转移</span>
+        <span class="c1">//由于y[i]是按名次的，所以以遍历sa的顺序放入</span>
+        <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">y</span><span class="p">[</span><span class="o">++</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">y</span><span class="p">[</span><span class="o">++</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">//基数排序获取两个关键字合并后的sa</span>
+        <span class="c1">//基数排序是从低位往高位的，原理（可能？）为其是稳定排序</span>
+        <span class="c1">//因此下方同一个桶的值按y[i]的顺序</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">buc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">buc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">sa</span><span class="p">[</span><span class="n">buc</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]]</span><span class="o">--</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="c1">//如果相邻排名的主要关键字排名相同，且次要关键字排名也相同</span>
+        <span class="c1">//那么合并后排名也相同，还需要进一步倍增</span>
+        <span class="c1">//如果都不相同，那么说明已经排序完成，可以退出算法</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="n">n</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="n">n</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span><span class="p">];</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="o">?</span> <span class="n">p</span> <span class="o">:</span> <span class="o">++</span><span class="n">p</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-          <span class="c1">//得到了长度为2*j的字符串的sa数组，用这个数组推出名次数组</span>
-          <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
-          <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">x</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-              <span class="n">x</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">?</span> <span class="n">p</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">p</span><span class="o">++</span><span class="p">);</span>
-          <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">)</span>    <span class="k">break</span><span class="p">;</span>  <span class="c1">//名次互不相同，即可退出</span>
-          <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>  <span class="c1">//减小桶容量到p，因为其最大值最终只会到p</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">getHeight</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//rk[sa[i]] == i是显然的</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rk</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//h[i]=height[rank[i]]=lcp(sa[rank[i]], sa[rank[i]-1])=lcp(i,sa[rank[i]-1])</span>
+    <span class="c1">//有性质h[i]&gt;=h[i-1]+1</span>
+    <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">rk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//利用性质h[i]&gt;=h[i-1]+1</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">k</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">rk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">height</span><span class="p">[</span><span class="n">rk</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">getHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">rk</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>  <span class="c1">//求出rk数组，注意sa[0]是不存在的一个字符</span>
-      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>  <span class="c1">//利用h[i] &gt;= h[i - 1] - 1，求出height数组</span>
-          <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>   <span class="n">k</span><span class="o">--</span><span class="p">;</span>
-          <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="n">rk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-          <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span> <span class="n">k</span><span class="o">++</span><span class="p">;</span>
-          <span class="n">height</span><span class="p">[</span><span class="n">rk</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
-  	<span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">s</span><span class="p">)){</span>
-  		<span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">pos</span><span class="p">;</span>
-  		<span class="n">pos</span> <span class="o">=</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-  		<span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'$'</span><span class="p">;</span>
-  		<span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">s</span> <span class="o">+</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-  		<span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'$'</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">pos</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">buildSA</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+        <span class="n">getHeight</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
 
-  		<span class="n">buildSA</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
-  		<span class="n">getHeight</span><span class="p">(</span><span class="n">len</span><span class="p">);</span>
-  		<span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-          <span class="k">if</span><span class="p">(</span><span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ans</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pos</span> <span class="o">&amp;&amp;</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pos</span> <span class="o">||</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pos</span> <span class="o">&amp;&amp;</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pos</span><span class="p">))</span>
-              <span class="n">ans</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-  		<span class="p">}</span>
-  		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">ans</span><span class="p">);</span>
-  	<span class="p">}</span>
-  <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">maxx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">maxx</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pos</span> <span class="o">&amp;&amp;</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pos</span> <span class="o">||</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pos</span> <span class="o">&amp;&amp;</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pos</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">maxx</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">maxx</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="p">.</span><span class="n">flush</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div></div>
 <p><br /></p>
 
@@ -186,7 +251,7 @@
   <span class="kt">int</span> <span class="n">sa</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t2</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">buc</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
   <span class="kt">int</span> <span class="n">rk</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-  <span class="kt">void</span> <span class="n">buildSA</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">buildSA</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">){</span>
       <span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="p">;</span>
       <span class="kt">int</span><span class="o">*</span> <span class="n">y</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -214,7 +279,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">getHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">getHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">rk</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>   <span class="n">k</span><span class="o">--</span><span class="p">;</span>
@@ -224,7 +289,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">getMaxCnt</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="nf">getMaxCnt</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">){</span>
       <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -238,7 +303,7 @@
       <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
       <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">k</span><span class="p">)){</span>
           <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -287,7 +352,7 @@
   <span class="kt">int</span> <span class="n">rk</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
   <span class="kt">int</span> <span class="n">q</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">20</span><span class="p">];</span>
 
-  <span class="kt">void</span> <span class="n">buildSA</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">buildSA</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">){</span>
       <span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="p">;</span>
       <span class="kt">int</span><span class="o">*</span> <span class="n">y</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>          <span class="n">buc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -315,7 +380,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">getHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">getHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">rk</span><span class="p">[</span><span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>   <span class="n">k</span><span class="o">--</span><span class="p">;</span>
@@ -325,7 +390,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
       <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
       <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
@@ -349,7 +414,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -389,7 +454,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

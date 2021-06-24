@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（最短路问题） —— 2018.5.12 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/05/12/20180512_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/05/12/20180512_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（最短路问题） —— 2018.5.12</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-05-12"><i class="iconfont icon-date"></i>12 May 2018</time>
         </div>
     </div>
@@ -99,12 +110,12 @@ Dijkstra做法：</p>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">2e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">u</span><span class="p">;</span>
 	    <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pv</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pu</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">pv</span><span class="p">),</span> <span class="n">u</span><span class="p">(</span><span class="n">pu</span><span class="p">)</span> <span class="p">{}</span>
 	    <span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">node</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">val</span><span class="p">;</span> <span class="p">}</span>
 	<span class="p">};</span>
-	<span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
 	<span class="p">};</span>
 	<span class="n">edge</span> <span class="n">e</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
@@ -113,21 +124,21 @@ Dijkstra做法：</p>
 	<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
 	    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
 	    <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">dijkstra</span><span class="p">(){</span>
+	<span class="kt">void</span> <span class="nf">dijkstra</span><span class="p">(){</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
 	        <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">val</span><span class="p">;</span>
@@ -146,7 +157,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -171,7 +182,7 @@ Dijkstra做法：</p>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">2e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
 	<span class="p">};</span>
 	<span class="n">edge</span> <span class="n">e</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
@@ -181,7 +192,7 @@ Dijkstra做法：</p>
 	<span class="kt">bool</span> <span class="n">inque</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">inque</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">inque</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
@@ -189,14 +200,14 @@ Dijkstra做法：</p>
 	    <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
 	    <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">spfa</span><span class="p">(){</span>
+	<span class="kt">void</span> <span class="nf">spfa</span><span class="p">(){</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 	    <span class="n">inque</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
@@ -216,7 +227,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -245,12 +256,12 @@ Dijkstra做法：</p>
 
 	<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>     <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">floyd</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">floyd</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
 	        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
 	            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
@@ -260,7 +271,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
@@ -302,7 +313,7 @@ Dijkstra做法：</p>
 		<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 		<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-		<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+		<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 		    <span class="kt">double</span> <span class="n">cost</span><span class="p">;</span>
 		    <span class="kt">int</span> <span class="n">u</span><span class="p">;</span>
 		    <span class="n">node</span><span class="p">(</span><span class="kt">double</span> <span class="n">pc</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pu</span><span class="p">)</span><span class="o">:</span> <span class="n">cost</span><span class="p">(</span><span class="n">pc</span><span class="p">),</span> <span class="n">u</span><span class="p">(</span><span class="n">pu</span><span class="p">)</span> <span class="p">{}</span>
@@ -314,12 +325,12 @@ Dijkstra做法：</p>
 		<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
 		<span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-		<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+		<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 		    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>  <span class="n">mincost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inf</span><span class="p">;</span>
 		    <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">used</span><span class="p">));</span>
 		<span class="p">}</span>
 
-		<span class="kt">void</span> <span class="n">prim</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+		<span class="kt">void</span> <span class="nf">prim</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 		    <span class="kt">double</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 		    <span class="n">mincost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 		    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
@@ -344,7 +355,7 @@ Dijkstra做法：</p>
 		    <span class="p">}</span>
 		<span class="p">}</span>
 
-		<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+		<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 		    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 		    <span class="kt">int</span> <span class="n">caseno</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 		    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span><span class="p">){</span>
@@ -386,14 +397,14 @@ Dijkstra做法：</p>
 	<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">edge</span><span class="p">{</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span> <span class="p">};</span>
+	<span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span> <span class="p">};</span>
 	<span class="kt">int</span> <span class="n">headt</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">head</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">edge</span> <span class="n">e</span><span class="p">[</span><span class="n">N</span><span class="o">*</span><span class="n">N</span><span class="p">],</span> <span class="n">et</span><span class="p">[</span><span class="n">N</span><span class="o">*</span><span class="n">N</span><span class="p">];</span>
 	<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">dt</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
 	<span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">headt</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">headt</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
@@ -401,7 +412,7 @@ Dijkstra做法：</p>
 	    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
@@ -413,7 +424,7 @@ Dijkstra做法：</p>
 	    <span class="n">headt</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">spfa</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">spfa</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 	    <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
@@ -443,7 +454,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -481,7 +492,7 @@ Dijkstra做法：</p>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1005</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
 	    <span class="kt">double</span> <span class="n">commision</span><span class="p">,</span> <span class="n">rate</span><span class="p">;</span>
 	<span class="p">};</span>
@@ -493,14 +504,14 @@ Dijkstra做法：</p>
 	<span class="kt">bool</span> <span class="n">inque</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">inque</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">inque</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
 	    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">double</span> <span class="n">commision</span><span class="p">,</span> <span class="kt">double</span> <span class="n">rate</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">double</span> <span class="n">commision</span><span class="p">,</span> <span class="kt">double</span> <span class="n">rate</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">rate</span> <span class="o">=</span> <span class="n">rate</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">commision</span> <span class="o">=</span> <span class="n">commision</span><span class="p">;</span>
@@ -508,7 +519,7 @@ Dijkstra做法：</p>
 	    <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">bool</span> <span class="n">spfa</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span> <span class="n">base</span><span class="p">){</span>
+	<span class="kt">bool</span> <span class="nf">spfa</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span> <span class="n">base</span><span class="p">){</span>
 	    <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span><span class="p">;</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
@@ -531,7 +542,7 @@ Dijkstra做法：</p>
 	    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span>
 	    <span class="kt">double</span> <span class="n">base</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">)){</span>
@@ -568,13 +579,13 @@ Dijkstra做法：</p>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">205</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">double</span> <span class="n">inf</span> <span class="o">=</span> <span class="mf">1e8</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
 	    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 	    <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">double</span> <span class="n">px</span><span class="p">,</span> <span class="kt">double</span> <span class="n">py</span><span class="p">)</span><span class="o">:</span> <span class="n">id</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span> <span class="n">x</span><span class="p">(</span><span class="n">px</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">py</span><span class="p">)</span> <span class="p">{}</span>
 	<span class="p">};</span>
 
-	<span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
 	    <span class="kt">double</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
 	<span class="p">};</span>
@@ -589,7 +600,7 @@ Dijkstra做法：</p>
 	<span class="n">vector</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">vector</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">nd</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>  <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clear</span><span class="p">();</span>
 	    <span class="n">nd</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>  <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inf</span><span class="p">;</span>
@@ -598,18 +609,18 @@ Dijkstra做法：</p>
 	    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">double</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">double</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
 	    <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">inline</span> <span class="kt">double</span> <span class="n">getDis</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y2</span><span class="p">){</span>
+	<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">getDis</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y2</span><span class="p">){</span>
 	    <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">));</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">spfa</span><span class="p">(){</span>
+	<span class="kt">void</span> <span class="nf">spfa</span><span class="p">(){</span>
 	    <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	    <span class="n">inque</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -630,7 +641,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
 
 	    <span class="kt">double</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">;</span>
@@ -693,12 +704,12 @@ Dijkstra做法：</p>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
 	    <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">lower</span><span class="p">;</span>
 	    <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pu</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pv</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pupper</span><span class="p">,</span> <span class="kt">int</span> <span class="n">plower</span><span class="p">)</span><span class="o">:</span> <span class="n">u</span><span class="p">(</span><span class="n">pu</span><span class="p">),</span> <span class="n">val</span><span class="p">(</span><span class="n">pv</span><span class="p">),</span> <span class="n">upper</span><span class="p">(</span><span class="n">pupper</span><span class="p">),</span> <span class="n">lower</span><span class="p">(</span><span class="n">plower</span><span class="p">)</span> <span class="p">{}</span>
 	    <span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">node</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">val</span><span class="p">;</span> <span class="p">}</span>
 	<span class="p">};</span>
-	<span class="k">struct</span> <span class="n">edge</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span> <span class="p">};</span>
+	<span class="k">struct</span> <span class="nc">edge</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span> <span class="p">};</span>
 
 	<span class="kt">int</span> <span class="n">head</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="n">edge</span> <span class="n">e</span><span class="p">[</span><span class="n">N</span><span class="o">*</span><span class="n">N</span><span class="p">];</span>
@@ -710,7 +721,7 @@ Dijkstra做法：</p>
 
 	<span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+	<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">used</span><span class="p">));</span>
 	    <span class="n">memset</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d</span><span class="p">));</span>
@@ -718,14 +729,14 @@ Dijkstra做法：</p>
 	    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
 	    <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
 	    <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">lv_lim</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">lv_lim</span><span class="p">){</span>
 	    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">lv_lim</span><span class="p">,</span> <span class="n">lv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lv_lim</span><span class="p">));</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
 	        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">u</span><span class="p">;</span>
@@ -749,7 +760,7 @@ Dijkstra做法：</p>
 	    <span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	    <span class="kt">int</span> <span class="n">lv_lim</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
 	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lv_lim</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
 	        <span class="n">init</span><span class="p">();</span>
@@ -782,7 +793,7 @@ Dijkstra做法：</p>
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -822,7 +833,7 @@ Dijkstra做法：</p>
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

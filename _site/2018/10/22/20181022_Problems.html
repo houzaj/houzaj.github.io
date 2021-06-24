@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（半平面交） —— 2018.10.22 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（半平面交） —— 2018.10.22">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（半平面交） —— 2018.10.22 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2018/10/22/20181022_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（半平面交） —— 2018.10.22</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-10-22"><i class="iconfont icon-date"></i>22 Oct 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181022%20Problem1022/20181022-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>半平面交（zzy的nlogn增量法）</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=475774775&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>在ACM知识体系中个人最不喜计算几何，于是体验了一把什么叫做基础计算几何全不会然后直接上半平面交的酸爽 T^T<br />
+只要模板题，拓展部分当然是遇到题目再提_(:з」∠)_ （我不会说其实是为了补南京网赛题才来学半平面交的）<br />
+<br /></p>
+
+<h3 id="art-gallery---poj---1279">Art Gallery - POJ - 1279</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181022%20Problem1022/Art%20Gallery%20-%20POJ%201279.jpg" alt="" /><br />
+<strong>链接</strong> <br />
+<a href="https://cn.vjudge.net/problem/POJ-1279">https://cn.vjudge.net/problem/POJ-1279</a><br />
+<strong>题意</strong><br />
+求多边形核的面积<br />
+<strong>思路</strong><br />
+半平面交模板题，使用的是zzy大神的增量法</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;vector&gt;
+</span>  <span class="cp">#include &lt;deque&gt;
+</span>  <span class="cp">#include &lt;cmath&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1500</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span>
+      <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+      <span class="n">Point</span><span class="p">()</span> <span class="p">{}</span>
+      <span class="n">Point</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="n">Point</span> <span class="k">operator</span> <span class="o">-</span> <span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="k">typedef</span> <span class="n">Point</span> <span class="n">Vector</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Line</span><span class="p">{</span>
+      <span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">angle</span><span class="p">;</span>
+      <span class="kt">void</span> <span class="n">getAngle</span><span class="p">()</span> <span class="p">{</span><span class="n">angle</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">);}</span>
+      <span class="n">Line</span><span class="p">(){}</span>
+      <span class="n">Line</span><span class="p">(</span><span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">Vector</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="p">};</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&gt;</span> <span class="n">hp</span><span class="p">;</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">pt</span><span class="p">;</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">;</span>
+  <span class="n">Line</span> <span class="n">que</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kt">int</span> <span class="nf">dcmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">eps</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="nf">cross</span><span class="p">(</span><span class="n">Vector</span> <span class="n">a</span><span class="p">,</span> <span class="n">Vector</span> <span class="n">b</span><span class="p">){</span>
+      <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">b</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="nf">area</span><span class="p">(</span><span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">Point</span> <span class="n">b</span><span class="p">,</span> <span class="n">Point</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">cross</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">a</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 点是否在线的右边（不含在线上的情况）</span>
+  <span class="kt">bool</span> <span class="nf">isOnLineRight</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Point</span> <span class="n">v</span><span class="p">){</span>
+      <span class="k">return</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 按极角顺时针排序</span>
+  <span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Line</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">angle</span> <span class="o">-</span> <span class="n">v</span><span class="p">.</span><span class="n">angle</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">return</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">Point</span> <span class="nf">getLineIntersection</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Line</span> <span class="n">v</span><span class="p">){</span>
+      <span class="n">Point</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+                 <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
+               <span class="o">/</span> <span class="p">((</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+                 <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">));</span>
+      <span class="n">ret</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">ret</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 判断l2,l3的交点时候在l1的右边</span>
+  <span class="kt">bool</span> <span class="nf">judge</span><span class="p">(</span><span class="n">Line</span> <span class="n">l1</span><span class="p">,</span> <span class="n">Line</span> <span class="n">l2</span><span class="p">,</span> <span class="n">Line</span> <span class="n">l3</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="n">getLineIntersection</span><span class="p">(</span><span class="n">l2</span><span class="p">,</span> <span class="n">l3</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">isOnLineRight</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="nf">hpi</span><span class="p">(){</span><span class="c1">//half-plane intersection</span>
+      <span class="n">ans</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+      <span class="n">sort</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">hp</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">cmp</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="c1">// 平行的取第一个，与排序函数的写法有关，反正是取最左边的（严格的说，应该是向量的左边）</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">angle</span> <span class="o">-</span> <span class="n">hp</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">angle</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>   <span class="k">continue</span><span class="p">;</span>
+          <span class="n">hp</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="n">hp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="n">hp</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+      <span class="n">que</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="kt">int</span> <span class="n">head</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">]))</span>     <span class="n">tail</span><span class="o">--</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">]))</span>     <span class="n">head</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">que</span><span class="p">[</span><span class="o">++</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">]))</span>     <span class="n">tail</span><span class="o">--</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">]))</span>     <span class="n">head</span><span class="o">++</span><span class="p">;</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="n">tail</span> <span class="o">&lt;=</span> <span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">){</span> <span class="c1">//若半平面交退化为点或线</span>
+          <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 为了方便记录，直接把最后一条线放到最前面，避免最后还要保存头尾两条线的交点</span>
+      <span class="n">que</span><span class="p">[</span><span class="n">head</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">];</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">tail</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">getLineIntersection</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+          <span class="n">hp</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+          <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%lf%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+              <span class="n">pt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="p">){</span>
+                  <span class="n">hp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]));</span>
+                  <span class="n">hp</span><span class="p">[</span><span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">getAngle</span><span class="p">();</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="n">hp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]));</span>
+          <span class="n">hp</span><span class="p">[</span><span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">getAngle</span><span class="p">();</span>
+          <span class="n">hpi</span><span class="p">();</span>
+
+          <span class="kt">double</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ans</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">res</span> <span class="o">+=</span> <span class="n">area</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">fabs</span><span class="p">(</span><span class="n">res</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">eps</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="video-surveillance---poj-1474">Video Surveillance - POJ 1474</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181022%20Problem1022/Video%20Surveillance%20-%20POJ%201474.jpg" alt="" /><br />
+<strong>链接</strong><br />
+<a href="https://cn.vjudge.net/problem/POJ-1474">https://cn.vjudge.net/problem/POJ-1474</a><br />
+<strong>题意</strong><br />
+判定多边形是否有核<br />
+<strong>思路</strong><br />
+还是模板题，但是需要注意不是面积为0就无核，因为求出来的核可能是线或者点，面积也为0，因此应该判定最后队列中线的数量，若3条及以上则是有核的<br />
+同时注意<code class="language-plaintext highlighter-rouge">isOnLineRight</code>函数中不能判定在点在线上为<code class="language-plaintext highlighter-rouge">true</code></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;vector&gt;
+</span>  <span class="cp">#include &lt;deque&gt;
+</span>  <span class="cp">#include &lt;cmath&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1500</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span>
+      <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+      <span class="n">Point</span><span class="p">()</span> <span class="p">{}</span>
+      <span class="n">Point</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="n">Point</span> <span class="k">operator</span> <span class="o">-</span> <span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="k">typedef</span> <span class="n">Point</span> <span class="n">Vector</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Line</span><span class="p">{</span>
+      <span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">angle</span><span class="p">;</span>
+      <span class="kt">void</span> <span class="n">getAngle</span><span class="p">()</span> <span class="p">{</span><span class="n">angle</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">);}</span>
+      <span class="n">Line</span><span class="p">(){}</span>
+      <span class="n">Line</span><span class="p">(</span><span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">Vector</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="p">};</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&gt;</span> <span class="n">hp</span><span class="p">;</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">pt</span><span class="p">;</span>
+  <span class="n">Line</span> <span class="n">que</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kt">int</span> <span class="nf">dcmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">eps</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="nf">cross</span><span class="p">(</span><span class="n">Vector</span> <span class="n">a</span><span class="p">,</span> <span class="n">Vector</span> <span class="n">b</span><span class="p">){</span>
+      <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">b</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="nf">area</span><span class="p">(</span><span class="n">Point</span> <span class="n">a</span><span class="p">,</span> <span class="n">Point</span> <span class="n">b</span><span class="p">,</span> <span class="n">Point</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">cross</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">a</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">bool</span> <span class="nf">isOnLineRight</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Point</span> <span class="n">v</span><span class="p">){</span>
+      <span class="k">return</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Line</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">angle</span> <span class="o">-</span> <span class="n">v</span><span class="p">.</span><span class="n">angle</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">return</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">Point</span> <span class="nf">getLineIntersection</span><span class="p">(</span><span class="n">Line</span> <span class="n">u</span><span class="p">,</span> <span class="n">Line</span> <span class="n">v</span><span class="p">){</span>
+      <span class="n">Point</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+                 <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
+               <span class="o">/</span> <span class="p">((</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+                 <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">));</span>
+      <span class="n">ret</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">ret</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="o">-</span><span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">bool</span> <span class="nf">judge</span><span class="p">(</span><span class="n">Line</span> <span class="n">l1</span><span class="p">,</span> <span class="n">Line</span> <span class="n">l2</span><span class="p">,</span> <span class="n">Line</span> <span class="n">l3</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="n">getLineIntersection</span><span class="p">(</span><span class="n">l2</span><span class="p">,</span> <span class="n">l3</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">isOnLineRight</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">bool</span> <span class="nf">hpi</span><span class="p">(){</span>
+      <span class="n">sort</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">hp</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">cmp</span><span class="p">);</span>
+      <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">dcmp</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">angle</span> <span class="o">-</span> <span class="n">hp</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">angle</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>   <span class="k">continue</span><span class="p">;</span>
+          <span class="n">hp</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="n">hp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="n">hp</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+      <span class="n">que</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="kt">int</span> <span class="n">head</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">]))</span>     <span class="n">tail</span><span class="o">--</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">]))</span>     <span class="n">head</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">que</span><span class="p">[</span><span class="o">++</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">]))</span>     <span class="n">tail</span><span class="o">--</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span> <span class="o">&amp;&amp;</span> <span class="n">judge</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">tail</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">que</span><span class="p">[</span><span class="n">head</span><span class="p">]))</span>     <span class="n">head</span><span class="o">++</span><span class="p">;</span>
+
+      <span class="k">return</span> <span class="n">tail</span> <span class="o">-</span> <span class="n">head</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">csn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span><span class="p">){</span>
+          <span class="n">hp</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%lf%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+              <span class="n">pt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="p">){</span>
+                  <span class="n">hp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]));</span>
+                  <span class="n">hp</span><span class="p">[</span><span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">getAngle</span><span class="p">();</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="n">hp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]));</span>
+          <span class="n">hp</span><span class="p">[</span><span class="n">hp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">getAngle</span><span class="p">();</span>
+
+          <span class="n">printf</span><span class="p">(</span><span class="s">"Floor #%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">csn</span><span class="o">++</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">hpi</span><span class="p">()){</span>
+              <span class="n">puts</span><span class="p">(</span><span class="s">"Surveillance is possible."</span><span class="p">);</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+              <span class="n">puts</span><span class="p">(</span><span class="s">"Surveillance is impossible."</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/10/31/PresentationOfBB.html" class="read-next-link"></a>
+            <section>
+                <span>文 · 给计科1吹水的讲稿</span>
+                <p>  应该是给计科1吹水的讲稿 emmmm</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181031%20%E7%BB%99%E8%AE%A1%E7%A7%911%E5%90%B9%E6%B0%B4%E7%9A%84%E8%AE%B2%E7%A8%BF/20181031-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/10/19/20181019_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（Practice VII - I） —— 2018.10.19</span>
+                <p>  2018 CCPC网络赛</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181019%20Problem1019/20181019-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

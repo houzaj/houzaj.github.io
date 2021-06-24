@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="迷宫问题（MAZE） - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2017/11/21/maze.html">
+    <meta property="og:url" content="http://houzaj.github.io/2017/11/21/maze.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            <a href="http://houzaj.github.io/tags#Programming" class="post-tag">Programming</a>
             
             
         </div>
         <h1>迷宫问题（MAZE）</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="17-11-21"><i class="iconfont icon-date"></i>21 Nov 2017</time>
         </div>
     </div>
@@ -142,19 +153,19 @@
   <li><strong>如何知道上下左右？</strong>  <br />
 走路的时候不可避免需要知道左右和前面的方向向量，可是人的方向不同，他对应的左右和前面的方向向量也就不同。一开始我在想的时候是，先确定自身走路的方向，再分别讨论各个方向对应的前面和左右，但是这样打出来的代码会非常非常长长长长长~~~，那么如果我以一定方向定义方向向量数组，能否通过当前方向与前面、左右的相互联系获得他们的方向向量？答案是可以的。 <br />
 <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%96%B0%E6%96%87%E6%A1%A3%202017-11-25_1.jpg?sign=R08NTdpncUFSi0yB0Ze7lvzzYrZhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTU2NDUwNjg1NyZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTk2JUIwJUU2JTk2JTg3JUU2JUExJUEzJTIwMjAxNy0xMS0yNV8xLmpwZyZiPWhvdXphamJsb2c=" alt="" />
-如图，我以逆时针方向定义方向向量数组上右下左 <code class="highlighter-rouge">dir[4][2] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} }</code> ，而我当前方向则用 <code class="highlighter-rouge">dir_current(dir_current = 0, 1, 2, 3)</code> 表示，那么前面的方向向量则为对应自身方向 <code class="highlighter-rouge">dir[dir_current][2]</code> ，左边的方向则对应 <code class="highlighter-rouge">dir[(dir_current - 1 + 4)%4][2]</code> （加上4是加上一个周期的意思，防止0-1=-1的情况出现），右边的方向对应 <code class="highlighter-rouge">dir[(dir_current + 1)%4][2]</code> <br />
-现在有了方向向量数组，就能得到前面的坐标为 <code class="highlighter-rouge">forward_x = loc_x + dir[dir_current][0]</code>, <code class="highlighter-rouge">forward_y = loc_y + dir[dir_current][1]</code>， 左边的坐标为 <code class="highlighter-rouge">left_x = loc_x + dir[(dir_current -1 + 4)%4][0]</code>, <code class="highlighter-rouge">left_y = loc_y + dir[(dir_current -1 + 4)%4][1]</code>。</li>
+如图，我以逆时针方向定义方向向量数组上右下左 <code class="language-plaintext highlighter-rouge">dir[4][2] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} }</code> ，而我当前方向则用 <code class="language-plaintext highlighter-rouge">dir_current(dir_current = 0, 1, 2, 3)</code> 表示，那么前面的方向向量则为对应自身方向 <code class="language-plaintext highlighter-rouge">dir[dir_current][2]</code> ，左边的方向则对应 <code class="language-plaintext highlighter-rouge">dir[(dir_current - 1 + 4)%4][2]</code> （加上4是加上一个周期的意思，防止0-1=-1的情况出现），右边的方向对应 <code class="language-plaintext highlighter-rouge">dir[(dir_current + 1)%4][2]</code> <br />
+现在有了方向向量数组，就能得到前面的坐标为 <code class="language-plaintext highlighter-rouge">forward_x = loc_x + dir[dir_current][0]</code>, <code class="language-plaintext highlighter-rouge">forward_y = loc_y + dir[dir_current][1]</code>， 左边的坐标为 <code class="language-plaintext highlighter-rouge">left_x = loc_x + dir[(dir_current -1 + 4)%4][0]</code>, <code class="language-plaintext highlighter-rouge">left_y = loc_y + dir[(dir_current -1 + 4)%4][1]</code>。</li>
   <li><strong>如何走路？</strong>  <br />
 摸墙算法走迷宫可以分为三种情况：    <br />
 <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171125%20MAZE/%E6%96%B0%E6%96%87%E6%A1%A3%202017-11-25_2.jpg?sign=c1OIRcNvuV5sX6jCtkEU6JYkR6xhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTE0MjE0ODY5JnQ9MTUxMTYyMjg2OSZyPTc4MzkyNDIyOSZmPS8yMDE3MTEyNSUyME1BWkUvJUU2JTk2JUIwJUU2JTk2JTg3JUU2JUExJUEzJTIwMjAxNy0xMS0yNV8yLmpwZyZiPWhvdXphamJsb2c=" alt="" />
 <strong>① 左边有墙，前面有墙</strong> <br />
-因为左手法则要求左手要时刻贴墙，因此此时需要在原地右转，即 <code class="highlighter-rouge">dir_current = (dir_current + 1)%4</code>。  <br />
+因为左手法则要求左手要时刻贴墙，因此此时需要在原地右转，即 <code class="language-plaintext highlighter-rouge">dir_current = (dir_current + 1)%4</code>。  <br />
 <strong>② 左边没墙</strong>  <br />
-首先应该确定的是，左边没墙一定是从左边有墙那里走过来的，因为摸墙算法要求人的手时刻贴墙。那么人从左边有墙走到左边没墙，只可能发生在拐角处，此时应该原地左转，即 <code class="highlighter-rouge">dir_current = (dir_current - 1 + 4)%4</code>  <br />
+首先应该确定的是，左边没墙一定是从左边有墙那里走过来的，因为摸墙算法要求人的手时刻贴墙。那么人从左边有墙走到左边没墙，只可能发生在拐角处，此时应该原地左转，即 <code class="language-plaintext highlighter-rouge">dir_current = (dir_current - 1 + 4)%4</code>  <br />
 <strong>③ 前面没墙</strong>  <br />
 除了在拐角处，人的左手一定靠墙，即左边一定有墙，此时应该往前走；而人在拐角处原地左拐后也应该往前走。  <br />
-因此，如果前面没墙，在判定并执行前两种情况后，只需要往前走就可以了，即 <code class="highlighter-rouge">loc_x += dir[dir_current][0]</code> ,<code class="highlighter-rouge">loc_y += dir[dir_current][1]</code>。  <br />
-记得每次左转右转或者前进的时候都应该更新前面的坐标 <code class="highlighter-rouge">left_x</code>, <code class="highlighter-rouge">left_y</code> 和 <code class="highlighter-rouge">forward_x</code>, <code class="highlighter-rouge">forward_y</code>。</li>
+因此，如果前面没墙，在判定并执行前两种情况后，只需要往前走就可以了，即 <code class="language-plaintext highlighter-rouge">loc_x += dir[dir_current][0]</code> ,<code class="language-plaintext highlighter-rouge">loc_y += dir[dir_current][1]</code>。  <br />
+记得每次左转右转或者前进的时候都应该更新前面的坐标 <code class="language-plaintext highlighter-rouge">left_x</code>, <code class="language-plaintext highlighter-rouge">left_y</code> 和 <code class="language-plaintext highlighter-rouge">forward_x</code>, <code class="language-plaintext highlighter-rouge">forward_y</code>。</li>
 </ol>
 
 <p><strong>▲ 代码</strong></p>
@@ -163,14 +174,14 @@
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">const</span> <span class="kt">int</span> <span class="n">dir</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span> <span class="p">};</span>
-<span class="kt">bool</span> <span class="n">is_in_border</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
+<span class="kt">bool</span> <span class="nf">is_in_border</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">){</span>
         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-<span class="kt">void</span> <span class="n">change_dir</span><span class="p">(</span><span class="kt">int</span> <span class="n">loc_x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">dir_current</span><span class="p">,</span> <span class="kt">int</span> <span class="n">change</span><span class="p">){</span>
+<span class="kt">void</span> <span class="nf">change_dir</span><span class="p">(</span><span class="kt">int</span> <span class="n">loc_x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">loc_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">left_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward_y</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">dir_current</span><span class="p">,</span> <span class="kt">int</span> <span class="n">change</span><span class="p">){</span>
     <span class="n">dir_current</span> <span class="o">=</span> <span class="p">(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="n">change</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">;</span>
     <span class="n">left_x</span> <span class="o">=</span> <span class="n">loc_x</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
     <span class="n">left_y</span> <span class="o">=</span> <span class="n">loc_y</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[(</span><span class="n">dir_current</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
@@ -178,7 +189,7 @@
     <span class="n">forward_y</span> <span class="o">=</span> <span class="n">loc_y</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[</span><span class="n">dir_current</span><span class="o">%</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
     <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
@@ -240,7 +251,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -280,7 +291,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

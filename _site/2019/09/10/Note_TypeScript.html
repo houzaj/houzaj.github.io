@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript Notebook - Essential - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="TypeScript Notebook - Essential">
+    <meta name="keywords"  content="TypeScript">
+    <!-- Open Graph -->
+    <meta property="og:title" content="TypeScript Notebook - Essential - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/09/10/Note_TypeScript.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#TypeScript" class="post-tag">TypeScript</a>
+            
+            
+        </div>
+        <h1>TypeScript Notebook - Essential</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">hpp2334</a></></span>
+            <time class="post-meta-item" datetime="19-09-10"><i class="iconfont icon-date"></i>10 Sep 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190909%20Problems/main-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>Notebook about learning TypeScript</p>
+</blockquote>
+
+<h3 id="bb">BB</h3>
+
+<p>Lacking of a chinese input method, I write this article in English. Sorry for my poor English in advance. QAQ<br />
+The following note is not containing all the content in the official guide.</p>
+
+<p> </p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="https://www.typescriptlang.org/docs/home.html">https://www.typescriptlang.org/docs/home.html</a><br />
+<a href="https://www.differencebetween.com/difference-between-javascript-and-vs-typescript/">https://www.differencebetween.com/difference-between-javascript-and-vs-typescript/</a></p>
+
+<p> </p>
+
+<h3 id="enviroment">Enviroment</h3>
+
+<p>TypeScript: v3.6.2</p>
+
+<p> </p>
+
+<h3 id="what-is-typescript">What is TypeScript</h3>
+
+<p>Typescirpt is a superset of JavaScript, which is needed to compiled into javascript file via compiler. It is an OOP language and has static type checking, modules, etc.</p>
+
+<p> </p>
+
+<h3 id="basic-type">Basic Type</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// boolean</span>
+<span class="kd">let</span> <span class="nx">isOk</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">// number</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">66</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">inf</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+
+<span class="c1">// string</span>
+<span class="kd">let</span> <span class="nx">str</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">template_str</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="s2">`The no. </span><span class="p">${</span> <span class="nx">x</span> <span class="p">}</span><span class="s2"> string is: </span><span class="p">${</span> <span class="nx">str</span> <span class="p">}</span><span class="s2">`</span><span class="p">;</span> <span class="c1">// Template strings</span>
+<span class="kd">let</span> <span class="nx">equiv_str</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">The no. </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> string is: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">str</span><span class="p">;</span> <span class="c1">// equivalant type</span>
+
+<span class="c1">// Array</span>
+<span class="kd">let</span> <span class="nx">list</span><span class="p">:</span> <span class="kr">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">list2</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+
+<span class="c1">// Tuple</span>
+<span class="kd">let</span> <span class="nx">tupleX</span><span class="p">:</span> <span class="p">[</span><span class="kr">string</span><span class="p">,</span> <span class="kr">number</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">abc</span><span class="dl">"</span><span class="p">,</span> <span class="mi">123</span><span class="p">];</span>
+
+<span class="c1">// Enum</span>
+<span class="kr">enum</span> <span class="nx">Col</span> <span class="p">{</span><span class="nx">Red</span><span class="p">,</span> <span class="nx">Green</span><span class="p">,</span> <span class="nx">Blue</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span><span class="p">:</span> <span class="nx">Col</span> <span class="o">=</span> <span class="nx">Col</span><span class="p">.</span><span class="nx">Green</span><span class="p">;</span>
+
+<span class="c1">// Any</span>
+<span class="c1">// "Any" can call arbitary methods, but "Object" not</span>
+<span class="kd">let</span> <span class="nx">listAny</span><span class="p">:</span> <span class="kr">any</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">isOk</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">inf</span><span class="p">,</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">template_str</span><span class="p">,</span> <span class="nx">equiv_str</span><span class="p">,</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">list2</span><span class="p">,</span> <span class="nx">tupleX</span><span class="p">,</span> <span class="nx">c</span><span class="p">];</span>
+
+<span class="c1">// Void</span>
+<span class="c1">// "void" can be assigned only "null" or "undefined"</span>
+<span class="kd">function</span> <span class="nx">printStr</span><span class="p">(</span><span class="nx">x</span> <span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Null &amp; Undefined</span>
+<span class="c1">// "null" can be assigend only "null", and "undefined" can be assigned only "undefined"</span>
+<span class="kd">let</span> <span class="nx">n1</span> <span class="p">:</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">u1</span> <span class="p">:</span> <span class="kc">undefined</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+
+<span class="c1">// Never</span>
+<span class="c1">// "never" represents the types of values that never occur</span>
+<span class="kd">function</span> <span class="nx">forever</span><span class="p">():</span> <span class="nx">never</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Object</span>
+<span class="c1">// "object" presents the non-primitive type</span>
+<span class="kd">function</span> <span class="nx">callStudent</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">The id of ${ x.name } is ${ x.id }.</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">student</span><span class="p">:</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span>
+<span class="p">};</span>
+
+<span class="c1">// Type Assertions</span>
+<span class="c1">// type assertions: like type cast</span>
+<span class="kd">let</span> <span class="nx">aVal</span><span class="p">:</span> <span class="kr">any</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">this is a string</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">l1</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="p">(</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="nx">aVal</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">l2</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="p">(</span><span class="nx">aVal</span> <span class="k">as</span> <span class="kr">string</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p> </p>
+
+<h3 id="interface">Interface</h3>
+
+<h4 id="basic">Basic</h4>
+
+<p><strong>Interace</strong> can describe the requirement of the object.</p>
+
+<h4 id="point-1-optional-property">Point 1: Optional Property</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">SquareConfig</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">?:</span> <span class="kr">string</span><span class="p">,</span>  <span class="c1">// optional property (use '?')</span>
+    <span class="nx">width</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+    <span class="nx">height</span><span class="p">:</span> <span class="kr">number</span>   <span class="c1">// needed property</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">createSquare</span><span class="p">(</span><span class="nx">conf</span><span class="p">:</span> <span class="nx">SquareConfig</span><span class="p">):</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">area</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nSqure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">color</span><span class="p">:</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">area</span><span class="p">:</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">width</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">conf</span><span class="p">.</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">nSqure</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">nSqure</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Okay, must satisfy the needed property</span>
+<span class="kd">let</span> <span class="nx">withdout_color_square</span> <span class="o">=</span> <span class="nx">createSquare</span><span class="p">(</span> <span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">123</span> <span class="p">});</span>
+<span class="c1">// Okay, can have the optional property</span>
+<span class="kd">let</span> <span class="nx">with_color_squre</span> <span class="o">=</span> <span class="nx">createSquare</span><span class="p">(</span> <span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="na">color</span><span class="p">:</span> <span class="dl">"</span><span class="s2">green</span><span class="dl">"</span><span class="p">}</span> <span class="p">);</span>
+<span class="c1">// Err, property "name" doesn't in the interface</span>
+<span class="c1">//let errSquare = createSquare({ width: 12, height: 45, name: "Err!" });</span>
+<span class="c1">// Err, property "height" dosen't exist</span>
+<span class="c1">//let errSqre = createSquare( { width: 2 } );</span>
+</code></pre></div></div>
+
+<h4 id="point-2-readonly-property">Point 2: Readonly Property</h4>
+
+<p>Readonly Property can make variables unchanged after initialization<br />
+Variables use <code class="language-plaintext highlighter-rouge">const</code>, whereas property use <code class="language-plaintext highlighter-rouge">readonly</code></p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Point</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+    <span class="k">readonly</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">p1</span><span class="p">:</span> <span class="nx">Point</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">x</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="mi">50</span>
+<span class="p">};</span>
+<span class="c1">// p1.x = 50;  // Err!</span>
+
+<span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">roArr</span><span class="p">:</span> <span class="nx">ReadonlyArray</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">;</span>
+<span class="c1">// roArr[0] = 12;  // Err!</span>
+<span class="c1">// roArr.length = 12; // Err!</span>
+<span class="c1">// roArr.push(12); // Err!</span>
+<span class="c1">// arr = roArr // Err!</span>
+<span class="nx">arr</span> <span class="o">=</span> <span class="nx">roArr</span> <span class="k">as</span> <span class="kr">number</span><span class="p">[]</span>  <span class="c1">// type assertion, okay</span>
+</code></pre></div></div>
+
+<h4 id="point-3-string-index-signature">Point 3: String Index Signature</h4>
+
+<p>Add a string index signature if the object can have some extra properties</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">SquareConfig</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">?:</span> <span class="kr">string</span><span class="p">,</span>
+    <span class="nx">width</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+    <span class="nx">height</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">prop</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">any</span>   <span class="c1">// Receive any number of props</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">createSquare</span><span class="p">(</span><span class="nx">conf</span><span class="p">:</span> <span class="nx">SquareConfig</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="c1">// okay</span>
+<span class="nx">createSquare</span><span class="p">(</span> <span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="na">aProp</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="na">bProp</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="point-4-function-types">Point 4: Function Types</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">cmpFunc</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">boolean</span>   <span class="c1">// Function</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">myCmpFunc</span><span class="p">:</span> <span class="nx">cmpFunc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">boolean</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="point-5-indexable-types">Point 5: Indexable Types</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">StringArray</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">index</span><span class="p">:</span> <span class="kr">number</span><span class="p">]:</span> <span class="kr">string</span>
+<span class="p">}</span>
+<span class="kr">interface</span> <span class="nx">StringOrNumberArray</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">index</span><span class="p">:</span> <span class="kr">number</span><span class="p">]:</span> <span class="kr">string</span> <span class="o">|</span> <span class="kr">number</span>    <span class="c1">// Union</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">arr</span><span class="p">:</span> <span class="nx">StringArray</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">AA</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">BB</span><span class="dl">"</span><span class="p">];</span>
+<span class="c1">// let arr2: StringArray = [1, 2]; // Err!</span>
+<span class="kd">let</span> <span class="nx">str</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+<span class="kd">let</span> <span class="nx">arr3</span><span class="p">:</span> <span class="nx">StringOrNumberArray</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">AA</span><span class="dl">"</span><span class="p">,</span> <span class="mi">12</span><span class="p">];</span>
+<span class="c1">// let num: number = arr3[1];   // Err!</span>
+</code></pre></div></div>
+
+<h4 id="point-6-class-types">Point 6: Class Types</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ClockConstructor</span> <span class="p">{</span>
+    <span class="k">new</span> <span class="p">(</span><span class="nx">hour</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">minute</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">ClockInterface</span><span class="p">;</span>  <span class="c1">// Constructor</span>
+<span class="p">}</span>
+<span class="kr">interface</span> <span class="nx">ClockInterface</span> <span class="p">{</span>
+    <span class="nx">tick</span><span class="p">():</span> <span class="k">void</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">DigitalClock</span> <span class="k">implements</span> <span class="nx">ClockInterface</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">h</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="nx">tick</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">beep beep</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">AnalogClock</span> <span class="k">implements</span> <span class="nx">ClockInterface</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">h</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="nx">tick</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">tick tick</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">createClock</span><span class="p">(</span><span class="nx">obj</span><span class="p">:</span> <span class="nx">ClockConstructor</span><span class="p">,</span> <span class="nx">h</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">ClockInterface</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">obj</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="nx">createClock</span><span class="p">(</span><span class="nx">DigitalClock</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nx">createClock</span><span class="p">(</span><span class="nx">AnalogClock</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="point-7-hybrid-types">Point 7: Hybrid Types</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Counter</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nx">start</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">string</span><span class="p">,</span>
+    <span class="nx">interval</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span>
+    <span class="nx">reset</span><span class="p">():</span> <span class="k">void</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">getCounter</span><span class="p">():</span> <span class="nx">Counter</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">start</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{})</span> <span class="k">as</span> <span class="nx">Counter</span><span class="p">;</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">reset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">getCounter</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">counterName</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="nx">a</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">156</span><span class="p">;</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p> </p>
+
+<h3 id="function">Function</h3>
+
+<h4 id="basic-function-type">Basic Function Type</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add1</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span><span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">add2</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">add3</span><span class="p">:</span> <span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span><span class="kr">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">number</span> <span class="o">=</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">out</span> <span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="s2">`Res: </span><span class="p">${</span><span class="nx">add1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span><span class="s2"> </span><span class="p">${</span><span class="nx">add2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span><span class="s2"> </span><span class="p">${</span><span class="nx">add3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span><span class="s2">`</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">out</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="inferring-the-types">Inferring the types</h4>
+
+<p>For example, the typescript compiler can figure out the type of <code class="language-plaintext highlighter-rouge">function(x, y)</code> in function <code class="language-plaintext highlighter-rouge">add2</code></p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">add1</span><span class="p">:</span> <span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span><span class="kr">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">number</span> <span class="o">=</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">add2</span><span class="p">:</span> <span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span><span class="kr">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">number</span> <span class="o">=</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">x</span> <span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="nx">add1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// okay</span>
+<span class="kd">let</span> <span class="nx">y</span> <span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="nx">add2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// okay</span>
+<span class="c1">// let z : number = add2("1", 2);  //ERR!</span>
+</code></pre></div></div>
+
+<h4 id="optional-and-default-parameters">Optional and Default Parameters</h4>
+
+<p>Optional parameters are metioned above, and default parameters are similar to those in C++. In addition, when the user does not pass the value to the optional parameter, the value of the parameter is <code class="language-plaintext highlighter-rouge">undefined</code></p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">buildName</span><span class="p">(</span><span class="nx">firstName</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">?:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">lastName</span> <span class="p">?</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstName</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">lastName</span><span class="p">}</span><span class="s2">`</span> <span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstName</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">buildName2</span><span class="p">(</span><span class="nx">firstName</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">HHH</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstName</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">lastName</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">buildName3</span><span class="p">(</span><span class="nx">firstName</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">HHH</span><span class="dl">"</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstName</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">lastName</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">s1</span> <span class="o">=</span> <span class="nx">buildName</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">);</span>   <span class="c1">//"aaa bbb"</span>
+<span class="kd">let</span> <span class="nx">s2</span> <span class="o">=</span> <span class="nx">buildName</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">//"aaa"</span>
+<span class="kd">let</span> <span class="nx">s3</span> <span class="o">=</span> <span class="nx">buildName2</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">//"aaa bbb"</span>
+<span class="kd">let</span> <span class="nx">s4</span> <span class="o">=</span> <span class="nx">buildName2</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">);</span> <span class="c1">//"aaa HHH"</span>
+<span class="kd">let</span> <span class="nx">s5</span> <span class="o">=</span> <span class="nx">buildName2</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">);</span>  <span class="c1">//"aaa HHH"</span>
+<span class="c1">//let s6 = buildName3("aaa"); // ERR! Too few arguments</span>
+<span class="kd">let</span> <span class="nx">s7</span> <span class="o">=</span> <span class="nx">buildName3</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">//"aaa bbb"</span>
+<span class="kd">let</span> <span class="nx">s8</span> <span class="o">=</span> <span class="nx">buildName3</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">//"HHH bbb"</span>
+</code></pre></div></div>
+
+<h4 id="rest-parameters">Rest Parameters</h4>
+
+<p>The rest parameters can deal with the function with unknown number of the parameters</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">buildName</span><span class="p">(</span><span class="nx">firstName</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="p">...</span><span class="nx">restName</span><span class="p">:</span> <span class="kr">string</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">firstName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">restName</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">s1</span> <span class="o">=</span> <span class="nx">buildName</span><span class="p">(</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">ccc</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">ddd</span><span class="dl">"</span><span class="p">);</span> <span class="c1">//"aaa bbb ccc ddd"</span>
+</code></pre></div></div>
+
+<h4 id="this"><code class="language-plaintext highlighter-rouge">this</code></h4>
+
+<h5 id="this-and-arrow-functions"><code class="language-plaintext highlighter-rouge">this</code> and arrow functions</h5>
+
+<p>The example is simplified from official guide. In ES6, arrow functions capture the <code class="language-plaintext highlighter-rouge">this</code> where the function is created rather than where it is invoked.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+// ERR!
+
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    createCardPicker: function() {
+        return function() {
+            return {suit: this.suits[0]};
+        }
+    }
+}
+*/</span>
+
+<span class="kd">let</span> <span class="nx">deck</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">suits</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hearts</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">spades</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">clubs</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">diamonds</span><span class="dl">"</span><span class="p">],</span>
+    <span class="na">createCardPicker</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span><span class="na">suit</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">suits</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="this-parameters"><code class="language-plaintext highlighter-rouge">this</code> parameters</h5>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Card</span> <span class="p">{</span>
+    <span class="nl">suit</span><span class="p">:</span> <span class="kr">string</span>
+<span class="p">};</span>
+
+<span class="kr">interface</span> <span class="nx">Deck</span> <span class="p">{</span>
+    <span class="nl">suits</span><span class="p">:</span> <span class="kr">string</span><span class="p">[],</span>
+    <span class="nx">createCardPicker</span><span class="p">(</span><span class="k">this</span><span class="p">:</span> <span class="nx">Deck</span><span class="p">):</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">Card</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">deck</span><span class="p">:</span> <span class="nx">Deck</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">suits</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hearts</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">spades</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">clubs</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">diamonds</span><span class="dl">"</span><span class="p">],</span>
+    <span class="na">createCardPicker</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="na">this</span><span class="p">:</span> <span class="nx">Deck</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">():</span> <span class="nx">Card</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span><span class="na">suit</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">suits</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="overload">Overload</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="kr">any</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">number</span><span class="dl">"</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">number</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// add(1, "2");    // ERR!</span>
+</code></pre></div></div>
+
+<p> </p>
+
+<h3 id="generics">Generics</h3>
+
+<h4 id="basic-of-generics">Basic of Generics</h4>
+
+<p>The concept of <strong>generics</strong> is similar with the most popular language.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fun</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">arg</span><span class="p">:</span> <span class="nx">T</span><span class="p">):</span> <span class="nx">T</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">arg</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">fun</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">str</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">fun</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">// let z = fun&lt;string&gt;(1); // ERR!</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/09/27/Skill_Mkdocs_with_Mathjax_to_pdf.html" class="read-next-link"></a>
+            <section>
+                <span>计 · Mkdocs with Mathjax Export PDF</span>
+                <p>  本文给出了带有MathJax的Mkdocs项目导出PDF的一种方法</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190927%20Skill_Mkdocs_with_Mathjax_to_pdf/main-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/09/09/Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（DP IV）</span>
+                <p>  DP IV</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190909%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

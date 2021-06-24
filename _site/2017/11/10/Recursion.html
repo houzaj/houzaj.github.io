@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="递归 (Recursion) —— PPT 与 实例 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2017/11/10/Recursion.html">
+    <meta property="og:url" content="http://houzaj.github.io/2017/11/10/Recursion.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            <a href="http://houzaj.github.io/tags#Programming" class="post-tag">Programming</a>
             
             
         </div>
         <h1>递归 (Recursion) —— PPT 与 实例</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="17-11-10"><i class="iconfont icon-date"></i>10 Nov 2017</time>
         </div>
     </div>
@@ -125,13 +136,13 @@
 
 <p><strong>▲ 思路</strong></p>
 <ol>
-  <li><strong>如何处理 <code class="highlighter-rouge">左括号(</code> 和 <code class="highlighter-rouge">右括号)</code> ？</strong>     <br />
+  <li><strong>如何处理 <code class="language-plaintext highlighter-rouge">左括号(</code> 和 <code class="language-plaintext highlighter-rouge">右括号)</code> ？</strong>     <br />
 （这里先感谢一下俊生大佬！）受俊生大佬启发，对于括号内的部分，其实和运算整体使用的方法是一样的，因此遇到左括号"("可以调用自身函数，直到遇到右括号")"结束自身调用（即返回结果）。另外遇到"#"号也应该返回结果（给主函数）。  <br />
 <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_1.jpg?sign=CxIGQYW9RTbZ1B59tXuFBzjsq6FhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwNDMzJnQ9MTUxMDk5ODQzMyZyPTE3NDIyNDMwNjAmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzEuanBnJmI9aG91emFqYmxvZw==" alt="" /></li>
   <li><strong>如何处理四则运算优先级？</strong>   <br />
 <strong>①</strong> 首先考虑到+-运算比×÷运算的优先级，所以可以开一个栈保存等待被+-运算的数，增加一个ch_save保存×或÷的运算符。每次读到×或÷运算符时，读取下一个数（或左括号），将该数与栈的头部元素作×÷运算后，压入栈中。  <br />
 <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_2.jpg?sign=bsG4VZmlMJ5RXTO6EfYJSZGrDPNhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE0NDY5NTg5NDcmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzIuanBnJmI9aG91emFqYmxvZw==" alt="" /> <br />
-<strong>②</strong> 另外，对于-号，可能存在<code class="highlighter-rouge">-(-3)</code>这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将'-'号转换为(-1×)，即在栈中压入-1，将ch_save变为'*'。    <br />
+<strong>②</strong> 另外，对于-号，可能存在<code class="language-plaintext highlighter-rouge">-(-3)</code>这种边缘数据，以及考虑到最后一次性将栈中的数取出作和运算更方便，因此将'-'号转换为(-1×)，即在栈中压入-1，将ch_save变为'*'。    <br />
 <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20171110%20PRERecusion/img%202017-11-18_3.jpg?sign=8ZMm9s1KdKZTJfll5U2HTWjA7zhhPTEyNTIyNzc4OTgmaz1BS0lEVXVYME83aHpET1RSQ3Z2cWNJaHk5QzY3QjdLVGNSanEmZT0xNTEzNTkwODk0JnQ9MTUxMDk5ODg5NCZyPTE3MTI2Mzg0MjMmZj0vMjAxNzExMTAlMjBQUkVSZWN1c2lvbi9pbWclMjAyMDE3LTExLTE4XzMuanBnJmI9aG91emFqYmxvZw==" alt="" />   <br />
 <strong>③</strong> 由于最后栈中的元素之剩下和运算，遇到右括号')'或'#'时，计算栈中的所有元素之和返回。</li>
 </ol>
@@ -141,7 +152,7 @@
 <span class="cp">#include &lt;bits/stdc++.h&gt;  
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="kt">double</span> <span class="n">calc</span><span class="p">(){</span>
+<span class="kt">double</span> <span class="nf">calc</span><span class="p">(){</span>
     <span class="n">stack</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">stk_num</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">ch</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">ch_save</span> <span class="o">=</span> <span class="sc">'?'</span><span class="p">;</span>  
@@ -185,7 +196,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
     <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
@@ -271,7 +282,7 @@
 <span class="cp">#include &lt;bits/stdc++.h&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="kt">void</span> <span class="n">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
+<span class="kt">void</span> <span class="nf">permutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="kt">int</span> <span class="n">to</span><span class="p">,</span> <span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">set_str</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">to</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="n">swap</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">from</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>    <span class="c1">//将当前范围的第一个数与后面的数逐一交换回来</span>
         <span class="k">if</span><span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">to</span><span class="p">){</span>
@@ -283,7 +294,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">string</span> <span class="n">str</span><span class="p">;</span>
     <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">;</span>
@@ -322,7 +333,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -362,7 +373,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

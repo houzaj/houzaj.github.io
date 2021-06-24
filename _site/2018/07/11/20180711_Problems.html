@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（单调栈 & 单调队列） —— 2018.7.11 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（单调栈 & 单调队列） —— 2018.7.11">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（单调栈 & 单调队列） —— 2018.7.11 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2018/07/11/20180711_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（单调栈 & 单调队列） —— 2018.7.11</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-07-11"><i class="iconfont icon-date"></i>11 Jul 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180711%20Problem0711/20180711-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>单调栈 &amp; 单调队列</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=4946902&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>疯狂加了两天数据结构题，可以开始码文了！ <br />
+单调栈，顾名思义就是具有单调性的栈，其主要用来寻找某个数的左区间向左遍历或右区间向右遍历第一个大于它或小于它的数的位置，具有神奇的复杂度O(n)！<br />
+单调队列，与单调栈类似，只不过它是队列，用来求解RMQ问题，和优化DP<br />
+优化DP太难了，以后再战 T^T</p>
+<ol>
+  <li><strong>单调栈与单调队列</strong><br />
+<a href="https://endlesslethe.com/monotone-queue-and-stack-tutorial.html">https://endlesslethe.com/monotone-queue-and-stack-tutorial.html</a><br />
+<a href="https://blog.csdn.net/liujian20150808/article/details/50752861">https://blog.csdn.net/liujian20150808/article/details/50752861</a><br />
+<br /></li>
+</ol>
+
+<h3 id="largest-rectangle-in-a-histogram---poj-2559">Largest Rectangle in a Histogram - POJ 2559</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180711%20Problem0711/Largest%20Rectangle%20in%20a%20Histogram%20-%20POJ%202559.jpg" alt="" />
+<strong>题意</strong><br />
+给定一个数组，每个元素代表宽为1，高为a[i]的矩形，将他们拼在一起形成一个图形，求此图形中矩形面积最大值  <br />
+<strong>思路</strong><br />
+使用单调栈，寻找每个元素左区间向左遍历第一个小于它的数的位置，记为l[i]，右区间同理，记为r[i]，则以该元素为高的矩形面积最大值为<code class="language-plaintext highlighter-rouge">a[i]*(r[i]-l[i]-1)</code>，最后选取每个元素为高的矩形面积最大值中的最大值即可</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;stack&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">idx</span><span class="p">;</span>
+      <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pval</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pidx</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">pval</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">pidx</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="p">};</span>
+
+  <span class="n">stack</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">stk1</span><span class="p">,</span> <span class="n">stk2</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">stk1</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>    <span class="n">stk1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">stk2</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>    <span class="n">stk2</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+      <span class="n">stk1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+      <span class="n">stk2</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span><span class="p">){</span>
+          <span class="n">init</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">stk1</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>    <span class="n">stk1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stk1</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="n">stk1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">));</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">stk2</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>    <span class="n">stk2</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stk2</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="n">stk2</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">));</span>
+          <span class="p">}</span>
+
+          <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="p">(</span><span class="n">ll</span><span class="p">)</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="bad-hair-day---poj-3250">Bad Hair Day - POJ 3250</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180711%20Problem0711/Bad%20Hair%20Day%20-%20POJ%203250.jpg" alt="" />
+<strong>题意</strong><br />
+给定一个数组为每头牛的高度h[i]，每头牛可以看见它右边第一头高度比它高的牛的左边所有牛的发型，问所有牛能看见别的牛的发型的数量和<br />
+<strong>思路</strong><br />
+单调栈的运用，比上一题简单</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;stack&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">idx</span><span class="p">;</span>
+      <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pval</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pidx</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">pval</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">pidx</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="p">};</span>
+
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">stack</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">stk</span><span class="p">;</span>
+
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">stk</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">stk</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+      <span class="n">stk</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+          <span class="n">init</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+          <span class="p">}</span>
+
+          <span class="n">ll</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+              <span class="k">while</span><span class="p">(</span><span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>     <span class="n">stk</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+              <span class="n">sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+              <span class="n">stk</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">));</span>
+          <span class="p">}</span>
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="sliding-window---poj-2823">Sliding Window - POJ 2823</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180711%20Problem0711/Sliding%20Window%20-%20POJ%202823.jpg" alt="" />
+<strong>题意</strong><br />
+题意见图中表格即可<br />
+<strong>思路</strong><br />
+使用单调队列，求定长的RMQ</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;deque&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">idx</span><span class="p">;</span>
+      <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pval</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pidx</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">pval</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">pidx</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="p">};</span>
+
+  <span class="n">deque</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">ansmin</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">ansmax</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">k</span><span class="p">)){</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+          <span class="p">}</span>
+
+          <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">que</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>   <span class="n">que</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">));</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
+                  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span>  <span class="n">que</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+                  <span class="n">ansmin</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">val</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="n">ansmin</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span>   <span class="n">putchar</span><span class="p">(</span><span class="sc">' '</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+
+          <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">que</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>   <span class="n">que</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+              <span class="n">que</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">));</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
+                  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span>  <span class="n">que</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+                  <span class="n">ansmax</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">val</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="n">ansmax</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span>   <span class="n">putchar</span><span class="p">(</span><span class="sc">' '</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">puts</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/07/12/20180712_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（权值并查集） —— 2018.7.12</span>
+                <p>  带权并查集</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180712%20Problem0712/20180712-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/06/13/20180613_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（欧拉筛法 & 欧拉函数） —— 2018.6.13</span>
+                <p>  欧拉筛法 &amp; 欧拉函数</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180613%20Problem0613/20180613-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（辛普森积分） - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（辛普森积分）">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（辛普森积分） - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/07/12/Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（辛普森积分）</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="19-07-12"><i class="iconfont icon-date"></i>12 Jul 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190712%20Problems/main-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>CONTENT: 辛普森积分<br />
+DETAIL: 辛普森积分</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=27580696&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="bb">BB</h3>
+<p>很早前在华东师范月赛看过，一个小点所以顺便补一下，屯模板用<br />
+<br /></p>
+
+<h3 id="introduction">Introduction</h3>
+<ul>
+  <li><strong>洛谷 自适应辛普森法 1 题解</strong><br />
+<a href="https://www.luogu.org/problemnew/solution/P4525">https://www.luogu.org/problemnew/solution/P4525</a><br />
+<br /></li>
+</ul>
+
+<h3 id="模板自适应辛普森法1---luogu-p4525">【模板】自适应辛普森法1 - Luogu P4525</h3>
+<p><strong>Description</strong><br />
+对函数<code class="language-plaintext highlighter-rouge">f(x)=(cx+d)/(ax+b)</code>对区间<code class="language-plaintext highlighter-rouge">[l,r]</code>积分<br />
+<strong>Sample Input</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6
+</code></pre></div></div>
+<p><strong>Sample Output</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2.732937
+</code></pre></div></div>
+<p><strong>Solution</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">10000</span> <span class="o">*</span> <span class="mi">220</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+<span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">f</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">simpson</span><span class="p">(</span><span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="kt">double</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="o">/</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="kt">double</span> <span class="n">r</span><span class="p">,</span> <span class="kt">double</span> <span class="n">eps</span><span class="p">,</span> <span class="kt">double</span> <span class="n">ans</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">lres</span> <span class="o">=</span> <span class="n">simpson</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">),</span> <span class="n">rres</span> <span class="o">=</span> <span class="n">simpson</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">-</span> <span class="n">ans</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">+</span> <span class="p">(</span><span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">-</span> <span class="n">ans</span><span class="p">)</span> <span class="o">/</span> <span class="mi">15</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">calc</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">eps</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lres</span><span class="p">)</span> <span class="o">+</span> <span class="n">calc</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">eps</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rres</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%lf%lf%lf%lf%lf%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">l</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%.6f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">calc</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">simpson</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="模板自适应辛普森法2---luogu-p4526">【模板】自适应辛普森法2 - Luogu P4526</h3>
+<p><strong>Description</strong>  <br />
+对函数<code class="language-plaintext highlighter-rouge">f(x)=x^(a/x-x)</code>对区间<code class="language-plaintext highlighter-rouge">[0,inf)</code>积分<br />
+<strong>Sample Input</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2.33
+</code></pre></div></div>
+<p><strong>Sample Output</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.51068
+</code></pre></div></div>
+<p><strong>Solution</strong> <br />
+对a打表</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">10000</span> <span class="o">*</span> <span class="mi">220</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+<span class="kt">double</span> <span class="n">a</span><span class="p">;</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">f</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">simpson</span><span class="p">(</span><span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="kt">double</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="o">/</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="kt">double</span> <span class="n">r</span><span class="p">,</span> <span class="kt">double</span> <span class="n">eps</span><span class="p">,</span> <span class="kt">double</span> <span class="n">ans</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">lres</span> <span class="o">=</span> <span class="n">simpson</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">),</span> <span class="n">rres</span> <span class="o">=</span> <span class="n">simpson</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">-</span> <span class="n">ans</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">+</span> <span class="p">(</span><span class="n">lres</span> <span class="o">+</span> <span class="n">rres</span> <span class="o">-</span> <span class="n">ans</span><span class="p">)</span> <span class="o">/</span> <span class="mi">15</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">calc</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">eps</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lres</span><span class="p">)</span> <span class="o">+</span> <span class="n">calc</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">eps</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rres</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">puts</span><span class="p">(</span><span class="s">"orz"</span><span class="p">);</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">double</span> <span class="n">l</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%.5f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">calc</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">simpson</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/07/13/Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（字符串 II）</span>
+                <p>  CONTENT: 字符串 IIDETAIL: 后缀数组、后缀自动机、广义后缀自动机</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190713%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/07/10/Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（字符串 I）</span>
+                <p>  CONTENT: 字符串 IDETAIL: 后缀数组、字典树</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190710%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

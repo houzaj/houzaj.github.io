@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（KMP） —— 2018.3.12 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/03/12/20180312_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/03/12/20180312_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（KMP） —— 2018.3.12</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-03-12"><i class="iconfont icon-date"></i>12 Mar 2018</time>
         </div>
     </div>
@@ -96,7 +107,7 @@
 
   <span class="kt">int</span> <span class="n">kmp_next</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>            <span class="c1">//next数组</span>
 
-  <span class="kt">void</span> <span class="n">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>      <span class="c1">//可保证k位置前的前缀与j位置前的后缀相同，因此可递推求出next数组</span>
+  <span class="kt">void</span> <span class="nf">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>      <span class="c1">//可保证k位置前的前缀与j位置前的后缀相同，因此可递推求出next数组</span>
       <span class="n">kmp_next</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">//j管后缀，k管前缀</span>
       <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
@@ -113,7 +124,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">kmpSearch</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="nf">kmpSearch</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
       <span class="n">getNext</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
       <span class="kt">int</span> <span class="n">slen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">plen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
       <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -135,7 +146,7 @@
       <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
       <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
       <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">s</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">'#'</span> <span class="o">&amp;&amp;</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">p</span><span class="p">){</span>
@@ -166,7 +177,7 @@
   <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
   <span class="kt">char</span> <span class="n">p</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-  <span class="kt">void</span> <span class="n">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
       <span class="n">knext</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
@@ -181,7 +192,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">kmpSearch</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="nf">kmpSearch</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
       <span class="n">getNext</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
       <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -201,7 +212,7 @@
       <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
       <span class="n">scanf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
       <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
@@ -232,7 +243,7 @@
   <span class="kt">int</span> <span class="n">knext</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
   <span class="kt">char</span> <span class="n">p</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-  <span class="kt">void</span> <span class="n">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">getNext</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
       <span class="n">knext</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
@@ -247,7 +258,7 @@
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
       <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
       <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
@@ -278,7 +289,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -318,7 +329,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（回文树） —— 2018.10.3 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（回文树） —— 2018.10.3">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（回文树） —— 2018.10.3 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2018/10/03/20181003_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（回文树） —— 2018.10.3</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-10-03"><i class="iconfont icon-date"></i>03 Oct 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181003%20Problem1003/20181003-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>回文树</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=521543141&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>回文树用于解决字符串回文问题，个人觉得其更应该被叫做“回文自动机”<br />
+第一题的注释会写得很详细，剩下的略写</p>
+<ol>
+  <li><strong>回文树</strong><br />
+<a href="https://blog.csdn.net/lwfcgz/article/details/48739051">https://blog.csdn.net/lwfcgz/article/details/48739051</a><br />
+<a href="https://blog.csdn.net/u013368721/article/details/42100363">https://blog.csdn.net/u013368721/article/details/42100363</a><br />
+<br /></li>
+</ol>
+
+<h3 id="number-of-palindromes---spoj---numofpal">Number of Palindromes - SPOJ - NUMOFPAL</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181003%20Problem1003/Number%20of%20Palindromes%20-%20SPOJ%20NUMOFPAL.jpg" alt="" /><br />
+<strong>题意</strong><br />
+求回文字符串数量<br />
+<strong>思路</strong><br />
+回文树模板题</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="c1">//slink: 后缀链接</span>
+      <span class="c1">//len: 字符串长度</span>
+      <span class="c1">//cnt: 包括其在内的后缀字符串数量</span>
+      <span class="c1">//nxt: nxt指针</span>
+      <span class="kt">int</span> <span class="n">slink</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">cnt</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">nxt</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+  <span class="p">};</span>
+
+  <span class="k">struct</span> <span class="nc">PalindromicTree</span><span class="p">{</span>
+      <span class="c1">//tot: 静态分配</span>
+      <span class="c1">//cursuffix: 维护当前后缀</span>
+      <span class="kt">int</span>  <span class="n">tot</span><span class="p">;</span>
+      <span class="kt">int</span>  <span class="n">cursuffix</span><span class="p">;</span>
+      <span class="n">Node</span> <span class="n">tree</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+      <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+          <span class="c1">//长度为-1的字符串，其是不存在的，代表长度为奇数的字符串的根</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="c1">//长度为0的字符串，其是空串，代表长度为偶数的字符串的根</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">tot</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cursuffix</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">initNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">o</span><span class="p">){</span>
+          <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">));</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cursuffix</span><span class="p">;</span>
+          <span class="c1">//在cur的后缀链接中找到第一个可以将s[pos]接在其左右的字符串</span>
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">])</span>      <span class="k">break</span><span class="p">;</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="c1">//如果这一字符串原本存在于后缀树中</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+              <span class="c1">//将维护的cursuffix更新为这一状态节点</span>
+              <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="c1">//否则，新建一状态节点</span>
+          <span class="kt">int</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="n">nxt</span><span class="p">);</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+          <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+
+          <span class="c1">//如果长度为1，就不得不手动维护这一新节点的slink信息，使其指向空串</span>
+          <span class="c1">//因为无法通过cur的后缀链接中的nxt信息来更新新节点的slink信息</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="c1">//如果长度大于1，就通过cur的后缀链接中第一个可以将s[pos]接在左右的字符串状态节点的nxt的节点</span>
+          <span class="c1">//来更新新节点的slink信息</span>
+          <span class="c1">//这一做法的正确性在于，假设当前cur节点的字符串为A，第一个满足条件的后缀链接节点代表的字符串为B，s[pos]为x</span>
+          <span class="c1">//则xBx为xAx的后缀，又因为xAx是回文字符串，因此xBx也是xAx的前缀，那么根据循环顺序，xBx一定比xAx先处理到，</span>
+          <span class="c1">//因此，xBx所代表的字符串节点一定是存在的，也一定是最接近于xAx的</span>
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">]){</span>
+                  <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+                  <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+
+          <span class="c1">//更新这一后缀包含多少个回文字符串</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span><span class="p">].</span><span class="n">cnt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="n">PalindromicTree</span> <span class="n">pt</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+      <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+          <span class="n">ans</span> <span class="o">+=</span> <span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">cnt</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="最长双回文串---hysbz---2565">最长双回文串 - HYSBZ - 2565</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181003%20Problem1003/%E6%9C%80%E9%95%BF%E5%8F%8C%E5%9B%9E%E6%96%87%E4%B8%B2%20-%20HYSBZ%202565.jpg" alt="" /><br />
+<strong>思路</strong><br />
+首先，跑一遍回文树，用数组l记录下以每个位置为右端点的回文字符串最长能是多长<br />
+然后将字符串翻转，再跑一遍回文树，用数组r记录下以每个位置为左端点的回文字符串最长能是多长<br />
+最后遍历一遍数组，取出l[i] + r[i + 1]的最大值</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="mi">7</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+<span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span>  <span class="n">l</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">slink</span><span class="p">,</span> <span class="n">len</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">nxt</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">PalindromicTree</span><span class="p">{</span>
+    <span class="kt">int</span>  <span class="n">cursuffix</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="n">tree</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+    <span class="kt">int</span>  <span class="n">tot</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+        <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">initNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">initNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">tot</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cursuffix</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">initNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">o</span><span class="p">){</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cursuffix</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">])</span>   <span class="k">break</span><span class="p">;</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">initNode</span><span class="p">(</span><span class="n">nxt</span><span class="p">);</span>
+        <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">]){</span>
+                <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">PalindromicTree</span> <span class="n">pt</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">)){</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">l</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">r</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+
+        <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">len</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="n">n</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">r</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">len</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>    <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+            <span class="k">else</span>             <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="拉拉队排练---hysbz---2160">拉拉队排练 - HYSBZ - 2160</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181003%20Problem1003/%E6%8B%89%E6%8B%89%E9%98%9F%E6%8E%92%E7%BB%83%20-%20HYSBZ%202160.jpg" alt="" /><br />
+<strong>思路</strong><br />
+首先记录下每个状态节点被访问了几次，然后用拓扑排序的思想，将这一次数通过slink向下传递，因为长的回文字符串包括短的回文字符串，然后新开一个数组，以len为下标，记录下次数，最后倒回来扫这一数组加快速幂得到答案<br />
+这里并不需要真正的拓扑排序，考虑到字符串的后缀节点必然会比该字符串节点先建立，因此只需要将静态分配的顺序倒回来扫一遍即可</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">19930726</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">ll</span>   <span class="n">nums</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+  <span class="n">ll</span> <span class="nf">quickPow</span><span class="p">(</span><span class="n">ll</span> <span class="n">a</span><span class="p">,</span> <span class="n">ll</span> <span class="n">b</span><span class="p">){</span>
+      <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">base</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">b</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span>     <span class="n">ans</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span> <span class="o">*</span> <span class="n">base</span><span class="p">)</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+          <span class="n">base</span> <span class="o">=</span> <span class="p">(</span><span class="n">base</span> <span class="o">*</span> <span class="n">base</span><span class="p">)</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+          <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">slink</span><span class="p">,</span> <span class="n">len</span><span class="p">;</span>
+      <span class="n">ll</span>  <span class="n">cnt</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">nxt</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+  <span class="p">};</span>
+
+  <span class="k">struct</span> <span class="nc">PalindromicTree</span><span class="p">{</span>
+      <span class="kt">int</span>  <span class="n">cursuffix</span><span class="p">;</span>
+      <span class="n">Node</span> <span class="n">tree</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+      <span class="kt">int</span>  <span class="n">tot</span><span class="p">;</span>
+
+      <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+          <span class="n">tot</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cursuffix</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">initNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">o</span><span class="p">){</span>
+          <span class="n">memset</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">o</span><span class="p">].</span><span class="n">nxt</span><span class="p">));</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cursuffix</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">])</span>   <span class="k">break</span><span class="p">;</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+              <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">int</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">initNode</span><span class="p">(</span><span class="n">nxt</span><span class="p">);</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+
+
+          <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">]){</span>
+                  <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+                  <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">getCnt</span><span class="p">(){</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">tot</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">slink</span><span class="p">].</span><span class="n">cnt</span> <span class="o">+=</span> <span class="n">tree</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">cnt</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="n">PalindromicTree</span> <span class="n">pt</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="n">ll</span> <span class="n">k</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%lld%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">k</span><span class="p">,</span> <span class="n">s</span><span class="p">)){</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">getCnt</span><span class="p">();</span>
+
+          <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">memset</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">nums</span><span class="p">));</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pt</span><span class="p">.</span><span class="n">tot</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">nums</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">len</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">cnt</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">bool</span> <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">-=</span> <span class="mi">2</span><span class="p">){</span>
+              <span class="n">ll</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">);</span>
+              <span class="n">k</span> <span class="o">-=</span> <span class="n">tmp</span><span class="p">;</span>
+              <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">quickPow</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                  <span class="n">flag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>    <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+          <span class="k">else</span>        <span class="n">puts</span><span class="p">(</span><span class="s">"-1"</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="palisection---codeforces---17e">Palisection - CodeForces - 17E</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181003%20Problem1003/Palisection%20-%20CodeForces%2017E.jpg" alt="" /><br />
+<strong>题意</strong><br />
+求相交的回文字符串对数量<br />
+<strong>思路</strong><br />
+正反跑两遍回文树，得到以i为左端点的字符串数量l[i]，以及以i为右端点的字符串数量r[i]，于是答案等于总回文字符串对 - 不相交的回文字符串对，其中不相交回文字符串对为 <code class="language-plaintext highlighter-rouge">sum(l[i] * (g[i + 1] + +g[i + 2] + ... + g[n]))</code><br />
+本题莫名卡内存，需要把nxt数组设为vector，以时间换空间</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;cstdio&gt;
+</span>  <span class="cp">#include &lt;cstring&gt;
+</span>  <span class="cp">#include &lt;algorithm&gt;
+</span>  <span class="cp">#include &lt;vector&gt;
+</span>  <span class="cp">#include &lt;unordered_map&gt;
+</span>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">2e6</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span> <span class="o">=</span> <span class="mh">0x3f3f3f3f</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">51123987</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+      <span class="kt">int</span> <span class="n">slink</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">cnt</span><span class="p">;</span>
+      <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">nxt</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">struct</span> <span class="nc">PalindromicTree</span><span class="p">{</span>
+      <span class="kt">int</span>  <span class="n">cursuffix</span><span class="p">;</span>
+      <span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">tree</span><span class="p">;</span>
+      <span class="kt">int</span>  <span class="n">tot</span><span class="p">;</span>
+
+      <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+          <span class="n">tree</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="n">tree</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="n">tot</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cursuffix</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">nxtFind</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idx</span><span class="p">){</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tree</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">nxt</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span> <span class="o">==</span> <span class="n">idx</span><span class="p">)</span>   <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cursuffix</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">;</span>
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">])</span>   <span class="k">break</span><span class="p">;</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">nxtFind</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">idx</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">tmp</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+              <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">tmp</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">int</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">nxt</span><span class="p">));</span>
+          <span class="n">tree</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Node</span><span class="p">());</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+          <span class="n">cursuffix</span> <span class="o">=</span> <span class="n">nxt</span><span class="p">;</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+              <span class="n">cur</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">slink</span><span class="p">;</span>
+              <span class="kt">int</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">len</span><span class="p">;</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">curlen</span><span class="p">]){</span>
+                  <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">cur</span><span class="p">].</span><span class="n">nxt</span><span class="p">[</span><span class="n">nxtFind</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">idx</span><span class="p">)].</span><span class="n">second</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">nxt</span><span class="p">].</span><span class="n">slink</span><span class="p">].</span><span class="n">cnt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="n">PalindromicTree</span> <span class="n">pt</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+      <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="p">)){</span>
+          <span class="n">l</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+
+          <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+          <span class="n">reverse</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="n">n</span><span class="p">);</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+              <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">cnt</span><span class="p">);</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>   <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="n">reverse</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+          <span class="n">reverse</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="n">n</span><span class="p">);</span>
+
+          <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="p">((</span><span class="n">ll</span><span class="p">)</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">%</span> <span class="n">MOD</span> <span class="o">*</span> <span class="mi">25561994LL</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+          <span class="n">pt</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+              <span class="n">pt</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+              <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>   <span class="n">ans</span> <span class="o">=</span> <span class="p">((</span><span class="n">ans</span> <span class="o">-</span> <span class="p">(</span><span class="n">ll</span><span class="p">)</span><span class="n">pt</span><span class="p">.</span><span class="n">tree</span><span class="p">[</span><span class="n">pt</span><span class="p">.</span><span class="n">cursuffix</span><span class="p">].</span><span class="n">cnt</span> <span class="o">*</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">%</span> <span class="n">MOD</span> <span class="o">+</span> <span class="n">MOD</span><span class="p">)</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/10/10/20181010_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（Practice VI - I） —— 2018.10.10</span>
+                <p>  2018 ACM-ICPC南京网络赛</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20181010%20Problem1010/20181010-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/09/25/20180925_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（莫队算法 II） —— 2018.9.25</span>
+                <p>  带修改的莫队、树上莫队</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180925%20Problem0925/20180925-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

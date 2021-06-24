@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVA学习笔记 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="JAVA学习笔记">
+    <meta name="keywords"  content="Programming">
+    <!-- Open Graph -->
+    <meta property="og:title" content="JAVA学习笔记 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2018/07/13/JAVA.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Programming" class="post-tag">Programming</a>
+            
+            
+        </div>
+        <h1>JAVA学习笔记</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-07-13"><i class="iconfont icon-date"></i>13 Jul 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180613%20Problem0613/20180613-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>JAVA学习笔记</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=407002778&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>开始啃JAVA，本文不少内容都是直接Copy那本Thinking in JAVA的，参考资料如下<br />
+（PS：本文需要有C++基础）</p>
+<ol>
+  <li>JAVA程序设计 —— 学堂在线</li>
+  <li>Thinking in JAVA<br />
+<br /></li>
+</ol>
+
+<h3 id="基础语法--题">基础语法 —— 题</h3>
+<p>这部分个人想了很久，最后决定以过题的方式写笔记，毕竟语法这种东西怎么说都是虚的…<br />
+<br /></p>
+
+<h4 id="一维数组与排序">一维数组与排序</h4>
+<blockquote>
+  <p><strong>字符串排序</strong><br />
+用Java编写一个能对一组字符串按字典序升序排序的程序 输入为N和N行字符串，需要按行输出字符串升序排序的结果<br />
+如输入<br />
+3<br />
+Abc<br />
+Abe<br />
+Abd<br />
+输出：<br />
+Abc<br />
+Abd<br />
+Abe</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+          <span class="c1">//创建Scanner类对象，用于输入</span>
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="nc">String</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+          <span class="o">}</span>
+          <span class="c1">//数组排序</span>
+          <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="一维数组和方法">一维数组和方法</h4>
+<blockquote>
+  <p><strong>偶数分解</strong><br />
+歌德巴赫猜想：任何一个大于六的偶数可以拆分成两个质数的和，打印出所有的可能<br />
+输入n为偶数,输出n的所有分界可能<br />
+如输入<br />
+100<br />
+输出：<br />
+100=3+97<br />
+100=11+89<br />
+100=17+83<br />
+100=29+71<br />
+100=41+59<br />
+100=47+53</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">prime</span><span class="o">;</span>
+      <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">used</span><span class="o">;</span>
+      <span class="kd">static</span> <span class="kt">int</span> <span class="n">ppos</span><span class="o">;</span>
+
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Euler</span><span class="o">();</span>
+
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ppos</span> <span class="o">&amp;&amp;</span> <span class="n">prime</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="k">if</span><span class="o">(</span><span class="n">used</span><span class="o">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">prime</span><span class="o">[</span><span class="n">i</span><span class="o">]]</span> <span class="o">==</span> <span class="mi">1</span><span class="o">){</span>
+                  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%d=%d+%d"</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">prime</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">n</span> <span class="o">-</span> <span class="n">prime</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+                  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+              <span class="o">}</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+
+      <span class="c1">//main中直接调用的方法，声明为静态static</span>
+      <span class="c1">//实际上是因为static方法只能访问static方法</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">Euler</span><span class="o">(){</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="mi">1</span><span class="n">e6</span><span class="o">;</span>
+          <span class="n">prime</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+          <span class="n">used</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+          <span class="c1">//填充数组为1</span>
+          <span class="nc">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">used</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+          <span class="n">ppos</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="k">if</span><span class="o">(</span><span class="n">used</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1</span><span class="o">){</span>
+                  <span class="n">prime</span><span class="o">[</span><span class="n">ppos</span><span class="o">++]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+              <span class="o">}</span>
+              <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">*</span><span class="n">prime</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                  <span class="n">used</span><span class="o">[</span><span class="n">i</span><span class="o">*</span><span class="n">prime</span><span class="o">[</span><span class="n">j</span><span class="o">]]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                  <span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">%</span><span class="n">prime</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>     <span class="k">break</span><span class="o">;</span>
+              <span class="o">}</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="方法和递归">方法和递归</h4>
+<blockquote>
+  <p><strong>最大公约数和最小公倍数</strong><br />
+输入两个正整数m和n，求其最大公约数和最小公倍数<br />
+输入<br />
+34 8<br />
+输出<br />
+2 136</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">gcd</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">lcm</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">));</span>
+      <span class="o">}</span>
+
+      <span class="c1">//递归</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">gcd</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+          <span class="k">return</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">a</span> <span class="o">:</span> <span class="n">gcd</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="o">));</span>
+      <span class="o">}</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">lcm</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+          <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">/</span><span class="n">gcd</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="二维数组">二维数组</h4>
+<blockquote>
+  <p><strong>扫雷</strong><br />
+给定nxm的矩阵，其中’*‘代表雷，’.’则不是雷，求对应将’.’换成周围有几颗雷的矩阵<br />
+如输入<br />
+4 4<br />
+*…<br />
+….<br />
+.*..<br />
+….<br />
+则输出<br />
+*100<br />
+2210<br />
+1*10<br />
+1110</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">csn</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+          <span class="k">while</span><span class="o">(</span><span class="n">cin</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>     <span class="c1">//相当于检测EOF</span>
+              <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+              <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+              <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>    <span class="k">break</span><span class="o">;</span>
+
+              <span class="nc">String</span><span class="o">[]</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+              <span class="kt">char</span><span class="o">[][]</span> <span class="no">G</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">m</span><span class="o">];</span>
+              <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+                  <span class="n">str</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+              <span class="o">}</span>
+              <span class="c1">//String不能直接修改，需转为char[]</span>
+
+              <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+                  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                      <span class="no">G</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">str</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">);</span>   <span class="c1">//String转char</span>
+                      <span class="k">if</span><span class="o">(</span><span class="no">G</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">'.'</span><span class="o">){</span>
+                          <span class="no">G</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="sc">'0'</span><span class="o">;</span>
+                      <span class="o">}</span>
+                  <span class="o">}</span>
+              <span class="o">}</span>
+
+              <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+                  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                      <span class="k">if</span> <span class="o">(</span><span class="no">G</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">!=</span> <span class="sc">'*'</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+                      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">dx</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">dx</span><span class="o">++)</span> <span class="o">{</span>
+                          <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">dy</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">dy</span><span class="o">++)</span> <span class="o">{</span>
+                              <span class="k">if</span><span class="o">(</span><span class="n">dx</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>  <span class="k">continue</span><span class="o">;</span>
+                              <span class="kt">int</span> <span class="n">newi</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">;</span>
+                              <span class="kt">int</span> <span class="n">newj</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">dy</span><span class="o">;</span>
+                              <span class="k">if</span><span class="o">(</span><span class="n">newi</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">newi</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">||</span> <span class="n">newj</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">newj</span> <span class="o">&gt;=</span> <span class="n">m</span> <span class="o">||</span> <span class="no">G</span><span class="o">[</span><span class="n">newi</span><span class="o">][</span><span class="n">newj</span><span class="o">]</span> <span class="o">==</span> <span class="sc">'*'</span><span class="o">)</span>  <span class="k">continue</span><span class="o">;</span>
+                              <span class="no">G</span><span class="o">[</span><span class="n">newi</span><span class="o">][</span><span class="n">newj</span><span class="o">]++;</span>
+                          <span class="o">}</span>
+                      <span class="o">}</span>
+                  <span class="o">}</span>
+              <span class="o">}</span>
+
+              <span class="k">if</span><span class="o">(</span><span class="n">csn</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span>     <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Field #%d:"</span><span class="o">,</span> <span class="n">csn</span><span class="o">++);</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+              <span class="k">for</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">G_row</span> <span class="o">:</span> <span class="no">G</span><span class="o">){</span>
+                  <span class="k">for</span><span class="o">(</span><span class="kt">char</span> <span class="n">ch</span> <span class="o">:</span> <span class="n">G_row</span><span class="o">){</span>
+                      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">ch</span><span class="o">);</span>
+                  <span class="o">}</span>
+                  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+              <span class="o">}</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="collection">Collection</h4>
+<blockquote>
+  <p><strong>交集</strong><br />
+给定两个数组(数组中不包含相同元素），求两个数组的交集中元素的个数（即共同出现的数，如没有则输出为None） 如输入：<br />
+5<br />
+1 2 4 6 8<br />
+6<br />
+1 2 5 6 7 8<br />
+输出： 4</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="c1">//传入Long，即long的封装类</span>
+          <span class="nc">HashSet</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;</span> <span class="n">hset</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="kt">long</span> <span class="n">tmp</span><span class="o">;</span>
+              <span class="n">tmp</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+              <span class="n">hset</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+          <span class="o">}</span>
+
+          <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="kt">long</span> <span class="n">tmp</span><span class="o">;</span>
+              <span class="n">tmp</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+              <span class="k">if</span><span class="o">(</span><span class="n">hset</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">tmp</span><span class="o">)</span> <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+                  <span class="n">ans</span><span class="o">++;</span>
+              <span class="o">}</span>
+          <span class="o">}</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ans</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">ans</span> <span class="o">:</span> <span class="s">"None"</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="基础语法--细究">基础语法 —— 细究</h3>
+<h4 id="一切都是对象">一切都是对象</h4>
+<ul>
+  <li><strong>用句柄操纵对象</strong><br />
+创建一个String句柄
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">string</span> <span class="n">s</span><span class="o">;</span>
+</code></pre></div>    </div>
+    <p>创建一个句柄时，记住无论如何都进行初始化,即与其他物体连接</p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"asdf"</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>用new创建对象</strong><br />
+创建句柄时，用new使它同一个新对象连接
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"asdf"</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>无需清除对象</strong><br />
+Java有一个特别的“垃圾收集器”，它会查找用new创建的所有对象，并辨别其中哪些不再被引用。随后，它会自动释放由那些闲置对象占据的内存，以便能由新对象使用。这意味着我们根本不必操心内存的回收问题。<br />
+<br /></li>
+</ul>
+
+<h4 id="数据保存位置">数据保存位置</h4>
+<ol>
+  <li><strong>寄存器</strong>：是根据需要由编译器分配的，我们对此没有直接的控制权</li>
+  <li><strong>堆栈</strong>：保存某些Java数据，特别是对象句柄。创建程序时，Java编译器必须准确地知道 堆栈内保存的所有数据的“长度”以及“存在时间”，因此其灵活度不大</li>
+  <li><strong>堆</strong>：保存Java对象。编译器不必知道要从堆里分配多少存储空间，也不必知道存储的数据要在堆里停留多长的时间，因此其具有很大的灵活度</li>
+  <li><strong>静态存储</strong>：位于固定位置。可用static关键字指出一个对象的特定元素是静态的。 但Java对象本身永远都不会置入静态存储空间</li>
+  <li><strong>常数存储</strong>：通常直接置于程序代码内部</li>
+  <li><strong>非RAM存储</strong>:程序不运行时仍可存在，并在程序的控制范围之外<br />
+<br /></li>
+</ol>
+
+<h4 id="主要类型">主要类型</h4>
+<p>| 主类型    | 大小    | 最小值     | 最大值           | 封装器类型  | 字段默认值  |
+| ——– | —— | ——— | ————–  | ———- | ———- |
+| boolean  | 1-bit  | –         | –               | Boolean    | false      |
+| char     | 16-bit | Unicode 0 | Unicode 216 - 1 | Character  | ‘\u0000’   |
+| byte     | 8-bit  | -128      | +127            | Byte[11]   | 0          |
+| short    | 16-bit | -215      | +215 – 1        | Short1     | 0          |
+| int      | 32-bit | -231      | +231 - 1        | Integer    | 0          |
+| long     | 64-bit | -263      | +263 – 1        | Long       | 0          |
+| float    | 32-bit | IEEE754   | IEEE754         | Float      | 0          |
+| double   | 64-bit | IEEE754   | IEEE754         | Double     | 0L         |
+| void     | –      | –         | –               | Void1      | -          |
+<br /></p>
+
+<h4 id="字面值-literal">字面值 (Literal)</h4>
+<p>字面值用于表示固定的值 (fixed value)</p>
+<ul>
+  <li><strong>整型字面值</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//	26(10)</span>
+  <span class="kt">int</span>	<span class="n">decVal</span> <span class="o">=</span> <span class="mi">26</span><span class="o">;</span>
+  <span class="c1">//	26(16)</span>
+  <span class="kt">int</span>	<span class="n">hexVal</span> <span class="o">=</span> <span class="mh">0x1a</span><span class="o">;</span>
+  <span class="c1">//	26(2)</span>
+  <span class="kt">int</span>	<span class="n">binVal</span> <span class="o">=</span> <span class="mb">0b11010</span><span class="o">;</span>
+  <span class="c1">//  26(8)</span>
+  <span class="kt">int</span> <span class="n">octVal</span> <span class="o">=</span> <span class="mo">032</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>浮点字面值</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//double</span>
+  <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="mf">123.4</span><span class="o">;</span>
+  <span class="kt">double</span> <span class="n">d2</span> <span class="o">=</span> <span class="mf">123.4</span><span class="no">D</span><span class="o">;</span>
+  <span class="kt">double</span> <span class="n">d3</span> <span class="o">=</span> <span class="mf">1.234e2</span><span class="o">;</span>
+
+  <span class="c1">//float</span>
+  <span class="kt">float</span> <span class="n">f1</span> <span class="o">=</span> <span class="mf">123.4</span><span class="no">F</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>字符及字符串字面值</strong><br />
+字符字面值以单引号括起，字符串以双引号（如不位于同一行则需使用+运算符）<br />
+常见转义字符如下<br />
+| 转义字符 | 对应意义            |
+| ——– | ——————- |
+| \ddd    | 八进制              |
+| \uxxxx  | 十六进制Unicode字符 |
+| \’     | 单引号              |
+| \”     | 双引号              |
+| \\	   | 反斜杠              |
+| \r      | 回车符              |
+| \n      | 换行符              |
+| \f      | 换页符              |
+| \t      | 制表符              |
+| \b      | 回格符              |</p>
+  </li>
+  <li><strong>在数值型字面值中使用下划线</strong><br />
+可以分隔数字，增强可读性
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">long</span> <span class="n">creditCardNumber</span> <span class="o">=</span> <span class="mi">1234_5678_9012_3456L</span><span class="o">;</span>
+  <span class="kt">long</span> <span class="n">socialSecurityNumber</span> <span class="o">=</span> <span class="mi">999_99_9999L</span><span class="o">;</span>
+  <span class="kt">float</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14_15</span><span class="no">F</span><span class="o">;</span>
+  <span class="kt">long</span> <span class="n">hexBytes</span> <span class="o">=</span> <span class="mh">0xFF_EC_DE_5E</span><span class="o">;</span>
+  <span class="kt">long</span> <span class="n">hexWords</span> <span class="o">=</span> <span class="mh">0xCAFE_BABE</span><span class="o">;</span>
+  <span class="kt">long</span> <span class="n">maxLong</span> <span class="o">=</span> <span class="mh">0x7fff_ffff_ffff_ffff</span><span class="no">L</span><span class="o">;</span>
+  <span class="kt">byte</span> <span class="n">nybbles</span> <span class="o">=</span> <span class="mb">0b0010_0101</span><span class="o">;</span>
+  <span class="kt">long</span> <span class="n">bytes</span> <span class="o">=</span> <span class="mb">0b11010010_01101001_10010100_10010010</span><span class="o">;</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="类型转换">类型转换</h4>
+<ul>
+  <li>
+    <p><strong>7种类型的顺序</strong><br />
+byte &lt; (short=char) &lt; int &lt; long &lt; float &lt; double<br />
+从小到大转换可以自动完成，从大到小转换则需强制类型转换</p>
+  </li>
+  <li>
+    <p><strong>自动转换</strong><br />
+可能导致损失精度的情况：<br />
+int–&gt;float<br />
+long–&gt;float<br />
+long–&gt;double<br />
+float–&gt;double without strictfp</p>
+  </li>
+  <li><strong>强制类型转换</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+  <span class="kt">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span><span class="n">a</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>字面值赋值</strong><br />
+即使没有超出范围，也必须进行强制类型转换</p>
+  </li>
+  <li><strong>表达式中的自动类型提升</strong><br />
+所有byte/short/char都被提升为int<br />
+如果有一个操作数为long，整个表达式提升为long。float和double情况也一样<br />
+<br /></li>
+</ul>
+
+<h4 id="数组-array">数组 (Array)</h4>
+<ul>
+  <li><strong>创建与初始化</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//创建 + 初始化</span>
+  <span class="kt">int</span><span class="o">[]</span> <span class="n">anArray</span> <span class="o">=</span> <span class="o">{</span><span class="mi">100</span><span class="o">,</span> <span class="mi">200</span><span class="o">,</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">600</span><span class="o">,</span> <span class="mi">700</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">900</span><span class="o">,</span> <span class="mi">1000</span><span class="o">};</span>
+  <span class="kt">int</span><span class="o">[]</span> <span class="n">anotherArray</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+
+  <span class="c1">//多维数组</span>
+  <span class="nc">String</span><span class="o">[][]</span> <span class="n">names</span> <span class="o">=</span> <span class="o">{</span> <span class="o">{</span> <span class="s">"Mr. "</span><span class="o">,</span> <span class="s">"Mrs. "</span><span class="o">,</span> <span class="s">"Ms. "</span> <span class="o">},</span> <span class="o">{</span> <span class="s">"Smith"</span><span class="o">,</span> <span class="s">"Jones"</span> <span class="o">}</span> <span class="o">};</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>另类初始化</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayInit</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//限制较大</span>
+      <span class="nc">Integer</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span>
+      <span class="o">};</span>
+
+      <span class="c1">//可以有未知的参数(自变量)数量以及未知的类型</span>
+      <span class="nc">Integer</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">[]</span> <span class="o">{</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span>
+              <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span>
+      <span class="o">};</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Object自动转换为String的例子</span>
+<span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span> <span class="kt">int</span> <span class="n">i</span><span class="o">;</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">f</span><span class="o">(</span><span class="nc">Object</span><span class="o">[]</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="c1">//此处自动转换为String</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">f</span><span class="o">(</span><span class="k">new</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span>
+                <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">47</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Main</span><span class="o">(),</span>
+                <span class="k">new</span> <span class="nf">Float</span><span class="o">(</span><span class="mf">3.14</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Double</span><span class="o">(</span><span class="mf">11.11</span><span class="o">)</span> <span class="o">});</span>
+        <span class="n">f</span><span class="o">(</span><span class="k">new</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span><span class="s">"one"</span><span class="o">,</span> <span class="s">"two"</span><span class="o">,</span> <span class="s">"three"</span> <span class="o">});</span>
+        <span class="n">f</span><span class="o">(</span><span class="k">new</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span><span class="k">new</span> <span class="no">A</span><span class="o">(),</span> <span class="k">new</span> <span class="no">A</span><span class="o">(),</span> <span class="k">new</span> <span class="no">A</span><span class="o">()});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// Output:</span>
+<span class="c1">// 47</span>
+<span class="c1">// Main@75b84c92</span>
+<span class="c1">// 3.14</span>
+<span class="c1">// 11.11</span>
+<span class="c1">// one</span>
+<span class="c1">// two</span>
+<span class="c1">// three</span>
+<span class="c1">// A@6bc7c054</span>
+<span class="c1">// A@232204a1</span>
+<span class="c1">// A@4aa298b7</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li><strong>foreach</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="kt">int</span> <span class="n">arr</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">7</span><span class="o">};</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">arr</span><span class="o">){</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Output:</span>
+<span class="c1">// 1</span>
+<span class="c1">// 2</span>
+<span class="c1">// 3</span>
+<span class="c1">// 4</span>
+<span class="c1">// 5</span>
+<span class="c1">// 7</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>数组操作</strong><br />
+arraycopy: 用于数组复制<br />
+binarySearch: 用于搜索<br />
+equals: 比较两个数组是否相等<br />
+fill: 填充数组<br />
+sort: 数组排序，在 Java SE 8 以后，可以使用 parallelSort 方法，在多处理器系统的大数组并行排序比连续数组排序更快<br />
+<br />
+eg. ArrayCopyOfDemo:
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+      <span class="kt">char</span><span class="o">[]</span> <span class="n">copyFrom</span> <span class="o">=</span> <span class="o">{</span> <span class="sc">'d'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'c'</span><span class="o">,</span> <span class="sc">'a'</span><span class="o">,</span> <span class="sc">'f'</span><span class="o">,</span> <span class="sc">'f'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'i'</span><span class="o">,</span> <span class="sc">'n'</span><span class="o">,</span> <span class="sc">'a'</span><span class="o">,</span> <span class="sc">'t'</span><span class="o">,</span> <span class="sc">'e'</span> <span class="o">,</span> <span class="sc">'d'</span> <span class="o">};</span>
+      <span class="kt">char</span><span class="o">[]</span> <span class="n">copyTo</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">copyFrom</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">9</span><span class="o">);</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">copyTo</span><span class="o">));</span>    
+      <span class="c1">//Output: caffein</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <p>eg. ArrayCopyDemo:</p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">char</span><span class="o">[]</span> <span class="n">copyFrom</span> <span class="o">=</span> <span class="o">{</span> <span class="sc">'d'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'c'</span><span class="o">,</span> <span class="sc">'a'</span><span class="o">,</span> <span class="sc">'f'</span><span class="o">,</span> <span class="sc">'f'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'i'</span><span class="o">,</span> <span class="sc">'n'</span><span class="o">,</span> <span class="sc">'a'</span><span class="o">,</span> <span class="sc">'t'</span><span class="o">,</span> <span class="sc">'e'</span> <span class="o">,</span> <span class="sc">'d'</span> <span class="o">};</span>
+      <span class="kt">char</span><span class="o">[]</span> <span class="n">copyTo</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="mi">7</span><span class="o">];</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">copyFrom</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="n">copyTo</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">copyTo</span><span class="o">));</span>
+      <span class="c1">//Output: caffein</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Java的数组的安全性</strong><br />
+创建对象数组时，实际创建的是一个句柄数组。而且每个句柄都会自动初始化成一个特殊值，并带有自己的关键字：null。若试图使用依然为null的一个句柄，就会在运行期报告问题。</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="构建java程序">构建Java程序</h4>
+<ul>
+  <li><strong>import</strong><br />
+import用于导入类库（包）
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span>	<span class="nn">java.util.Vector</span><span class="o">;</span>
+  <span class="kn">import</span>  <span class="nn">java.util.*</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>static</strong><br />
+与C++类似的作用<br />
+static一项重要的用途就是帮助我们在不必创建对象的前提下调用那个方法，这一点是至关重要的——特别是在定义程序运行入口方法main()的时候<br />
+<br /></li>
+</ul>
+
+<h4 id="一个java程序">一个JAVA程序</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+		<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+			<span class="c1">//Print the Date</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">());</span>
+
+			<span class="c1">//Print the system info</span>
+			<span class="nc">Properties</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getProperties</span><span class="o">();</span>
+			<span class="n">p</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">);</span>
+
+			<span class="c1">//Print the memory usage</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"--- Memory Usage:"</span><span class="o">);</span>
+			<span class="nc">Runtime</span> <span class="n">rt</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Total Memory = "</span> <span class="o">+</span> 	<span class="n">rt</span><span class="o">.</span><span class="na">totalMemory</span><span class="o">()</span>
+					<span class="o">+</span> <span class="s">" Free Memory = "</span> <span class="o">+</span> <span class="n">rt</span><span class="o">.</span><span class="na">freeMemory</span><span class="o">());</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="instanceof运算符">instanceof运算符</h4>
+<p><code class="language-plaintext highlighter-rouge">instanceof</code>用于匹配判断对象的类型。可以用它来测试对象是否是类的一个实例，子类的实例，或者是实现了一个特定接口的类的实例</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+		<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">InstanceofDemo</span><span class="o">.</span><span class="na">main</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">class</span> <span class="nc">InstanceofDemo</span> <span class="o">{</span>
+		<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(){</span>
+			<span class="nc">Parent</span> <span class="n">obj1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InstanceofDemo</span><span class="o">().</span><span class="na">new</span> <span class="nc">Parent</span><span class="o">();</span>
+			<span class="nc">Parent</span> <span class="n">obj2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InstanceofDemo</span><span class="o">().</span><span class="na">new</span> <span class="nc">Child</span><span class="o">();</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj1 instanceof Parent: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj1</span> <span class="k">instanceof</span> <span class="nc">Parent</span><span class="o">));</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj1 instanceof Child: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj1</span> <span class="k">instanceof</span> <span class="nc">Child</span><span class="o">));</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj1 instanceof MyInterface: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj1</span> <span class="k">instanceof</span> <span class="nc">MyInterface</span><span class="o">));</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj2 instanceof Parent: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj2</span> <span class="k">instanceof</span> <span class="nc">Parent</span><span class="o">));</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj2 instanceof Child: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj2</span> <span class="k">instanceof</span> <span class="nc">Child</span><span class="o">));</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj2 instanceof MyInterface: "</span>
+					<span class="o">+</span> <span class="o">(</span><span class="n">obj2</span> <span class="k">instanceof</span> <span class="nc">MyInterface</span><span class="o">));</span>
+
+		<span class="o">}</span>
+		<span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{}</span>
+		<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="kd">implements</span> <span class="nc">MyInterface</span> <span class="o">{}</span>
+		<span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{}</span>
+	<span class="o">}</span>
+
+	<span class="c1">//Output:</span>
+	<span class="c1">//obj1 instanceof Parent: true</span>
+	<span class="c1">//obj1 instanceof Child: false</span>
+	<span class="c1">//obj1 instanceof MyInterface: false</span>
+	<span class="c1">//obj2 instanceof Parent: true</span>
+	<span class="c1">//obj2 instanceof Child: true</span>
+	<span class="c1">//obj2 instanceof MyInterface: true</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="表达式语句块控制流程语句">表达式、语句、块、控制流程语句</h4>
+<p>略
+<br /></p>
+
+<h4 id="大数类">大数类</h4>
+<ul>
+  <li><strong>BigDecimal</strong><br />
+高精度浮点数，以字符串作为传入类型
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="nc">BigDecimal</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"1.23456789987654321123456789"</span><span class="o">);</span>
+        <span class="nc">BigDecimal</span> <span class="n">k</span>   <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.2"</span><span class="o">);</span>
+        <span class="n">num</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Output:</span>
+<span class="c1">// 1.23456789987654321123456789</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>BigInteger</strong><br />
+高精度整数，以字符串作为传入类型
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.math.BigInteger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="nc">BigInteger</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="s">"123456789987654321123456789"</span><span class="o">);</span>
+        <span class="nc">BigInteger</span> <span class="n">k</span>   <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="s">"2"</span><span class="o">);</span>
+        <span class="n">num</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="n">num</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Output:</span>
+<span class="c1">// 123456789987654321123456789</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="oop-隐藏实施细节">[OOP] 隐藏实施细节</h3>
+<h4 id="包库单元">包:库单元</h4>
+<p><br /></p>
+
+<h3 id="oop-类">[OOP] 类</h3>
+<h4 id="构建">构建</h4>
+<p>使用构建器，具体看题目</p>
+<blockquote>
+  <p><strong>构建</strong><br />
+编写一个表示二维平面上的点的类MyPoint，满足以下条件：<br />
+1、定义private的成员变量x和y，表示点的x和y坐标，类型为double<br />
+2、定义两个MyPoint的构造方法，一个构造方法不带参数，而且x和y的初始值为0，另一个构造方法有两个参数，参数名为x和y，类型为double，用这两个参数分别作为初始x和y坐标<br />
+3、定义一个getD方法，有一个类型为MyPoint的对象参数，功能为返回当前对象和参数对象这两个坐标点的距离，返回值为double类型
+4、编写测试的main方法，调用getD计算两个点之间的距离<br />
+输入：<br />
+输入2行数据， 总共4个有理数。每2个数据一组，表示一个点的x和y坐标，每行的2个数据用空格隔开。例如：<br />
+200.1 200.2<br />
+200.3 200.4<br />
+输出：<br />
+输出两个点之间的距离。例如：<br />
+0.28284271247464315</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+        <span class="nc">MyPoint</span> <span class="n">obj1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyPoint</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+        <span class="nc">MyPoint</span> <span class="n">obj2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyPoint</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj2</span><span class="o">.</span><span class="na">getD</span><span class="o">(</span><span class="n">obj1</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">MyPoint</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">y</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyPoint</span><span class="o">(){</span>
+        <span class="k">this</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">MyPoint</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="kt">double</span> <span class="n">y</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getD</span><span class="o">(</span><span class="nc">MyPoint</span> <span class="n">b</span><span class="o">){</span>
+        <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="na">x</span><span class="o">)*(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="na">x</span><span class="o">)</span> <span class="o">+</span> <span class="o">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="na">y</span><span class="o">)*(</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="na">y</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="this关键字">this关键字</h4>
+<ul>
+  <li><strong>在return语句中使用</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Leaf</span><span class="o">.</span><span class="na">main</span><span class="o">();</span>
+      <span class="o">}</span>
+      <span class="c1">//Output: i = 3</span>
+  <span class="o">}</span>
+
+  <span class="kd">class</span> <span class="nc">Leaf</span><span class="o">{</span>
+      <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+      <span class="nc">Leaf</span> <span class="nf">increment</span><span class="o">(){</span>
+          <span class="n">i</span><span class="o">++;</span>
+          <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="kt">void</span> <span class="nf">print</span><span class="o">(){</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i = "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
+          <span class="nc">Leaf</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Leaf</span><span class="o">();</span>
+          <span class="n">x</span><span class="o">.</span><span class="na">increment</span><span class="o">().</span><span class="na">increment</span><span class="o">().</span><span class="na">increment</span><span class="o">().</span><span class="na">print</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>使用this调用其他构造器</strong><br />
+在一个构建器中，若为this赋予一个自变量列表，那么this关键字会具有不同的含 义：它会对与那个自变量列表相符的构建器进行明确的调用，但只能调用一个。
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+          <span class="nc">Flower</span><span class="o">.</span><span class="na">main</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">class</span> <span class="nc">Flower</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="kt">int</span> <span class="n">petalCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+      <span class="kd">private</span> <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"null"</span><span class="o">);</span>
+      <span class="nc">Flower</span><span class="o">(</span><span class="kt">int</span> <span class="n">petals</span><span class="o">){</span>
+          <span class="n">petalCount</span> <span class="o">=</span> <span class="n">petals</span><span class="o">;</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Constructor: int arg only, petalCount= "</span> <span class="o">+</span> <span class="n">petalCount</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="nc">Flower</span><span class="o">(</span><span class="nc">String</span> <span class="n">ss</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Constructor: String arg only, s="</span> <span class="o">+</span> <span class="n">ss</span><span class="o">);</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="n">ss</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="nc">Flower</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">,</span> <span class="kt">int</span> <span class="n">petals</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">this</span><span class="o">(</span><span class="n">petals</span><span class="o">);</span> <span class="c1">//!</span>
+          <span class="c1">// this(s); // Can't call two!</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span> <span class="c1">// Another use of "this"</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Constructor: String &amp; int args"</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="nc">Flower</span><span class="o">()</span> <span class="o">{</span>
+          <span class="k">this</span><span class="o">(</span><span class="s">"hi"</span><span class="o">,</span> <span class="mi">47</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Constructor: default constructor (no args)"</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
+          <span class="c1">//!    this(11); // Not inside non-constructor!</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"--------------"</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"petalCount = "</span> <span class="o">+</span> <span class="n">petalCount</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"s = "</span><span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"--------------"</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
+          <span class="nc">Flower</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Flower</span><span class="o">();</span>
+          <span class="n">x</span><span class="o">.</span><span class="na">print</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="清除">清除</h4>
+<p>参考 <a href="https://www.cnblogs.com/Smina/p/7189427.html">https://www.cnblogs.com/Smina/p/7189427.html</a><br />
+<br /></p>
+
+<h4 id="合成">合成</h4>
+<p>类似C++</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+      <span class="nc">String</span> <span class="n">s</span><span class="o">;</span>
+      <span class="no">A</span><span class="o">(){</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="c1">//编译器在希望String时会调用此方法</span>
+      <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">(){</span> <span class="k">return</span> <span class="n">s</span><span class="o">;</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="no">A</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">A</span><span class="o">();</span>
+          <span class="c1">//此处编译器希望是String</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Test! "</span> <span class="o">+</span> <span class="n">obj</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Output:</span>
+  <span class="c1">// Test! Hello World!</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="继承">继承</h4>
+<p>仍然类似C++，但JAVA只允许单继承，具体见题目</p>
+<blockquote>
+  <p><strong>继承</strong><br />
+学校要进行年终总结，需要对教师和学生的评分结果进行统计。学生的统计数据有三个，教师的统计数据有四个。请你实现一个统计系统，对输入的数据进行整理。<br />
+请你实现一个Person类表示人员，并实现一些必要的方法，再实现Teacher类和Student类，通过类的继承机制完成这个任务。
+输入格式：<br />
+首先输入一个数字N，表示输入统计的人数。<br />
+接下来是N行，每行是用空格隔开的一系列数字。<br />
+输出格式：<br />
+N行，每行是一个标识符加一个平均得分（向下取整的整数），用空格隔开。<br />
+学生的标识符是Student，教师的标识符是Teacher。<br />
+输入样例：<br />
+2<br />
+2 3 4<br />
+2 3 4 5<br />
+输出样例：<br />
+Student 3<br />
+Teacher 3</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+          <span class="nc">Scanner</span> <span class="n">cin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+          <span class="n">cin</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+              <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">cin</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+              <span class="nc">String</span><span class="o">[]</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+              <span class="k">if</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">3</span><span class="o">){</span>
+                  <span class="kt">double</span><span class="o">[]</span> <span class="n">score</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+                  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                      <span class="n">score</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">tmp</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+                  <span class="o">}</span>
+                  <span class="nc">Student</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="n">score</span><span class="o">);</span>
+                  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="na">getScore</span><span class="o">());</span>
+              <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                  <span class="kt">double</span><span class="o">[]</span> <span class="n">score</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">];</span>
+                  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                      <span class="n">score</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">tmp</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+                  <span class="o">}</span>
+                  <span class="nc">Teacher</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Teacher</span><span class="o">(</span><span class="n">score</span><span class="o">);</span>
+                  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="na">getScore</span><span class="o">());</span>
+              <span class="o">}</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">//抽象类</span>
+  <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+      <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+      <span class="kt">double</span><span class="o">[]</span> <span class="n">score</span><span class="o">;</span>
+
+      <span class="kd">public</span> <span class="nf">Person</span><span class="o">(){</span>
+          <span class="k">this</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">id</span><span class="o">,</span> <span class="kt">double</span><span class="o">[]</span> <span class="n">score</span><span class="o">){</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">score</span> <span class="o">=</span> <span class="n">score</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="c1">//抽象方法，类似C++纯虚函数</span>
+      <span class="kd">abstract</span>  <span class="kt">int</span> <span class="nf">getScore</span><span class="o">();</span>
+      <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getId</span><span class="o">(){</span>
+          <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="kd">extends</span> <span class="nc">Person</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="nf">Student</span><span class="o">(</span><span class="kt">double</span><span class="o">[]</span> <span class="n">score</span><span class="o">){</span>
+          <span class="c1">//调用超类（基类）构建器</span>
+          <span class="kd">super</span><span class="o">(</span><span class="s">"Student"</span><span class="o">,</span> <span class="n">score</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getScore</span><span class="o">(){</span>
+          <span class="kt">double</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="n">sum</span> <span class="o">+=</span> <span class="n">score</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+          <span class="o">}</span>
+          <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="nc">Math</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">sum</span><span class="o">/</span><span class="mi">3</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Teacher</span> <span class="kd">extends</span> <span class="nc">Person</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="nf">Teacher</span><span class="o">(</span><span class="kt">double</span><span class="o">[]</span> <span class="n">score</span><span class="o">){</span>
+          <span class="kd">super</span><span class="o">(</span><span class="s">"Teacher"</span><span class="o">,</span> <span class="n">score</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getScore</span><span class="o">(){</span>
+          <span class="kt">double</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">double</span> <span class="n">num</span> <span class="o">:</span> <span class="n">score</span><span class="o">){</span>
+              <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span><span class="o">;</span>
+          <span class="o">}</span>
+          <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="nc">Math</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">sum</span><span class="o">/</span><span class="mi">4</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="名字隐藏">名字隐藏</h4>
+<p>如果Java基础类有一个方法名被“过载”使用多次,在衍生类里对那个方法名的重新定义就不会隐藏任何基础类的版本。所以无论方法在这一级还是在一个基础类中定义,过载都会生效:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">class</span> <span class="nc">Homer</span> <span class="o">{</span>
+      <span class="kt">char</span> <span class="nf">doh</span><span class="o">(</span><span class="kt">char</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"doh(char)"</span><span class="o">);</span>
+          <span class="k">return</span> <span class="sc">'d'</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="kt">float</span> <span class="nf">doh</span><span class="o">(</span><span class="kt">float</span> <span class="n">f</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"doh(float)"</span><span class="o">);</span>
+          <span class="k">return</span> <span class="mf">1.0f</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="kd">class</span> <span class="nc">Milhouse</span> <span class="o">{}</span>
+  <span class="kd">class</span> <span class="nc">Bart</span> <span class="kd">extends</span> <span class="nc">Homer</span> <span class="o">{</span>
+      <span class="kt">void</span> <span class="nf">doh</span><span class="o">(</span><span class="nc">Milhouse</span> <span class="n">m</span><span class="o">)</span> <span class="o">{}</span>
+  <span class="o">}</span>
+  <span class="kd">class</span> <span class="nc">Hide</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Bart</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Bart</span><span class="o">();</span>
+          <span class="n">b</span><span class="o">.</span><span class="na">doh</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// doh(float) used</span>
+          <span class="n">b</span><span class="o">.</span><span class="na">doh</span><span class="o">(</span><span class="sc">'x'</span><span class="o">);</span>
+          <span class="n">b</span><span class="o">.</span><span class="na">doh</span><span class="o">(</span><span class="mf">1.0f</span><span class="o">);</span>
+          <span class="n">b</span><span class="o">.</span><span class="na">doh</span><span class="o">(</span><span class="k">new</span> <span class="nc">Milhouse</span><span class="o">());</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="final关键字">final关键字</h4>
+<ul>
+  <li>
+    <p><strong>final数据</strong><br />
+做常数用，用途如下：<br />
+(1) 编译期常数，它永远不会改变<br />
+(2) 在运行期初始化的一个值，我们不希望它发生变化</p>
+  </li>
+  <li>
+    <p><strong>final方法</strong><br />
+用途一般如下：<br />
+(1) “上锁”：使其不可被改写或覆盖<br />
+(2) 提高简易代码的运行效率<br />
+通常,只有在方法的代码量非常少,或者想明确禁止方法被覆盖的时候,才应考虑将一个方法设为final</p>
+  </li>
+  <li>
+    <p><strong>final类</strong><br />
+使类不能被继承<br />
+<br /></p>
+  </li>
+</ul>
+
+<h4 id="多形性多态">多形性（多态）</h4>
+<p>Java中绑定的所有方法都采用后期绑定技术,除非一个方法已被声明成final<br />
+JAVA的多形性与C++中的virtual是类似的</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">class</span> <span class="nc">Shape</span><span class="o">{</span>
+      <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ERROR"</span><span class="o">);</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">extends</span> <span class="nc">Shape</span><span class="o">{</span>
+      <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Draw a rectangle"</span><span class="o">);</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="nc">Shape</span><span class="o">{</span>
+      <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Draw a circle!"</span><span class="o">);</span> <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+          <span class="nc">Shape</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Shape</span><span class="o">[]{</span> <span class="k">new</span> <span class="nc">Shape</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">()</span> <span class="o">};</span>
+          <span class="k">for</span><span class="o">(</span><span class="nc">Shape</span> <span class="n">obj</span> <span class="o">:</span> <span class="n">arr</span><span class="o">){</span>
+              <span class="n">obj</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>   <span class="c1">//多形性在此体现</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Output:</span>
+  <span class="c1">// ERROR</span>
+  <span class="c1">// Draw a rectangle</span>
+  <span class="c1">// Draw a circle!</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="扩展性接口">扩展性（接口）</h4>
+<ul>
+  <li><strong>接口</strong><br />
+个人理解接口的话，接口是规范，某些类拥有同一接口，那么就能做同一事情<br />
+一个接口的所有字段都自动具有static和final属性<br />
+下面这个例子中，圆和矩形拥有Shape接口，那么其就都拥有圆周率数据成员和计算面积的方法
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Rectangle</span> <span class="n">rec1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+        <span class="nc">Circle</span>    <span class="n">cir1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Rectangle 1's area is "</span> <span class="o">+</span> <span class="n">rec1</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Circle 1's area is "</span> <span class="o">+</span> <span class="n">cir1</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+
+        <span class="nc">Shape</span> <span class="n">rec2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span>
+        <span class="nc">Shape</span> <span class="n">cir2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Rectangle 2's area is "</span> <span class="o">+</span> <span class="n">rec2</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Circle 2's area is "</span> <span class="o">+</span> <span class="n">cir2</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">Shape</span><span class="o">{</span>
+    <span class="kt">double</span> <span class="no">PI</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">acos</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span>
+    <span class="kt">double</span> <span class="nf">getS</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">implements</span> <span class="nc">Shape</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">a</span><span class="o">,</span> <span class="kt">double</span> <span class="n">b</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getS</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">implements</span> <span class="nc">Shape</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">r</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Circle</span><span class="o">(</span><span class="kt">double</span> <span class="n">r</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getS</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="no">PI</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">r</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>多重继承</strong><br />
+接口只是比抽象类“更纯”的一种形式。而多个接口合并在一起可以实现“多重继承”（重要用途）</p>
+  </li>
+  <li>
+    <p><strong>抽象类与接口的选择</strong><br />
+事实上,如果事先知道某种东西会成为基础类,那么第一个选择就是把它变成一个接口。只有在必须使用方法定义或者成员变量的时候,才应考虑采用抽象类。</p>
+  </li>
+  <li><strong>通过继承扩展接口</strong> <br />
+接口同样是可继承的
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">Shape2D</span><span class="o">{</span>
+    <span class="kt">double</span> <span class="nf">getS</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">Shape3D</span> <span class="kd">extends</span> <span class="nc">Shape2D</span><span class="o">{</span>
+    <span class="kt">double</span> <span class="nf">getV</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">implements</span> <span class="nc">Shape2D</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">a</span><span class="o">,</span> <span class="kt">double</span> <span class="n">b</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getS</span><span class="o">(){</span> <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cube</span> <span class="kd">implements</span> <span class="nc">Shape3D</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">a</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Cube</span><span class="o">(</span><span class="kt">double</span> <span class="n">a</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getS</span><span class="o">(){</span> <span class="k">return</span> <span class="mi">6</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getV</span><span class="o">(){</span> <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="nc">Shape2D</span> <span class="n">rec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"the S of the rectangle is "</span> <span class="o">+</span> <span class="n">rec</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+
+        <span class="nc">Shape3D</span> <span class="n">cub</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cube</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"the S of the cube is "</span> <span class="o">+</span> <span class="n">cub</span><span class="o">.</span><span class="na">getS</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"the V of the cube is "</span> <span class="o">+</span> <span class="n">cub</span><span class="o">.</span><span class="na">getV</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Output:</span>
+<span class="c1">// the S of the rectangle is 20.0</span>
+<span class="c1">// the S of the cube is 24.0</span>
+<span class="c1">// the V of the cube is 8.0</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>常量分组</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Months</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="no">JANUARY</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="no">FEBRUARY</span> <span class="o">=</span> <span class="mi">2</span><span class="o">,</span> <span class="no">MARCH</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span>
+        <span class="no">APRIL</span> <span class="o">=</span> <span class="mi">4</span><span class="o">,</span> <span class="no">MAY</span> <span class="o">=</span> <span class="mi">5</span><span class="o">,</span> <span class="no">JUNE</span> <span class="o">=</span> <span class="mi">6</span><span class="o">,</span> <span class="no">JULY</span> <span class="o">=</span> <span class="mi">7</span><span class="o">,</span>
+        <span class="no">AUGUST</span> <span class="o">=</span> <span class="mi">8</span><span class="o">,</span> <span class="no">SEPTEMBER</span> <span class="o">=</span> <span class="mi">9</span><span class="o">,</span> <span class="no">OCTOBER</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span>
+        <span class="no">NOVEMBER</span> <span class="o">=</span> <span class="mi">11</span><span class="o">,</span> <span class="no">DECEMBER</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="抽象类和方法">抽象类和方法</h4>
+<p>相当于C++中的抽象类
+具体例子见“继承”<br />
+<br /></p>
+
+<h4 id="内部类">内部类</h4>
+<p>参考</p>
+<ol>
+  <li><a href="https://www.cnblogs.com/dolphin0520/p/3811445.html">https://www.cnblogs.com/dolphin0520/p/3811445.html</a></li>
+  <li><a href="https://www.cnblogs.com/chenssy/p/3388487.html">https://www.cnblogs.com/chenssy/p/3388487.html</a></li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="集合">集合</h3>
+<h4 id="概述">概述</h4>
+<p>类似C++中的STL</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+          <span class="nc">Vector</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">vec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vector</span><span class="o">();</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vec</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++){</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">vec</span><span class="o">.</span><span class="na">elementAt</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Output:</span>
+  <span class="c1">// 1</span>
+  <span class="c1">// 3</span>
+  <span class="c1">// 5</span>
+  <span class="c1">// 6</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="迭代器">迭代器</h4>
+<p>与C++类似</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+  <span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+          <span class="nc">Vector</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">vec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vector</span><span class="o">();</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+          <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span>
+
+          <span class="nc">Iterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">it</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+          <span class="k">while</span><span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Output:</span>
+  <span class="c1">// 1</span>
+  <span class="c1">// 3</span>
+  <span class="c1">// 5</span>
+  <span class="c1">// 6</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/07/13/20180713_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（母函数） —— 2018.7.13</span>
+                <p>  普通型母函数、指数型母函数</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180713%20Problem0713/20180713-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/07/12/20180712_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（权值并查集） —— 2018.7.12</span>
+                <p>  带权并查集</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180712%20Problem0712/20180712-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

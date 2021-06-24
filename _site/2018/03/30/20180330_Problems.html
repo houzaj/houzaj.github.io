@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（Hash） —— 2018.3.30 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/03/30/20180330_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/03/30/20180330_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（Hash） —— 2018.3.30</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-03-30"><i class="iconfont icon-date"></i>30 Mar 2018</time>
         </div>
     </div>
@@ -114,7 +125,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="k">const</span> <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
   <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">15</span><span class="p">;</span>
 
-  <span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
       <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">cnt</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
@@ -123,12 +134,12 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">head</span><span class="p">[</span><span class="n">MOD</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">];</span>
 
-  <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
       <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">hashInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">hashInsert</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
       <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">val</span><span class="o">%</span><span class="n">MOD</span> <span class="o">+</span> <span class="n">MOD</span><span class="p">;</span>    <span class="c1">//+MOD是因为有负数</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span> <span class="o">~</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">next</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">){</span>
@@ -143,7 +154,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">hashFind</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="nf">hashFind</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
       <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">val</span><span class="o">%</span><span class="n">MOD</span> <span class="o">+</span> <span class="n">MOD</span><span class="p">;</span>    
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span> <span class="o">~</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">next</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>    <span class="k">return</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">cnt</span><span class="p">;</span>
@@ -151,7 +162,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
       <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">)){</span>
           <span class="n">init</span><span class="p">();</span>
@@ -192,7 +203,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">999983</span><span class="p">;</span>
   <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 
-  <span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
       <span class="n">ll</span> <span class="n">val</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
   <span class="p">};</span>
   <span class="n">edge</span> <span class="n">e</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
@@ -200,13 +211,13 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
   <span class="n">ll</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
       <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">hashInsert</span><span class="p">(</span><span class="n">ll</span> <span class="n">val</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">hashInsert</span><span class="p">(</span><span class="n">ll</span> <span class="n">val</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
       <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">val</span><span class="o">%</span><span class="n">MOD</span> <span class="o">+</span> <span class="n">MOD</span><span class="p">;</span>
       <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
       <span class="n">e</span><span class="p">[</span><span class="n">tot</span><span class="p">].</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
@@ -214,7 +225,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">bool</span> <span class="n">hashFind</span><span class="p">(</span><span class="n">ll</span> <span class="n">val</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
+  <span class="kt">bool</span> <span class="nf">hashFind</span><span class="p">(</span><span class="n">ll</span> <span class="n">val</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">){</span>
       <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">val</span><span class="o">%</span><span class="n">MOD</span> <span class="o">+</span> <span class="n">MOD</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span> <span class="o">~</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">next</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span> <span class="o">&amp;&amp;</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">pos</span><span class="p">)</span>    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
@@ -222,7 +233,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">caseno</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
       <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
@@ -277,7 +288,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">7003</span><span class="p">;</span>
   <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
 
-  <span class="k">struct</span> <span class="n">edge</span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
       <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
       <span class="kt">int</span> <span class="n">cnt</span><span class="p">;</span>
       <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">35</span><span class="p">];</span>
@@ -286,7 +297,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="kt">int</span> <span class="n">head</span><span class="p">[</span><span class="n">MOD</span> <span class="o">+</span> <span class="mi">5</span><span class="p">];</span>
   <span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
 
-  <span class="kr">inline</span> <span class="kt">int</span> <span class="n">ELFhash</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">){</span>      <span class="c1">//具体看上面的博文</span>
+  <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">ELFhash</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">){</span>      <span class="c1">//具体看上面的博文</span>
       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">x</span><span class="p">;</span>
       <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">){</span>
@@ -301,12 +312,12 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="k">return</span> <span class="n">val</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">head</span><span class="p">));</span>
       <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">hashInsert</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">ans</span><span class="p">){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">hashInsert</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">ans</span><span class="p">){</span>
       <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span> <span class="o">==</span> <span class="sc">'0'</span><span class="p">)</span>  <span class="n">str</span><span class="o">++</span><span class="p">;</span>      <span class="c1">//去前导0</span>
       <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">ELFhash</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">%</span><span class="n">MOD</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span> <span class="o">~</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">next</span><span class="p">){</span>
@@ -324,7 +335,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
       <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">tot</span><span class="o">++</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
       <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">35</span><span class="p">];</span>
       <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
@@ -369,12 +380,12 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
   <span class="n">ull</span>  <span class="n">g</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
   <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="n">M</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>      <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">base</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="n">init</span><span class="p">();</span>
       <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
       <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
@@ -409,7 +420,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -449,7 +460,7 @@ Hash思维，其实平时经常会用到，只是自己没有意识用到了而�
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

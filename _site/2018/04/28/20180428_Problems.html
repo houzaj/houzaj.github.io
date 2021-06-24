@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（康托展开） —— 2018.4.28 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/04/28/20180428_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/04/28/20180428_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（康托展开） —— 2018.4.28</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-04-28"><i class="iconfont icon-date"></i>28 Apr 2018</time>
         </div>
     </div>
@@ -112,7 +123,7 @@ POJ做法：</p>
   <span class="c1">// 康托展开，从末位为第1位，首位为第n位</span>
   <span class="c1">// X = a[n]*(n-1)! + a[n - 1]*(n-2)! + ... + a[1]*0!</span>
 
-  <span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
       <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">prex</span><span class="p">,</span> <span class="n">preop</span><span class="p">;</span>
       <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">px</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pprex</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ppop</span><span class="p">)</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">px</span><span class="p">),</span> <span class="n">prex</span><span class="p">(</span><span class="n">pprex</span><span class="p">),</span> <span class="n">preop</span><span class="p">(</span><span class="n">ppop</span><span class="p">)</span> <span class="p">{}</span>
   <span class="p">};</span>
@@ -126,14 +137,14 @@ POJ做法：</p>
   <span class="kt">int</span>  <span class="n">pre</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>      <span class="c1">//记录前一个结点（其实是图论）</span>
   <span class="kt">int</span>  <span class="n">op</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>       <span class="c1">//记录操作</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">used</span><span class="p">));</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">pre</span><span class="p">));</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">op</span><span class="p">));</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]){</span>
+  <span class="kt">int</span> <span class="nf">cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]){</span>
       <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -145,7 +156,7 @@ POJ做法：</p>
       <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[]){</span>
+  <span class="kt">void</span> <span class="nf">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[]){</span>
       <span class="kt">bool</span> <span class="n">used</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">fac</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>   <span class="c1">//比a[i]小且未用过的数有cnt个</span>
@@ -163,13 +174,13 @@ POJ做法：</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>    <span class="c1">//递归输出</span>
+  <span class="kt">void</span> <span class="nf">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>    <span class="c1">//递归输出</span>
       <span class="k">if</span><span class="p">(</span><span class="n">pre</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>    <span class="k">return</span><span class="p">;</span>
       <span class="n">display</span><span class="p">(</span><span class="n">pre</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
       <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mp</span><span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="n">x</span><span class="p">]];</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">){</span>
       <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
 
       <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
@@ -205,7 +216,7 @@ POJ做法：</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
       <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
           <span class="n">init</span><span class="p">();</span>
@@ -252,7 +263,7 @@ HDU做法：</p>
   <span class="c1">// 康托展开，从末位为第1位，首位为第n位</span>
   <span class="c1">// X = a[n]*(n-1)! + a[n - 1]*(n-2)! + ... + a[1]*0!</span>
 
-  <span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
       <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">prex</span><span class="p">,</span> <span class="n">preop</span><span class="p">;</span>
       <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">px</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pprex</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ppop</span><span class="p">)</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">px</span><span class="p">),</span> <span class="n">prex</span><span class="p">(</span><span class="n">pprex</span><span class="p">),</span> <span class="n">preop</span><span class="p">(</span><span class="n">ppop</span><span class="p">)</span> <span class="p">{}</span>
   <span class="p">};</span>
@@ -266,14 +277,14 @@ HDU做法：</p>
   <span class="kt">int</span>  <span class="n">pre</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>
   <span class="kt">int</span>  <span class="n">op</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+  <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
       <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">used</span><span class="p">));</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">pre</span><span class="p">));</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">op</span><span class="p">));</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]){</span>
+  <span class="kt">int</span> <span class="nf">cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]){</span>
       <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -285,7 +296,7 @@ HDU做法：</p>
       <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[]){</span>
+  <span class="kt">void</span> <span class="nf">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[]){</span>
       <span class="kt">bool</span> <span class="n">used</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
           <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">fac</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
@@ -303,7 +314,7 @@ HDU做法：</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
       <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>     <span class="k">return</span><span class="p">;</span>
           <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mp</span><span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="n">x</span><span class="p">]];</span>
@@ -311,7 +322,7 @@ HDU做法：</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">){</span>
+  <span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">){</span>
       <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
 
       <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
@@ -345,7 +356,7 @@ HDU做法：</p>
       <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
       <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
       <span class="n">init</span><span class="p">();</span>
       <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
@@ -396,7 +407,7 @@ HDU做法：</p>
 <span class="k">const</span> <span class="kt">int</span> <span class="n">fac</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">5040</span><span class="p">,</span> <span class="mi">40320</span><span class="p">};</span>
 <span class="k">const</span> <span class="kt">char</span> <span class="n">convert_op</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"ABC"</span><span class="p">;</span>
 
-<span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+<span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">pre</span><span class="p">;</span>
     <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">pval</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ppop</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ppre</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">pval</span><span class="p">),</span> <span class="n">op</span><span class="p">(</span><span class="n">ppop</span><span class="p">),</span> <span class="n">pre</span><span class="p">(</span><span class="n">ppre</span><span class="p">)</span> <span class="p">{}</span>
 <span class="p">};</span>
@@ -404,14 +415,14 @@ HDU做法：</p>
 <span class="kt">int</span> <span class="n">op</span><span class="p">[</span><span class="n">M</span><span class="p">],</span> <span class="n">pre</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>
 <span class="kt">bool</span> <span class="n">used</span><span class="p">[</span><span class="n">M</span><span class="p">];</span>
 
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
     <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>     <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
     <span class="n">memset</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">op</span><span class="p">));</span>
     <span class="n">memset</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">pre</span><span class="p">));</span>
     <span class="n">memset</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">cantor</span><span class="p">(</span><span class="kt">char</span> <span class="n">a</span><span class="p">[]){</span>
+<span class="kt">int</span> <span class="nf">cantor</span><span class="p">(</span><span class="kt">char</span> <span class="n">a</span><span class="p">[]){</span>
     <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -423,7 +434,7 @@ HDU做法：</p>
     <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">char</span> <span class="n">a</span><span class="p">[]){</span>
+<span class="kt">void</span> <span class="nf">inv_cantor</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">char</span> <span class="n">a</span><span class="p">[]){</span>
     <span class="kt">bool</span> <span class="n">used</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">false</span><span class="p">};</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">fac</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
@@ -441,7 +452,7 @@ HDU做法：</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">[]){</span>
+<span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">[]){</span>
     <span class="kt">int</span> <span class="n">sval</span> <span class="o">=</span> <span class="n">cantor</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
     <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="n">sval</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
 
@@ -480,7 +491,7 @@ HDU做法：</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
+<span class="kt">void</span> <span class="nf">display</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">op</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="k">return</span><span class="p">;</span>
     <span class="n">display</span><span class="p">(</span><span class="n">pre</span><span class="p">[</span><span class="n">val</span><span class="p">]);</span>
     <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
@@ -488,7 +499,7 @@ HDU做法：</p>
     <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">convert_op</span><span class="p">[</span><span class="n">op</span><span class="p">[</span><span class="n">val</span><span class="p">]]);</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">init</span><span class="p">();</span>
     <span class="kt">char</span> <span class="n">init_seq</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"12345678"</span><span class="p">;</span>
@@ -520,7 +531,7 @@ HDU做法：</p>
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -560,7 +571,7 @@ HDU做法：</p>
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

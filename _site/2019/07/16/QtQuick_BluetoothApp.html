@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计 · QtQuick - 蓝牙控制App - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="计 · QtQuick - 蓝牙控制App">
+    <meta name="keywords"  content="Project">
+    <!-- Open Graph -->
+    <meta property="og:title" content="计 · QtQuick - 蓝牙控制App - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/07/16/QtQuick_BluetoothApp.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Project" class="post-tag">Project</a>
+            
+            
+        </div>
+        <h1>计 · QtQuick - 蓝牙控制App</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="19-07-16"><i class="iconfont icon-date"></i>16 Jul 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190716%20QtQuick_BlueTooth/main-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>QtQuick框架下制作的蓝牙控制App，包括了QtQuick Control的Material样式设置、使用Loader的页面切换、QtBluetooth的使用，定时器的使用</p>
+</blockquote>
+
+<h3 id="bb">BB</h3>
+<p>这次嵌入式，因为看错题，以为App需要自己做，然后又从来没有开发过Android App，又不熟悉Java，学习+开发的时间最多又只有一天，咋办呢？最后蒟蒻选择了QtQuick做成了跨平台App，从学习到开发用了不到一天的时间，说明入门学习成本不高，实现还ok。<br />
+本文不会给出整个项目代码，只记录一些特定功能的实现。<br />
+<br /></p>
+
+<h3 id="introduction">Introduction</h3>
+<p>本文主要介绍了蒟蒻使用QtQuick制作通过蓝牙连接蓝牙模块App中的核心步骤，包括了QtQuick Control的Material样式设置、使用Loader的页面切换、QtBluetooth的使用，定时器的使用。<br />
+蒟蒻写的应该有许多bug，建议各位dalao还是要看看Qt官方文档 orz<br />
+另外写完本文会有一段时间不会更新的，要综合训练了暂时不啃新点<br />
+<br /></p>
+
+<h3 id="hint">Hint</h3>
+<p>本节记录了一些在开发过程中遇到的坑点。
+编译到Windows下运行：</p>
+
+<ul>
+  <li>使用MinGW_w64编译会出现无法使用蓝牙的问题，使用MSVC2017编译可以解决这个问题。</li>
+  <li>使Qt自动配置MSVC2017编译器，可以安装VS 2017，没记错的话还要安装Windows SDK。</li>
+</ul>
+
+<p>编译到Android下运行：</p>
+
+<ul>
+  <li>貌似Android Target API要选最新的，不然会出现莫名其妙的编译错误。</li>
+  <li>编译错误可能与Android NDK的版本有关。</li>
+  <li>Android 6.0开始，权限在xml里记录是不够的，还需要动态申请，这部分貌似不能用QML实现，需要用C++实现。</li>
+  <li>蓝牙连接不仅需要蓝牙权限，还需要位置权限。</li>
+  <li>QtBluetooth的DeviceDiscovery模式可以动态申请位置权限。</li>
+</ul>
+
+<p>与Qt自身有关的：</p>
+
+<ul>
+  <li>QtQuick Control从2.0开始，把Style取消了。</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="environment">Environment</h3>
+<ul>
+  <li>Windows 10 (1903, 18362.175)</li>
+  <li>Qt 5.12.3</li>
+  <li>Qt Creator 4.8.1</li>
+  <li>Android SDK (platform-tools: 29.0.1, platform: android-28, build-tools: 28.0.3)</li>
+  <li>Android NDK 19.2.5345600</li>
+  <li>MSVC 2017 (Microsoft Visual C++ Compiler 15.9.28307.718 x86_amd64)</li>
+  <li>Bluetooth module: HC-06</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="functions">Functions</h3>
+<p><strong>Material Design样式</strong><br />
+Material Design样式QtQuick Control的版本至少为2<br />
+在pro文件中加入</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">QT</span> <span class="o">+=</span> <span class="nx">quickcontrols2</span>
+</code></pre></div></div>
+<p>在main.cpp文件中加入</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">QQuickStyle</span><span class="o">::</span><span class="n">setStyle</span><span class="p">(</span><span class="s">"Material"</span><span class="p">);</span>
+</code></pre></div></div>
+<p>在ApplicationWindow中加入，就可以指定主题了</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Material</span><span class="p">.</span><span class="nx">theme</span><span class="p">:</span> <span class="nx">Material</span><span class="p">.</span><span class="nx">Light</span>
+<span class="nx">Material</span><span class="p">.</span><span class="nx">accent</span><span class="p">:</span> <span class="nx">Material</span><span class="p">.</span><span class="nx">Blue</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>Loader页面切换</strong><br />
+如果在桌面端开发，程序小的话页面切换其实不是刚需，但是因为这次要照顾Android，所以需要进行页面切换。<br />
+实现页面切换只需要改变<code class="language-plaintext highlighter-rouge">Loader.source</code>即可。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Loader</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="nx">ld</span>
+    <span class="nx">anchors</span><span class="p">.</span><span class="nx">fill</span><span class="p">:</span> <span class="nx">parent</span>
+    <span class="nx">source</span><span class="p">:</span> <span class="dl">"</span><span class="s2">startPage.qml</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>因为Loader切换时，位于source的qml中的组件会全部GG，所以程序小的话可以开一个全局的qml，然后在里面放Loader和各种全局组件。项目大的话应该有更好的方法，时间紧迫没研究过。<br />
+<br /></p>
+
+<p><strong>QtBluetooth</strong><br />
+要连接蓝牙设备需要用到<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel</code>用于搜索蓝牙设备，<code class="language-plaintext highlighter-rouge">BluetoothSocket</code>用于蓝牙设备间的连接、数据传输等。<br />
+项目中<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel</code>的代码如下。其中<code class="language-plaintext highlighter-rouge">discoveryMode</code>为<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.DeviceDiscovery</code>是搜索设备，为<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.FullServiceDiscovery</code>或<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.MinimalServiceDiscovery</code>为搜素蓝牙服务。<br />
+由于<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.DeviceDiscovery</code>可以申请位置权限，实现蓝牙搜索，而蒟蒻又不会手写申请权限，所以蒟蒻的策略是先使用<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.DeviceDiscovery</code>，待到按钮触发时才改为<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel.MinimalServiceDiscovery</code>。<br />
+搜索到新设备时，会触发<code class="language-plaintext highlighter-rouge">onServiceDiscovered</code>，这时蒟蒻的策略是匹配MAC地址，匹配ok就传递给socket。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">BluetoothDiscoveryModel</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="nx">btModel</span>
+    <span class="nx">running</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="nx">property</span> <span class="nx">bool</span> <span class="nx">isFound</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="nx">discoveryMode</span><span class="p">:</span> <span class="nx">BluetoothDiscoveryModel</span><span class="p">.</span><span class="nx">DeviceDiscovery</span>
+
+    <span class="nx">onErrorChanged</span><span class="p">:</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">!=</span> <span class="nx">BluetoothDiscoveryModel</span><span class="p">.</span><span class="nx">NoError</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nl">onServiceDiscovered</span><span class="p">:</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isFound</span> <span class="o">&amp;&amp;</span> <span class="nx">service</span><span class="p">.</span><span class="nx">deviceAddress</span> <span class="o">==</span> <span class="nx">string_macAddress</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Found new service </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">service</span><span class="p">.</span><span class="nx">deviceAddress</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">service</span><span class="p">.</span><span class="nx">deviceName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">service</span><span class="p">.</span><span class="nx">serviceName</span><span class="p">);</span>
+            <span class="nx">socket</span><span class="p">.</span><span class="nx">setService</span><span class="p">(</span><span class="nx">service</span><span class="p">)</span>
+            <span class="nx">isFound</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>项目中<code class="language-plaintext highlighter-rouge">BluetoothSocket</code>的代码如下。当连接时，会触发<code class="language-plaintext highlighter-rouge">BluetoothSocket.Connected</code>，此时再把<code class="language-plaintext highlighter-rouge">BluetoothDiscoveryModel</code>关了，不传递时就关闭是因为还未连接，关闭会有bug出现！<br />
+当断开时，会触发<code class="language-plaintext highlighter-rouge">BluetoothSocket.Unconnected</code>。<br />
+目标设备发送内容，会触发<code class="language-plaintext highlighter-rouge">onStringDataChanged</code>；要向目标设备发送内容，只需要更改<code class="language-plaintext highlighter-rouge">socket.stringData</code>的内容即可。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">BluetoothSocket</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="nx">socket</span>
+    <span class="nx">connected</span><span class="p">:</span> <span class="kc">true</span>
+
+    <span class="nx">onSocketStateChanged</span><span class="p">:</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">socketState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">BluetoothSocket</span><span class="p">.</span><span class="nx">Unconnected</span><span class="p">:</span>
+            <span class="c1">//...</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">BluetoothSocket</span><span class="p">.</span><span class="nx">Connected</span><span class="p">:</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connected to server</span><span class="dl">"</span><span class="p">);</span>
+            <span class="nx">btModel</span><span class="p">.</span><span class="nx">running</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="nx">ld</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">gamePage.qml</span><span class="dl">"</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nl">onStringDataChanged</span><span class="p">:</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">.</span><span class="nx">stringData</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>定时器Timer</strong><br />
+需要使用定时器是因为长按按钮需要不断向设备发送消息，而Qt无法处理。这时候可以改成，按下按钮时打开定时器，松开按钮时停止定时器。<br />
+项目中一个定时器的代码如下所示。<code class="language-plaintext highlighter-rouge">triggeredOnStart</code>为一打开就生效，<code class="language-plaintext highlighter-rouge">repeat</code>为是否重复，<code class="language-plaintext highlighter-rouge">onTriggered</code>为每次需要做的内容。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Timer</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="nx">timer_backward</span>
+    <span class="nx">interval</span><span class="p">:</span> <span class="mi">70</span>
+    <span class="nx">repeat</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="nx">running</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="nx">triggeredOnStart</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="nx">onTriggered</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">stringData</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/07/23/Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（动态DP）</span>
+                <p>  动态DP（支持修改的DP）</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190723%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/07/15/ALG-DOC-ISAP.html" class="read-next-link"></a>
+            <section>
+                <span>蒟蒻的算法DOC - 网络流 · ISAP算法</span>
+                <p>  本文介绍了网络流中最大流求解算法中的ISAP算法，包括算法过程、算法正确性等</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190715%20ALG-DOC-ISAP/main-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

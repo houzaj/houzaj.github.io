@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="学习笔记 - 数据结构和算法 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/01/12/DS_Algorithm_summary.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/01/12/DS_Algorithm_summary.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Programming" class="post-tag">Programming</a>
+            <a href="http://houzaj.github.io/tags#Programming" class="post-tag">Programming</a>
             
             
         </div>
         <h1>学习笔记 - 数据结构和算法</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-01-12"><i class="iconfont icon-date"></i>12 Jan 2018</time>
         </div>
     </div>
@@ -106,9 +117,9 @@
 <h3 id="线性表--数组描述">线性表 —— 数组描述</h3>
 <h4 id="抽象类-linearlist"><strong>抽象类 linearlist</strong></h4>
 <p>创建一个抽象类 linearlist 方便派生接下来的类 arraylist和以后用到的其他类</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="k">class</span> <span class="nc">linearList</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
       <span class="k">virtual</span> <span class="o">~</span><span class="n">linearList</span><span class="p">()</span> <span class="p">{}</span>    <span class="c1">//析构函数需要为虚函数，作用是能调用引用对象中数据类型的析构函数</span>
       <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>    <span class="c1">//线性表为空时返回true</span>
       <span class="k">virtual</span> <span class="kt">int</span> <span class="n">size</span><span class="p">()</span>  <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">//返回元素个数</span>
@@ -123,8 +134,8 @@
 <h4 id="改变-array1d-的长度"><strong>改变 array1D 的长度</strong></h4>
 <p>改变一个一维数组的长度需要建立一个具有新长度的数组，然后把数据copy过去，最后使原数组指向新数组，并释放原数组的空间<br />
 当数组满而需要增大数组长度时，数组长度常常需要加倍，称为 <strong>数组倍增</strong></p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="kt">void</span> <span class="n">changeLength1D</span><span class="p">(</span><span class="n">T</span><span class="o">*&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">oldLength</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newLength</span><span class="p">){</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
+  <span class="kt">void</span> <span class="nf">changeLength1D</span><span class="p">(</span><span class="n">T</span><span class="o">*&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">oldLength</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newLength</span><span class="p">){</span>
       <span class="k">if</span><span class="p">(</span><span class="n">newLength</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>   <span class="k">return</span><span class="p">;</span>     <span class="c1">//非法返回</span>
       <span class="n">T</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">newLength</span><span class="p">];</span>     <span class="c1">//新数组</span>
       <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">oldLength</span><span class="p">,</span> <span class="n">newLength</span><span class="p">);</span>
@@ -136,9 +147,9 @@
 <p><br /></p>
 <h4 id="arraylist-类"><strong>arrayList 类</strong></h4>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//arrayList类定义 ---------------------------------------------------------</span>
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="k">class</span> <span class="nc">arrayList</span> <span class="o">:</span> <span class="k">public</span> <span class="n">linearList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
       <span class="n">arrayList</span><span class="p">(</span><span class="kt">int</span> <span class="n">initCap</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
       <span class="n">arrayList</span><span class="p">(</span><span class="k">const</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">);</span>
       <span class="o">~</span><span class="n">arrayList</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="p">[]</span> <span class="n">element</span><span class="p">;</span> <span class="p">}</span>
@@ -155,7 +166,7 @@
       <span class="c1">//其他方法</span>
       <span class="kt">int</span> <span class="n">capacity</span><span class="p">()</span> <span class="k">const</span>   <span class="p">{</span> <span class="k">return</span> <span class="n">arrayLength</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">protected</span><span class="o">:</span>
+  <span class="nl">protected:</span>
       <span class="kt">bool</span> <span class="n">checkIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">)</span>   <span class="k">const</span><span class="p">;</span>  <span class="c1">//索引theIndex是否有效</span>
       <span class="n">T</span><span class="o">*</span> <span class="n">element</span><span class="p">;</span>         <span class="c1">//存储线性表元素的一维数组</span>
       <span class="kt">int</span> <span class="n">arrayLength</span><span class="p">;</span>    <span class="c1">//一维数组的容量</span>
@@ -163,7 +174,7 @@
   <span class="p">};</span>
 </code></pre></div></div>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// arrayList的构造函数和复制构造函数 ------------------------------------------</span>
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">arrayList</span><span class="p">(</span><span class="kt">int</span> <span class="n">initCap</span><span class="p">){</span>
       <span class="k">if</span><span class="p">(</span><span class="n">initCap</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>     <span class="k">return</span><span class="p">;</span>     <span class="c1">//防止数据非法</span>
       <span class="n">arrayLength</span> <span class="o">=</span> <span class="n">initCap</span><span class="p">;</span>
@@ -171,7 +182,7 @@
       <span class="n">listSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">arrayList</span><span class="p">(</span><span class="k">const</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">theList</span><span class="p">){</span>
       <span class="n">arrayLength</span> <span class="o">=</span> <span class="n">theList</span><span class="p">.</span><span class="n">arrayLength</span><span class="p">;</span>
       <span class="n">listSize</span> <span class="o">=</span> <span class="n">theList</span><span class="p">.</span><span class="n">listSize</span><span class="p">;</span>
@@ -180,25 +191,25 @@
   <span class="p">}</span>
 </code></pre></div></div>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// arrayList的基本方法：checkIndex, get, indexOf ------------------------------------------</span>
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="kt">bool</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">checkIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
       <span class="k">if</span><span class="p">(</span><span class="n">theIndex</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">theIndex</span> <span class="o">&gt;=</span> <span class="n">listSize</span><span class="p">)</span>    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
       <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
       <span class="k">if</span><span class="p">(</span><span class="n">checkIndex</span><span class="p">(</span><span class="n">theIndex</span><span class="p">))</span>    <span class="k">return</span> <span class="n">element</span><span class="p">[</span><span class="n">theIndex</span><span class="p">];</span>
   <span class="p">}</span>
 
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="kt">int</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">indexOf</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">theElement</span><span class="p">)</span>  <span class="k">const</span><span class="p">{</span>
       <span class="kt">int</span> <span class="n">theIndex</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">find</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">element</span> <span class="o">+</span> <span class="n">listSize</span><span class="p">,</span> <span class="n">theElement</span><span class="p">)</span> <span class="o">-</span> <span class="n">element</span><span class="p">);</span>  <span class="c1">//STL方法</span>
       <span class="k">return</span> <span class="p">(</span><span class="n">theIndex</span> <span class="o">==</span> <span class="n">listSize</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">theIndex</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div></div>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// 删除一个元素：即向左覆盖 ------------------------------------------------------------</span>
-    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
     <span class="kt">void</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">erase</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">){</span>
         <span class="k">if</span><span class="p">(</span><span class="n">checkIndex</span><span class="p">(</span><span class="n">theIndex</span><span class="p">)){</span>
             <span class="n">copy</span><span class="p">(</span><span class="n">element</span> <span class="o">+</span> <span class="n">theIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">element</span> <span class="o">+</span> <span class="n">listSize</span><span class="p">,</span> <span class="n">element</span> <span class="o">+</span> <span class="n">theIndex</span><span class="p">);</span>   <span class="c1">//向左覆盖</span>
@@ -209,7 +220,7 @@
     <span class="p">}</span>
 </code></pre></div></div>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// 插入一个元素：即先右移再插入，插入时若数组已满则进行倍增 ------------------------</span>
-  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
   <span class="kt">void</span> <span class="n">arrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">theIndex</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">theElement</span><span class="p">){</span>
       <span class="k">if</span><span class="p">(</span><span class="n">theIndex</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">theIndex</span> <span class="o">&gt;</span> <span class="n">listSize</span><span class="p">)</span>     <span class="k">return</span><span class="p">;</span>
 
@@ -235,12 +246,12 @@
   <li><strong>随机访问</strong>: 最一般的迭代器，可随意实现跳跃移动，也可通过指针算术运算实现移动，但sort不支持</li>
 </ol>
 
-<p>所有迭代器都具备操作符 <code class="highlighter-rouge">==</code>, <code class="highlighter-rouge">!=</code>, 解引用符 <code class="highlighter-rouge">*</code>,</p>
+<p>所有迭代器都具备操作符 <code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code>, 解引用符 <code class="language-plaintext highlighter-rouge">*</code>,</p>
 
 <h4 id="arraylist-的一个迭代器"><strong>arrayList 的一个迭代器</strong></h4>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// iterator 类 -------------------------------------------------</span>
   <span class="k">class</span> <span class="nc">iterator</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
       <span class="c1">//5个typedef语句实现双向迭代器</span>
       <span class="k">typedef</span> <span class="n">bidirectional_iterator_tag</span> <span class="n">iterator_category</span><span class="p">;</span>
       <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
@@ -261,7 +272,7 @@
       <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span> <span class="p">(</span><span class="k">const</span> <span class="n">iterator</span> <span class="n">right</span><span class="p">)</span>  <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">position</span> <span class="o">!=</span> <span class="n">right</span><span class="p">.</span><span class="n">position</span><span class="p">;</span> <span class="p">}</span>
       <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span> <span class="p">(</span><span class="k">const</span> <span class="n">iterator</span> <span class="n">right</span><span class="p">)</span>  <span class="k">const</span><span class="p">{</span> <span class="k">return</span> <span class="n">position</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">position</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">protected</span><span class="o">:</span>
+  <span class="nl">protected:</span>
       <span class="n">T</span><span class="o">*</span> <span class="n">position</span><span class="p">;</span>
   <span class="p">};</span>
 </code></pre></div></div>
@@ -273,7 +284,7 @@
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -313,7 +324,7 @@
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题记（扩展欧几里德 & 中国剩余定理） —— 2018.6.10 - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="刷题记（扩展欧几里德 & 中国剩余定理） —— 2018.6.10">
+    <meta name="keywords"  content="Problem">
+    <!-- Open Graph -->
+    <meta property="og:title" content="刷题记（扩展欧几里德 & 中国剩余定理） —— 2018.6.10 - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2018/06/10/20180610_Problems.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
+            
+            
+        </div>
+        <h1>刷题记（扩展欧几里德 & 中国剩余定理） —— 2018.6.10</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="18-06-10"><i class="iconfont icon-date"></i>10 Jun 2018</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('http://houzajblog-1252277898.coscd.myqcloud.com/20180610%20Problem0610/20180610-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>扩展欧几里德、中国剩余定理</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=4010892&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<h3 id="前言">前言</h3>
+<p>听从大佬的，开始刷数论hhhhhh</p>
+<ol>
+  <li>扩展欧几里得 与 中国剩余定理<br />
+<a href="http://blog.miskcoo.com/2014/09/chinese-remainder-theorem">http://blog.miskcoo.com/2014/09/chinese-remainder-theorem</a></li>
+  <li>中国剩余定理及其实现<br />
+<a href="https://blog.csdn.net/u010468553/article/details/38346195">https://blog.csdn.net/u010468553/article/details/38346195</a></li>
+  <li>中国剩余定理 <br />
+<a href="https://baike.baidu.com/item/%E5%AD%99%E5%AD%90%E5%AE%9A%E7%90%86/2841597?fr=aladdin&amp;fromid=11200132&amp;fromtitle=%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86">https://baike.baidu.com/item/%E5%AD%99%E5%AD%90%E5%AE%9A%E7%90%86/2841597?fr=aladdin&amp;fromid=11200132&amp;fromtitle=%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86</a><br />
+<br /></li>
+</ol>
+
+<h3 id="青蛙的约会---poj---1061">青蛙的约会 - POJ - 1061</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180610%20Problem0610/%E9%9D%92%E8%9B%99%E7%9A%84%E7%BA%A6%E4%BC%9A%20-%20POJ%20-%201061.jpg" alt="" />
+<strong>思路</strong><br />
+题目求解的是 (x + km)%L = (y + kn)%L 这一方程中的k，这一方程可以化为 x + km - aL = y + kn - bL，进而化为 k(n - m) + (a - b)L = x - y，也就是扩欧的形式 ax + by = c，将其解除，其中x的位置就是k，也就是答案</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include&lt;cstdio&gt;
+</span>	<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+	<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+	<span class="n">ll</span> <span class="nf">extgcd</span><span class="p">(</span><span class="n">ll</span> <span class="n">a</span><span class="p">,</span> <span class="n">ll</span> <span class="n">b</span><span class="p">,</span> <span class="n">ll</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">ll</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+	    <span class="n">ll</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+	    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">){</span>
+	        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	        <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+	        <span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+	    <span class="p">}</span>
+	    <span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	    <span class="n">ll</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span>
+	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%lld%lld%lld%lld%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">l</span><span class="p">)){</span>
+	        <span class="n">ll</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+	        <span class="n">ll</span> <span class="n">a</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">;</span>
+	        <span class="n">ll</span> <span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+	        <span class="n">ll</span> <span class="n">c</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">q</span><span class="p">;</span>
+	        <span class="n">ll</span> <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+	        <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">%</span><span class="n">d</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+	            <span class="n">puts</span><span class="p">(</span><span class="s">"Impossible"</span><span class="p">);</span>
+	        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	            <span class="n">a</span> <span class="o">/=</span> <span class="n">d</span><span class="p">;</span>
+	            <span class="n">b</span> <span class="o">/=</span> <span class="n">d</span><span class="p">;</span>
+	            <span class="n">c</span> <span class="o">/=</span> <span class="n">d</span><span class="p">;</span>
+	            <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">c</span><span class="o">%</span><span class="n">b</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">%</span><span class="n">b</span><span class="p">;</span>
+	            <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+	        <span class="p">}</span>
+	    <span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="the-balance---poj---2142">The Balance - POJ - 2142</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180610%20Problem0610/The%20Balance%20-%20%20POJ%20-%202142.jpg" alt="" />
+<strong>题意</strong><br />
+求解ax + n = by 与 ax = n + by中 x + y 最小，ax + by 尽量小的解  <br />
+<strong>思路</strong><br />
+这题个人也是一知半解 T^T<br />
+首先求得解，再令其分别取得x与y的最小整数解，最后比较两组解x + y的大小，输出答案<br />
+原因嘛，其中一部分是因为 |x| + |y| = |x0 + b/d * t | + |y0 - a/d * t|，当t=0时取得最小解，所以取x与y的最小整数解得到两解作比较，但是ax + by尽量小似乎？没用到？？</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include&lt;cstdio&gt;
+</span>	<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+	<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+	<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">mabs</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span> <span class="k">return</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="o">-</span><span class="n">x</span> <span class="o">:</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">extgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+		<span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">){</span>
+			<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+			<span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+			<span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">)){</span>
+	    	<span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">;</span>
+	    	<span class="kt">int</span> <span class="n">g</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">);</span>
+	    	<span class="n">a</span> <span class="o">/=</span> <span class="n">g</span><span class="p">;</span>
+	    	<span class="n">b</span> <span class="o">/=</span> <span class="n">g</span><span class="p">;</span>
+	    	<span class="n">c</span> <span class="o">/=</span> <span class="n">g</span><span class="p">;</span>
+
+	    	<span class="n">x2</span> <span class="o">=</span> <span class="p">((</span><span class="n">x1</span><span class="o">*</span><span class="n">c</span><span class="p">)</span><span class="o">%</span><span class="n">b</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">%</span><span class="n">b</span><span class="p">;</span>
+	    	<span class="n">y2</span> <span class="o">=</span> <span class="n">mabs</span><span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">x2</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">);</span>
+
+	    	<span class="n">y1</span> <span class="o">=</span> <span class="p">((</span><span class="n">y1</span><span class="o">*</span><span class="n">c</span><span class="p">)</span><span class="o">%</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span><span class="o">%</span><span class="n">a</span><span class="p">;</span>
+	        <span class="n">x1</span> <span class="o">=</span> <span class="n">mabs</span><span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">y1</span><span class="p">)</span><span class="o">/</span><span class="n">a</span><span class="p">);</span>
+
+	        <span class="k">if</span><span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">&lt;</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">y2</span><span class="p">){</span>
+	            <span class="n">printf</span><span class="p">(</span><span class="s">"%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">);</span>
+	        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	            <span class="n">printf</span><span class="p">(</span><span class="s">"%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">);</span>
+	        <span class="p">}</span>
+	    <span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="biorhythms---poj---1006">Biorhythms - POJ - 1006</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180610%20Problem0610/Biorhythms%20-%20%20POJ%20-%201006.jpg" alt="" />
+<strong>题意</strong><br />
+给定a, b, c, d, 求解 x = a(mod 23), x = b(mod 28), x = c(mod 33)，的x(x &gt; d)，输出 x - d<br />
+<strong>思路</strong><br />
+中国剩余定理裸题（互质）</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include &lt;iostream&gt;
+</span>	<span class="cp">#include &lt;cstring&gt;
+</span>	<span class="cp">#include &lt;cstdio&gt;
+</span>	<span class="cp">#include &lt;algorithm&gt;
+</span>	<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+	<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+	<span class="kt">int</span> <span class="n">m</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">23</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">33</span><span class="p">};</span>
+	<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">m_tot</span> <span class="o">=</span> <span class="mi">23</span><span class="o">*</span><span class="mi">28</span><span class="o">*</span><span class="mi">33</span><span class="p">;</span>
+
+	<span class="kt">int</span> <span class="nf">extgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+	    <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+	    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">){</span>
+	        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	        <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+	        <span class="n">y</span> <span class="o">-=</span> <span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">;</span>
+	    <span class="p">}</span>
+	    <span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">res</span><span class="p">(){</span>
+	    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+	        <span class="kt">int</span> <span class="n">mt</span> <span class="o">=</span> <span class="n">m_tot</span><span class="o">/</span><span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	        <span class="kt">int</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+	        <span class="n">extgcd</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+	        <span class="n">ans</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">mt</span><span class="p">;</span>
+	    <span class="p">}</span>
+	    <span class="k">return</span> <span class="p">(</span><span class="n">ans</span><span class="o">%</span><span class="n">m_tot</span> <span class="o">+</span> <span class="n">m_tot</span><span class="p">)</span><span class="o">%</span><span class="n">m_tot</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+	    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+	    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+	        <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">csn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	        <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="o">~</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="o">~</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">||</span> <span class="o">~</span><span class="n">d</span><span class="p">)){</span>
+	            <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">res</span><span class="p">();</span>
+	            <span class="k">while</span><span class="p">(</span><span class="n">ans</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">)</span>     <span class="n">ans</span> <span class="o">+=</span> <span class="n">m_tot</span><span class="p">;</span>
+	            <span class="n">printf</span><span class="p">(</span><span class="s">"Case %d: the next triple peak occurs in %d days.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">++</span><span class="n">csn</span><span class="p">,</span> <span class="n">ans</span> <span class="o">-</span> <span class="n">d</span><span class="p">);</span>
+	        <span class="p">}</span>
+	    <span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="strange-way-to-express-integers---poj---2891">Strange Way to Express Integers - POJ - 2891</h3>
+<p><img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180610%20Problem0610/Strange%20Way%20to%20Express%20Integers%20-%20POJ%20-%202891.jpg" alt="" />
+<strong>题意</strong><br />
+给定k组数，每组数满足 x = ri(mod ai)，求最小的x，如无解，输出-1  <br />
+<strong>思路</strong><br />
+中国剩余定理裸题（非互质）</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cp">#include &lt;iostream&gt;
+</span>	<span class="cp">#include &lt;cstring&gt;
+</span>	<span class="cp">#include &lt;cstdio&gt;
+</span>	<span class="cp">#include &lt;algorithm&gt;
+</span>	<span class="cp">#include &lt;sstream&gt;
+</span>	<span class="cp">#include &lt;iomanip&gt;
+</span>	<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+	<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+
+	<span class="n">ll</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+	<span class="n">ll</span> <span class="nf">extgcd</span><span class="p">(</span><span class="n">ll</span> <span class="n">a</span><span class="p">,</span> <span class="n">ll</span> <span class="n">b</span><span class="p">,</span> <span class="n">ll</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">ll</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">){</span>
+	    <span class="n">ll</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+	    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">){</span>
+	        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	        <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+	        <span class="n">y</span> <span class="o">-=</span> <span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">;</span>
+	    <span class="p">}</span>
+	    <span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">ll</span> <span class="nf">crt</span><span class="p">(</span><span class="n">ll</span> <span class="n">n</span><span class="p">){</span>
+	    <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+	        <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">?</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+	    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+	            <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+	            <span class="n">ll</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+	            <span class="n">ll</span> <span class="n">d</span> <span class="o">=</span> <span class="n">extgcd</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+	            <span class="k">if</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">%</span><span class="n">d</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	            <span class="n">ll</span> <span class="n">t</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">d</span><span class="p">;</span>
+	            <span class="n">ll</span> <span class="n">k</span> <span class="o">=</span> <span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">d</span><span class="o">*</span><span class="n">x</span><span class="o">%</span><span class="n">t</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span><span class="o">%</span><span class="n">t</span><span class="p">;</span>
+	            <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	            <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">d</span><span class="p">;</span>
+	            <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">%</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">%</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	        <span class="p">}</span>
+	    <span class="p">}</span>
+	    <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	    <span class="n">ll</span> <span class="n">n</span><span class="p">;</span>
+	    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+	        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+	            <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld%lld"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	        <span class="p">}</span>
+	        <span class="n">printf</span><span class="p">(</span><span class="s">"%lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">crt</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+	    <span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2018/06/13/20180613_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（欧拉筛法 & 欧拉函数） —— 2018.6.13</span>
+                <p>  欧拉筛法 &amp; 欧拉函数</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180613%20Problem0613/20180613-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2018/06/06/20180606_Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（基础DP I） —— 2018.6.6</span>
+                <p>  kuangbin的DP习题 - I</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="http://houzajblog-1252277898.coscd.myqcloud.com/20180606%20Problem0606/20180606-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

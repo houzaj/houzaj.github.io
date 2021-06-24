@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计 · Mkdocs with Mathjax Export PDF - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="计 · Mkdocs with Mathjax Export PDF">
+    <meta name="keywords"  content="Skill">
+    <!-- Open Graph -->
+    <meta property="og:title" content="计 · Mkdocs with Mathjax Export PDF - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/09/27/Skill_Mkdocs_with_Mathjax_to_pdf.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Skill" class="post-tag">Skill</a>
+            
+            
+        </div>
+        <h1>计 · Mkdocs with Mathjax Export PDF</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">hpp2334</a></></span>
+            <time class="post-meta-item" datetime="19-09-27"><i class="iconfont icon-date"></i>27 Sep 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190927%20Skill_Mkdocs_with_Mathjax_to_pdf/main-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>本文给出了带有MathJax的Mkdocs项目导出PDF的一种方法</p>
+</blockquote>
+
+<p> </p>
+
+<h3 id="背景">背景</h3>
+<p>近日HouZAJ委托了个人将OI-WIKI转为一个PDF文档。<br />
+OI-WIKI是一个Mkdocs项目，另有动态加载的公式，使用MathJax渲染。目前（请注意发文时间），Mkdocs官方没有提供Mkdocs项目导出PDF的功能，需要用插件或别的方法实现导出pdf。<br />
+经过半周的各种踩坑，终于将其转为PDF文档。</p>
+
+<p> </p>
+
+<h3 id="环境">环境</h3>
+<ul>
+  <li>OS
+    <ul>
+      <li>Windows 10</li>
+      <li>Manjaro Linux</li>
+    </ul>
+  </li>
+  <li>Project
+    <ul>
+      <li>OI-WIKI (<a href="https://github.com/OI-wiki/OI-wiki/">https://github.com/OI-wiki/OI-wiki/</a>)</li>
+    </ul>
+  </li>
+  <li>Windows Application
+    <ul>
+      <li>Chrome</li>
+      <li>Adobe Acrobat DC</li>
+      <li>AutoBookmark™ Plug-in for Adobe® Acrobat®</li>
+    </ul>
+  </li>
+  <li>NodeJS
+    <ul>
+      <li>mathjax-node</li>
+      <li>mathjax-node-page</li>
+    </ul>
+  </li>
+  <li>Linux Application
+    <ul>
+      <li>pandoc</li>
+      <li>mkdocs-combine</li>
+    </ul>
+  </li>
+</ul>
+
+<p> </p>
+
+<h3 id="步骤">步骤</h3>
+<h4 id="step-i-安装与配置环境">Step I. 安装与配置环境</h4>
+<p>此步略，简单地说，该git就git，该npm就npm，该pip就pip。</p>
+
+<h4 id="step-ii-组合mkdocs为一个单文件并修改此文件">Step II. 组合Mkdocs为一个单文件，并修改此文件</h4>
+<p>在oi-wiki项目下，执行：</p>
+<pre><code class="language-git">mkdocs build -v
+mkdocscombine -o mydocs.pd
+</code></pre>
+<p>这样能够得到一个<code class="language-plaintext highlighter-rouge">mydocs.pd</code>文件，用文本编辑器打开（尽量不要用Windows自带的记事本），会发现其为Markdown文件，但是将这个OI-WIKi整合后的结果。<br />
+值得注意的是，需要修改此文件中的 <strong>图片路径</strong>，使其能够正确指向图片文件位置。</p>
+
+<h4 id="step-iii-将mydocspd文件转为html">Step III. 将mydocs.pd文件转为HTML</h4>
+<p>将<code class="language-plaintext highlighter-rouge">mydocs.pd</code>改名为<code class="language-plaintext highlighter-rouge">index.md</code>，覆盖根目录下的<code class="language-plaintext highlighter-rouge">index.md</code>文件，后在项目中执行：</p>
+<pre><code class="language-git">mkdocs build -v
+</code></pre>
+<p>这样得到的<code class="language-plaintext highlighter-rouge">index.html</code>即为组合后的html文件。</p>
+
+<h4 id="step-iv-静态渲染公式">Step IV. 静态渲染公式</h4>
+<p><strong>内存足够大的用户或许可以跳过这一步。</strong><br />
+实测发现，如果此时直接将<code class="language-plaintext highlighter-rouge">index.html</code>使用Chrome的导出PDF功能，占用内存过大可以直接导致Chrome崩溃。因此，使用<code class="language-plaintext highlighter-rouge">script</code>目录下的<code class="language-plaintext highlighter-rouge">render_math.js</code>渲染HTML中的公式，如：</p>
+<pre><code class="language-git">node --max-old-space-size=4096 ./render_math.js ./index.html
+</code></pre>
+<p>其中，<code class="language-plaintext highlighter-rouge">--max-old-space-size=4096</code>指明了<code class="language-plaintext highlighter-rouge">node</code>最大可用的内存为4096MB。</p>
+
+<h4 id="step-v-将html转为pdf文件">Step V. 将HTML转为PDF文件</h4>
+<p>使用Chrome的打印功能，将<code class="language-plaintext highlighter-rouge">index.html</code>保存为PDF格式。<br />
+在个人环境中，Chrome的内存占用峰值为3GB。</p>
+
+<h4 id="step-vi-生成目录">Step VI. 生成目录</h4>
+<p>使用Adobe Acrobat的AutoBookmark插件先生成书签，再生成目录，这些功能这一插件都有提供。</p>
+
+<p> </p>
+
+<h3 id="q--a">Q &amp; A</h3>
+<h4 id="为什么不使用mkdocs-pdf-export-plugin">为什么不使用MkDocs PDF Export Plugin</h4>
+<p>这一插件基于WeasyPrint，而WeasyPrint不加载任何JS文件，因此对于未经过服务端渲染的MathJax公式，其无法显示。</p>
+<h4 id="为什么不使用pandoc将mydocspd转为pdf">为什么不使用Pandoc将mydocs.pd转为pdf</h4>
+<p>如果使用这种做法，latex引擎若为pdflatex，不支持unicode字符（中文为unicode字符），而若为xelatex，则会出现一个错误，这一错误需要latex引擎设置为pdflatex解决。<br />
+个人无法解决这个问题，因而放弃了这种做法。</p>
+
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190721%20Avatar_hpp2334/main-01.png" alt="" /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/09/29/Problems.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（Z函数）</span>
+                <p>  Z函数（扩展kmp）</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190929%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/09/10/Note_TypeScript.html" class="read-next-link"></a>
+            <section>
+                <span>TypeScript Notebook - Essential</span>
+                <p>  Notebook about learning TypeScript</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190909%20Problems/main-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

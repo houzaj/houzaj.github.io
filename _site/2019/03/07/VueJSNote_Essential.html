@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Guide Notebook - Essential - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="Vue.js Guide Notebook - Essential">
+    <meta name="keywords"  content="VueJS">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Vue.js Guide Notebook - Essential - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/03/07/VueJSNote_Essential.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#VueJS" class="post-tag">VueJS</a>
+            
+            
+        </div>
+        <h1>Vue.js Guide Notebook - Essential</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="19-03-07"><i class="iconfont icon-date"></i>07 Mar 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190310%20VueJSNote_Essential/20190310-01.png') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>Vue.js Guide Notebook - Essential</p>
+</blockquote>
+
+<p><br /></p>
+
+<iframe type="text/html" src="http://music.163.com/outchain/player?type=2&amp;id=401722084&amp;auto=0&amp;height=66" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86"></iframe>
+
+<p><br /></p>
+
+<ul id="markdown-toc">
+  <li><a href="#bb" id="markdown-toc-bb">BB</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#text-interpolation" id="markdown-toc-text-interpolation">Text Interpolation</a></li>
+      <li><a href="#bind-element-attributes" id="markdown-toc-bind-element-attributes">Bind Element Attributes</a></li>
+      <li><a href="#conditionals" id="markdown-toc-conditionals">Conditionals</a></li>
+      <li><a href="#loops" id="markdown-toc-loops">Loops</a></li>
+      <li><a href="#event-listeners" id="markdown-toc-event-listeners">Event Listeners</a></li>
+      <li><a href="#two-way-binding" id="markdown-toc-two-way-binding">Two-way Binding</a></li>
+      <li><a href="#component" id="markdown-toc-component">Component</a></li>
+    </ul>
+  </li>
+  <li><a href="#template-syntax" id="markdown-toc-template-syntax">Template Syntax</a>    <ul>
+      <li><a href="#once-time-text-interpolation" id="markdown-toc-once-time-text-interpolation">Once-time Text Interpolation</a></li>
+      <li><a href="#raw-html" id="markdown-toc-raw-html">Raw HTML</a></li>
+      <li><a href="#html-attributes" id="markdown-toc-html-attributes">HTML Attributes</a></li>
+      <li><a href="#directives" id="markdown-toc-directives">Directives</a></li>
+      <li><a href="#shorthands" id="markdown-toc-shorthands">Shorthands</a></li>
+    </ul>
+  </li>
+  <li><a href="#computed-properties-and-watchers" id="markdown-toc-computed-properties-and-watchers">Computed Properties and Watchers</a>    <ul>
+      <li><a href="#computed-properties" id="markdown-toc-computed-properties">Computed Properties</a></li>
+      <li><a href="#watchers" id="markdown-toc-watchers">Watchers</a></li>
+    </ul>
+  </li>
+  <li><a href="#binding-html-classes" id="markdown-toc-binding-html-classes">Binding HTML Classes</a></li>
+  <li><a href="#binding-inline-styles" id="markdown-toc-binding-inline-styles">Binding Inline Styles</a></li>
+  <li><a href="#conditional-rendering" id="markdown-toc-conditional-rendering">Conditional Rendering</a>    <ul>
+      <li><a href="#v-if-v-else-v-else-if" id="markdown-toc-v-if-v-else-v-else-if">v-if, v-else, v-else-if</a></li>
+      <li><a href="#template-on-v-if" id="markdown-toc-template-on-v-if">template on v-if</a></li>
+      <li><a href="#controlling-reusable-elements-with-key" id="markdown-toc-controlling-reusable-elements-with-key">Controlling Reusable Elements with [key]</a></li>
+      <li><a href="#v-show" id="markdown-toc-v-show">v-show</a></li>
+    </ul>
+  </li>
+  <li><a href="#list-rendering" id="markdown-toc-list-rendering">List Rendering</a>    <ul>
+      <li><a href="#mapping-an-array-to-list-with-v-for" id="markdown-toc-mapping-an-array-to-list-with-v-for">Mapping an array to list with v-for</a></li>
+      <li><a href="#an-object-with-v-for" id="markdown-toc-an-object-with-v-for">An object with v-for</a></li>
+      <li><a href="#about-array" id="markdown-toc-about-array">About array</a></li>
+      <li><a href="#object-change-detection" id="markdown-toc-object-change-detection">Object Change Detection</a></li>
+      <li><a href="#displaying-filteredsorted-results" id="markdown-toc-displaying-filteredsorted-results">Displaying Filtered/Sorted Results</a></li>
+      <li><a href="#v-for-in-range" id="markdown-toc-v-for-in-range">v-for in range</a></li>
+      <li><a href="#v-for-on-a-template" id="markdown-toc-v-for-on-a-template">v-for on a &lt;template&gt;</a></li>
+      <li><a href="#v-for-with-a-component" id="markdown-toc-v-for-with-a-component">v-for with a Component</a></li>
+    </ul>
+  </li>
+  <li><a href="#event-handling" id="markdown-toc-event-handling">Event Handling</a>    <ul>
+      <li><a href="#listening-to-events" id="markdown-toc-listening-to-events">Listening to Events</a></li>
+      <li><a href="#method-event-handlers" id="markdown-toc-method-event-handlers">Method Event Handlers</a></li>
+      <li><a href="#access-the-original-dom-event" id="markdown-toc-access-the-original-dom-event">Access the original DOM event</a></li>
+      <li><a href="#event-modifiers" id="markdown-toc-event-modifiers">Event Modifiers</a></li>
+      <li><a href="#key-modifiers" id="markdown-toc-key-modifiers">Key Modifiers</a></li>
+      <li><a href="#mouse-button-modifiers" id="markdown-toc-mouse-button-modifiers">Mouse Button Modifiers</a></li>
+    </ul>
+  </li>
+  <li><a href="#form-input-bindings" id="markdown-toc-form-input-bindings">Form Input Bindings</a>    <ul>
+      <li><a href="#basic-usage" id="markdown-toc-basic-usage">Basic Usage</a></li>
+      <li><a href="#value-bindings" id="markdown-toc-value-bindings">Value Bindings</a></li>
+      <li><a href="#modifiers" id="markdown-toc-modifiers">Modifiers</a></li>
+    </ul>
+  </li>
+  <li><a href="#components-basics" id="markdown-toc-components-basics">Components Basics</a>    <ul>
+      <li><a href="#data-must-be-a-function" id="markdown-toc-data-must-be-a-function">data must be a function</a></li>
+      <li><a href="#passing-data-to-child-components-with-props" id="markdown-toc-passing-data-to-child-components-with-props">Passing Data to Child Components with Props</a></li>
+      <li><a href="#a-single-root-element" id="markdown-toc-a-single-root-element">A Single Root Element</a></li>
+      <li><a href="#passing-data-to-parent-component-with-emit" id="markdown-toc-passing-data-to-parent-component-with-emit">Passing Data to Parent Component with $emit</a></li>
+      <li><a href="#dynamic-components" id="markdown-toc-dynamic-components">Dynamic Components</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="bb">BB</h3>
+<p>HI EVERYONE!<br />
+In order to avoid ambiguity, I try my best to write this article in English. ( Nevertheless, I’m poor in English QAQ<br />
+This article is concerning the essential part of <code class="language-plaintext highlighter-rouge">Vue.js</code>, and most of the content is from official guide(documentation). Of course, I may modify the samples in some part. <br />
+Additionally, the note of this series may <strong>NOT</strong> be updated, because I just want to use some nice UI library based on Vue.js.<br />
+<br /></p>
+
+<h3 id="introduction">Introduction</h3>
+<h4 id="text-interpolation">Text Interpolation</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello Vue!</span><span class="dl">'</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="bind-element-attributes">Bind Element Attributes</h4>
+<p>e.g. Keep this element’s <code class="language-plaintext highlighter-rouge">title</code> attribute up-to-date with the <code class="language-plaintext highlighter-rouge">message</code> property on the Vue instance.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">v-bind:title=</span><span class="s">"message"</span><span class="nt">&gt;</span>
+            Hover it!
+        <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/html"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello Vue!</span><span class="dl">'</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="conditionals">Conditionals</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">v-if=</span><span class="s">"ok"</span><span class="nt">&gt;</span>
+            Surprise!
+        <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="loops">Loops</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">v-for=</span><span class="s">"ele in todos"</span><span class="nt">&gt;</span>
+            
+        <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">todos</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">A</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">B</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">C</span><span class="dl">'</span> <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="event-listeners">Event Listeners</h4>
+<p><code class="language-plaintext highlighter-rouge">v-on</code>: add an event listener</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">v-on:click=</span><span class="s">"funReverse"</span><span class="nt">&gt;</span> Click Here! <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">This is a message!</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">funReverse</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="dl">''</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="two-way-binding">Two-way Binding</h4>
+<p><code class="language-plaintext highlighter-rouge">v-model</code>: two-way bindings</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">v-model=</span><span class="s">"message"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">This is a message!</span><span class="dl">'</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="component">Component</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ol&gt;</span>
+            <span class="nt">&lt;template-todo</span>
+                <span class="na">v-for=</span><span class="s">"item in ls"</span>
+                <span class="na">v-bind:todo=</span><span class="s">"item"</span>
+                <span class="na">v-bind:key=</span><span class="s">"item.id"</span>
+            <span class="nt">&gt;&lt;/template-todo&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">template-todo</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">props</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">todo</span><span class="dl">'</span><span class="p">],</span>
+            <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;li&gt;&lt;/li&gt;</span><span class="dl">'</span>
+        <span class="p">})</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">ls</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">A</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">B</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">C</span><span class="dl">'</span> <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="template-syntax">Template Syntax</h3>
+<h4 id="once-time-text-interpolation">Once-time Text Interpolation</h4>
+<p><code class="language-plaintext highlighter-rouge">v-once</code>: perform one-time interpolations</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">v-once</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">msg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello Vue!</span><span class="dl">'</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="raw-html">Raw HTML</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;span</span> <span class="na">v-html=</span><span class="s">"rawhtml"</span><span class="nt">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">rawhtml</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;span style='color:red'&gt;RED&lt;/span&gt;</span><span class="dl">"</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="html-attributes">HTML Attributes</h4>
+<p><code class="language-plaintext highlighter-rouge">v-bind</code>: binding html attributes</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">v-bind:disabled=</span><span class="s">"ok"</span><span class="nt">&gt;</span>Button<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="directives">Directives</h4>
+<p><strong>Directives</strong>: Special attributes with the <code class="language-plaintext highlighter-rouge">v-</code> prefix. e.g. <code class="language-plaintext highlighter-rouge">v-if</code><br />
+<strong>Argument</strong>: Some directives can take an “argument”, denoted by a colon after the directive name. e.g. <code class="language-plaintext highlighter-rouge">v-bind:title="msg"</code><br />
+<strong>Dynamic Arguments</strong>: New in 2.6.0+! e.g. <code class="language-plaintext highlighter-rouge">&lt;a v-on:[eventName]="doSomething"&gt; ... &lt;/a&gt;</code>, in which <code class="language-plaintext highlighter-rouge">eventName</code> is dynamic.<br />
+<strong>Modifiers</strong>: Special postfixes denoted by a dot, which indicate that a directive should be bound in some special way. e.g. <code class="language-plaintext highlighter-rouge">&lt;form v-on:submit.prevent="onSubmit"&gt; ... &lt;/form&gt;</code><br />
+<br /></p>
+
+<h4 id="shorthands">Shorthands</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- full syntax --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">v-on:click=</span><span class="s">"doSomething"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- shorthand --&gt;</span>
+<span class="nt">&lt;a</span> <span class="err">@</span><span class="na">click=</span><span class="s">"doSomething"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/a&gt;</span>
+
+
+<span class="c">&lt;!-- full syntax --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">v-bind:href=</span><span class="s">"url"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- shorthand --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">:href=</span><span class="s">"url"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="computed-properties-and-watchers">Computed Properties and Watchers</h3>
+<h4 id="computed-properties">Computed Properties</h4>
+<p>Computed properties are cached based on their dependencies.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Orgin: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Reversed: <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">msg</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span>
+            <span class="p">},</span>
+			<span class="c1">// Computed Properties (getter)</span>
+            <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">revMsg</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">msg</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="dl">''</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Name: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>FirstName: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>LastName: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"tfun"</span><span class="nt">&gt;</span>Click here to Change Full Name<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">firstName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">first</span><span class="dl">"</span><span class="p">,</span>
+                <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">last</span><span class="dl">"</span>
+            <span class="p">},</span>
+            <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">fullName</span><span class="p">:</span> <span class="p">{</span>
+					<span class="c1">// getter</span>
+                    <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+                    <span class="p">},</span>
+					<span class="c1">// setter</span>
+                    <span class="na">set</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">nv</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="nx">nv</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="nx">names</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">tfun</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="watchers">Watchers</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Please input: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"question"</span><span class="nt">&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">question</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+                <span class="na">response</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Waiting</span><span class="dl">"</span>
+            <span class="p">},</span>
+            <span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">question</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">nq</span><span class="p">,</span> <span class="nx">oq</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">response</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Typing...</span><span class="dl">"</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="binding-html-classes">Binding HTML Classes</h3>
+<p><code class="language-plaintext highlighter-rouge">v-bind:class</code>: dynamically toggle class<br />
+e.g. if <code class="language-plaintext highlighter-rouge">isActive</code> is true, the class will be shown</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span> <span class="na">class=</span><span class="s">"static"</span> <span class="na">:class=</span><span class="s">"{ active: isActive }"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleActive"</span><span class="nt">&gt;</span> Click! <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">isActive</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">toggleActive</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">=</span> <span class="kc">false</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">=</span> <span class="kc">true</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br />
+Bind to a computed property that returns a object</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span> <span class="na">class=</span><span class="s">"static"</span> <span class="na">:class=</span><span class="s">"classObject"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleActive"</span><span class="nt">&gt;</span> Click! <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">isActive</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span>
+            <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">classObject</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="p">{</span>
+                        <span class="na">isActive</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isActive</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">toggleActive</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">=</span> <span class="kc">false</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">isActive</span> <span class="o">=</span> <span class="kc">true</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>Pass an array to <code class="language-plaintext highlighter-rouge">v-bind:class</code> to apply a list of classes</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span> <span class="na">:class=</span><span class="s">"[activeClass, errorClass]"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">activeClass</span><span class="p">:</span> <span class="dl">'</span><span class="s1">active</span><span class="dl">'</span><span class="p">,</span>
+                <span class="na">errorClass</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text-danger</span><span class="dl">'</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">v-bind:class=</span><span class="s">"[isActive ? activeClass : '', errorClass]"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">v-bind:class=</span><span class="s">"[{ active: isActive }, errorClass]"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="binding-inline-styles">Binding Inline Styles</h3>
+<p><code class="language-plaintext highlighter-rouge">v-bind:style</code>: bind to css</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span> <span class="na">v-bind:style=</span><span class="s">"{ color: activeColor, fontSize: fontSize + 'px' }"</span><span class="nt">&gt;</span>
+        Here is the text!
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">activeColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">,</span>
+                <span class="na">fontSize</span><span class="p">:</span> <span class="mi">30</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">v-bind:style=</span><span class="s">"[baseStyles, overridingStyles]"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="conditional-rendering">Conditional Rendering</h3>
+<h4 id="v-if-v-else-v-else-if">v-if, v-else, v-else-if</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">v-if=</span><span class="s">"Math.random() &gt; 0.5"</span><span class="nt">&gt;</span>
+            Now you see me
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">v-else</span><span class="nt">&gt;</span>
+            Now you dont
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">v-if=</span><span class="s">"Math.random() &lt; 0.3"</span><span class="nt">&gt;</span>
+            Number is in 0 - 0.3
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">v-else-if=</span><span class="s">"Math.random() &lt; 0.6"</span><span class="nt">&gt;</span>
+            Number is in 0.3 - 0.6
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">v-else</span><span class="nt">&gt;</span>
+            Other
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="template-on-v-if">template on v-if</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;template</span> <span class="na">v-if=</span><span class="s">"ok"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Title<span class="nt">&lt;/h1&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Paragraph 1<span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Paragraph 2<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/template&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="controlling-reusable-elements-with-key">Controlling Reusable Elements with [key]</h4>
+<p>Add a <code class="language-plaintext highlighter-rouge">key</code> attribute to make elements separate</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;template</span> <span class="na">v-if=</span><span class="s">"loginType === 'username'"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Username<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your username"</span> <span class="na">key=</span><span class="s">"username-input"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/template&gt;</span>
+        <span class="nt">&lt;template</span> <span class="na">v-else</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your email address"</span> <span class="na">key=</span><span class="s">"email-input"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/template&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleLoginType"</span><span class="nt">&gt;</span> Submit <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">loginType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">toggleLoginType</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">loginType</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">loginType</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">email</span><span class="dl">'</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">loginType</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="v-show">v-show</h4>
+<p><code class="language-plaintext highlighter-rouge">v-show</code> will always be rendered and remain in DOM.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1</span> <span class="na">v-show=</span><span class="s">"ok"</span><span class="nt">&gt;</span>Hello!<span class="nt">&lt;/h1&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="list-rendering">List Rendering</h3>
+<h4 id="mapping-an-array-to-list-with-v-for">Mapping an array to list with v-for</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ol&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"ele in arr"</span><span class="nt">&gt;</span>
+                
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">arr</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="na">msg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">msg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">World</span><span class="dl">'</span> <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>An optional second argument is for the index of item</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"(ele, idx) in arr"</span><span class="nt">&gt;</span>
+                 ranks .
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">arr</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span> <span class="na">msg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span> <span class="p">},</span>
+                    <span class="p">{</span> <span class="na">msg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">World</span><span class="dl">'</span> <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="an-object-with-v-for">An object with v-for</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"ele in obj"</span><span class="nt">&gt;</span>
+                
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">obj</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="na">firstName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">houz</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">lastName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">aj</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">score</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="na">ranking</span><span class="p">:</span> <span class="mi">999</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>An optional second argument is for the key of item</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"(ele, key) in obj"</span><span class="nt">&gt;</span>
+                : 
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">obj</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="na">firstName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">houz</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">lastName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">aj</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">score</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="na">ranking</span><span class="p">:</span> <span class="mi">999</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="about-array">About array</h4>
+<p>Because of limitations in javascript, Vue cannot detect the following changes to an array:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vm.items[indexOfItem] = newValue
+vm.items.length = newLength
+</code></pre></div></div>
+<p>Therefore, use the following code to replace them</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Vue.set(vm.items, indexOfItem, newValue) //vm.$set <span class="nt">&lt;</span><span class="err">==</span><span class="nt">&gt;</span> Vue.set
+vm.items.splice(indexOfItem, 1, newValue)
+vm.items.splice(newLength)
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="object-change-detection">Object Change Detection</h4>
+<p>Vue cannot detect property addition or deletion. the method <code class="language-plaintext highlighter-rouge">Vue.set(object, key, value)</code> can be used to make Vue detect it.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var vm = new Vue({
+  data: {
+    userProfile: {
+      name: 'Anika'
+    }
+  }
+})
+
+Vue.set(vm.userProfile, 'age', 27)
+</code></pre></div></div>
+<p>the method <code class="language-plaintext highlighter-rouge">Vue.assign()</code> can assign a number of new properties to an existing object</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vm.userProfile = Object.assign({}, vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="displaying-filteredsorted-results">Displaying Filtered/Sorted Results</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"n in evenNumbers"</span><span class="nt">&gt;</span>
+                
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">numbers</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">888</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">evenNumbers</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">numbers</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="p">(</span><span class="nx">number</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span>
+                    <span class="p">})</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"n in even(numbers)"</span><span class="nt">&gt;</span>
+                
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">numbers</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">888</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">even</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">numbers</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="p">(</span><span class="nx">number</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span>
+                    <span class="p">})</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="v-for-in-range">v-for in range</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"n in 10"</span><span class="nt">&gt;</span>
+                
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="v-for-on-a-template">v-for on a &lt;template&gt;</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;template</span> <span class="na">v-for=</span><span class="s">"item in items"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"divider"</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;/template&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="v-for-with-a-component">v-for with a Component</h4>
+<p>In 2.2.0+, when using v-for with a component, a key is now required.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;my-component</span>
+  <span class="na">v-for=</span><span class="s">"(item, index) in items"</span>
+  <span class="na">v-bind:item=</span><span class="s">"item"</span>
+  <span class="na">v-bind:index=</span><span class="s">"index"</span>
+  <span class="na">v-bind:key=</span><span class="s">"item.id"</span>
+<span class="nt">&gt;&lt;/my-component&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="event-handling">Event Handling</h3>
+<h4 id="listening-to-events">Listening to Events</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">v-on:click=</span><span class="s">"counter += 1"</span><span class="nt">&gt;</span>Add 1<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;p&gt;</span>The button above has been clicked  times.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">counter</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="method-event-handlers">Method Event Handlers</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"greet"</span><span class="nt">&gt;</span>Click<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">greet</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"greet('HHHH')"</span><span class="nt">&gt;</span>Click<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">greet</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">msg</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">!</span><span class="dl">"</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="access-the-original-dom-event">Access the original DOM event</h4>
+<p><code class="language-plaintext highlighter-rouge">$event</code>:  pass it into a method using the special $event variable in an inline statement</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">v-on:click=</span><span class="s">"warn('Form cannot be submitted yet.', $event)"</span><span class="nt">&gt;</span>
+            Submit
+        <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">warn</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// now we have access to the native event</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="event-modifiers">Event Modifiers</h4>
+<p>Vue provides event modifiers for <code class="language-plaintext highlighter-rouge">v-on</code>. Recall that modifiers are directive postfixes denoted by a dot.</p>
+<ul>
+  <li>.stop</li>
+  <li>.prevent</li>
+  <li>.capture</li>
+  <li>.self</li>
+  <li>.once</li>
+  <li>.passive</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- the click events propagation will be stopped --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">v-on:click.stop=</span><span class="s">"doThis"</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- the submit event will no longer reload the page --&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">v-on:submit.prevent=</span><span class="s">"onSubmit"</span><span class="nt">&gt;&lt;/form&gt;</span>
+
+<span class="c">&lt;!-- modifiers can be chained --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">v-on:click.stop.prevent=</span><span class="s">"doThat"</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- just the modifier --&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">v-on:submit.prevent</span><span class="nt">&gt;&lt;/form&gt;</span>
+
+<span class="c">&lt;!-- use capture mode when adding the event listener --&gt;</span>
+<span class="c">&lt;!-- i.e. an event targeting an inner element is handled here before being handled by that element --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">v-on:click.capture=</span><span class="s">"doThis"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- only trigger handler if event.target is the element itself --&gt;</span>
+<span class="c">&lt;!-- i.e. not from a child element --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">v-on:click.self=</span><span class="s">"doThat"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- New in 2.1.4+ --&gt;</span>
+<span class="c">&lt;!-- the click event will be triggered at most once --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">v-on:click.once=</span><span class="s">"doThis"</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- New in 2.3.0+ --&gt;</span>
+<span class="c">&lt;!-- the scroll event's default behavior (scrolling) will happen --&gt;</span>
+<span class="c">&lt;!-- immediately, instead of waiting for `onScroll` to complete  --&gt;</span>
+<span class="c">&lt;!-- in case it contains `event.preventDefault()`                --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">v-on:scroll.passive=</span><span class="s">"onScroll"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="key-modifiers">Key Modifiers</h4>
+<p>Vue allows adding key modifiers for v-on when listening for key events:<br />
+Vue provides aliases for the most commonly used key codes when necessary for legacy browser support:</p>
+<ul>
+  <li>.enter</li>
+  <li>.tab</li>
+  <li>.delete (captures both “Delete” and “Backspace” keys)</li>
+  <li>.esc</li>
+  <li>.space</li>
+  <li>.up</li>
+  <li>.down</li>
+  <li>.left</li>
+  <li>.right</li>
+  <li>.ctrl</li>
+  <li>.alt</li>
+  <li>.shift</li>
+  <li>.meta</li>
+  <li>.exact (new in 2.5.0+, allows control of the exact combination of system modifiers needed to trigger an event)</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- only call `vm.submit()` when the `key` is `Enter` --&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">v-on:keyup.enter=</span><span class="s">"submit"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">submit</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">success!</span><span class="dl">'</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;textarea</span> <span class="na">cols=</span><span class="s">"30"</span> <span class="na">rows=</span><span class="s">"10"</span> <span class="na">v-on:keyup.67.ctrl=</span><span class="s">"perCopy"</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;/textarea&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">perCopy</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Don</span><span class="se">\'</span><span class="s1">t Copy!</span><span class="dl">'</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="mouse-button-modifiers">Mouse Button Modifiers</h4>
+<p>(New in 2.2.0+)</p>
+<ul>
+  <li>.left</li>
+  <li>.right</li>
+  <li>.middle</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="form-input-bindings">Form Input Bindings</h3>
+<h4 id="basic-usage">Basic Usage</h4>
+<p><code class="language-plaintext highlighter-rouge">v-model</code>: binding to input, textarea, checkbox, ratio, select, etc<br />
+<br />
+e.g. Bind to an array</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"jack"</span> <span class="na">value=</span><span class="s">"Jack"</span> <span class="na">v-model=</span><span class="s">"checkedNames"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label&gt;</span>Jack<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"john"</span> <span class="na">value=</span><span class="s">"John"</span> <span class="na">v-model=</span><span class="s">"checkedNames"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label&gt;</span>John<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"mike"</span> <span class="na">value=</span><span class="s">"Mike"</span> <span class="na">v-model=</span><span class="s">"checkedNames"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label&gt;</span>Mike<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Checked names: <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">checkedNames</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;select</span> <span class="na">v-model=</span><span class="s">"selected"</span> <span class="na">multiple</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;option&gt;</span>A<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option&gt;</span>B<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option&gt;</span>C<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;/select&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Selected: <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">selected</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="value-bindings">Value Bindings</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- `picked` is a string "a" when checked --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">v-model=</span><span class="s">"picked"</span> <span class="na">value=</span><span class="s">"a"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- `toggle` is either true or false --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">v-model=</span><span class="s">"toggle"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- `selected` is a string "abc" when the first option is selected --&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">v-model=</span><span class="s">"selected"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"abc"</span><span class="nt">&gt;</span>ABC<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="c">&lt;!-- When toggle is true, the value is 'yes'. Otherwise, it is 'no' --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">v-model=</span><span class="s">"toggle"</span> <span class="na">true-value=</span><span class="s">"yes"</span> <span class="na">false-value=</span><span class="s">"no"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="modifiers">Modifiers</h4>
+<p><code class="language-plaintext highlighter-rouge">.lazy</code>:  add the <code class="language-plaintext highlighter-rouge">lazy</code> modifier to instead sync after <code class="language-plaintext highlighter-rouge">change</code> events</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">v-model.lazy=</span><span class="s">"msg"</span> <span class="err">@</span><span class="na">change=</span><span class="s">"show"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">msg</span><span class="p">:</span> <span class="dl">''</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">show</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">msg</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br />
+<code class="language-plaintext highlighter-rouge">.number</code>: automatically typecast as a number</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">v-model.number=</span><span class="s">"age"</span> <span class="na">type=</span><span class="s">"number"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p><br />
+<code class="language-plaintext highlighter-rouge">.trim</code>: make user input be trimmed automatically</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">v-model.trim=</span><span class="s">"msg"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="components-basics">Components Basics</h3>
+<h4 id="data-must-be-a-function">data must be a function</h4>
+<p>In order to make component independent, data must be a function</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data: function () {
+  return {
+    count: 0
+  }
+}
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="passing-data-to-child-components-with-props">Passing Data to Child Components with Props</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;sample</span> <span class="na">title=</span><span class="s">"HELLO WORLD!"</span><span class="nt">&gt;&lt;/sample&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">sample</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">props</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">],</span>
+            <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;button&gt;&lt;/button&gt;`</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">msg</span><span class="p">:</span> <span class="dl">''</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">show</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">msg</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="a-single-root-element">A Single Root Element</h4>
+<p>Every component must have a single root element<br />
+<br /></p>
+
+<h4 id="passing-data-to-parent-component-with-emit">Passing Data to Parent Component with $emit</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">:style=</span><span class="s">"{ fontSize: postFontSize + 'em' }"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;blog-post</span>
+                    <span class="na">v-for=</span><span class="s">"post in posts"</span>
+                    <span class="na">v-bind:key=</span><span class="s">"post.id"</span>
+                    <span class="na">v-bind:post=</span><span class="s">"post"</span>
+                    <span class="na">v-on:enlarge-text=</span><span class="s">"postFontSize += $event"</span>
+            <span class="nt">&gt;&lt;/blog-post&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">blog-post</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">props</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">],</span>
+            <span class="na">template</span><span class="p">:</span> <span class="s2">`
+                &lt;div class="blog-post"&gt;
+                  &lt;h3&gt;&lt;/h3&gt;
+                  &lt;button v-on:click="$emit('enlarge-text', 0.1)"&gt;
+                      Enlarge text
+                  &lt;/button&gt;
+                  &lt;div v-html="post.content"&gt;&lt;/div&gt;
+                &lt;/div&gt;`</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+            <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">postFontSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="na">posts</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello World</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="na">content</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NOTHING</span><span class="dl">'</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="dynamic-components">Dynamic Components</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Component changes when currentTabComponent changes --&gt;</span>
+<span class="nt">&lt;component</span> <span class="na">v-bind:is=</span><span class="s">"currentTabComponent"</span><span class="nt">&gt;&lt;/component&gt;</span>
+</code></pre></div></div>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/03/07/3-22.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（次小生成树 - I）</span>
+                <p>  CONTENT: 次小生成树 - 1PROBLEMS:POJ 1679CF 1108F</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190311%203-22/20190311-01.png" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/03/07/3-21.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（无向图的极大团与最大团）</span>
+                <p>  CONTENT:  无向图的极大团与最大团的Bron–Kerbosch算法DETAIL: Bron–Kerbo...</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190307%203-21/20190307-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

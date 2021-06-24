@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蒟蒻的算法PPT - 区间最值查询（RMQ） - HouZAJ Blog</title>
+    <meta name="author"  content="HouZAJ">
+    <meta name="description" content="蒟蒻的算法PPT - 区间最值查询（RMQ）">
+    <meta name="keywords"  content="Algorithm, PPT">
+    <!-- Open Graph -->
+    <meta property="og:title" content="蒟蒻的算法PPT - 区间最值查询（RMQ） - HouZAJ Blog">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://houzaj.github.io/2019/05/25/ALG-PPT-RMQ.html">
+    <meta property="og:description" content="A emmmmmmm developer">
+    <meta property="og:site_name" content="HouZAJ Blog">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link href="/assets/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+<input id="nm-switch" type="hidden" value="false">
+
+<header class="g-header">
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+            <li><a href="/">home</a></li>
+            
+            <li><a href="/tags.html">sorts</a></li>
+            
+        </ul>
+    </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+</header>
+
+
+<header class="g-banner post-header post-pattern-circuitBoard bgcolor-default " data-theme="default">
+    <div class="post-wrapper">
+        <div class="post-tags">
+            
+            
+            <a href="http://houzaj.github.io/tags#Algorithm" class="post-tag">Algorithm</a>
+            
+            <a href="http://houzaj.github.io/tags#PPT" class="post-tag">PPT</a>
+            
+            
+        </div>
+        <h1>蒟蒻的算法PPT - 区间最值查询（RMQ）</h1>
+        <div class="post-meta">
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
+            <time class="post-meta-item" datetime="19-05-25"><i class="iconfont icon-date"></i>25 May 2019</time>
+        </div>
+    </div>
+    
+    <div class="filter"></div>
+    <div class="post-cover" style="background: url('https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%871.PNG') center no-repeat; background-size: cover;">
+    
+</header>
+
+<div class="post-content">
+    
+    <article class="markdown-body">
+        <blockquote>
+  <p>CONTENT: 蒟蒻的算法PPT - 区间最值查询（RMQ）<br />
+DETAIL: RMQ</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="bb">BB</h3>
+<p>最近听闻被炸到每个群都有蒟蒻的消息 QAQQQQ<br />
+做完的PPT发一部分到公号<br />
+<br /></p>
+
+<h3 id="ppt">PPT</h3>
+<p><img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%871.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%872.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%873.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%874.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%875.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%876.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%877.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%878.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%879.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%8710.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%8711.PNG" alt="" /><br />
+<br />
+<img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%8712.PNG" alt="" /><br />
+<br /></p>
+
+    </article>
+    
+</div>
+
+<section class="author-detail">
+    <section class="post-footer-item author-card">
+        <div class="avatar">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
+        </div>
+        <div class="author-name" rel="author">HouZAJ</div>
+        <div class="bio">
+            <p>A developing developer & terrible designer!</p>
+        </div>
+        
+    </section>
+    <section class="post-footer-item read-next">
+        
+        <div class="read-next-item">
+            <a href="/2019/05/26/ALG-PPT-LCA_2pow.html" class="read-next-link"></a>
+            <section>
+                <span>蒟蒻的算法PPT - 最近公共祖先（LCA）的倍增求法 </span>
+                <p>  CONTENT: 蒟蒻的算法PPT - 最近公共祖先（LCA）的倍增求法</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190525%20ALG-PPT-RMQ/%E5%B9%BB%E7%81%AF%E7%89%871.PNG" alt="">
+            
+        </div>
+        
+        
+        <div class="read-next-item">
+            <a href="/2019/05/24/3-25.html" class="read-next-link"></a>
+            <section>
+                <span>刷题记（并查集 II）</span>
+                <p>  CONTENT: 并查集 IIDETAIL: 并查集的按秩合并、可持久化并查集</p>
+            </section>
+            
+            <div class="filter"></div>
+            <img src="https://houzajblog-1252277898.cos.ap-chengdu.myqcloud.com/20190524%203-25/main-01.png" alt="">
+            
+        </div>
+        
+    </section>
+    
+</section>
+
+<footer class="g-footer">
+    <section>HouZAJ Blog © 2021</section>
+    <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
+</footer>
+
+
+<script src="/assets/js/social-share.min.js"></script>
+<script>
+    socialShare('.social-share', {
+        sites: ['wechat','weibo','github'],
+        wechatQrcodeTitle: "分享到微信朋友圈",
+        wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+</script>
+<script data-cfasync=false>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+/*写入自己的disqus信息*/
+s.src = 'https://liaokeyu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script data-cfasync=false src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script data-cfasync=false src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.js"></script>
+<script data-cfasync=false src="/assets/js/prism.js"></script>
+<script data-cfasync=false src="/assets/js/index.min.js"></script>
+</body>
+</html>

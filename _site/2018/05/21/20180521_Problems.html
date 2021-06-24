@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="刷题记（堆 & 二叉搜索树） —— 2018.5.21 - HouZAJ Blog">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:4000/2018/05/21/20180521_Problems.html">
+    <meta property="og:url" content="http://houzaj.github.io/2018/05/21/20180521_Problems.html">
     <meta property="og:description" content="A emmmmmmm developer">
     <meta property="og:site_name" content="HouZAJ Blog">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -37,6 +37,17 @@
             
         </ul>
     </nav>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
 </header>
 
 
@@ -45,13 +56,13 @@
         <div class="post-tags">
             
             
-            <a href="http://localhost:4000/tags#Problem" class="post-tag">Problem</a>
+            <a href="http://houzaj.github.io/tags#Problem" class="post-tag">Problem</a>
             
             
         </div>
         <h1>刷题记（堆 & 二叉搜索树） —— 2018.5.21</h1>
         <div class="post-meta">
-            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://localhost:4000" target="_blank" rel="author">HouZAJ</a></></span>
+            <span class="post-meta-item"><i class="iconfont icon-author"></i><a href="http://houzaj.github.io" target="_blank" rel="author">HouZAJ</a></></span>
             <time class="post-meta-item" datetime="18-05-21"><i class="iconfont icon-date"></i>21 May 2018</time>
         </div>
     </div>
@@ -98,7 +109,7 @@
 	<span class="kt">int</span> <span class="n">h</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
 
-	<span class="kt">void</span> <span class="n">pushDown</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">pushDown</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">){</span>
 		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">idt</span><span class="p">;</span> <span class="mi">2</span><span class="o">*</span><span class="n">id</span> <span class="o">&lt;=</span> <span class="n">tot</span><span class="p">;</span> <span class="n">id</span> <span class="o">=</span> <span class="n">idt</span><span class="p">){</span>
 			<span class="n">idt</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">h</span><span class="p">[</span><span class="n">id</span><span class="p">])</span> <span class="o">?</span> <span class="mi">2</span><span class="o">*</span><span class="n">id</span> <span class="o">:</span> <span class="n">id</span><span class="p">;</span>	<span class="c1">//左右子树中取最大</span>
 			<span class="n">idt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">tot</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">h</span><span class="p">[</span><span class="n">idt</span><span class="p">])</span> <span class="o">?</span> <span class="mi">2</span><span class="o">*</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">idt</span><span class="p">;</span>
@@ -110,7 +121,7 @@
 		<span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">void</span> <span class="n">pushUp</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">pushUp</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">){</span>
 		<span class="k">while</span><span class="p">(</span><span class="n">id</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">){</span>
 			<span class="k">if</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">id</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>     <span class="k">break</span><span class="p">;</span>
 			<span class="n">swap</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">id</span><span class="p">],</span> <span class="n">h</span><span class="p">[</span><span class="n">id</span><span class="o">/</span><span class="mi">2</span><span class="p">]);</span>	<span class="c1">//比父节点大就不断与父节点交换</span>
@@ -118,7 +129,7 @@
 		<span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">getAndPop</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">getAndPop</span><span class="p">(){</span>
 		<span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">h</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 		<span class="n">swap</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">h</span><span class="p">[</span><span class="n">tot</span><span class="p">]);</span>
 		<span class="n">tot</span><span class="o">--</span><span class="p">;</span>
@@ -126,7 +137,7 @@
 		<span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 		<span class="kt">int</span> <span class="n">q</span><span class="p">;</span>
 		<span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">q</span><span class="p">);</span>
@@ -152,7 +163,7 @@
 </span>	<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 	<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">1e5</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
 
-	<span class="k">struct</span> <span class="n">hp</span><span class="p">{</span>
+	<span class="k">struct</span> <span class="nc">hp</span><span class="p">{</span>
 		<span class="kt">int</span> <span class="n">h</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 		<span class="kt">int</span> <span class="n">tot</span><span class="p">;</span>
 
@@ -192,7 +203,7 @@
 
 	<span class="n">hp</span> <span class="n">que</span><span class="p">;</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 		<span class="kt">int</span> <span class="n">q</span><span class="p">;</span>
 		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">q</span><span class="p">);</span>
 		<span class="n">que</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
@@ -225,7 +236,7 @@ BST模板题</p>
 	<span class="kt">int</span> <span class="n">t1</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t2</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 	<span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-	<span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rt</span><span class="p">){</span>
+	<span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rt</span><span class="p">){</span>
 		<span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>	<span class="c1">//父节点无值填父节点，否则按定义用dfs填写</span>
 			<span class="n">x</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
 		<span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">[</span><span class="n">rt</span><span class="p">]){</span>
@@ -235,14 +246,14 @@ BST模板题</p>
 		<span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="kt">bool</span> <span class="n">judge</span><span class="p">(){</span>
+	<span class="kt">bool</span> <span class="nf">judge</span><span class="p">(){</span>
 		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
 			<span class="k">if</span><span class="p">(</span><span class="n">t1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">t2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 		<span class="p">}</span>
 		<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 		<span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span><span class="p">){</span>
 			<span class="n">memset</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">t1</span><span class="p">));</span>
@@ -267,7 +278,7 @@ BST模板题</p>
 <section class="author-detail">
     <section class="post-footer-item author-card">
         <div class="avatar">
-            <img src="http://localhost:4000/assets/img/profile.png" alt="">
+            <img src="http://houzaj.github.io/assets/img/profile.png" alt="">
         </div>
         <div class="author-name" rel="author">HouZAJ</div>
         <div class="bio">
@@ -307,7 +318,7 @@ BST模板题</p>
 </section>
 
 <footer class="g-footer">
-    <section>HouZAJ Blog © 2018</section>
+    <section>HouZAJ Blog © 2021</section>
     <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Modified from Theme H2O, the author is liaokeyu</a></section>
 </footer>
 
